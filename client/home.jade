@@ -2,12 +2,12 @@ template(name='home')
     .ui.stackable.padded.grid
         .sixteen.wide.column.scrolling
             .ui.header 
-                |rosetta exchange system
+                |rosetta hall exchange system
             .ui.icon.button.add_role
                 i.plus.icon
             unless currentUser 
                 .ui.header login as
-                each roles
+                each roles_docs
                     +role_picker
                     
 
