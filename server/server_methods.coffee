@@ -56,11 +56,11 @@ Meteor.methods
         if message
             to_user = Meteor.users.findOne message.to_user_id
 
-            message_link = "https://www.goldrun.online/user/#{to_user.username}/messages"
+            message_link = "https://www.res.online/user/#{to_user.username}/messages"
 
         	Email.send({
                 to:["<#{to_user.emails[0].address}>"]
-                from:"relay@goldrun.online"
+                from:"relay@res.online"
                 subject:"gold run message from #{message._author_username}"
                 html: "<h3> #{message._author_username} sent you the message:</h3>"+"<h2> #{message.body}.</h2>"+
                     "<br><h4>view your messages here:<a href=#{message_link}>#{message_link}</a>.</h4>"

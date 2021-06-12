@@ -1,4 +1,4 @@
-DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy --settings settings.json www.goldrun.meteorapp.com
+DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy --settings settings.json www.res.meteorapp.com
 
 
 mongo --ssl --sslAllowInvalidCertificates aws-us-east-1-portal.21.dblayer.com:10444/facetdb -u facetadmin -pTurnf34ragainst!

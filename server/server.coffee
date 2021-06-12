@@ -60,6 +60,7 @@ Meteor.publish 'model_docs', (model,limit)->
     if limit
         Docs.find {
             model: model
+            app:'res'
         }, limit:limit
     else
         Docs.find

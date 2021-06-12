@@ -42,7 +42,7 @@
 	"galaxy.meteor.com": {
 		"env": {
 			"MONGO_URL": "mongodb+srv://daoadmin:daoadminpassword@daocluster.etul3.mongodb.net/daodb",
-			"ROOT_URL": "https://www.goldrun.community"
+			"ROOT_URL": "https://www.res.community"
 		}
 	}
 }
