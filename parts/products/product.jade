@@ -1,0 +1,160 @@
+template(name='product_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .middle.aligned.row
+                .four.wide.center.aligned.column
+                    a.ui.big.basic.button(href="/product/#{_id}/view")
+                        i.green.checkmark.icon
+                        |save
+                .eight.wide.center.aligned.column
+                    .ui.header 
+                        small editing
+                        |'#{title}'
+                        small product
+                .four.wide.center.aligned.column
+                    .ui.icon.basic.button.delete_product_item 
+                        i.trash.icon
+            .row
+                .five.wide.column
+                    +text_edit key='title' icon='header' direct=true
+                    +image_edit key='image' direct=true
+                .seven.wide.column
+                    +html_edit key='description' direct=true
+                    if is_admin
+                        +text_edit key='model' direct=true
+                .four.wide.column
+                    +number_edit key='inventory' label='inventory' direct=true
+                    +number_edit key='credit_price' icon='money' label='dollar price' direct=true
+                    +array_edit key='tags' icon='tags' direct=true
+                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    .ui.header
+                        +i name='delivery'
+                        |delivery
+                    +boolean_edit key='pickup_delivery' label='pickup' direct=true
+                    +boolean_edit key='home_dropoff_delivery' label='home dropoff' direct=true
+                    +boolean_edit key='building_dropoff_delivery' label='building dropoff' direct=true
+                    +boolean_edit key='healthclub_drop_off_delivery' label='health club drop off' direct=true
+                        
+                
+
+template(name='product_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            //- img.ui.large.rounded.image(src="{{c.url image width=500 height=500 gravity='face' crop='fill'}}")
+            .row
+                .four.wide.column
+                    .ui.header 
+                        small viewing
+                        |#{title}
+                        small product
+                    a.ui.big.basic.button(href="/products")
+                        i.left.chevron.icon
+                        +i name='shop' cl='ui inline mini image'
+                        |shop
+                    if can_edit
+                        a.ui.icon.large.basic.circular.button(href="/product/#{_id}/edit")
+                            i.pencil.large.blue.icon
+                    img.ui.centered.rounded.shadowed.image(src="{{c.url image width=1000 height=400 crop='fit'}}")
+                    .ui.large.header #{title}
+                    .ui.header added by #{_author_username}
+                    |#{when}
+                    with _author_id
+                        +user_card
+                .seven.wide.column
+                    +array_view key='location_tags' label='location tags' icon='marker' direct=true
+                    +text_view key='location' icon='marker' label='location description' direct=true
+                    +number_view key='credit_price' icon='money' label='dollar price' direct=true
+                    +html_view key='description' direct=true
+                    +comments
+                .four.wide.column
+                    div
+                    unless sold_out
+                        .ui.big.green.button.buy_product 
+                            i.cart.icon
+                            |buy
+                    else 
+                        .ui.big.disabled.basic.button
+                            |sold out
+                    div
+                    +voting_full     
+                    .ui.segment
+                        .ui.small.header
+                            |delivery instructions
+                        |#{delivery_instructions}      
+                    +array_view key='tags' icon='tags' direct=true
+                    .ui.header
+                        |delivery
+                    +boolean_view key='pickup_delivery' label='pickup' direct=true
+                    +boolean_view key='home_dropoff_delivery' label='home dropoff' direct=true
+                    +boolean_view key='building_dropoff_delivery' label='building dropoff' direct=true
+                    +boolean_view key='healthclub_drop_off_delivery' label='health club drop off' direct=true
+    
+    
+    
+template(name='product_header')
+    a(href="/product/#{_id}/view")
+        img.ui.avatar.rounded.image(src="{{c.url image width=400 height=400 gravity='face' crop='fill'}}")
+        .ui.inline.small.header #{title}
+
+
+template(name='add_to_tab')
+    .ui.segment
+        .add_to_tab.ui.green.basic.button
+            //- i.cart.plus.icon
+            |add to tab
+        if current_tab_additions
+            div current tab additions
+            .ui.list
+                each current_tab_additions
+                    .item
+                        |#{when}
+                        //- i.remove.link.icon.remove_tab_item
+            
+    
+template(name='product_location')
+    .ui.inline.header current location
+    |#{current_location}
+    
+    
+template(name='product_card')
+    .ui.card(class=product_card_class)
+        a.image(href="/product/#{_id}/view") 
+            img.ui.zoom.pointer.goto_product.image(src="{{c.url image width=400 height=300 crop='pad'}}")
+        .content
+            a.ui.header(href="/product/#{_id}/view") 
+                //- |#{_author.name}'s
+                | #{title}
+            +ismall name='tags'
+            each tags
+                .ui.small.circular.basic.label #{this}
+        .content
+            .right.floated.meta
+                | #{when}
+            //- if session_is 'view_users' true
+            a(href="/user/#{_author.username}")
+                img.ui.avatar.image(src="{{c.url _author.image_id width=400 height=600 crop='fit'}}")
+                |#{_author.username}
+        .content    
+            if credit_price
+                .ui.inline.header #{credit_price}c
+            // div
+            if delivery
+                +i name='deliver-product' cl='ui avatar image'
+                if delivery_fee
+                    .ui.inline.header(title='delivery fee') $#{delivery_fee}
+            if open
+                +i name='checkmark' cl='ui avatar image'
+            else 
+                i.ban.icon(title='not open to new orders')
+            if pickup
+                +i name='doormat' cl='ui avatar image'
+            if can_edit
+                a.ui.large.icon.basic.button(href="/product/#{_id}/edit")
+                    i.pencil.icon
+        //- .ui.bottom.attached.basic.buttons        
+        //-     .ui.green.basic.button.quickbuy
+        //-         i.lightning.icon
+        //-         |buy
+        //-     a.ui.basic.button(href="/product/#{_id}/view")
+        //-         |view
+        //-         i.right.chevron.icon

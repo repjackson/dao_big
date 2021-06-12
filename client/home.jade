@@ -1,0 +1,60 @@
+template(name='home')
+    .ui.stackable.padded.grid
+        .sixteen.wide.column.scrolling
+            .ui.stackable.grid 
+                .eight.wide.column
+                    .ui.segment
+                        a.ui.center.aligned.header(href="/food")
+                            +i name='food' cl='ui avatar image'
+                            |food
+                        .ui.selection.animated.list
+                            each top_food
+                                a.item(href="/food/#{_id}/view")
+                                    img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                                    |#{title}
+                .eight.wide.column
+                    .ui.segment
+                        a.ui.center.aligned.header(href="/rentals")
+                            +i name='clock' cl='ui avatar image'
+                            | rentals
+                        .ui.selection.animated.list
+                            each top_rentals
+                                a.item(href="/rental/#{_id}/view")
+                                    img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                                    |#{title}
+                .eight.wide.column
+                    .ui.segment
+                        a.ui.center.aligned.header(href="/products")
+                            +i name='shop' cl='ui avatar image'
+                            | products
+                        .ui.selection.animated.list
+                            each top_products
+                                a.item(href="/product/#{_id}/view")
+                                    img.ui.avatar.image(src="{{c.url image width=200 height=200 gravity='face' crop='fill'}}")
+                                    |#{title}
+                .eight.wide.column
+                    .ui.segment
+                        a.ui.center.aligned.header(href="/services")
+                            +i name='work' cl='ui avatar image'
+                            | services
+                        .ui.selection.animated.list
+                            each top_services
+                                a.item(href="/service/#{_id}/view")
+                                    img.ui.avatar.image(src="{{c.url image width=200 height=200 gravity='face' crop='fill'}}")
+                                    |#{title}
+                .eight.wide.column
+                    .ui.segment
+                        a.ui.center.aligned.header(href="/users")
+                            +i name='groups' cl='ui avatar image'
+                            |users
+                        .ui.selection.animated.list
+                            each dashboard_users
+                                a.item(href="/user/#{username}") #{username}
+                                    img.ui.avatar.image(src=user.profile.profilePic title=name)
+                                    |#{title}
+
+        // .four.wide.column
+        //     +latest_activity
+            
+            
+            
