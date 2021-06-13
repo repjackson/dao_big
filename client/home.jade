@@ -1,10 +1,10 @@
 template(name='home')
     .ui.stackable.padded.grid
-        .sixteen.wide.column.scrolling
+        .sixteen.wide.column
             .ui.inline.header 
                 |Rosetta Hall Exchange System
-            .ui.icon.button.add_role
-                i.plus.icon
+            // .ui.icon.button.add_role
+            //     i.plus.icon
             unless currentUser 
                 .ui.header pick role
             // each role_docs
@@ -14,7 +14,48 @@ template(name='home')
             +role_picker name='american' 
             +role_picker name='spanish' 
             +role_picker name='pastry' 
-                    
+            +role_picker name='roof_bar' 
+            +role_picker name='bar' 
+            div
+            .ui.inline.header 
+                |items
+            i.plus.circular.link.icon.add_item
+            .ui.cards
+                each items
+                    +item_card
+            div
+            .ui.inline.header 
+                |requests
+            .ui.cards
+                each requests
+                    +request_item
+
+template(name='request_item')
+    .ui.header #{when} #{item_title}
+    .ui.header #{when} #{item_title}
+
+
+template(name='item_card')
+    if session_is 'editing_item' _id
+        .ui.card
+            +image_edit key='image_id' direct=true
+            // .ui.header #{title}
+            +text_edit key='title' direct=true
+            i.checkmark.circular.link.icon.save_item            
+    else
+        .ui.card
+            img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+            .content
+                .ui.header #{title}
+                .ui.button.request_item
+                    |request
+                if in_quicklist
+                    .ui.button.remove_quicklist
+                else
+                    .ui.button
+                        |add to quicklist
+                i.pencil.circular.link.icon.edit_item            
+
 
 
 
