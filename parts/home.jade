@@ -73,27 +73,26 @@ template(name='requests')
 
 template(name='request_item')
     .item
-        img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-    
-        .ui.inline.header
-            |#{item_title} 
-            i.large.chevron.right.icon
-            |#{_author_username}
-        |#{when}
-        .ui.label(class=request_class)
-            |#{status}
-        if key_value_is status 'requested'
-            if key_value_is currentUser.username 'porters'
-                .ui.big.button.pick_up
-                    |pick up
-        else if key_value_is status 'processing'
-            |picked up {{from_now pick_up_timestamp}}
-            if is_author
-                .ui.green.button.mark_delivered
-                    |mark delivered
-            // if key_value_is _author_username currentUser.username
-        else if key_value_is status 'delivered'
-            |hi
-            // |delivered {{from_now delivered_timestamp}}
-                
-                                
+        img.ui.tiny.image(src="{{c.url item_image_id width=500 height=500 gravity='face' crop='fill'}}")
+        .content
+            .ui.header
+                |#{item_title} 
+                i.large.chevron.right.icon
+                |#{_author_username}
+            |#{when}
+            .ui.label(class=request_class)
+                |#{status}
+            if is_requested
+                if is_porters
+                    .ui.big.button.pick_up
+                        |pick up
+            else if is_processing
+                |picked up {{from_now pick_up_timestamp}}
+                if is_requester
+                    .ui.green.button.mark_delivered
+                        |mark delivered
+                // if key_value_is _author_username currentUser.username
+            else if is_delivered
+                | picked up {{from_now pick_up_timestamp}}
+                |, delivered {{from_now delivered_timestamp}}
+                |, ({{delivery_time}} mins)
