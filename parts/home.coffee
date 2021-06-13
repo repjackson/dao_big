@@ -13,6 +13,8 @@ if Meteor.isClient
         # @autorun -> Meteor.subscribe 'model_docs', 'service'
         # @autorun -> Meteor.subscribe 'model_docs', 'rental'
         @autorun -> Meteor.subscribe 'model_docs', 'item'
+    Template.transfers.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'request'
     Template.requests.onCreated ->
         @autorun -> Meteor.subscribe 'model_docs', 'request'
         # @autorun -> Meteor.subscribe 'model_docs', 'food'
@@ -48,6 +50,14 @@ if Meteor.isClient
             Docs.find
                 model:'item'
     Template.requests.helpers
+        your_request_docs: ->
+            Docs.find
+                model:'request'
+                _author_id: Meteor.userId()
+        request_docs: ->
+            Docs.find
+                model:'request'
+    Template.transfers.helpers
         request_docs: ->
             Docs.find
                 model:'request'
@@ -94,6 +104,15 @@ if Meteor.isClient
                             )
                 else 
                     console.log r
+                    $('body').toast(
+                        showIcon: 'user'
+                        message: @name
+                        # showProgress: 'bottom'
+                        class: 'success'
+                        # displayTime: 'auto',
+                        position: "top right"
+                    )
+                    
             )        
                     
                     

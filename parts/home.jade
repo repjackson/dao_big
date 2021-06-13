@@ -1,12 +1,11 @@
 template(name='home')
     .ui.stackable.padded.grid
         .sixteen.wide.column
-            .ui.inline.header 
-                |Porter Exchange System
             // .ui.icon.button.add_role
             //     i.plus.icon
             // each role_docs
             //     +role_picker
+            .ui.small.inline.header pick perspective
             +role_picker name='italian' 
             +role_picker name='chinese' 
             +role_picker name='american' 
@@ -15,6 +14,7 @@ template(name='home')
             +role_picker name='roof_bar' 
             +role_picker name='bar' 
             +role_picker name='porters' 
+            +role_picker name='admin' 
             +requests
             +items
             
@@ -35,21 +35,23 @@ template(name='item_card')
     if session_is 'editing_item' _id
         .ui.card
             +image_edit key='image_id' direct=true
-            // .ui.header #{title}
-            +text_edit key='title' direct=true
-            i.checkmark.circular.link.icon.save_item            
+            .content
+                +text_edit key='title' direct=true
+                i.checkmark.circular.link.green.icon.save_item            
     else
         .ui.card
             img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
             .content
                 .ui.header #{title}
                 .ui.button.request_item
+                    i.dolly.icon
                     |request
                 if in_quicklist
                     .ui.button.remove_quicklist
                 else
                     .ui.button
-                        |add to quicklist
+                        i.plus.icon
+                        | quicklist
                 i.pencil.circular.link.icon.edit_item            
 
 
@@ -66,14 +68,32 @@ template(name='requests')
         .sixteen.wide.column
             .ui.inline.header 
                 i.bullhorn.icon
+                |#{your_request_docs.count} your requests
+            .ui.five.stackable.cards
+                each your_request_docs
+                    +request_item
+    .ui.padded.stackable.grid
+        .sixteen.wide.column
+            .ui.inline.header 
+                i.bullhorn.icon
+                |#{request_docs.count} requests
+            .ui.five.stackable.cards
+                each request_docs
+                    +request_item
+
+template(name='transfers')
+    .ui.padded.stackable.grid
+        .sixteen.wide.column
+            .ui.inline.header 
+                i.exchange.icon
                 |#{request_docs.count} requests
             .ui.large.selection.link.animated.list
                 each request_docs
                     +request_item
 
 template(name='request_item')
-    .item
-        img.ui.tiny.image(src="{{c.url item_image_id width=500 height=500 gravity='face' crop='fill'}}")
+    .card
+        img.ui.image(src="{{c.url item_image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
             .ui.header
                 |#{item_title} 
