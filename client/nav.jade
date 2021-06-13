@@ -6,7 +6,10 @@ template(name='nav')
         else 
             a.item.zoomer(href='/' class="{{isActivePath '/'}}" title='food')
                 i.home.icon
-                |rhes
+                |PES
+            a.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
+                i.bullhorn.icon
+                |requests
             a.item.zoomer(href='/transfers' class="{{isActivePath '/transfers'}}")
                 i.exchange.icon
                 |transfers
@@ -28,28 +31,3 @@ template(name='nav')
                         i.sign.in.icon
                         |login
 
-
-
-template(name='my_latest_activity')
-    .ui.grey.header 
-        i.grey.rss.icon
-        |your activity
-    .ui.list
-        each my_latest_activity
-            .item 
-                img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
-                |#{text} #{body}
-                small #{when}
-
-
-template(name='latest_activity')
-    .ui.grey.header 
-        i.grey.rss.icon
-        |all activity
-    .ui.list
-        each latest_activity
-            .item 
-                img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
-                |#{text} #{body} 
-                .ui.label #{log_type}
-                small #{when}

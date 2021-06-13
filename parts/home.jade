@@ -2,7 +2,7 @@ template(name='home')
     .ui.stackable.padded.grid
         .sixteen.wide.column
             .ui.inline.header 
-                |Rosetta Hall Exchange System
+                |Porter Exchange System
             // .ui.icon.button.add_role
             //     i.plus.icon
             unless currentUser 
@@ -20,19 +20,12 @@ template(name='home')
             .ui.inline.header 
                 |items
             i.plus.circular.link.icon.add_item
-            .ui.cards
+            .ui.four.cards
                 each items
                     +item_card
             div
-            .ui.inline.header 
-                |requests
-            .ui.cards
-                each requests
-                    +request_item
+            +requests
 
-template(name='request_item')
-    .ui.header #{when} #{item_title}
-    .ui.header #{when} #{item_title}
 
 
 template(name='item_card')
@@ -62,3 +55,24 @@ template(name='item_card')
 template(name='role_picker')
     .ui.big.button.pick_user
         |#{name}
+        
+        
+        
+template(name='requests')
+    .ui.padded.stackable.grid
+        .sixteen.wide.column
+            .ui.inline.header 
+                i.bullhorn.icon
+                |#{request_docs.count} requests
+            .ui.large.selection.link.animated.list
+                each request_docs
+                    +request_item
+template(name='request_item')
+    .green.item
+        .ui.inline.header
+            |#{item_title} 
+            i.large.chevron.right.icon
+            |#{_author_username}
+        |#{when}
+        .ui.label(class=request_class)
+            |#{status}

@@ -34,23 +34,6 @@ if Meteor.isClient
         notifications: ->
             Docs.find
                 model:'notification'
-        role_models: ->
-            if Meteor.user()
-                if Meteor.user() and Meteor.user().roles
-                    if 'dev' in Meteor.user().roles
-                        Docs.find {
-                            model:'model'
-                        }, sort:title:1
-                    else
-                        Docs.find {
-                            model:'model'
-                            view_roles:$in:Meteor.user().roles
-                        }, sort:title:1
-            else
-                Docs.find {
-                    model:'model'
-                    view_roles: $in:['public']
-                }, sort:title:1
 
         models: ->
             Docs.find
@@ -61,12 +44,6 @@ if Meteor.isClient
                 model:'message'
                 to_username:Meteor.user().username
                 read_by_ids:$nin:[Meteor.userId()]
-            }).count()
-
-        cart_amount: ->
-            cart_amount = Docs.find({
-                model:'cart_item'
-                _author_id:Meteor.userId()
             }).count()
 
         mail_icon_class: ->
@@ -85,27 +62,6 @@ if Meteor.isClient
                     bookmark_ids:$in:[Meteor.userId()]
 
 
-    Template.my_latest_activity.onCreated ->
-        @autorun -> Meteor.subscribe 'my_latest_activity'
-    Template.my_latest_activity.helpers
-        my_latest_activity: ->
-            Docs.find {
-                model:'log_event'
-                _author_id:Meteor.userId()
-            },
-                sort:_timestamp:-1
-                limit:5
-
-
-    Template.latest_activity.onCreated ->
-        @autorun -> Meteor.subscribe 'latest_activity'
-    Template.latest_activity.helpers
-        latest_activity: ->
-            Docs.find {
-                model:'log_event'
-            },
-                sort:_timestamp:-1
-                limit:5
 
 if Meteor.isServer
     Meteor.publish 'my_notifications', ->

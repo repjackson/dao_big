@@ -2,12 +2,19 @@ if Meteor.isClient
     Router.route '/', (->
         @render 'home'
         ), name:'home'
+    Router.route '/requests', (->
+        @render 'requests'
+        ), name:'requests'
+    Router.route '/transfers', (->
+        @render 'transfers'
+        ), name:'transfers'
 
     Template.home.onCreated ->
         # @autorun -> Meteor.subscribe 'model_docs', 'service'
         # @autorun -> Meteor.subscribe 'model_docs', 'rental'
         @autorun -> Meteor.subscribe 'model_docs', 'item'
-        @autorun -> Meteor.subscribe 'model_docs', 'item_request'
+    Template.requests.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'request'
         # @autorun -> Meteor.subscribe 'model_docs', 'food'
         # @autorun -> Meteor.subscribe 'users'
 
@@ -16,14 +23,27 @@ if Meteor.isClient
 
     Template.item_card.events
         'click .request_item': ->
-            Docs.insert 
-                model:'item_request'
-                item_id:@_id
-                item_title:@title
+            if confirm 'request?'
+                Docs.insert 
+                    model:'request'
+                    item_id:@_id
+                    item_title:@title
     Template.home.helpers
         items: ->
             Docs.find
                 model:'item'
+    Template.requests.helpers
+        request_docs: ->
+            Docs.find
+                model:'request'
+    Template.request_item.helpers
+        request_class: ->
+            if @status is 'requested'
+                'red'
+            else if @status is 'processing'
+                'yellow'
+            else if @status is 'received'
+                'green'
     Template.home.events
         'click .save_item': ->
             Session.set('editing_item', null)
@@ -36,8 +56,8 @@ if Meteor.isClient
             Session.set('editing_item', @_id)
     Template.role_picker.events
         'click .pick_user': ->
-            console.log @username
-            console.log @username
+            # console.log @username
+            # console.log @username
             Meteor.loginWithPassword(@name, @name, (e,r)=>
                 if e
                     if e.error is 403

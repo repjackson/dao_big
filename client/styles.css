@@ -219,9 +219,9 @@ body {
     transition: all .25s !important;
 }
 
-#topnav {
-    border-radius: 0px 0px 0px 0px !important;
-}
+/*#topnav {*/
+/*    border-radius: 0px 0px 0px 0px !important;*/
+/*}*/
 .hour_selected {
     /* outline: lightgreen solid 2px !important; */
     filter: drop-shadow(2px 2px 5px rgba(200,200,200,.7)) !important;
@@ -689,14 +689,14 @@ h1.ui.header{
 } */
 
 .label {
-  animation: fadein .25s;
+  animation: fadein .5s;
 }
 .segment{
   animation: fadein .5s;
 }
 
 .icon.item {
-  animation: fadein .25s;
+  animation: fadein .5s;
 }
 
 @keyframes fadein {

@@ -60,11 +60,11 @@ Meteor.publish 'model_docs', (model,limit)->
     if limit
         Docs.find {
             model: model
-            app:'rhes'
+            app:'pes'
         }, limit:limit
     else
         Docs.find
-            app:'rhes'
+            app:'pes'
             model: model
 
 Meteor.publish 'document_by_slug', (slug)->
