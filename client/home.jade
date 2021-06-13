@@ -1,14 +1,19 @@
 template(name='home')
     .ui.stackable.padded.grid
         .sixteen.wide.column.scrolling
-            .ui.header 
-                |rosetta hall exchange system
+            .ui.inline.header 
+                |Rosetta Hall Exchange System
             .ui.icon.button.add_role
                 i.plus.icon
             unless currentUser 
-                .ui.header login as
-            each role_docs
-                +role_picker nam='hi'
+                .ui.header pick role
+            // each role_docs
+            //     +role_picker
+            +role_picker name='italian' 
+            +role_picker name='chinese' 
+            +role_picker name='american' 
+            +role_picker name='spanish' 
+            +role_picker name='pastry' 
                     
 
 
