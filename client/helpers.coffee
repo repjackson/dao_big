@@ -71,20 +71,6 @@ Template.registerHelper 'current_day', () -> moment(Date.now()).format("DD")
 
 Template.registerHelper 'current_delta', () -> Docs.findOne model:'delta'
 
-Template.registerHelper 'hsd', () ->
-    Docs.findOne
-        model:'home_stats'
-
-
-Template.registerHelper 'grabber', () ->
-    Meteor.users.findOne
-        _id:@grabber_id
-
-
-
-Template.registerHelper 'is_grabber', () ->
-    @grabber_id is Meteor.userId()
-
 Template.registerHelper 'total_potential_revenue', () ->
     @price_per_serving * @servings_amount
 
@@ -95,8 +81,8 @@ Template.registerHelper 'session_is', (key, value)->
     Session.equals(key, value)
 
 Template.registerHelper 'key_value_is', (key, value)->
-    # console.log 'key', key
-    # console.log 'value', value
+    console.log 'key', key
+    console.log 'value', value
     # console.log 'this', this
     @["#{key}"] is value
 

@@ -9,7 +9,7 @@ if Meteor.isClient
         @render 'transfers'
         ), name:'transfers'
 
-    Template.home.onCreated ->
+    Template.items.onCreated ->
         # @autorun -> Meteor.subscribe 'model_docs', 'service'
         # @autorun -> Meteor.subscribe 'model_docs', 'rental'
         @autorun -> Meteor.subscribe 'model_docs', 'item'
@@ -21,6 +21,19 @@ if Meteor.isClient
     # Template.delta.onRendered ->
     #     Meteor.call 'log_view', @_id, ->
 
+    Template.request_item.events
+        'click .pick_up': ->
+            if confirm 'pick up?'
+                Docs.update @_id, 
+                    $set:
+                        status:'processing'
+                        pick_up_timestamp:Date.now()
+        'click .mark_delivered': ->
+            if confirm 'mark delivered?'
+                Docs.update @_id, 
+                    $set:
+                        status:'delivered'
+                        delivered_timestamp:Date.now()
     Template.item_card.events
         'click .request_item': ->
             if confirm 'request?'
@@ -28,8 +41,10 @@ if Meteor.isClient
                     model:'request'
                     item_id:@_id
                     item_title:@title
-    Template.home.helpers
-        items: ->
+                    item_image_id: @image_id
+                    status:'requested'
+    Template.items.helpers
+        item_docs: ->
             Docs.find
                 model:'item'
     Template.requests.helpers

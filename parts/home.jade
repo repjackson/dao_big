@@ -5,8 +5,6 @@ template(name='home')
                 |Porter Exchange System
             // .ui.icon.button.add_role
             //     i.plus.icon
-            unless currentUser 
-                .ui.header pick role
             // each role_docs
             //     +role_picker
             +role_picker name='italian' 
@@ -16,15 +14,20 @@ template(name='home')
             +role_picker name='pastry' 
             +role_picker name='roof_bar' 
             +role_picker name='bar' 
-            div
-            .ui.inline.header 
-                |items
-            i.plus.circular.link.icon.add_item
-            .ui.four.cards
-                each items
-                    +item_card
-            div
+            +role_picker name='porters' 
             +requests
+            +items
+            
+            
+template(name='items')            
+    div
+    .ui.inline.header 
+        |items
+    i.plus.circular.link.icon.add_item
+    .ui.four.cards
+        each item_docs
+            +item_card
+    div
 
 
 
@@ -67,8 +70,11 @@ template(name='requests')
             .ui.large.selection.link.animated.list
                 each request_docs
                     +request_item
+
 template(name='request_item')
-    .green.item
+    .item
+        img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+    
         .ui.inline.header
             |#{item_title} 
             i.large.chevron.right.icon
@@ -76,3 +82,18 @@ template(name='request_item')
         |#{when}
         .ui.label(class=request_class)
             |#{status}
+        if key_value_is status 'requested'
+            if key_value_is currentUser.username 'porters'
+                .ui.big.button.pick_up
+                    |pick up
+        else if key_value_is status 'processing'
+            |picked up {{from_now pick_up_timestamp}}
+            if is_author
+                .ui.green.button.mark_delivered
+                    |mark delivered
+            // if key_value_is _author_username currentUser.username
+        else if key_value_is status 'delivered'
+            |hi
+            // |delivered {{from_now delivered_timestamp}}
+                
+                                
