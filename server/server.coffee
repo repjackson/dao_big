@@ -183,3 +183,7 @@ Meteor.methods
              }
         ]
         console.log res
+
+
+Meteor.publish 'me', ->
+    Meteor.users.find @userId

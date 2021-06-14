@@ -71,11 +71,6 @@ Template.registerHelper 'current_day', () -> moment(Date.now()).format("DD")
 
 Template.registerHelper 'current_delta', () -> Docs.findOne model:'delta'
 
-Template.registerHelper 'total_potential_revenue', () ->
-    @price_per_serving * @servings_amount
-
-# Template.registerHelper 'servings_available', () ->
-#     @price_per_serving * @servings_amount
 
 Template.registerHelper 'session_is', (key, value)->
     Session.equals(key, value)
@@ -88,9 +83,11 @@ Template.registerHelper 'key_value_is', (key, value)->
 
 Template.registerHelper 'is_porters', ->
         # console.log Meteor.user().username
-    Meteor.user().username is 'porters'
+    if Meteor.user()
+        Meteor.user().username is 'porters'
 Template.registerHelper 'is_requester', ->
-    @_author_username is Meteor.user().username
+    if Meteor.user()
+        @_author_username is Meteor.user().username
 Template.registerHelper 'is_requested', -> @status is 'requested'
 Template.registerHelper 'is_processing', -> @status is 'processing'
 Template.registerHelper 'is_delivered', -> @status is 'delivered'
