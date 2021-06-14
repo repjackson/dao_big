@@ -160,7 +160,7 @@ Meteor.publish 'doc_tags', (selected_tags)->
         { $group: _id: '$tags', count: $sum: 1 }
         { $match: _id: $nin: selected_tags }
         { $sort: count: -1, _id: 1 }
-        { $limit: 50 }
+        { $limit: 25 }
         { $project: _id: 0, name: '$_id', count: 1 }
         ]
     cloud.forEach (tag, i) ->
@@ -171,3 +171,15 @@ Meteor.publish 'doc_tags', (selected_tags)->
             index: i
 
     self.ready()
+
+
+Meteor.methods
+    calc_request_stats: ->
+        res = Docs.aggregate [
+            { $group:
+                _id: "$item",
+                avgAmount: { $avg: { $multiply: [ "$price", "$quantity" ] } },
+                avgQuantity: { $avg: "$quantity" }
+             }
+        ]
+        console.log res

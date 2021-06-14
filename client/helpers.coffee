@@ -86,6 +86,17 @@ Template.registerHelper 'key_value_is', (key, value)->
     # console.log 'this', this
     @["#{key}"] is value
 
+Template.registerHelper 'is_porters', ->
+        # console.log Meteor.user().username
+    Meteor.user().username is 'porters'
+Template.registerHelper 'is_requester', ->
+    @_author_username is Meteor.user().username
+Template.registerHelper 'is_requested', -> @status is 'requested'
+Template.registerHelper 'is_processing', -> @status is 'processing'
+Template.registerHelper 'is_delivered', -> @status is 'delivered'
+
+
+
 Template.registerHelper 'is', (key, value)->
     # console.log 'key', key
     # console.log 'value', value
