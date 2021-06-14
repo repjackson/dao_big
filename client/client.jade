@@ -46,7 +46,6 @@ template(name='layout')
             +role_picker name='roof_bar' 
             +role_picker name='bar' 
             +role_picker name='admin' 
-
         +yield
 
 
@@ -88,16 +87,17 @@ template(name='home')
                 +items
             
             
-template(name='items')            
-    div
-    .ui.inline.header 
-        |item request menu
-        i.plus.circular.link.small.icon.add_item
-    .ui.seven.stackable.doubled.cards
-        each item_docs
-            +item_item
-    div
-
+template(name='items')
+    .ui.padded.stackable.grid
+        .sixteen.wide.column
+            .ui.inline.header 
+                |item request menu
+                i.plus.circular.link.small.icon.add_item
+            .ui.seven.stackable.doubled.cards
+                each item_docs
+                    +item_item
+            div
+        
 
 
 template(name='item_item')
@@ -109,7 +109,7 @@ template(name='item_item')
                 i.checkmark.circular.link.green.icon.save_item            
     else
         .ui.card
-            img.ui.image.request_item.zoomer(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+            img.ui.image.request_item.pointer(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
             .content
                 .ui.header #{title}
             if currentUser
@@ -142,17 +142,17 @@ template(name='requests')
     .ui.padded.stackable.grid
         unless is currentUser.username 'porters'
             .eight.wide.column
-                .ui.inline.header 
+                .ui.inline.center.aligned.header 
                     i.bullhorn.icon
                     |#{your_request_docs.count} #{currentUser.username} requests
-                .ui.list
+                .ui.list.smallscroll
                     each your_request_docs
                         +request_item
         .eight.wide.column
-            .ui.inline.header 
+            .ui.inline.center.aligned.header 
                 i.bullhorn.icon
                 |#{request_docs.count} requests
-            .ui.list
+            .ui.list.smallscroll
                 each request_docs
                     +request_item
 
@@ -194,9 +194,9 @@ template(name='request_item')
                     .ui.big.button.pick_up
                         |pick up
                 if is_requester
-                    .ui.basic.red.circular.compact.button.cancel_request
+                    .ui.basic.red.circular.icon.button.cancel_request(title='cancel')
                         i.remove.icon
-                        |cancel
+                        // |cancel
             else if is_processing
                 |picked up {{from_now pick_up_timestamp}}
                 if is_requester

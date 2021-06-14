@@ -84,16 +84,19 @@ Template.requests.onCreated ->
 #     Meteor.call 'log_view', @_id, ->
 
 Template.request_item.events
-    'click .cancel_request': ->
-        Docs.remove @_id
-        $('body').toast(
-            showIcon: 'checkmark'
-            message: "#{@item_title} request canceled"
-            # showProgress: 'bottom'
-            class: 'error'
-            # displayTime: 'auto',
-            position: "bottom center"
-        )
+    'click .cancel_request': (e,t)->
+        $(e.currentTarget).closest('.grid').transition('slide right', 500)
+        Meteor.setTimeout =>
+            Docs.remove @_id
+            $('body').toast(
+                showIcon: 'checkmark'
+                message: "#{@item_title} request canceled"
+                # showProgress: 'bottom'
+                class: 'error'
+                # displayTime: 'auto',
+                position: "bottom center"
+            )
+        , 250
     
     'click .pick_up': ->
         # if confirm 'pick up?'
@@ -116,8 +119,9 @@ Template.request_item.events
             position: "bottom center"
         )
 Template.item_item.events
-    'click .request_item': ->
+    'click .request_item': (e,t)->
         # if confirm 'request?'
+        $(e.currentTarget).closest('.card').transition('pulse', 200)
         Docs.insert 
             model:'request'
             item_id:@_id
