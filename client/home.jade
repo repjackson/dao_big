@@ -64,14 +64,15 @@ template(name='role_picker')
         
         
 template(name='requests')
-    .ui.padded.stackable.grid
-        .sixteen.wide.column
-            .ui.inline.header 
-                i.bullhorn.icon
-                |#{your_request_docs.count} your requests
-            .ui.list
-                each your_request_docs
-                    +request_item
+    unless is currentUser.username 'porters'
+        .ui.padded.stackable.grid
+            .sixteen.wide.column
+                .ui.inline.header 
+                    i.bullhorn.icon
+                    |#{your_request_docs.count} your requests
+                .ui.list
+                    each your_request_docs
+                        +request_item
     .ui.padded.stackable.grid
         .sixteen.wide.column
             .ui.inline.header 
@@ -106,6 +107,10 @@ template(name='request_item')
                 if is_porters
                     .ui.big.button.pick_up
                         |pick up
+                if is_requester
+                    .ui.basic.red.button.cancel_request
+                        i.remove.icon
+                        |cancel
             else if is_processing
                 |picked up {{from_now pick_up_timestamp}}
                 if is_requester

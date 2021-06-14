@@ -31,14 +31,10 @@ head
 
     
 template(name='layout')
-    img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
+    // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
     +yield
 
-
-template(name='verification_confirmation')
-    .ui.text.container
-        h1.ui.header your email has been verified
 
 
 
@@ -48,3 +44,42 @@ template(name='not_found')
         //- a.ui.button(href="/") 
         //-     //- +i name='home' 
         //-     |home
+
+
+
+template(name='nav')
+    #topnav.topnav.ui.attached.big.borderless.menu
+        if is_loading
+            .icon.item
+                i.big.spinning.grey.yin.yang.icon.cancel
+        else 
+            a.item.zoomer(href='/' class="{{isActivePath '/'}}" title='food')
+                i.dolly.icon
+                |PES
+            a.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
+                i.bullhorn.icon
+                |requests
+            a.item.zoomer(href='/transfers' class="{{isActivePath '/transfers'}}")
+                i.exchange.icon
+                |transfers
+            a.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
+                i.food.icon
+                |items
+        .right.menu
+            if currentUser
+                a.item(href="/user/#{currentUser.username}" class=user_nav_button_class title=user_nav_button_title)
+                    if currentUser.image_id
+                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                    else
+                        i.user.icon
+                    span.mobile.hidden #{currentUser.name}
+                        //- |${{int currentUser.credit}}
+                //- else
+                //-     a#logout.ui.mobile.hidden.icon.item(href='#' title='log out')
+                //-         i.sign.out.icon
+            else
+                unless currentUser
+                    a.item(href='/login' title='enter') 
+                        i.sign.in.icon
+                        |login
+
