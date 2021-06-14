@@ -5,16 +5,17 @@ template(name='home')
             //     i.plus.icon
             // each role_docs
             //     +role_picker
-            .ui.small.inline.header pick perspective
-            +role_picker name='italian' 
-            +role_picker name='chinese' 
-            +role_picker name='american' 
-            +role_picker name='spanish' 
-            +role_picker name='pastry' 
-            +role_picker name='roof_bar' 
-            +role_picker name='bar' 
-            +role_picker name='porters' 
-            +role_picker name='admin' 
+            unless currentUser
+                .ui.small.inline.header pick perspective
+                +role_picker name='italian' 
+                +role_picker name='chinese' 
+                +role_picker name='american' 
+                +role_picker name='spanish' 
+                +role_picker name='pastry' 
+                +role_picker name='roof_bar' 
+                +role_picker name='bar' 
+                +role_picker name='porters' 
+                +role_picker name='admin' 
             +requests
             +items
             
@@ -43,9 +44,14 @@ template(name='item_item')
             img.ui.tiny.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
             .content
                 .ui.header #{title}
-                .ui.button.request_item
-                    i.dolly.icon
-                    |request
+                if currentUser
+                    .ui.button.request_item
+                        i.dolly.icon
+                        |request
+                else 
+                    .ui.disabled.button.request_item
+                        i.dolly.icon
+                        |request
                 if in_quicklist
                     .ui.button.remove_quicklist
                 else

@@ -44,7 +44,7 @@ if Meteor.isClient
                 # on:'hover'
             # )
 
-        'click #logout': ->
+        'click .logout': ->
             Session.set 'logging_out', true
             Meteor.logout ->
                 Session.set 'logging_out', false
