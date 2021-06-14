@@ -23,12 +23,23 @@ Template.requests.onCreated ->
 #     Meteor.call 'log_view', @_id, ->
 
 Template.request_item.events
+    'click .cancel_request': ->
+        Docs.remove @_id
+        $('body').toast(
+            showIcon: 'checkmark'
+            message: "#{@item_title} request canceled"
+            # showProgress: 'bottom'
+            class: 'error'
+            # displayTime: 'auto',
+            position: "bottom center"
+        )
+    
     'click .pick_up': ->
-        if confirm 'pick up?'
-            Docs.update @_id, 
-                $set:
-                    status:'processing'
-                    pick_up_timestamp:Date.now()
+        # if confirm 'pick up?'
+        Docs.update @_id, 
+            $set:
+                status:'processing'
+                pick_up_timestamp:Date.now()
     'click .mark_delivered': ->
         # if confirm 'mark delivered?'
         Docs.update @_id, 
@@ -41,7 +52,7 @@ Template.request_item.events
             # showProgress: 'bottom'
             class: 'success'
             # displayTime: 'auto',
-            position: "top right"
+            position: "bottom center"
         )
 Template.item_item.events
     'click .request_item': ->
@@ -58,7 +69,7 @@ Template.item_item.events
             # showProgress: 'bottom'
             class: 'success'
             # displayTime: 'auto',
-            position: "top right"
+            position: "bottom center"
         )
             
             
@@ -129,7 +140,7 @@ Template.role_picker.events
                     # showProgress: 'bottom'
                     class: 'success'
                     # displayTime: 'auto',
-                    position: "top right"
+                    position: "bottom center"
                 )
                 
         )        
