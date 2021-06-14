@@ -32,8 +32,3 @@ matb33:collection-hooks
 mquandalle:jade
 underscore@1.0.10
 coffeescript
-ecmascript@0.15.1
-reywood:publish-composite
-flowkey:hotkeys
-modules@0.16.0
-kevohagan:sweetalert

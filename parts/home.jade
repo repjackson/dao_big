@@ -24,23 +24,23 @@ template(name='items')
     .ui.inline.header 
         |items
     i.plus.circular.link.icon.add_item
-    .ui.four.cards
+    .ui.list
         each item_docs
-            +item_card
+            +item_item
     div
 
 
 
-template(name='item_card')
+template(name='item_item')
     if session_is 'editing_item' _id
-        .ui.card
+        .item
             +image_edit key='image_id' direct=true
             .content
                 +text_edit key='title' direct=true
                 i.checkmark.circular.link.green.icon.save_item            
     else
-        .ui.card
-            img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+        .item
+            img.ui.tiny.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
             .content
                 .ui.header #{title}
                 .ui.button.request_item
@@ -69,7 +69,7 @@ template(name='requests')
             .ui.inline.header 
                 i.bullhorn.icon
                 |#{your_request_docs.count} your requests
-            .ui.five.stackable.cards
+            .ui.list
                 each your_request_docs
                     +request_item
     .ui.padded.stackable.grid
@@ -77,7 +77,7 @@ template(name='requests')
             .ui.inline.header 
                 i.bullhorn.icon
                 |#{request_docs.count} requests
-            .ui.five.stackable.cards
+            .ui.list
                 each request_docs
                     +request_item
 
@@ -92,8 +92,8 @@ template(name='transfers')
                     +request_item
 
 template(name='request_item')
-    .card
-        img.ui.image(src="{{c.url item_image_id width=500 height=500 gravity='face' crop='fill'}}")
+    .item
+        img.ui.tiny.image(src="{{c.url item_image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
             .ui.header
                 |#{item_title} 

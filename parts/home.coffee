@@ -36,15 +36,25 @@ if Meteor.isClient
                     $set:
                         status:'delivered'
                         delivered_timestamp:Date.now()
-    Template.item_card.events
+    Template.item_item.events
         'click .request_item': ->
-            if confirm 'request?'
-                Docs.insert 
-                    model:'request'
-                    item_id:@_id
-                    item_title:@title
-                    item_image_id: @image_id
-                    status:'requested'
+            # if confirm 'request?'
+            Docs.insert 
+                model:'request'
+                item_id:@_id
+                item_title:@title
+                item_image_id: @image_id
+                status:'requested'
+            $('body').toast(
+                showIcon: 'bullhorn'
+                message: "#{@title} requested"
+                # showProgress: 'bottom'
+                class: 'success'
+                # displayTime: 'auto',
+                position: "top right"
+            )
+                
+                
     Template.items.helpers
         item_docs: ->
             Docs.find
@@ -54,9 +64,11 @@ if Meteor.isClient
             Docs.find
                 model:'request'
                 _author_id: Meteor.userId()
+                status: $ne:'delivered'
         request_docs: ->
             Docs.find
                 model:'request'
+                status: $ne:'delivered'
     Template.transfers.helpers
         request_docs: ->
             Docs.find
