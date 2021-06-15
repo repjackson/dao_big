@@ -107,20 +107,21 @@ Template.request_item.events
                     pick_up_timestamp:Date.now()
         , 500
     'click .mark_delivered': (e,t)->
-        # if confirm 'mark delivered?'
-        $(e.currentTarget).closest('.card').transition('tada', 500)
-        Docs.update @_id, 
-            $set:
-                status:'delivered'
-                delivered_timestamp:Date.now()
-        $('body').toast(
-            showIcon: 'checkmark'
-            message: "#{@item_title} marked delivered"
-            # showProgress: 'bottom'
-            class: 'success'
-            # displayTime: 'auto',
-            position: "bottom center"
-        )
+        $(e.currentTarget).closest('.grid').transition('tada', 500)
+        Meteor.setTimeout =>
+            Docs.update @_id, 
+                $set:
+                    status:'delivered'
+                    delivered_timestamp:Date.now()
+            $('body').toast(
+                showIcon: 'checkmark'
+                message: "#{@item_title} marked delivered"
+                # showProgress: 'bottom'
+                class: 'success'
+                # displayTime: 'auto',
+                position: "bottom center"
+            )
+        , 500
 
 
 Template.requests.helpers

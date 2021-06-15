@@ -204,16 +204,6 @@ Template.image_edit.events
             )
 
 
-    'blur .cloudinary_id': (e,t)->
-        cloudinary_id = t.$('.cloudinary_id').val()
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
-        Docs.update parent._id,
-            $set:"#{@key}":cloudinary_id
-
-
     'click #remove_photo': ->
         if @direct
             parent = Template.parentData()
@@ -226,6 +216,10 @@ Template.image_edit.events
             doc = Docs.findOne parent._id
             if doc
                 Docs.update parent._id,
+                    $unset:"#{@key}":1
+            user = Meteor.users.findOne parent._id
+            if user
+                Meteor.users.update parent._id,
                     $unset:"#{@key}":1
 
 

@@ -36,7 +36,7 @@ template(name='layout')
     .global_container.scrolling
         unless currentUser
             .ui.center.aligned.basic.segment
-                .ui.small.inline.header pick perspective
+                strong pick perspective
                 +role_picker name='middle_eastern' 
                 +role_picker name='mexican' 
                 +role_picker name='chinese' 
@@ -82,6 +82,9 @@ template(name='items')
             .ui.inline.header 
                 |item request menu
                 i.plus.circular.link.small.icon.add_item
+            .ui.input
+                input(type='text' placeholder='search title...')
+        .sixteen.wide.column
             .ui.seven.stackable.doubled.cards
                 each item_docs
                     +item_item
@@ -122,7 +125,7 @@ template(name='item_item')
 
 
 template(name='role_picker')
-    .ui.circular.basic.button.pick_user
+    .ui.circular.basic.big.compact.button.pick_user
         |#{name}
         
         
@@ -160,7 +163,10 @@ template(name='transfers')
             .ui.inline.header 
                 i.exchange.icon
                 |#{request_docs.count} requests
-            .ui.large.selection.link.animated.list
+            .ui.basic.compact.circular.button new
+            .ui.basic.compact.circular.button in progress
+            .ui.basic.compact.circular.button delivered
+            .ui.large.selection.link.animated.list.scrolling
                 each request_docs
                     +request_item
         .four.wide.column
