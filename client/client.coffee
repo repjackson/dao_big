@@ -96,16 +96,19 @@ Template.request_item.events
                 # displayTime: 'auto',
                 position: "bottom center"
             )
-        , 250
+        , 500
     
-    'click .pick_up': ->
-        # if confirm 'pick up?'
-        Docs.update @_id, 
-            $set:
-                status:'processing'
-                pick_up_timestamp:Date.now()
-    'click .mark_delivered': ->
+    'click .pick_up':(e,t)->
+        $(e.currentTarget).closest('.grid').transition('tada', 500)
+        Meteor.setTimeout =>
+            Docs.update @_id, 
+                $set:
+                    status:'processing'
+                    pick_up_timestamp:Date.now()
+        , 500
+    'click .mark_delivered': (e,t)->
         # if confirm 'mark delivered?'
+        $(e.currentTarget).closest('.card').transition('tada', 500)
         Docs.update @_id, 
             $set:
                 status:'delivered'
@@ -118,44 +121,24 @@ Template.request_item.events
             # displayTime: 'auto',
             position: "bottom center"
         )
-Template.item_item.events
-    'click .request_item': (e,t)->
-        # if confirm 'request?'
-        $(e.currentTarget).closest('.card').transition('pulse', 200)
-        Docs.insert 
-            model:'request'
-            item_id:@_id
-            item_title:@title
-            item_image_id: @image_id
-            status:'requested'
-        $('body').toast(
-            showIcon: 'bullhorn'
-            message: "#{@title} requested"
-            # showProgress: 'bottom'
-            class: 'success'
-            # displayTime: 'auto',
-            position: "bottom center"
-        )
-            
-            
-Template.items.helpers
-    item_docs: ->
-        Docs.find
-            model:'item'
+
+
 Template.requests.helpers
     your_request_docs: ->
         Docs.find
             model:'request'
             _author_id: Meteor.userId()
             status: $ne:'delivered'
-    request_docs: ->
+    unprocessed_requests: ->
         Docs.find
             model:'request'
-            status: $ne:'delivered'
-Template.transfers.helpers
-    request_docs: ->
+            status: 'requested'
+    processed_requests: ->
         Docs.find
             model:'request'
+            status: 'processing'
+            
+            
 Template.request_item.helpers
     # is_porters: ->
     #     console.log Meteor.user().username
@@ -177,6 +160,30 @@ Template.request_item.helpers
             'yellow'
         else if @status is 'received'
             'green'
+Template.item_item.events
+    'click .request_item': (e,t)->
+        # if confirm 'request?'
+        $(e.currentTarget).closest('.card').transition('bounce', 500)
+        Docs.insert 
+            model:'request'
+            item_id:@_id
+            item_title:@title
+            item_image_id: @image_id
+            status:'requested'
+        $('body').toast(
+            showIcon: 'bullhorn'
+            message: "#{@title} requested"
+            # showProgress: 'bottom'
+            class: 'success'
+            # displayTime: 'auto',
+            position: "bottom center"
+        )
+            
+            
+Template.items.helpers
+    item_docs: ->
+        Docs.find
+            model:'item'
 Template.items.events
     'click .save_item': ->
         Session.set('editing_item', null)
@@ -187,6 +194,8 @@ Template.items.events
             Docs.insert 
                 model:'item'
         Session.set('editing_item', @_id)
+        
+        
 Template.role_picker.events
     'click .pick_user': ->
         # console.log @username

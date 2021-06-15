@@ -33,19 +33,20 @@ head
 template(name='layout')
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
-    .global_container
+    .global_container.scrolling
         unless currentUser
-            .ui.small.inline.header pick perspective
-            +role_picker name='middle_eastern' 
-            +role_picker name='mexican' 
-            +role_picker name='chinese' 
-            +role_picker name='italian' 
-            +role_picker name='american' 
-            +role_picker name='pastry' 
-            +role_picker name='porters' 
-            +role_picker name='roof_bar' 
-            +role_picker name='bar' 
-            +role_picker name='admin' 
+            .ui.center.aligned.basic.segment
+                .ui.small.inline.header pick perspective
+                +role_picker name='middle_eastern' 
+                +role_picker name='mexican' 
+                +role_picker name='chinese' 
+                +role_picker name='italian' 
+                +role_picker name='american' 
+                +role_picker name='pastry' 
+                +role_picker name='porters' 
+                +role_picker name='roof_bar' 
+                +role_picker name='bar' 
+                +role_picker name='admin' 
         +yield
 
 
@@ -100,7 +101,7 @@ template(name='item_item')
             img.ui.image.request_item.pointer(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
             .content
                 .ui.header #{title}
-            if currentUser
+            unless is_porters
                 .ui.basic.button.request_item
                     i.dolly.green.icon
                     |request
@@ -114,8 +115,8 @@ template(name='item_item')
                 //     .ui.button
                 //         i.plus.icon
                 //         | quicklist
-                if currentUser
-                    i.pencil.circular.link.icon.edit_item            
+            if is_admin
+                i.pencil.circular.link.icon.edit_item            
 
 
 
@@ -139,10 +140,19 @@ template(name='requests')
         .eight.wide.column
             .ui.inline.center.aligned.header 
                 i.bullhorn.icon
-                |#{request_docs.count} requests
+                |#{unprocessed_requests.count} new requests
             .ui.list.smallscroll
-                each request_docs
+                each unprocessed_requests
                     +request_item
+        .eight.wide.column
+            .ui.inline.center.aligned.header 
+                i.running.icon
+                |#{processed_requests.count} in progress
+            .ui.list.smallscroll
+                each processed_requests
+                    +request_item
+        
+
 
 template(name='transfers')
     .ui.padded.stackable.grid
@@ -174,12 +184,13 @@ template(name='request_item')
                 |#{item_title} 
                 i.large.chevron.right.icon
                 |#{_author_username}
-            |#{when}
-            .ui.label(class=request_class)
+            | added #{when}
+            .ui.big.label(class=request_class)
                 |#{status}
             if is_requested
                 if is_porters
-                    .ui.big.button.pick_up
+                    .ui.big.yellow.button.pick_up
+                        i.running.icon
                         |pick up
                 if is_requester
                     .ui.basic.red.circular.icon.button.cancel_request(title='cancel')

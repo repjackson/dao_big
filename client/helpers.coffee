@@ -24,11 +24,6 @@ Template.registerHelper 'display_mode', () -> Session.get('display_mode',true)
 Template.registerHelper 'is_loading', () -> Session.get 'loading'
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
 Template.registerHelper 'is_author', ()-> @_author_id is Meteor.userId()
-Template.registerHelper 'is_handler', ()-> @handler_username is Meteor.user().username
-Template.registerHelper 'is_owner', ()-> @owner_username is Meteor.user().username
-Template.registerHelper 'is_grandparent_author', () ->
-    grandparent = Template.parentData(2)
-    grandparent._author_id is Meteor.userId()
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
 Template.registerHelper 'long_time', (input) -> moment(input).format("h:mm a")
 Template.registerHelper 'long_date', (input) -> moment(input).format("dddd, MMMM Do h:mm a")
@@ -44,26 +39,9 @@ Template.registerHelper 'int', (input) -> input.toFixed(0)
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 Template.registerHelper 'cal_time', (input) -> moment(input).calendar()
-Template.registerHelper 'last_initial', (user) ->
-    @last_name[0]+'.'
-Template.registerHelper 'first_letter', (user) ->
-    @first_name[..0]+'.'
-Template.registerHelper 'first_initial', (user) ->
-    @first_name[..2]+'.'
-    # moment(input).fromNow()
+
+
 Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
-Template.registerHelper 'is_event', () -> @shop_type is 'event'
-Template.registerHelper 'is_rental', () -> @model is 'rental'
-Template.registerHelper 'is_service', () -> @model is 'service'
-Template.registerHelper 'is_product', () -> @model is 'product'
-Template.registerHelper 'upvote_class', () ->
-    if Meteor.userId()
-        if @upvoter_ids and Meteor.userId() in @upvoter_ids then 'green' else 'outline'
-    else ''
-Template.registerHelper 'downvote_class', () ->
-    if Meteor.userId()
-        if @downvoter_ids and Meteor.userId() in @downvoter_ids then 'red' else 'outline'
-    else ''
 
 Template.registerHelper 'current_month', () -> moment(Date.now()).format("MMMM")
 Template.registerHelper 'current_day', () -> moment(Date.now()).format("DD")
@@ -82,9 +60,11 @@ Template.registerHelper 'key_value_is', (key, value)->
     @["#{key}"] is value
 
 Template.registerHelper 'is_porters', ->
-        # console.log Meteor.user().username
     if Meteor.user()
         Meteor.user().username is 'porters'
+Template.registerHelper 'is_admin', ->
+    if Meteor.user()
+        Meteor.user().username is 'admin'
 Template.registerHelper 'is_requester', ->
     if Meteor.user()
         @_author_username is Meteor.user().username
@@ -201,95 +181,6 @@ Template.registerHelper 'in_list', (key) ->
     if Meteor.userId()
         if Meteor.userId() in @["#{key}"] then true else false
 
-
-Template.registerHelper 'is_admin', () ->
-    if Meteor.user() and Meteor.user().roles
-        # if _.intersection(['dev','admin'], Meteor.user().roles) then true else false
-        if 'admin' in Meteor.user().roles then true else false
-Template.registerHelper 'is_current_admin', () ->
-    if Meteor.user() and Meteor.user().roles
-        # if _.intersection(['dev','admin'], Meteor.user().roles) then true else false
-        if 'admin' in Meteor.user().current_roles then true else false
-
-
-
-
-Template.registerHelper 'is_current_staff', () ->
-    if Meteor.user() and Meteor.user().roles
-        # if _.intersection(['dev','staff'], Meteor.user().roles) then true else false
-        if 'staff' in Meteor.user().current_roles then true else false
-Template.registerHelper 'is_staff', () ->
-    if Meteor.user() and Meteor.user().roles
-        # if _.intersection(['dev','staff'], Meteor.user().roles) then true else false
-        if 'staff' in Meteor.user().roles then true else false
-
-
-
-Template.registerHelper 'is_owner', () ->
-    if Meteor.user() and Meteor.user().roles
-        # if _.intersection(['dev','staff'], Meteor.user().roles) then true else false
-        if 'owner' in Meteor.user().roles then true else false
-Template.registerHelper 'is_current_owner', () ->
-    if Meteor.user() and Meteor.user().roles
-        # if _.intersection(['dev','staff'], Meteor.user().roles) then true else false
-        if 'owner' in Meteor.user().current_roles then true else false
-
-Template.registerHelper 'is_frontdesk', () ->
-    if Meteor.user() and Meteor.user().roles
-        # if _.intersection(['dev','staff'], Meteor.user().roles) then true else false
-        if 'frontdesk' in Meteor.user().roles then true else false
-Template.registerHelper 'is_current_frontdesk', () ->
-    if Meteor.user() and Meteor.user().roles
-        # if _.intersection(['dev','staff'], Meteor.user().roles) then true else false
-        if 'frontdesk' in Meteor.user().current_roles then true else false
-
-
-Template.registerHelper 'is_dev', () ->
-    if Meteor.user() and Meteor.user().roles
-        if 'dev' in Meteor.user().roles then true else false
-
-Template.registerHelper 'is_manager', () ->
-    if Meteor.user() and Meteor.user().roles
-        if 'manager' in Meteor.user().roles then true else false
-Template.registerHelper 'is_current_manager', () ->
-    if Meteor.user() and Meteor.user().roles
-        if 'manager' in Meteor.user().current_roles then true else false
-
-# Template.registerHelper 'is_handler', () ->
-#     if Meteor.user() and Meteor.user().roles
-#         if 'handler' in Meteor.user().roles then true else false
-Template.registerHelper 'is_resident', () ->
-    if Meteor.user() and Meteor.user().roles
-        if 'resident' in Meteor.user().roles then true else false
-
-Template.registerHelper 'is_member', () ->
-    if Meteor.user() and Meteor.user().roles
-        if 'member' in Meteor.user().roles then true else false
-Template.registerHelper 'is_current_member', () ->
-    if Meteor.user() and Meteor.user().roles
-        if 'member' in Meteor.user().current_roles then true else false
-
-Template.registerHelper 'is_resident_or_user', () ->
-    if Meteor.user() and Meteor.user().roles
-        # console.log _.intersection(Meteor.user().roles, ['resident','user']).length
-        if _.intersection(Meteor.user().roles, ['resident','user']).length then true else false
-
-Template.registerHelper 'is_staff_or_manager', () ->
-    if Meteor.user() and Meteor.user().roles
-        # console.log _.intersection(Meteor.user().roles, ['resident','user']).length
-        if _.intersection(Meteor.user().roles, ['manager','staff']).length then true else false
-
-
-
-
-Template.registerHelper 'user_is_resident', () -> if @roles and 'resident' in @roles then true else false
-Template.registerHelper 'user_is_owner', () -> if @roles and 'owner' in @roles then true else false
-Template.registerHelper 'user_is_staff', () -> if @roles and 'staff' in @roles then true else false
-Template.registerHelper 'user_is_admin', () -> if @roles and 'admin' in @roles then true else false
-Template.registerHelper 'user_is_member', () -> if @roles and 'member' in @roles then true else false
-Template.registerHelper 'user_is_handler', () -> if @roles and 'handler' in @roles then true else false
-Template.registerHelper 'user_is_resident_or_owner', () -> if @roles and _.intersection(@roles,['resident','owner']) then true else false
-
 Template.registerHelper 'is_eric', () -> if Meteor.userId() and Meteor.userId() in ['ytjpFxiwnWaJELZEd','rDqxdcTBTszjeMh9T'] then true else false
 
 Template.registerHelper 'current_user', () ->  Meteor.users.findOne username:Router.current().params.username
@@ -301,6 +192,8 @@ Template.registerHelper 'is_current_user', () ->
             true
         else
             false
+            
+            
 Template.registerHelper 'view_template', -> "#{@field_type}_view"
 Template.registerHelper 'edit_template', -> "#{@field_type}_edit"
 Template.registerHelper 'is_model', -> @model is 'model'
@@ -367,11 +260,6 @@ Template.registerHelper 'sorted_field_values', () ->
         _.sortBy parent["#{@key}"], 'number'
 
 
-Template.registerHelper 'is_marketplace', () -> @model is 'marketplace'
-Template.registerHelper 'is_post', () -> @model is 'post'
-Template.registerHelper 'is_food', () -> @model is 'food'
-
-
 Template.registerHelper 'in_dev', () -> Meteor.isDevelopment
 
 Template.registerHelper 'calculated_size', (metric) ->
@@ -394,20 +282,3 @@ Template.registerHelper 'calculated_size', (metric) ->
 
 
 Template.registerHelper 'in_dev', () -> Meteor.isDevelopment
-
-
-Template.registerHelper 'building_leader', () ->
-    Meteor.users.findOne @leader_id
-
-
-Template.registerHelper 'building_users', () ->
-    Meteor.users.find
-        _id: $in: @building_user_ids
-
-
-Template.registerHelper 'delta_key_value_is', (key, value)->
-    # console.log 'key', key
-    # console.log 'value', value
-    # console.log 'this', this
-    delta = Docs.findOne model:'delta'
-    delta["#{key}"] is value

@@ -5,24 +5,24 @@ template(name='user_layout')
             .row
                 //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                 .four.wide.column
-                    a.item.mobile.hidden(href="/user/#{user_from_username_param.username}/food")
+                    a.item.mobile.hidden(href="/user/#{username}")
                         img.ui.centered.rounded.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                     .spacer
-                    a(href="/user/#{user.username}")
+                    a(href="/user/#{username}")
                         .ui.center.aligned.header
-                            strong #{user.username}
+                            strong #{username}
                             //- 
-                            //- strong #{user.first_name} #{user.last_name}
-                            //- small @#{user.username}        
-                    a.ui.center.aligned.inline.header.mobile.hidden(href="/user/#{user_from_username_param.username}/credit" title='credit')
-                        |{{fixed user.credit}}c
+                            //- strong #{first_name} #{last_name}
+                            //- small @#{username}        
+                    a.ui.center.aligned.inline.header.mobile.hidden(href="/user/#{username}/credit" title='credit')
+                        |{{fixed credit}}c
                     .ui.two.column.middle.aligned.grid.mobile.only
                         .column
                             img.ui.small.inline.image.mobile.only(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         .column
                             .ui.inline.header
-                                strong #{user.username}
-                                //- small @#{user.username}        
+                                strong #{username}
+                                //- small @#{username}        
                             a.ui.inline.header(href="/user/#{user_from_username_param.username}/credit" title='credit')
                                 //- +i name='coins'
                                 //- i.coins.icon
@@ -49,12 +49,26 @@ template(name='user_layout')
                     a.ui.basic.button(href="/user/#{username}/quicklist" class="{{isActiveRoute 'user_quicklist'}}")
                         i.lightning.icon
                         |quicklist
-                    a.ui.basic.button(href="/user/#{username}/quicklist" class="{{isActiveRoute 'user_quicklist'}}")
+                    a.ui.basic.button(href="/user/#{username}/menu" class="{{isActiveRoute 'user_menu'}}")
                         i.lightning.icon
                         |menu
                     div.global_container
                         .spacer
                         +yield
+
+
+template(name='user_dashboard')
+    +user_requests
+    +user_quicklist
+    +user_menu
+    
+template(name='user_requests')  
+    .ui.header #{user_from_username_param.name} requests
+template(name='user_quicklist')    
+    .ui.header #{user_from_username_param.name} quicklist
+template(name='user_menu')    
+    .ui.header #{user_from_username_param.name} menu
+    
 
 
 template(name='user_edit')
@@ -64,7 +78,7 @@ template(name='user_edit')
             .row
                 .four.wide.column
                     .ui.center.aligned.large.inline.grey.header
-                        | #{user_from_username_param.name}
+                        | #{user_from_username_param}
                     //- +i name='pencil'
                     .ui.small.inline.header @#{user_from_username_param.username}
                     a.ui.big.circular.icon.green.button(href="/user/#{user_from_username_param.username}/") 

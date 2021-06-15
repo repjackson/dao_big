@@ -70,11 +70,17 @@
 } 
 
 
+.scrolling{
+	overflow-y:scroll;
+	overflow-x:hidden;
+	max-height:85vh;
+	padding-top: 1em;
+	padding-left: 1em;
+}
 .smallscroll{
 	overflow-y:scroll;
 	overflow-x:hidden;
-	max-height:250px;
-	max-height:85vh;
+	max-height:500px;
 	padding-top: 1em;
 	padding-left: 1em;
 }
