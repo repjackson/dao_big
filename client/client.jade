@@ -56,13 +56,13 @@ template(name='nav')
         //     .mobile.hidden PES
         a.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
             i.bullhorn.large.icon
-            .mobile.hidden requests
+            .mobile.hidden #{requests.count} requests
         a.item.zoomer(href='/transfers' class="{{isActivePath '/transfers'}}")
             i.exchange.large.icon
-            .mobile.hidden transfers
+            .mobile.hidden #{transfer.count} transfers
         a.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
             i.food.large.icon
-            .mobile.hidden items
+            .mobile.hidden #{items.count} items
         if currentUser
             a.item(href="/user/#{currentUser.username}" class=user_nav_button_class title=user_nav_button_title)
                 // if currentUser.image_id
@@ -75,18 +75,6 @@ template(name='nav')
                 
                 
                 
-template(name='home')
-    .ui.stackable.padded.grid
-        .sixteen.wide.column
-            // .ui.icon.button.add_role
-            //     i.plus.icon
-            // each role_docs
-            //     +role_picker
-            +requests
-            unless is_porters
-                +items
-            
-            
 template(name='items')
     .ui.padded.stackable.grid
         .sixteen.wide.column
@@ -133,7 +121,7 @@ template(name='item_item')
 
 
 template(name='role_picker')
-    .ui.big.button.pick_user
+    .ui.circular.basic.button.pick_user
         |#{name}
         
         

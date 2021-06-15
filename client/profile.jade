@@ -1,0 +1,65 @@
+template(name='user_layout')
+    img.ui.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
+    +nav
+    with user_from_username_param
+        .ui.stackable.padded.grid
+            .row
+                //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
+                .four.wide.column
+                    a.item.mobile.hidden(href="/user/#{user_from_username_param.username}/food")
+                        img.ui.centered.rounded.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                    .spacer
+                    a(href="/user/#{user.username}")
+                        .ui.center.aligned.header
+                            strong #{user.name}
+                            //- 
+                            //- strong #{user.first_name} #{user.last_name}
+                            //- small @#{user.username}        
+                    a.ui.center.aligned.inline.header.mobile.hidden(href="/user/#{user_from_username_param.username}/credit" title='credit')
+                        |{{fixed user.credit}}c
+                    .ui.two.column.middle.aligned.grid.mobile.only
+                        .column
+                            img.ui.small.inline.image.mobile.only(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                        .column
+                            .ui.inline.header
+                                strong #{user.name}
+                                //- small @#{user.username}        
+                            a.ui.inline.header(href="/user/#{user_from_username_param.username}/credit" title='credit')
+                                //- +i name='coins'
+                                //- i.coins.icon
+                                |{{fixed user.credit}}c
+                    if is_current_user
+                        a.ui.basic.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
+                            i.cog.icon
+                            |edit
+                    else if is_admin
+                        a.ui.basic.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
+                            +i name='settings' cl='ui avatar image'
+                            |edit
+                    if is_current_user
+                        .ui.basic.button.logout
+                            i.sign.out.alternate.icon
+                            |log out
+                        //- a.ui.basic.button.logout_other_clients(href="#" title='logout other clients')
+                        //-     i.globe.icon
+                        //-     |log out other clients
+                    if is_admin
+                        .ui.header 
+                            +i name='shield'
+                            |roles
+                        each roles
+                            .ui.label #{this}
+                .twelve.wide.column
+                    a.ui.basic.button(href="/user/#{username}/requests" class="{{isActiveRoute 'user_requests'}}")
+                        +i name='bullhorn' cl='ui avatar image'
+                        |requests
+                    // a.ui.basic.button(href="/user/#{username}/products" class="{{isActiveRoute 'user_products'}}")
+                    //     +i name='bullhorn' cl='ui avatar image'
+                    //     |requests
+                    a.ui.basic.button(href="/user/#{username}/quicklist" class="{{isActiveRoute 'user_quicklist'}}")
+                        +i name='lightning' cl='ui avatar image'
+                        |quicklist
+        
+                    div.global_container
+                        .spacer
+                        +yield

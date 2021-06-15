@@ -54,7 +54,7 @@ Template.nav.onCreated ->
 
 
 Router.route '/', (->
-    @render 'home'
+    @render 'requests'
     ), name:'home'
 Router.route '/requests', (->
     @render 'requests'
@@ -177,7 +177,7 @@ Template.request_item.helpers
             'yellow'
         else if @status is 'received'
             'green'
-Template.home.events
+Template.items.events
     'click .save_item': ->
         Session.set('editing_item', null)
     'click .edit_item': ->
@@ -211,13 +211,3 @@ Template.role_picker.events
         )        
                 
                 
-Template.home.events
-    'click .add_role': ->
-        new_id = 
-            Docs.insert 
-                model:'role'
-        
-Template.home.helpers
-    role_docs: ->
-        Docs.find
-            model:'role'
