@@ -160,8 +160,12 @@ Template.image_link_edit.events
         else
             parent = Template.parentData(5)
         doc = Docs.findOne parent._id
+        user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
+                $set:"#{@key}":val
+        else if user
+            Meteor.users.update parent._id,
                 $set:"#{@key}":val
 
 
@@ -182,6 +186,10 @@ Template.image_edit.events
                     doc = Docs.findOne parent._id
                     if doc
                         Docs.update parent._id,
+                            $set:"#{@key}":res.public_id
+                    user = Meteor.users.findOne parent._id
+                    if user
+                        Meteor.users.update parent._id,
                             $set:"#{@key}":res.public_id
 
     'click .call_cloud_visual': (e,t)->

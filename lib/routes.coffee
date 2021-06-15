@@ -1,6 +1,6 @@
 Router.configure
     layoutTemplate: 'layout'
-    notFoundTemplate: 'home'
+    notFoundTemplate: 'requests'
     loadingTemplate: 'splash'
     trackPageView: false
 
