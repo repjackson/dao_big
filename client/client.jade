@@ -65,10 +65,10 @@ template(name='nav')
             .mobile.hidden #{items.count} items
         if currentUser
             a.item(href="/user/#{currentUser.username}" class=user_nav_button_class title=user_nav_button_title)
-                // if currentUser.image_id
-                //     img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
-                // else
-                //     i.user.icon
+                if currentUser.image_id
+                    img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                else
+                    i.user.icon
                 span #{currentUser.username}
             a.icon.item.logout
                 i.sign.out.alternate.large.icon
