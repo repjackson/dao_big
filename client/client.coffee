@@ -99,15 +99,18 @@ Template.request_item.events
         , 500
     
     'click .pick_up':(e,t)->
-        $(e.currentTarget).closest('.grid').transition('bounce', 500)
+        $(e.currentTarget).closest('.grid').transition('fly left', 1000)
         Meteor.setTimeout =>
             Docs.update @_id, 
                 $set:
                     status:'processing'
                     pick_up_timestamp:Date.now()
-        , 500
+        , 1000
+        
+        
     'click .mark_delivered': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('tada', 500)
+        $(e.currentTarget).closest('.grid').transition('tada', 400)
+        $(e.currentTarget).closest('.grid').transition('fly right', 500)
         Meteor.setTimeout =>
             Docs.update @_id, 
                 $set:
@@ -121,15 +124,33 @@ Template.request_item.events
                 # displayTime: 'auto',
                 position: "bottom center"
             )
+        , 900
+        
+        
+    'click .mark_complete': (e,t)->
+        $(e.currentTarget).closest('.grid').transition('tada', 500)
+        Meteor.setTimeout =>
+            Docs.update @_id, 
+                $set:
+                    status:'complete'
+                    complete_timestamp:Date.now()
+            $('body').toast(
+                showIcon: 'checkmark'
+                message: "#{@item_title} completed"
+                # showProgress: 'bottom'
+                class: 'success'
+                # displayTime: 'auto',
+                position: "bottom center"
+            )
         , 500
 
 
 Template.requests.helpers
-    your_request_docs: ->
-        Docs.find
-            model:'request'
-            _author_id: Meteor.userId()
-            status: $ne:'delivered'
+    # roof_requests: ->
+    #     Docs.find
+    #         model:'request'
+    #         _author_id: Meteor.userId()
+    #         status: $ne:'delivered'
     unprocessed_requests: ->
         Docs.find
             model:'request'
@@ -221,7 +242,7 @@ Template.role_picker.events
                 console.log r
                 $('body').toast(
                     showIcon: 'user'
-                    message: @name
+                    message: "switched to #{@name}"
                     # showProgress: 'bottom'
                     class: 'success'
                     # displayTime: 'auto',

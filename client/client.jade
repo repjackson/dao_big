@@ -80,15 +80,11 @@ template(name='nav')
                 
 
 
-
-
 template(name='role_picker')
     .ui.circular.basic.big.compact.button.pick_user
         |#{name}
         
         
-        
-
 
 template(name='transfers')
     .ui.padded.stackable.grid
@@ -116,25 +112,25 @@ template(name='transfers')
 template(name='requests')
     .ui.padded.stackable.grid
         // unless is currentUser.username 'porters'
-        .eight.wide.column
-            .ui.inline.center.aligned.header 
-                i.bullhorn.icon
-                |#{your_request_docs.count} #{currentUser.username} requests
-            .ui.list.smallscroll
-                each your_request_docs
-                    +request_item
         // .eight.wide.column
         //     .ui.inline.center.aligned.header 
         //         i.bullhorn.icon
-        //         |#{unprocessed_requests.count} new requests
-        //     .ui.list.smallscroll
-        //         each unprocessed_requests
+        //         |#{roof_requests.count} #{currentUser.username} requests
+        //     .ui.list.smallscrol
+        //         each roof_requests
         //             +request_item
+        .eight.wide.column
+            .ui.inline.center.aligned.header 
+                i.bullhorn.icon
+                |#{unprocessed_requests.count} new requests
+            .ui.list.smallscrol
+                each unprocessed_requests
+                    +request_item
         .eight.wide.column
             .ui.inline.center.aligned.header 
                 i.running.icon
                 |#{processed_requests.count} in progress
-            .ui.list.smallscroll
+            .ui.list.smallscrol
                 each processed_requests
                     +request_item
     +items
@@ -173,7 +169,11 @@ template(name='request_item')
             else if is_processing
                 div
                 |picked up {{from_now pick_up_timestamp}}
-                if is_requester
+                if is_roof
+                    .ui.big.green.button.mark_complete
+                        i.checkmark.icon
+                        |mark complete
+                if is_porters
                     .ui.big.green.button.mark_delivered
                         i.checkmark.icon
                         |mark delivered
