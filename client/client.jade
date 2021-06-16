@@ -59,13 +59,13 @@ template(name='nav')
         a.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
             i.bullhorn.large.icon
             .mobile.hidden #{requests.count} requests
-        if is_admin
-            a.item.zoomer(href='/transfers' class="{{isActivePath '/transfers'}}")
-                i.exchange.large.icon
-                .mobile.hidden #{transfer.count} transfers
-        a.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
-            i.food.large.icon
-            .mobile.hidden #{items.count} items
+        // if is_admin
+        //     a.item.zoomer(href='/transfers' class="{{isActivePath '/transfers'}}")
+        //         i.exchange.large.icon
+        //         .mobile.hidden #{transfer.count} transfers
+        // a.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
+        //     i.food.large.icon
+        //     .mobile.hidden #{items.count} items
         if currentUser
             a.item(href="/user/#{currentUser.username}" class=user_nav_button_class title=user_nav_button_title)
                 if currentUser.image_id
@@ -113,6 +113,34 @@ template(name='transfers')
             .ui.header requests last week
             
             
+template(name='requests')
+    .ui.padded.stackable.grid
+        // unless is currentUser.username 'porters'
+        .eight.wide.column
+            .ui.inline.center.aligned.header 
+                i.bullhorn.icon
+                |#{your_request_docs.count} #{currentUser.username} requests
+            .ui.list.smallscroll
+                each your_request_docs
+                    +request_item
+        // .eight.wide.column
+        //     .ui.inline.center.aligned.header 
+        //         i.bullhorn.icon
+        //         |#{unprocessed_requests.count} new requests
+        //     .ui.list.smallscroll
+        //         each unprocessed_requests
+        //             +request_item
+        .eight.wide.column
+            .ui.inline.center.aligned.header 
+                i.running.icon
+                |#{processed_requests.count} in progress
+            .ui.list.smallscroll
+                each processed_requests
+                    +request_item
+    +items
+
+
+
 
 template(name='request_item')
     .ui.grid
@@ -154,3 +182,54 @@ template(name='request_item')
                 | picked up {{from_now pick_up_timestamp}}
                 |, delivered {{from_now delivered_timestamp}}
                 |, ({{delivery_time}} mins)                
+                
+                
+                
+template(name='items')
+    .ui.padded.stackable.grid
+        .sixteen.wide.column
+            .ui.inline.header 
+                |item request menu
+                if is_admin
+                    i.plus.circular.link.small.icon.add_item
+            // .ui.input
+            //     input(type='text' placeholder='search title...')
+        .sixteen.wide.column
+            .ui.six.doubling.cards
+                each unarchived_items
+                    +item_item
+        if is_admin
+            .sixteen.wide.column
+                .ui.header 
+                    i.archive.icon
+                    |archived items
+                .ui.six.doubling.cards
+                    each archived_items
+                        +item_item
+                div
+        
+
+
+template(name='item_item')
+    if session_is 'editing_item' _id
+        .ui.card
+            +image_edit key='image_id' direct=true
+            .content
+                +text_edit key='title' direct=true
+                i.checkmark.circular.link.green.icon.save_item   
+                +boolean_edit key='archived' label='archived' icon='archive' direct=true
+    else
+        .ui.card
+            if is_roof
+                img.ui.image.request_item.pointer(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+            else
+                img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+            .content
+                .ui.inline.header #{title}
+                // if is_roof            
+                //     .ui.basic.button.request_item
+                //         i.dolly.green.icon
+                //         |request
+                if is_admin
+                    i.pencil.circular.link.icon.edit_item            
+                

@@ -161,24 +161,48 @@ Template.request_item.helpers
             'yellow'
         else if @status is 'received'
             'green'
+            
+Template.items.helpers
+    unarchived_items: ->
+        Docs.find
+            model:'item'
+            archived:$ne:true
+    archived_items: ->
+        Docs.find
+            model:'item'
+            archived:true
+            
+Template.items.events
+    'click .save_item': ->
+        Session.set('editing_item', null)
+    'click .edit_item': ->
+        Session.set('editing_item',@_id) 
+    'click .add_item': ->
+        new_id = 
+            Docs.insert 
+                model:'item'
+        Session.set('editing_item', @_id)
+            
+            
 Template.item_item.events
     'click .request_item': (e,t)->
         # if confirm 'request?'
-        $(e.currentTarget).closest('.card').transition('bounce', 500)
-        Docs.insert 
-            model:'request'
-            item_id:@_id
-            item_title:@title
-            item_image_id: @image_id
-            status:'requested'
-        $('body').toast(
-            showIcon: 'bullhorn'
-            message: "#{@title} requested"
-            # showProgress: 'bottom'
-            class: 'success'
-            # displayTime: 'auto',
-            position: "bottom center"
-        )
+        if Meteor.user() and Meteor.user().username is 'roof'
+            $(e.currentTarget).closest('.card').transition('bounce', 500)
+            Docs.insert 
+                model:'request'
+                item_id:@_id
+                item_title:@title
+                item_image_id: @image_id
+                status:'requested'
+            $('body').toast(
+                showIcon: 'bullhorn'
+                message: "#{@title} requested"
+                # showProgress: 'bottom'
+                class: 'success'
+                # displayTime: 'auto',
+                position: "bottom center"
+            )
             
             
         
