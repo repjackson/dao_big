@@ -12,6 +12,11 @@
 .button {
   margin:.1em !important;
 }
+.button:hover {
+  transition: transform .5s; /* Animation */
+  transform: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  /*margin:.1em !important;*/
+}
  /*Mobile */
 @media only screen and (max-width: 767px) {
   .mobile.hidden,

@@ -37,15 +37,16 @@ template(name='layout')
         unless currentUser
             .ui.center.aligned.basic.segment
                 strong pick perspective
-                +role_picker name='middle_eastern' 
-                +role_picker name='mexican' 
-                +role_picker name='chinese' 
-                +role_picker name='italian' 
-                +role_picker name='american' 
-                +role_picker name='pastry' 
+                // +role_picker name='middle_eastern' 
+                // +role_picker name='mexican' 
+                // +role_picker name='mediterranean' 
+                // +role_picker name='chinese' 
+                // +role_picker name='italian' 
+                // +role_picker name='american' 
+                // +role_picker name='pastry' 
                 +role_picker name='porters' 
                 +role_picker name='roof_bar' 
-                +role_picker name='bar' 
+                // +role_picker name='bar' 
                 +role_picker name='admin' 
         +yield
 
@@ -190,9 +191,16 @@ template(name='request_item')
                 |#{item_title} 
                 i.large.chevron.right.icon
                 |#{_author_username}
+                if is_requested
+                    i.big.bullhorn.red.icon(title='requested')
+                else if is_processing
+                    i.big.running.yellow.icon(title='en route')
+                else if is_delivered
+                    i.big.checkmark.green.icon(title='delivered')
+                    // .ui.big.label(class=request_class)
+            div 
+            i.grey.clock.icon
             | added #{when}
-            .ui.big.label(class=request_class)
-                |#{status}
             if is_requested
                 if is_porters
                     .ui.big.yellow.button.pick_up
@@ -203,9 +211,11 @@ template(name='request_item')
                         i.remove.icon
                         // |cancel
             else if is_processing
+                div
                 |picked up {{from_now pick_up_timestamp}}
                 if is_requester
-                    .ui.green.button.mark_delivered
+                    .ui.big.green.button.mark_delivered
+                        i.checkmark.icon
                         |mark delivered
                 // if key_value_is _author_username currentUser.username
             else if is_delivered
