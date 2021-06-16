@@ -1,0 +1,24 @@
+template(name='requests')
+    .ui.padded.stackable.grid
+        unless is currentUser.username 'porters'
+            .eight.wide.column
+                .ui.inline.center.aligned.header 
+                    i.bullhorn.icon
+                    |#{your_request_docs.count} #{currentUser.username} requests
+                .ui.list.smallscroll
+                    each your_request_docs
+                        +request_item
+        .eight.wide.column
+            .ui.inline.center.aligned.header 
+                i.bullhorn.icon
+                |#{unprocessed_requests.count} new requests
+            .ui.list.smallscroll
+                each unprocessed_requests
+                    +request_item
+        .eight.wide.column
+            .ui.inline.center.aligned.header 
+                i.running.icon
+                |#{processed_requests.count} in progress
+            .ui.list.smallscroll
+                each processed_requests
+                    +request_item

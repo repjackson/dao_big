@@ -44,7 +44,7 @@ Template.nav.events
         Session.set 'logging_out', true
         Meteor.logout ->
             Session.set 'logging_out', false
-            Router.go '/'
+            # Router.go '/'
 
 Template.nav.onCreated ->
     @autorun -> Meteor.subscribe 'me'
@@ -99,7 +99,7 @@ Template.request_item.events
         , 500
     
     'click .pick_up':(e,t)->
-        $(e.currentTarget).closest('.grid').transition('tada', 500)
+        $(e.currentTarget).closest('.grid').transition('bounce', 500)
         Meteor.setTimeout =>
             Docs.update @_id, 
                 $set:
@@ -181,20 +181,6 @@ Template.item_item.events
         )
             
             
-Template.items.helpers
-    item_docs: ->
-        Docs.find
-            model:'item'
-Template.items.events
-    'click .save_item': ->
-        Session.set('editing_item', null)
-    'click .edit_item': ->
-        Session.set('editing_item',@_id) 
-    'click .add_item': ->
-        new_id = 
-            Docs.insert 
-                model:'item'
-        Session.set('editing_item', @_id)
         
         
 Template.role_picker.events

@@ -62,6 +62,9 @@ Template.registerHelper 'key_value_is', (key, value)->
 Template.registerHelper 'is_porters', ->
     if Meteor.user()
         Meteor.user().username is 'porters'
+Template.registerHelper 'is_roof', ->
+    if Meteor.user()
+        Meteor.user().username is 'roof'
 Template.registerHelper 'is_admin', ->
     if Meteor.user()
         Meteor.user().username is 'admin'

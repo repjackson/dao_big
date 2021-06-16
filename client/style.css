@@ -99,3 +99,7 @@
 .inline {
   display:inline !important;
 }
+
+body, p, header {
+  font-family: "Portrait","Montserrat",sans-serif;
+}
