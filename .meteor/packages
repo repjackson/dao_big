@@ -32,3 +32,4 @@ matb33:collection-hooks
 mquandalle:jade
 underscore@1.0.10
 coffeescript
+multiply:iron-router-progress

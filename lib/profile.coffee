@@ -59,3 +59,8 @@ if Meteor.isClient
         Meteor.setTimeout ->
             $('.button').popup()
         , 2000
+        
+        
+
+
+        
