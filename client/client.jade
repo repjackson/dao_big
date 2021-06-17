@@ -36,19 +36,20 @@ template(name='layout')
     .global_container.scrolling
         unless currentUser
             .ui.center.aligned.basic.segment
-                strong pick perspective
-                // +role_picker name='middle_eastern' 
-                // +role_picker name='mexican' 
-                // +role_picker name='mediterranean' 
-                // +role_picker name='chinese' 
-                // +role_picker name='italian' 
-                // +role_picker name='american' 
-                // +role_picker name='pastry' 
+                strong pick station
+                +role_picker name='middle_eastern' 
+                +role_picker name='mexican' 
+                +role_picker name='mediterranean' 
+                +role_picker name='chinese' icon='rice-bowl'
+                +role_picker name='italian' icon='spaghetti'
+                +role_picker name='american' icon='hamburger'
+                +role_picker name='pastry' 
                 +role_picker name='porters' 
                 +role_picker name='roof' 
-                // +role_picker name='bar' 
+                +role_picker name='lower_bar' 
                 +role_picker name='admin' 
-        +yield
+        else
+            +yield
 
 
 template(name='nav')
@@ -82,6 +83,8 @@ template(name='nav')
 
 template(name='role_picker')
     .ui.circular.basic.big.compact.button.pick_user
+        if icon
+            +i name=icon cl='ui avatar image'
         |#{name}
         
         
@@ -133,7 +136,8 @@ template(name='requests')
             .ui.list.smallscrol
                 each processed_requests
                     +request_item
-    +items
+    unless is_porters
+        +items
 
 
 
