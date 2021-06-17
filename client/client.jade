@@ -35,7 +35,7 @@ template(name='layout')
     +nav
     if logging_in
         .ui.center.aligned.basic.segment
-            i.massive.loading.food.icon
+            i.massive.loading.food.grey.icon
     else
         .global_container.scrolling
             unless currentUser
@@ -52,6 +52,10 @@ template(name='layout')
                     +role_picker name='roof' icon='bar-building'
                     +role_picker name='lower_bar' icon='bar'
                     +role_picker name='admin' icon='shield'
+                .ui.center.aligned.basic.segment
+                    strong or pick user
+                        each users
+                            +role_picker name=username icon='israel'
             else
                 +yield
 
@@ -64,10 +68,13 @@ template(name='nav')
         a.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
             i.bullhorn.large.icon
             .mobile.hidden #{requests.count} requests
+        a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
+            i.users.large.icon
+            .mobile.hidden #{users.count} users
         // if is_admin
-        //     a.item.zoomer(href='/transfers' class="{{isActivePath '/transfers'}}")
-        //         i.exchange.large.icon
-        //         .mobile.hidden #{transfer.count} transfers
+        a.item.zoomer(href='/transfers' class="{{isActivePath '/transfers'}}")
+            i.exchange.large.icon
+            .mobile.hidden #{transfer.count} transfers
         // a.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
         //     i.food.large.icon
         //     .mobile.hidden #{items.count} items
@@ -155,13 +162,13 @@ template(name='request_item')
                 |#{item_title} 
                 i.large.chevron.right.icon
                 |#{_author_username}
-                if is_requested
-                    i.big.bullhorn.red.icon(title='requested')
-                else if is_processing
-                    i.big.running.yellow.icon(title='en route')
-                else if is_delivered
-                    i.big.checkmark.green.icon(title='delivered')
-                    // .ui.big.label(class=request_class)
+                // if is_requested
+                //     i.bullhorn.red.icon(title='requested')
+                // else if is_processing
+                //     i.running.yellow.icon(title='en route')
+                // else if is_delivered
+                //     i.checkmark.green.icon(title='delivered')
+                //     // .ui.big.label(class=request_class)
             div 
             i.grey.clock.icon
             | added #{when}
@@ -198,10 +205,10 @@ template(name='items')
         .sixteen.wide.column
             .ui.inline.header 
                 |item request menu
-                if is_admin
-                    i.plus.circular.link.small.icon.add_item
-            // .ui.input
-            //     input(type='text' placeholder='search title...')
+                // if is_admin
+                i.plus.circular.link.small.icon.add_item
+            .ui.input
+                input(type='text' placeholder='search title...')
         .sixteen.wide.column
             .ui.six.doubling.cards
                 each unarchived_items

@@ -197,10 +197,8 @@ Template.items.helpers
             archived:true
             
 Template.items.events
-    'click .save_item': ->
-        Session.set('editing_item', null)
-    'click .edit_item': ->
-        Session.set('editing_item',@_id) 
+    'click .save_item': -> Session.set('editing_item', null)
+    'click .edit_item': -> Session.set('editing_item',@_id) 
     'click .add_item': ->
         new_id = 
             Docs.insert 
