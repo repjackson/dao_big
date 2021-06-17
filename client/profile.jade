@@ -10,38 +10,20 @@ template(name='user_layout')
                     .spacer
                     a(href="/user/#{username}")
                         .ui.center.aligned.header
-                            strong #{username}
-                            //- 
-                            //- strong #{first_name} #{last_name}
-                            //- small @#{username}        
-                    a.ui.center.aligned.inline.header.mobile.hidden(href="/user/#{username}/credit" title='credit')
-                        |{{fixed credit}}c
+                            | #{username}
                     .ui.two.column.middle.aligned.grid.mobile.only
                         .column
                             img.ui.small.inline.image.mobile.only(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         .column
                             .ui.inline.header
                                 strong #{username}
-                                //- small @#{username}        
-                            a.ui.inline.header(href="/user/#{user_from_username_param.username}/credit" title='credit')
-                                //- +i name='coins'
-                                //- i.coins.icon
-                                |{{fixed user.credit}}c
                     if is_current_user
-                        a.ui.basic.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
+                        a.ui.basic.circular.icon.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                             i.cog.icon
-                            |edit
-                    else if is_admin
-                        a.ui.basic.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
-                            +i name='settings' cl='ui avatar image'
-                            |edit
                     if is_current_user
                         .ui.basic.button.logout
                             i.sign.out.alternate.icon
                             |log out
-                        //- a.ui.basic.button.logout_other_clients(href="#" title='logout other clients')
-                        //-     i.globe.icon
-                        //-     |log out other clients
                 .twelve.wide.column
                     a.ui.basic.button(href="/user/#{username}/requests" class="{{isActiveRoute 'user_requests'}}")
                         i.bullhorn.icon
@@ -78,9 +60,7 @@ template(name='user_edit')
             .row
                 .four.wide.column
                     .ui.center.aligned.large.inline.grey.header
-                        | #{user_from_username_param}
-                    //- +i name='pencil'
-                    .ui.small.inline.header @#{user_from_username_param.username}
+                        | #{user_from_username_param.username}
                     a.ui.big.circular.icon.green.button(href="/user/#{user_from_username_param.username}/") 
                         i.checkmark.big.icon
                     .ui.hidden.divider

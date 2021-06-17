@@ -31,7 +31,10 @@ Template.body.events
     #     .transition('fade out', 5000)
     #     .transition('fade in', 5000)
 
-
+Template.layout.helpers
+    logging_in: -> Meteor.loggingIn()
+    
+    
 Template.nav.events
     # 'mouseenter .item': (e,t)->
     #     $(e.currentTarget).closest('.item').transition('pulse')
@@ -208,7 +211,7 @@ Template.items.events
 Template.item_item.events
     'click .request_item': (e,t)->
         # if confirm 'request?'
-        if Meteor.user() and Meteor.user().username is 'roof'
+        if Meteor.user()
             $(e.currentTarget).closest('.card').transition('bounce', 500)
             Docs.insert 
                 model:'request'
