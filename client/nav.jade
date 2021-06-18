@@ -10,9 +10,16 @@ template(name='nav')
             i.users.icon
             .mobile.hidden #{users.count} users
         // if is_admin
-        a.item.zoomer(href='/transfers' class="{{isActivePath '/transfers'}}")
-            i.exchange.icon
-            .mobile.hidden #{transfer.count} transfers
+        a.item.zoomer(href='/recipes' class="{{isActivePath '/recipes'}}")
+            i.food.icon
+            .mobile.hidden #{recipes.count} recipes
+        a.item.zoomer(href='/products' class="{{isActivePath '/products'}}")
+            i.shop.icon
+            .mobile.hidden shop
+        // if is_admin
+        a.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
+            i.list.icon
+            .mobile.hidden work
         // a.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
         //     i.food.icon
         //     .mobile.hidden #{items.count} items

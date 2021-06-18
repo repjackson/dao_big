@@ -71,20 +71,20 @@
 } 
 
 
-.scrolling{
-	overflow-y:scroll;
-	overflow-x:hidden;
-	max-height:85vh;
-	padding-top: 1em;
-	padding-left: 1em;
-}
-.smallscroll{
-	overflow-y:scroll;
-	overflow-x:hidden;
-	max-height:500px;
-	padding-top: 1em;
-	padding-left: 1em;
-}
+/*.scrolling{*/
+/*	overflow-y:scroll;*/
+/*	overflow-x:hidden;*/
+/*	max-height:85vh;*/
+/*	padding-top: 1em;*/
+/*	padding-left: 1em;*/
+/*}*/
+/*.smallscroll{*/
+/*	overflow-y:scroll;*/
+/*	overflow-x:hidden;*/
+/*	max-height:500px;*/
+/*	padding-top: 1em;*/
+/*	padding-left: 1em;*/
+/*}*/
 
 .smallscroll::-webkit-scrollbar {
     width: 3px;
@@ -320,12 +320,12 @@ body, p, header {
 }
 
 #iron-router-progress {
-	background-color : black;
-	box-shadow       : 0 0 10px black;
+	background-color : white;
+	box-shadow       : 0 0 10px white;
 }
 
 #iron-router-progress.spinner:before {
-	border-color : black;
+	border-color : white;
 }
 
 

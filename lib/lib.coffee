@@ -1,9 +1,13 @@
 @Docs = new Meteor.Collection 'docs'
 @Tags = new Meteor.Collection 'tags'
 
+@Results = new Meteor.Collection 'results'
 
 Docs.before.insert (userId, doc)->
-    doc._author_id = Meteor.userId()
+    if Meteor.userId()
+        doc._author_id = Meteor.userId()
+        doc._author_username = Meteor.user().username
+    
     timestamp = Date.now()
     doc._timestamp = timestamp
     doc._timestamp_long = moment(timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a")
@@ -26,8 +30,6 @@ Docs.before.insert (userId, doc)->
         doc._timestamp_tags = date_array
 
     doc._author_id = Meteor.userId()
-    if Meteor.user()
-        doc._author_username = Meteor.user().username
     doc.app = 'pes'
     # doc.points = 0
     # doc.downvoters = []
@@ -65,7 +67,7 @@ Docs.helpers
     
 Router.configure
     layoutTemplate: 'layout'
-    notFoundTemplate: 'requests'
+    notFoundTemplate: 'not_found'
     loadingTemplate: 'splash'
     trackPageView: false
 

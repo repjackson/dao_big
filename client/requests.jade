@@ -1,0 +1,75 @@
+template(name='requests')
+    .ui.padded.stackable.grid
+        // unless is currentUser.username 'porters'
+        // .eight.wide.column
+        //     .ui.inline.center.aligned.header 
+        //         i.bullhorn.icon
+        //         |#{roof_requests.count} #{currentUser.username} requests
+        //     .ui.list.smallscrol
+        //         each roof_requests
+        //             +request_item
+        .eight.wide.column
+            .ui.inline.center.aligned.header 
+                i.bullhorn.icon
+                |#{unprocessed_requests.count} new requests
+            .ui.list.smallscrol
+                each unprocessed_requests
+                    +request_item
+        .eight.wide.column
+            .ui.inline.center.aligned.header 
+                i.running.icon
+                |#{processed_requests.count} in progress
+            .ui.list.smallscrol
+                each processed_requests
+                    +request_item
+    unless is_porters
+        .mediumscroll
+            +items
+
+
+template(name='request_item')
+    .ui.grid
+        .four.wide.column
+            img.ui.inline.image(src="{{c.url item_image_id width=500 height=500 gravity='face' crop='fill'}}")
+        .twelve.wide.column
+            .ui.inline.header
+                |#{item_title} 
+                i.large.chevron.right.icon
+                |#{_author_username}
+                // if is_requested
+                //     i.bullhorn.red.icon(title='requested')
+                // else if is_processing
+                //     i.running.yellow.icon(title='en route')
+                // else if is_delivered
+                //     i.checkmark.green.icon(title='delivered')
+                //     // .ui.big.label(class=request_class)
+            div 
+            i.grey.clock.icon
+            | added #{when}
+            if is_requested
+                if is_porters
+                    .ui.big.yellow.button.pick_up
+                        i.running.icon
+                        |pick up
+                if is_requester
+                    .ui.basic.red.circular.icon.button.cancel_request(title='cancel')
+                        i.remove.icon
+                        // |cancel
+            else if is_processing
+                div
+                |picked up {{from_now pick_up_timestamp}}
+                if is_roof
+                    .ui.big.green.button.mark_complete
+                        i.checkmark.icon
+                        |mark complete
+                if is_porters
+                    .ui.big.green.button.mark_delivered
+                        i.checkmark.icon
+                        |mark delivered
+                // if key_value_is _author_username currentUser.username
+            else if is_delivered
+                | picked up {{from_now pick_up_timestamp}}
+                |, delivered {{from_now delivered_timestamp}}
+                |, ({{delivery_time}} mins)                
+                
+                
