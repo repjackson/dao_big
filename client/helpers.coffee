@@ -190,14 +190,16 @@ Template.registerHelper 'is_eric', () -> if Meteor.userId() and Meteor.userId() 
 
 Template.registerHelper 'current_user', () ->  Meteor.users.findOne username:Router.current().params.username
 Template.registerHelper 'is_current_user', () ->
-    if Meteor.user().username is Router.current().params.username
-        true
-    else
-        if Meteor.user().roles and 'dev' in Meteor.user().roles
+    if Meteor.user()
+        if Meteor.user().username is Router.current().params.username
             true
         else
-            false
-            
+            if Meteor.user().roles and 'dev' in Meteor.user().roles
+                true
+            else
+                false
+    else 
+        false
             
 Template.registerHelper 'view_template', -> "#{@field_type}_view"
 Template.registerHelper 'edit_template', -> "#{@field_type}_edit"
