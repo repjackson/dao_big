@@ -35,7 +35,9 @@ Template.registerHelper 'today', () -> moment(Date.now()).format("dddd, MMMM Do 
 Template.registerHelper 'fixed', (input) ->
     if input
         input.toFixed(2)
-Template.registerHelper 'int', (input) -> input.toFixed(0)
+Template.registerHelper 'int', (input) -> 
+    if input
+        input.toFixed(0)
 Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 Template.registerHelper 'cal_time', (input) -> moment(input).calendar()
@@ -285,3 +287,55 @@ Template.registerHelper 'calculated_size', (metric) ->
 
 
 Template.registerHelper 'in_dev', () -> Meteor.isDevelopment
+
+
+Template.registerHelper 'model_docs_helper', (model) ->
+    console.log model
+    Docs.find 
+        model:model
+Template.registerHelper 'subs_ready', () -> 
+    Template.instance().subscriptionsReady()
+
+Template.registerHelper 'order_things',-> 
+    Docs.find 
+        model:'thing'
+        order_id:@_id
+
+Template.registerHelper 'order_count',-> Counts.get('order_count')
+Template.registerHelper 'product_count',-> Counts.get('product_count')
+Template.registerHelper 'ingredient_count',-> Counts.get('ingredient_count')
+Template.registerHelper 'subscription_count',-> Counts.get('subscription_count')
+Template.registerHelper 'source_count',-> Counts.get('source_count')
+Template.registerHelper 'giftcard_count',-> Counts.get('giftcard_count')
+Template.registerHelper 'user_count',-> Counts.get('user_count')
+Template.registerHelper 'staff_count',-> Counts.get('staff_count')
+Template.registerHelper 'customer_count',-> Counts.get('customer_count')
+
+
+Template.registerHelper 'cart_subtotal', () -> 
+    store_session_document = 
+        Docs.findOne 
+            model:'store_session'
+    if store_session_document.cart_product_ids
+        subtotal = 0
+        for product in Docs.find(_id:$in:store_session_document.cart_product_ids).fetch()
+            if product.price_usd
+                subtotal += product.price_usd
+                # console.log 'product', product
+        subtotal
+    
+Template.registerHelper 'my_cart_subtotal', () ->
+    
+    subtotal = 0
+    for item in Docs.find(model:'thing',_author_id:Meteor.userId(),status:'cart').fetch()
+        # product = Docs.findOne(item.product_id)
+        # console.log product
+        subtotal += item.product_price
+        # if product
+        #     if product.price_usd
+        # if product.price_usd
+        #     console.log product.price_usd
+            # console.log 'product', product
+    # console.log subtotal
+    subtotal.toFixed(2)
+    

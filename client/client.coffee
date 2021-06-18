@@ -14,7 +14,7 @@ $.cloudinary.config
     # action: 'not_found'
 
 Template.body.events
-    'click a': ->
+    "click a:not('.no_blink')": ->
         $('.global_container')
         .transition('fade out', 200)
         .transition('fade in', 200)
