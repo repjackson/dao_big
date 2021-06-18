@@ -590,11 +590,11 @@ input.username_search{
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2) !important;
     filter: drop-shadow(0px 0px 5px rgba(100,100,100,.9)) !important; 
 }
-.segment, .label:not(.no_format){
+.segment, .label:not(.no_format), item {
     /* -webkit-border-radius: 5px !important; */
     /* -moz-border-radius: 5px !important; */
     opacity:.9 !important;
-    font-family: 'Ubuntu', sans-serif !important;
+    font-family: 'Benne', sans-serif !important;
     /*filter: invert(.9) !important;*/
 
      /*border-radius: 8px !important; */
@@ -774,11 +774,11 @@ input.username_search{
 .ui.header{
     /* font-family: 'Raleway', sans-serif !important; */
     /* font-family: 'Roboto', sans-serif !important; */
-     font-family: 'Ubuntu' !important; 
+     font-family: 'Benne' !important; 
     /*font-family: 'Goudy Bookletter 1911', sans-serif !important;*/
 }
 h1.ui.header{
-     font-family: 'Ubuntu', sans-serif !important; 
+     font-family: 'Benne', sans-serif !important; 
     /* font-family: 'Lusitana', serif !important; */
     /* font-size: 300% !important; */
     /* color: #5a4400 !important; */

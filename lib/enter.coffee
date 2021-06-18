@@ -3,6 +3,10 @@ if Meteor.isClient
         @layout 'layout'
         @render 'register'
         ), name:'register'
+    Router.route '/login', (->
+        @layout 'layout'
+        @render 'login'
+        ), name:'login'
 
 
 

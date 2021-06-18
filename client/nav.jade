@@ -1,12 +1,12 @@
 template(name='nav')
-    #topnav.topnav.ui.attached.inverted.big.menu
+    #topnav.topnav.ui.attached.inverted.borderless.menu(style="background-color:#062639;")
         if is_loading
             .icon.item
                 i.big.loading.grey.food.icon.cancel
         else 
             a.icon.item.toggle_leftbar.no_blink
                i.bars.icon 
-        a.image.item.zoomer(href='/' class="{{isActivePath '/'}}" title='food')
+        a.image.item.zoomer(href='/' class="{{isActivePath '/'}}" title='Rosetta Hall')
             img.ui.avatar.image(src="https://d2s742iet3d3t1.cloudfront.net/restaurants/restaurant-33707000000000000/restaurant_1619610434.jpg")
             // i.home.icon
             // .mobile.hidden RH
@@ -39,65 +39,61 @@ template(name='nav')
             strong ${{int currentUser.credit}}
             // i.cart.icon
             
-        if currentUser
-            a.item(href="/user/#{currentUser.username}" class=user_nav_button_class title=user_nav_button_title)
-                if currentUser.image_id
-                    img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
-                else
-                    i.user.icon
-                span #{currentUser.username}
-            // a.icon.item.logout
-            //     i.sign.out.alternate.icon
-            a.icon.item.toggle_rightbar.no_blink
-                if currentUser.image_id
-                    img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face' crop='fill'}}")
-                else
-                    i.user.icon
-                strong.mobile.hidden #{currentUser.name}
-                // i.bars.icon
-                        
-        unless currentUser
-            if subs_ready
-                a.item(href='/login' title='login') 
-                    i.sign.in.icon
-                    // +i name='internal'
-                    |login
-            else 
-                i.food.loading.icon
+        .right.menu
+            if currentUser
+                // a.item(href="/user/#{currentUser.username}" class=user_nav_button_class title=user_nav_button_title)
+                //     if currentUser.image_id
+                //         img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
+                //     else
+                //         i.user.icon
+                //     span #{currentUser.username}
+                // // a.icon.item.logout
+                // //     i.sign.out.alternate.icon
+                a.icon.item.toggle_rightbar.no_blink
+                    if currentUser.image_id
+                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face' crop='fill'}}")
+                    else
+                        i.user.icon
+                    strong.mobile.hidden #{currentUser.username}
+                    // i.bars.icon
+                            
+            unless currentUser
+                if subs_ready
+                    a.item(href='/login' title='login') 
+                        i.sign.in.icon
+                        // +i name='internal'
+                        |login
+                else 
+                    i.food.loading.icon
                 
                 
                 
 template(name='secnav')
-    .ui.attached.borderless.menu.secnav
-        a.icon.item(href='/shop' class="{{isActivePath '/shop'}}" title='shop')
+    .ui.attached.borderless.inverted.menu.secnav(style="background-color:#062639;")
+        a.icon.item.zoomer(href='/shop' class="{{isActivePath '/shop'}}" title='shop')
             i.shop.icon
             // .ui.mini.image
             //     +i name='grocery-shelf' cl=''
         // a.icon.item(href='/ingredients' class="{{isActivePath '/ingredients'}}" title='ingredients')
         //     .ui.mini.image
         //         +i name='ingredients' cl=''
-        a.icon.item(href='/pictures' class="{{isActivePath '/pictures'}}" title='pictures')
+        a.icon.item.zoomer(href='/pictures' class="{{isActivePath '/pictures'}}" title='pictures')
             i.picture.icon
             // .ui.mini.image.farm
             //     +i name='picture' cl=''
-        a.icon.item(href='/recipes' class="{{isActivePath '/recipes'}}" title='recipes')
+        a.icon.item.zoomer(href='/recipes' class="{{isActivePath '/recipes'}}" title='recipes')
             i.food.icon
-        a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
+        a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
-            .mobile.hidden #{users.count} users
         // if is_admin
-        a.icon.item(href='/orders' class="{{isActivePath '/orders'}}" title='orders')
-            i.money.icon
-            // .ui.mini.image.orders
-            //     +i name='invoice' cl=''
+        // a.icon.item(href='/orders' class="{{isActivePath '/orders'}}" title='orders')
+        //     i.money.icon
+        //     // .ui.mini.image.orders
+        //     //     +i name='invoice' cl=''
         a.icon.item(href='/posts' class="{{isActivePath '/posts'}}" title='posts')
             i.newspaper.icon
             // .ui.mini.image
             //     +i name='blog' cl=''
-        a.icon.item(href='/trips' class="{{isActivePath '/trips'}}" title='trips')
-            i.bicycle.icon
-            // .ui.mini.image
-            //     +i name='bicycle' cl=''
         a.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='contact')
             i.chat.icon
             // .ui.mini.image
@@ -188,7 +184,7 @@ template(name='footer')
             //     +icolor name='facebook'
             //     +icolor name='instagram'
 template(name='topbar')
-    .ui.fluid.attached.segment.topbar.top.sidebar
+    .ui.fluid.attached.segment.topbar.top.sidebar(style="background-color:#062639;")
         .ui.middle.aligned.divided.list
         .ui.list
             each recent_alerts
@@ -219,7 +215,7 @@ template(name='walletbar')
         +user_credit
         
 template(name='right_sidebar')
-    .ui.right.sidebar.vertical.inverted.menu.rightbar
+    .ui.right.sidebar.vertical.inverted.menu.rightbar(style="background-color:#062639;")
         a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
             img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |#{currentUser.username}
@@ -276,7 +272,7 @@ template(name='right_sidebar')
 
 
 template(name='left_sidebar')
-    .ui.left.sidebar.vertical.inverted.menu.smallscroll
+    .ui.left.sidebar.vertical.inverted.menu.smallscroll(style="background-color:#062639;")
         a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
             // +i name='food' cl='ui inline mini image'
             // i.home.icon
