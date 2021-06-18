@@ -1,21 +1,18 @@
 template(name='nav')
-    #topnav.topnav.ui.attached.inverted.menu
+    #topnav.topnav.ui.attached.inverted.big.menu
         if is_loading
             .icon.item
                 i.big.loading.grey.food.icon.cancel
         else 
             a.icon.item.toggle_leftbar.no_blink
                i.bars.icon 
-        a.item.zoomer(href='/' class="{{isActivePath '/'}}" title='food')
-            i.home.icon
-            .mobile.hidden RH
+        a.image.item.zoomer(href='/' class="{{isActivePath '/'}}" title='food')
+            img.ui.avatar.image(src="https://d2s742iet3d3t1.cloudfront.net/restaurants/restaurant-33707000000000000/restaurant_1619610434.jpg")
+            // i.home.icon
+            // .mobile.hidden RH
         a.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
             i.bullhorn.icon
             .mobile.hidden #{requests.count} requests
-        a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
-            i.users.icon
-            .mobile.hidden #{users.count} users
-        // if is_admin
         a.item.zoomer(href='/recipes' class="{{isActivePath '/recipes'}}")
             i.food.icon
             .mobile.hidden #{recipes.count} recipes
@@ -85,8 +82,10 @@ template(name='secnav')
             //     +i name='picture' cl=''
         a.icon.item(href='/recipes' class="{{isActivePath '/recipes'}}" title='recipes')
             i.food.icon
-        a.icon.item(href='/cars' class="{{isActivePath '/cars'}}" title='cars')
-            i.car.icon
+        a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
+            i.users.icon
+            .mobile.hidden #{users.count} users
+        // if is_admin
         a.icon.item(href='/orders' class="{{isActivePath '/orders'}}" title='orders')
             i.money.icon
             // .ui.mini.image.orders
@@ -99,8 +98,8 @@ template(name='secnav')
             i.bicycle.icon
             // .ui.mini.image
             //     +i name='bicycle' cl=''
-        a.icon.item(href='/contact' class="{{isActivePath '/contact'}}" title='contact')
-            i.phone.icon
+        a.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='contact')
+            i.chat.icon
             // .ui.mini.image
             //     +i name='phone' cl='ui inline mini image'
         if currentUser
@@ -282,10 +281,10 @@ template(name='left_sidebar')
             // +i name='food' cl='ui inline mini image'
             // i.home.icon
             img.ui.small.centered.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
-        .search.item(title='search')
-            .ui.icon.transparent.input
-                i.search.icon
-                input.search_global(type='text')
+        // .search.item(title='search')
+        //     .ui.icon.transparent.input
+        //         i.search.icon
+        //         input.search_global(type='text')
         a.item.toggle_leftbar(href='/shop' class="{{isActivePath '/shop'}}" title='shop')
             i.shop.icon
             // .ui.avatar.image
@@ -303,14 +302,19 @@ template(name='left_sidebar')
             .ui.avatar.image.info
                 +i name='cookbook' cl=''
             |#{recipe_count} recipes
-        a.item.toggle_leftbar.zoomer(href='/contact' class="{{isActivePath '/contact'}}" title='news')
-            i.phone.icon
+        a.item.toggle_leftbar.zoomer(href='/chat' class="{{isActivePath '/chat'}}" title='news')
+            i.chat.icon
             // +i name='phone' cl='ui inline mini image'
-            | contact
+            | chat
         a.item.toggle_leftbar.zoomer(href='/posts' class="{{isActivePath '/posts'}}" title='posts')
             i.newspaper.icon
             // +i name='blog' cl='ui inline mini image'
             | #{post_count} posts
+        a.item.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
+            i.users.icon
+            | #{users.count} users
+        // if is_admin
+            
         if is_in_admin
             a.icon.item.toggle_admin.toggle_leftbar.no_blink
                 |toggle admin
