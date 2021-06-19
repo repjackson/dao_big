@@ -1,12 +1,12 @@
-template(name='work')
+template(name='task')
     .ui.stackable.padded.grid
         .sixteen.wide.column
             .ui.inline.header 
                 i.wrench.icon
-                |work
-            .ui.basic.button.add_work
+                |task
+            .ui.basic.button.add_task
                 i.large.plus.icon
-                |log work
+                |log task
             .ui.basic.button.add_task
                 i.large.plus.icon
                 |task
@@ -58,11 +58,11 @@ template(name='work')
                 .spacer 
         
             span.ui.stackable.cards.scrolling
-                each model_docs_helper 'work'
+                each model_docs_helper 'task'
                     .ui.card
-                        a(href="/work/#{_id}") 
+                        a(href="/task/#{_id}") 
                             img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                        a.content(href="/work/#{_id}") 
+                        a.content(href="/task/#{_id}") 
                             .ui.header 
                                 |#{title}
                             |added #{when} by #{_author_username}
@@ -73,23 +73,23 @@ template(name='work')
                             i.chat.icon
                             i.users.icon
      
-template(name='product_work')
+template(name='product_task')
     .ui.inline.header 
         +i name='cookbook'
-        |work
-    .ui.icon.basic.button.add_work
+        |task
+    .ui.icon.basic.button.add_task
         i.plus.green.icon
     div
-    each model_docs_helper 'work'
-        a.ui.header(href="/work/#{_id}/view") #{title}
+    each model_docs_helper 'task'
+        a.ui.header(href="/task/#{_id}/view") #{title}
         
                 
                 
-template(name='user_work')
+template(name='user_task')
     .ui.inline.header 
         +i name='cookbook'
-        |user work
-    .ui.basic.icon.button.send_work
+        |user task
+    .ui.basic.icon.button.send_task
         i.large.plus.icon
     .ui.padded.stackable.two.column.grid
         .column
@@ -97,10 +97,10 @@ template(name='user_work')
                 +i name='sent--v2'
                 |authored 
             .ui.stackable.cards.scrolling
-                each sent_work 
+                each sent_task 
                     .ui.card
                         .content
-                            a(href="/work/#{_id}") 
+                            a(href="/task/#{_id}") 
                                 img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
     
                             .ui.header 
@@ -108,7 +108,7 @@ template(name='user_work')
                             // |created #{when}
                             |sent {{from_now sent_timestamp}}
                             small {{cal_time sent_timestamp}}
-                            a.ui.icon.button(href='/work/#{_id}')
+                            a.ui.icon.button(href='/task/#{_id}')
                                 i.large.chevron.right.icon
                             
         .column
@@ -119,18 +119,18 @@ template(name='user_work')
                 each favorited
                     .ui.card
                         .content
-                            a(href="/work/#{_id}") 
+                            a(href="/task/#{_id}") 
                                 img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
                             .ui.header 
                                 |#{amount} #{_author_username}
                             |received {{from_now sent_timestamp}}
                             small {{cal_time sent_timestamp}}
-                            a.ui.icon.button(href='/work/#{_id}')
+                            a.ui.icon.button(href='/task/#{_id}')
                             i.ui.large.link.chevron.right.icon.edit_address
                 
                 
                 
-template(name='work_edit')
+template(name='task_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
@@ -138,50 +138,43 @@ template(name='work_edit')
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                        small work
-                    a.ui.large.icon.green.button(href="/work/#{_id}/" title='save product')
+                        small task
+                    a.ui.large.icon.green.button(href="/task/#{_id}/" title='save product')
                         i.checkmark.big.icon
-                    with work_task
-                        .ui.segment
-                            img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                            .ui.header 
-                                |#{title}
-                    // +text_edit key='title' label='title' direct=true
+                    +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
                 .ten.wide.column
                     div
-                    +textarea_edit key='notes' label='notes' direct=true
+                    +textarea_edit key='description' label='description' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
-                    .ui.red.button.delete_work
+                    .ui.red.button.delete_task
                         i.remove.icon   
                         | delete
                 
                 
-template(name='work_view')
+template(name='task_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
-                    a.ui.basic.icon.button(href="/work")
+                    a.ui.basic.icon.button(href="/task")
                         i.wrench.icon
                     .ui.inline.header
                         | #{title}
-                        small work view
-                    with work_task
-                        .ui.segment
-                            img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                            .ui.header 
-                                |#{title}
-                        
+                        small task view
                     +image_view key='image_id' label='image' direct=true
                     div
-                    a.ui.icon.button(href="/work/#{_id}/edit")
+                    a.ui.icon.button(href="/task/#{_id}/edit")
                         i.pencil.icon
                 .eight.wide.column
                     div.scrolling
-                        +html_view key='directions' label='directions' direct=true
-                    // +array_view key='tags' label='tags' icon='tags' direct=true
+                        +html_view key='notes' label='directions' direct=true
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    if currentUser
+                        .ui.button.record_work
+                            |record work
+                            
                     +comments
                 .four.wide.column
                     +html_view key='description' label='description' direct=true

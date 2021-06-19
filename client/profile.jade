@@ -58,20 +58,3 @@ template(name='user_quicklist')
 template(name='user_menu')    
     .ui.header #{user_from_username_param.name} menu
     
-
-
-template(name='user_edit')
-    with user_from_username_param          
-        //- img.ui.fluid.image.checkin_banner(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")    
-        .ui.stackable.padded.grid
-            .row
-                .four.wide.column
-                    .ui.center.aligned.large.inline.grey.header
-                        | #{user_from_username_param.username}
-                    a.ui.big.circular.icon.green.button(href="/user/#{user_from_username_param.username}/") 
-                        i.checkmark.big.icon
-                    .ui.hidden.divider
-                    +image_edit key='image_id' title='image' direct=true
-                .twelve.wide.column
-                    +text_edit key='name' label='name' direct=true
-                    +text_edit key='icon' label='icon' direct=true

@@ -2,11 +2,11 @@ if Meteor.isClient
     Template.nav.onCreated ->
         @autorun => Meteor.subscribe 'me'
         # @autorun => Meteor.subscribe 'all_users'
-        @autorun => Meteor.subscribe 'my_cart'
+        # @autorun => Meteor.subscribe 'my_cart'
         # @autorun => Meteor.subscribe 'my_unread_messages'
         # @autorun => Meteor.subscribe 'global_stats'
-        @autorun => Meteor.subscribe 'my_cart_order'
-        @autorun => Meteor.subscribe 'my_cart_products'
+        # @autorun => Meteor.subscribe 'my_cart_order'
+        # @autorun => Meteor.subscribe 'my_cart_products'
 
     Template.nav.onRendered ->
         Meteor.setTimeout ->
@@ -15,7 +15,7 @@ if Meteor.isClient
             $('.ui.left.sidebar')
                 .sidebar({
                     context: $('.bottom.segment')
-                    transition:'overlay'
+                    transition:'scale'
                     mobileTransition:'scale'
                     exclusive:true
                     duration:200
@@ -27,7 +27,7 @@ if Meteor.isClient
             $('.ui.rightbar')
                 .sidebar({
                     context: $('.bottom.segment')
-                    transition:'overlay'
+                    transition:'scale'
                     mobileTransition:'scale'
                     exclusive:true
                     duration:200
@@ -39,7 +39,7 @@ if Meteor.isClient
             $('.ui.topbar.sidebar')
                 .sidebar({
                     context: $('.bottom.segment')
-                    transition:'overlay'
+                    transition:'scale'
                     mobileTransition:'scale'
                     exclusive:true
                     duration:200
@@ -51,7 +51,7 @@ if Meteor.isClient
         #     $('.ui.secnav.sidebar')
         #         .sidebar({
         #             context: $('.bottom.segment')
-        #             transition:'overlay'
+        #             transition:'scale'
         #             mobileTransition:'scale'
         #             exclusive:true
         #             duration:200

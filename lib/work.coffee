@@ -15,67 +15,34 @@ if Meteor.isClient
         @layout 'layout'
         @render 'work_view'
         ), name:'work_view_long'
-    Router.route '/product/:doc_id/work', (->
-        @layout 'product_layout'
-        @render 'product_work'
-        ), name:'product_work'
+    
     
     
     Template.work.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'work', ->
             
             
-    Template.product_work.onCreated ->
-        @autorun => Meteor.subscribe 'product_work', Router.current().params.doc_id, ->
     Template.user_work.onCreated ->
         @autorun => Meteor.subscribe 'user_sent_work', Router.current().params.username, ->
         @autorun => Meteor.subscribe 'user_received_work', Router.current().params.username, ->
             
     Template.work_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.work_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
-    
+        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'work_task', Router.current().params.doc_id
 
-    Template.work_view.helpers
-        is_cook: -> Meteor.userId() in @cook_ids
-        is_fav: -> Meteor.userId() in @favorite_user_ids
-    Template.work_view.events
-        'click .mark_cook': ->
-            Docs.update Router.current().params.doc_id, 
-                $addToSet: cook_ids:Meteor.userId()
-            $('body').toast(
-                showIcon: 'food'
-                message: "marked cooked"
-                showProgress: 'bottom'
-                class: 'success'
-                # displayTime: 'auto',
-                position: "bottom right"
-            )
-        'click .unmark_cook': ->
-            Docs.update Router.current().params.doc_id, 
-                $pull: cook_ids:Meteor.userId()
-       
-        'click .mark_fav': ->
-            Docs.update Router.current().params.doc_id, 
-                $addToSet: favorite_user_ids:Meteor.userId()
-            $('body').toast(
-                showIcon: 'heart'
-                message: "marked favorite"
-                showProgress: 'bottom'
-                class: 'error'
-                # displayTime: 'auto',
-                position: "bottom right"
-            )
-        'click .unmark_fav': ->
-            Docs.update Router.current().params.doc_id, 
-                $pull: favorite_user_ids:Meteor.userId()
 
     Template.work.events
         'click .add_work': ->
             new_id = Docs.insert 
                 model:'work'
             Router.go "/work/#{new_id}/edit"    
+      
+        'click .add_task': ->
+            new_id = Docs.insert 
+                model:'task'
+            Router.go "/task/#{new_id}/edit"    
     
     Template.product_work.events
         'click .add_work': ->
@@ -146,6 +113,7 @@ if Meteor.isClient
 
     Template.work_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'work_task', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'model_docs', 'menu_section'
 
@@ -185,3 +153,15 @@ if Meteor.isClient
         all_shop: ->
             Docs.find
                 model:'work'
+
+if Meteor.isServer
+    # Meteor.publish 'user_received_task', (username)->
+    #     Docs.find   
+    #         model:'task'
+    #         recipient_username:username
+            
+    Meteor.publish 'work_task', (work_id)->
+        work = Docs.findOne work_id
+        Docs.find   
+            model:'task'
+            _id: work.task_id

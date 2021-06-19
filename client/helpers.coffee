@@ -8,6 +8,9 @@ Template.registerHelper 'parent_doc', () ->
 Template.registerHelper 'rental', () ->
     Docs.findOne @rental_id
     # Template.parentData()
+Template.registerHelper 'work_task', () ->
+    Docs.findOne @task_id
+    # Template.parentData()
 
 Template.registerHelper 'active_path', (metric) ->
     false

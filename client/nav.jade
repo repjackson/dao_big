@@ -26,29 +26,21 @@ template(name='nav')
         a.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
             i.food.icon
             .mobile.hidden #{items.count} items
-        a.icon.item.toggle_topbar(title='alerts')
-            i.bell.outline.icon
-            i.alerts.icon
-            // .ui.avatar.image.bell
-            //     +i name='notification' cl=''
-        // a.item(href='/user/#{currentUser.username}/credit' class="{{isActiveRoute 'user_credit'}}" title='current wallet balance')
-        a.item.toggle_walletbar(title='credit')
-            i.wallet.icon
-            // .ui.avatar.image
-            //     +i name='wallet' cl=''
-            strong ${{int currentUser.credit}}
-            // i.cart.icon
-            
         .right.menu
+            a.icon.item.toggle_topbar(title='alerts')
+                i.bell.outline.icon
+                i.alerts.icon
+                // .ui.avatar.image.bell
+                //     +i name='notification' cl=''
+            // a.item(href='/user/#{currentUser.username}/credit' class="{{isActiveRoute 'user_credit'}}" title='current wallet balance')
+            a.item.toggle_walletbar(title='credit')
+                i.wallet.icon
+                // .ui.avatar.image
+                //     +i name='wallet' cl=''
+                strong ${{int currentUser.credit}}
+                // i.cart.icon
+                
             if currentUser
-                // a.item(href="/user/#{currentUser.username}" class=user_nav_button_class title=user_nav_button_title)
-                //     if currentUser.image_id
-                //         img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
-                //     else
-                //         i.user.icon
-                //     span #{currentUser.username}
-                // // a.icon.item.logout
-                // //     i.sign.out.alternate.icon
                 a.icon.item.toggle_rightbar.no_blink
                     if currentUser.image_id
                         img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face' crop='fill'}}")
@@ -184,7 +176,7 @@ template(name='footer')
             //     +icolor name='facebook'
             //     +icolor name='instagram'
 template(name='topbar')
-    .ui.fluid.attached.segment.topbar.top.sidebar(style="background-color:#062639;")
+    .ui.fluid.attached.inverted.segment.topbar.top.sidebar(style="background-color:#062639;")
         .ui.middle.aligned.divided.list
         .ui.list
             each recent_alerts
@@ -283,34 +275,19 @@ template(name='left_sidebar')
         //         input.search_global(type='text')
         a.item.toggle_leftbar(href='/shop' class="{{isActivePath '/shop'}}" title='shop')
             i.shop.icon
-            // .ui.avatar.image
-            //     +i name='food-cart' cl=''
             | #{product_count} products
-        a.item.toggle_leftbar(href='/ingredients' class="{{isActivePath '/ingredients'}}" title='shop')
-            .ui.avatar.image
-                +i name='ingredients' cl=''
-            | #{ingredient_count} ingredients
-        a.item.toggle_leftbar(href='/sources' class="{{isActivePath '/sources'}}")
-            .ui.avatar.image.farm
-                +i name='field-and-tractor' cl=''
-            | #{source_count} sources
         a.item.toggle_leftbar(href='/recipes' class="{{isActivePath '/recipes'}}")
-            .ui.avatar.image.info
-                +i name='cookbook' cl=''
+            i.food.icon
             |#{recipe_count} recipes
         a.item.toggle_leftbar.zoomer(href='/chat' class="{{isActivePath '/chat'}}" title='news')
             i.chat.icon
-            // +i name='phone' cl='ui inline mini image'
             | chat
         a.item.toggle_leftbar.zoomer(href='/posts' class="{{isActivePath '/posts'}}" title='posts')
             i.newspaper.icon
-            // +i name='blog' cl='ui inline mini image'
             | #{post_count} posts
         a.item.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
             | #{users.count} users
-        // if is_admin
-            
         if is_in_admin
             a.icon.item.toggle_admin.toggle_leftbar.no_blink
                 |toggle admin

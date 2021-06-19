@@ -57,7 +57,7 @@ Template.nav.onCreated ->
 
 
 Router.route '/', (->
-    @render 'requests'
+    @render 'home'
     ), name:'home'
 Router.route '/requests', (->
     @render 'requests'
