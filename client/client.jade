@@ -35,19 +35,19 @@ head
 template(name='layout')
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
-    .ui.bottom.attached.pushable.segment
+    .ui.bottom.attached.pushable.segment.scrolling
         +topbar
         +left_sidebar
         +right_sidebar
-        +cartbar
-        +walletbar
+        // +cartbar
+        // +walletbar
         +secnav
     
         if logging_in
             .ui.center.aligned.basic.segment
                 i.massive.loading.food.grey.icon
         else
-            .global_container.pusher.scrolling
+            .global_conainer.pusher
                 +yield
                 // unless currentUser
                 //     .ui.center.aligned.basic.segment

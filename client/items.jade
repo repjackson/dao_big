@@ -8,7 +8,7 @@ template(name='items')
             .ui.input
                 input(type='text' placeholder='search title...')
         .sixteen.wide.column
-            .ui.six.doubling.cards
+            .ui.six.doubling.centered.cards
                 each unarchived_items
                     +item_item
         if is_admin

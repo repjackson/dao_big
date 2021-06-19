@@ -320,12 +320,12 @@ body, p, header {
 }
 
 #iron-router-progress {
-	background-color : white;
-	box-shadow       : 0 0 10px white;
+	background-color : grey;
+	box-shadow       : 0 0 10px grey;
 }
 
 #iron-router-progress.spinner:before {
-	border-color : white;
+	border-color : grey;
 }
 
 
@@ -1095,7 +1095,7 @@ h1.ui.header{
 }
 .scrolling::-webkit-scrollbar {
     /*display: none;*/
-    width: 1px;
+    width: 0px;
 }
 .smallscroll::-webkit-scrollbar {
     width: 2px;
