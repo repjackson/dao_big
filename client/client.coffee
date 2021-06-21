@@ -88,7 +88,7 @@ Template.requests.onCreated ->
 
 Template.request_item.events
     'click .cancel_request': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('slide right', 500)
+        $(e.currentTarget).closest('.grid').transition('fly right', 1000)
         Meteor.setTimeout =>
             Docs.remove @_id
             $('body').toast(
@@ -99,7 +99,7 @@ Template.request_item.events
                 # displayTime: 'auto',
                 position: "bottom center"
             )
-        , 500
+        , 1000
     
     'click .pick_up':(e,t)->
         $(e.currentTarget).closest('.grid').transition('fly left', 1000)
@@ -108,7 +108,7 @@ Template.request_item.events
                 $set:
                     status:'processing'
                     pick_up_timestamp:Date.now()
-        , 1000
+        , 500
         
         
     'click .mark_delivered': (e,t)->

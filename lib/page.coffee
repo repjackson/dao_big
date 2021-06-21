@@ -4,19 +4,6 @@ if Meteor.isClient
         @render 'page'
         ), name:'page'
 
-    Router.route '/team', (->
-        @layout 'layout'
-        @render 'team'
-        ), name:'team'
-    Router.route '/produce', (->
-        @layout 'layout'
-        @render 'produce'
-        ), name:'produce'
-    Router.route '/packaging', (->
-        @layout 'layout'
-        @render 'packaging'
-        ), name:'packaging'
-
     Template.page.onCreated ->
         # console.log @
         @autorun => Meteor.subscribe 'page_doc', Router.current().params.slug

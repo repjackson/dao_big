@@ -8,39 +8,39 @@ template(name='nav')
                i.bars.icon 
         a.image.item.zoomer(href='/' class="{{isActivePath '/'}}" title='Rosetta Hall')
             img.ui.avatar.image(src="https://d2s742iet3d3t1.cloudfront.net/restaurants/restaurant-33707000000000000/restaurant_1619610434.jpg")
-            // i.home.icon
-            // .mobile.hidden RH
         a.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
             i.bullhorn.icon
             .mobile.hidden #{requests.count} requests
-        a.item.zoomer(href='/recipes' class="{{isActivePath '/recipes'}}")
-            i.food.icon
-            .mobile.hidden #{recipes.count} recipes
+        // a.item.zoomer(href='/recipes' class="{{isActivePath '/recipes'}}")
+        //     i.food.icon
+        //     .mobile.hidden #{recipes.count} recipes
         a.item.zoomer(href='/products' class="{{isActivePath '/products'}}")
             i.shop.icon
             .mobile.hidden shop
-        // if is_admin
         a.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
             i.list.icon
             .mobile.hidden work
         a.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
             i.food.icon
             .mobile.hidden #{items.count} items
+        a.item.zoomer(href='/porters' class="{{isActivePath '/porters'}}")
+            i.hand.holding.icon
+            .mobile.hidden porters
         .right.menu
-            a.icon.item.toggle_topbar(title='alerts')
-                i.bell.outline.icon
-                i.alerts.icon
-                // .ui.avatar.image.bell
-                //     +i name='notification' cl=''
-            // a.item(href='/user/#{currentUser.username}/credit' class="{{isActiveRoute 'user_credit'}}" title='current wallet balance')
-            a.item.toggle_walletbar(title='credit')
-                i.wallet.icon
-                // .ui.avatar.image
-                //     +i name='wallet' cl=''
-                strong ${{int currentUser.credit}}
-                // i.cart.icon
-                
             if currentUser
+                a.icon.item.toggle_topbar(title='alerts')
+                    i.bell.outline.icon
+                    i.alerts.icon
+                    // .ui.avatar.image.bell
+                    //     +i name='notification' cl=''
+                // a.item(href='/user/#{currentUser.username}/credit' class="{{isActiveRoute 'user_credit'}}" title='current wallet balance')
+                a.item.toggle_walletbar(title='credit')
+                    i.wallet.icon
+                    // .ui.avatar.image
+                    //     +i name='wallet' cl=''
+                    strong ${{int currentUser.credit}}
+                    // i.cart.icon
+                    
                 a.icon.item.toggle_rightbar.no_blink
                     if currentUser.image_id
                         img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face' crop='fill'}}")
@@ -60,46 +60,6 @@ template(name='nav')
                 
                 
                 
-template(name='secnav')
-    .ui.attached.borderless.inverted.menu.secnav(style="background-color:#062639;")
-        a.icon.item.zoomer(href='/shop' class="{{isActivePath '/shop'}}" title='shop')
-            i.shop.icon
-            // .ui.mini.image
-            //     +i name='grocery-shelf' cl=''
-        // a.icon.item(href='/ingredients' class="{{isActivePath '/ingredients'}}" title='ingredients')
-        //     .ui.mini.image
-        //         +i name='ingredients' cl=''
-        a.icon.item.zoomer(href='/pictures' class="{{isActivePath '/pictures'}}" title='pictures')
-            i.picture.icon
-            // .ui.mini.image.farm
-            //     +i name='picture' cl=''
-        a.icon.item.zoomer(href='/recipes' class="{{isActivePath '/recipes'}}" title='recipes')
-            i.food.icon
-        a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
-            i.users.icon
-        // if is_admin
-        // a.icon.item(href='/orders' class="{{isActivePath '/orders'}}" title='orders')
-        //     i.money.icon
-        //     // .ui.mini.image.orders
-        //     //     +i name='invoice' cl=''
-        a.icon.item(href='/posts' class="{{isActivePath '/posts'}}" title='posts')
-            i.newspaper.icon
-            // .ui.mini.image
-            //     +i name='blog' cl=''
-        a.icon.item(href='/chat' class="{{isActivePath '/chat'}}" title='contact')
-            i.chat.icon
-            // .ui.mini.image
-            //     +i name='phone' cl='ui inline mini image'
-        if currentUser
-            a.icon.item(href='/users' class="{{isActivePath '/users'}}" title='users')
-                i.users.icon
-                // .ui.mini.image.users
-                //     +i name='groups' cl=''
-        // unless currentUser
-        //     a.icon.item(href='/p/about' class="{{isActivePath '/about'}}" title='about')
-        //         // i.info.icon
-        //         .ui.mini.image.info
-        //             +i name='information--v1' cl=''
 template(name='my_latest_activity')
     .ui.grey.header 
         i.grey.rss.icon

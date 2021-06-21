@@ -4,7 +4,7 @@ template(name='stations')
             .ui.inline.header 
                 +i name='shop'
                 |stations
-            .ui.basic.icon.button.add_recipe
+            .ui.basic.icon.button.add_station
                 i.large.plus.icon
             // each picked_sections
             //     button.ui.blue.compact.small.button.unpick_section(tabindex='0')
@@ -54,11 +54,11 @@ template(name='stations')
                 .spacer 
         
             span.ui.stackable.cards.scrolling
-                each model_docs_helper 'recipe'
+                each model_docs_helper 'station'
                     .ui.card
-                        a(href="/recipe/#{_id}") 
+                        a(href="/station/#{_id}") 
                             img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                        a.content(href="/recipe/#{_id}") 
+                        a.content(href="/station/#{_id}") 
                             .ui.header 
                                 |#{title}
                             |added #{when} by #{_author_username}
@@ -68,27 +68,14 @@ template(name='stations')
                             i.food.icon
                             i.chat.icon
                             i.users.icon
-template(name='favorite_icon_toggle')
-    i.heart.link.icon.toggle_fav(class=icon_class)
-    |#{favorite_ids.length}
-     
-template(name='product_stations')
-    .ui.inline.header 
-        +i name='cookbook'
-        |stations
-    .ui.icon.basic.button.add_recipe
-        i.plus.green.icon
-    div
-    each model_docs_helper 'recipe'
-        a.ui.header(href="/recipe/#{_id}/view") #{title}
-        
-                
+
+
                 
 template(name='user_stations')
     .ui.inline.header 
         +i name='cookbook'
         |user stations
-    .ui.basic.icon.button.send_recipe
+    .ui.basic.icon.button.send_station
         i.large.plus.icon
     .ui.padded.stackable.two.column.grid
         .column
@@ -99,7 +86,7 @@ template(name='user_stations')
                 each sent_stations 
                     .ui.card
                         .content
-                            a(href="/recipe/#{_id}") 
+                            a(href="/station/#{_id}") 
                                 img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
     
                             .ui.header 
@@ -107,7 +94,7 @@ template(name='user_stations')
                             // |created #{when}
                             |sent {{from_now sent_timestamp}}
                             small {{cal_time sent_timestamp}}
-                            a.ui.icon.button(href='/recipe/#{_id}')
+                            a.ui.icon.button(href='/station/#{_id}')
                                 i.large.chevron.right.icon
                             
         .column
@@ -118,18 +105,18 @@ template(name='user_stations')
                 each favorited
                     .ui.card
                         .content
-                            a(href="/recipe/#{_id}") 
+                            a(href="/station/#{_id}") 
                                 img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
                             .ui.header 
                                 |#{amount} #{_author_username}
                             |received {{from_now sent_timestamp}}
                             small {{cal_time sent_timestamp}}
-                            a.ui.icon.button(href='/recipe/#{_id}')
+                            a.ui.icon.button(href='/station/#{_id}')
                             i.ui.large.link.chevron.right.icon.edit_address
                 
                 
                 
-template(name='recipe_edit')
+template(name='station_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
@@ -137,8 +124,8 @@ template(name='recipe_edit')
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                        small recipe
-                    a.ui.large.icon.green.button(href="/recipe/#{_id}/" title='save product')
+                        small station
+                    a.ui.large.icon.green.button(href="/station/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
@@ -155,12 +142,12 @@ template(name='recipe_edit')
                     +html_edit key='directions' label='directions' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +array_edit key='ingredients' label='ingredients' icon='tags' direct=true
-                    .ui.red.button.delete_recipe
+                    .ui.red.button.delete_station
                         i.remove.icon   
                         | delete
                 
                 
-template(name='recipe_view')
+template(name='station_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
@@ -169,10 +156,10 @@ template(name='recipe_view')
                         +i name='cookbook'
                     .ui.inline.header
                         | #{title}
-                        small recipe view
+                        small station view
                     +image_view key='image_id' label='image' direct=true
                     div
-                    a.ui.icon.button(href="/recipe/#{_id}/edit")
+                    a.ui.icon.button(href="/station/#{_id}/edit")
                         i.pencil.icon
                     .ui.header 
                         +i name='ingredients'
@@ -189,7 +176,7 @@ template(name='recipe_view')
                     .ui.header 
                         +i name='popular-topic' cl='ui inline image'
                         |reviews
-                    each recipe_reviews
+                    each station_reviews
                         .ui.header #{when}
                     +comments
                 .four.wide.column
