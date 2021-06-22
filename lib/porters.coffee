@@ -4,15 +4,32 @@ if Meteor.isClient
         @render 'porters'
         ), name:'porters'
     
-    Template.task.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'task', ->
+    Template.porters.onCreated ->
+        @autorun => Meteor.subscribe 'porter_tasks', ->
+            
+    Template.porters.helpers
+        porter_tasks: ->
+            Docs.find 
+                model:'task'
+                station:'porters'
+    
+    Template.porters.events
+        'click .add_porter_task':->
+            new_id = 
+                Docs.insert
+                    model:'task'
+                    station:'porters'
+            Router.go "/task/#{new_id}/edit"
+    
+    
+                    
+                            
             
             
-    Template.user_task.onCreated ->
-        @autorun => Meteor.subscribe 'user_sent_task', Router.current().params.username, ->
-        @autorun => Meteor.subscribe 'user_received_task', Router.current().params.username, ->
             
-    Template.task_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-    Template.task_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
+if Meteor.isServer
+    Meteor.publish 'porter_tasks', ->
+        Docs.find 
+            model:'task'
+            station:'porters'
+            

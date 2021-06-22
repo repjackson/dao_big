@@ -26,21 +26,17 @@ template(name='nav')
         a.item.zoomer(href='/porters' class="{{isActivePath '/porters'}}")
             i.hand.holding.icon
             .mobile.hidden porters
+        a.item.zoomer(href='/stations' class="{{isActivePath '/stations'}}")
+            i.store.icon
+            .mobile.hidden stations
         .right.menu
             if currentUser
                 a.icon.item.toggle_topbar(title='alerts')
                     i.bell.outline.icon
                     i.alerts.icon
-                    // .ui.avatar.image.bell
-                    //     +i name='notification' cl=''
-                // a.item(href='/user/#{currentUser.username}/credit' class="{{isActiveRoute 'user_credit'}}" title='current wallet balance')
                 a.item.toggle_walletbar(title='credit')
                     i.wallet.icon
-                    // .ui.avatar.image
-                    //     +i name='wallet' cl=''
                     strong ${{int currentUser.credit}}
-                    // i.cart.icon
-                    
                 a.icon.item.toggle_rightbar.no_blink
                     if currentUser.image_id
                         img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face' crop='fill'}}")

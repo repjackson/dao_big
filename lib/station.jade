@@ -54,7 +54,7 @@ template(name='stations')
                 .spacer 
         
             span.ui.stackable.cards.scrolling
-                each model_docs_helper 'station'
+                each station_docs
                     .ui.card
                         a(href="/station/#{_id}") 
                             img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
@@ -63,11 +63,6 @@ template(name='stations')
                                 |#{title}
                             |added #{when} by #{_author_username}
                         .content
-                            +favorite_icon_toggle
-                            i.clock.icon
-                            i.food.icon
-                            i.chat.icon
-                            i.users.icon
 
 
                 
@@ -128,20 +123,13 @@ template(name='station_edit')
                     a.ui.large.icon.green.button(href="/station/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
+                    +text_edit key='subtitle' label='subtitle' direct=true
                     +image_edit key='image_id' label='image' direct=true
-                    +text_edit key='ready_in' label='ready in' direct=true icon='clock'
-                    +text_edit key='prep_time' label='prep time' direct=true icon='clock'
-                    +text_edit key='cook_time' label='cook time' direct=true icon='oven'
-                    +text_edit key='servings' label='servings' direct=true icon='users'
-                    // +text_edit key='servings' label='servings' direct=true
-                    +link_edit key='link' label='link' icon='link'
                     div
                 .ten.wide.column
                     div
-                    +textarea_edit key='description' label='description' direct=true
-                    +html_edit key='directions' label='directions' direct=true
+                    // +html_edit key='directions' label='directions' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
-                    +array_edit key='ingredients' label='ingredients' icon='tags' direct=true
                     .ui.red.button.delete_station
                         i.remove.icon   
                         | delete
@@ -153,7 +141,7 @@ template(name='station_view')
             .row
                 .four.wide.column
                     a.ui.basic.icon.button(href="/stations")
-                        +i name='cookbook'
+                        i.store.large.icon
                     .ui.inline.header
                         | #{title}
                         small station view
@@ -161,51 +149,22 @@ template(name='station_view')
                     div
                     a.ui.icon.button(href="/station/#{_id}/edit")
                         i.pencil.icon
+                .eight.wide.column
                     .ui.header 
-                        +i name='ingredients'
-                        |ingredients
+                        +i name='meal'
+                        |dishes
                     .ui.large.selection.link.animated.list
-                        each ingredients
+                        each staion_dishes
+                            .item 
+                                a.ui.header(href="/dish/#{") #{title}
+                    .ui.header 
+                        +i name='chef'
+                        |staff
+                    .ui.large.selection.link.animated.list
+                        each station_staff
                             .item 
                                 .ui.header #{title}
-                .eight.wide.column
-                    div.scrolling
-                        +html_view key='directions' label='directions' direct=true
-                    +array_view key='ingredients' label='ingredients' icon='ingredients' direct=true
-                    // +array_view key='tags' label='tags' icon='tags' direct=true
-                    .ui.header 
-                        +i name='popular-topic' cl='ui inline image'
-                        |reviews
-                    each station_reviews
-                        .ui.header #{when}
                     +comments
                 .four.wide.column
-                    +text_view key='ready_in' label='ready in' direct=true
-                    +text_view key='prep_time' label='prep time' direct=true
-                    +text_view key='cook_time' label='cook time' direct=true
-                    +text_view key='servings' label='servings' direct=true
-                    +text_view key='servings' label='servings' direct=true
-                    div
                     div
                     +html_view key='description' label='description' direct=true
-                    unless is_cook
-                        .ui.basic.button.mark_cook
-                            +i name='chef' cl='ui inline image'
-                            |I've cooked this
-                    else 
-                        .ui.basic.small.compact.button.unmark_cook
-                            i.grey.undo.icon
-                            |mark not cooked
-                    each cook_ids
-                        .ui.header #{this}
-                    unless is_fav
-                        .ui.basic.button.mark_fav 
-                            +i name='heart' cl='ui inline image'
-                            |favorite
-                    else
-                        .ui.basic.small.compact.button.unmark_fav 
-                            i.grey.undo.icon
-                            |mark unfavorite
-                    each favorite_user_ids
-                        .ui.header #{this}
-                        // +user_from_id this

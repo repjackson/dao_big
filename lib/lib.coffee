@@ -133,7 +133,7 @@ Router.configure
 # })
 
 
-Router.route '*', -> @render 'requests'
+Router.route '*', -> @render 'home'
 
 Meteor.methods
     upvoters: ->

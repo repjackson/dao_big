@@ -4,7 +4,12 @@ template(name='porters')
             .ui.header
                 i.hand.holding.icon
                 |porters
+            .ui.button.add_porter_task
+                i.plus.icon
+            .ui.header tasks
             each porter_tasks
                 .ui.card.log_work
                     .ui.header #{title}
+    
+    
     
