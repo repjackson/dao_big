@@ -28,70 +28,13 @@ if Meteor.isClient
             Router.go "/station/#{new_id}/edit"    
     
                 
-    Template.user_stations.events
-        'click .send_station': ->
-            new_id = 
-                Docs.insert 
-                    model:'station'
-            
-            Router.go "/station/#{new_id}/edit"
-            
-            
-        # 'click .edit_address': ->
-        #     Session.set('editing_id',@_id)
-        # 'click .remove_address': ->
-        #     if confirm 'confirm delete?'
-        #         Docs.remove @_id
-        # 'click .add_address': ->
-        #     new_id = 
-        #         Docs.insert
-        #             model:'address'
-        #     Session.set('editing_id',new_id)
-            
-           
-           
             
     Template.stations.helpers
         station_docs: ->
             Docs.find 
                 model:'station'
                 
-                
-    Template.user_stations.helpers
-        sent_station: ()->
-            Docs.find   
-                model:'station'
-                _author_username:Router.current().params.username
-        received_station: ()->
-            Docs.find   
-                model:'station'
-                recipient_username:Router.current().params.username
         
-if Meteor.isServer
-    Meteor.publish 'user_received_station', (username)->
-        Docs.find   
-            model:'station'
-            recipient_username:username
-            
-    Meteor.publish 'work_station', (work_id)->
-        work = Docs.findOne work_id
-        Docs.find   
-            model:'station'
-            _id: work.station_id
-            
-            
-    Meteor.publish 'user_sent_station', (username)->
-        Docs.find   
-            model:'station'
-            _author_username:username
-    Meteor.publish 'product_station', (product_id)->
-        Docs.find   
-            model:'station'
-            product_id:product_id
-            
-            
-            
-            
 if Meteor.isClient
     Router.route '/station/:doc_id/edit', (->
         @layout 'layout'

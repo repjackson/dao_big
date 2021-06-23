@@ -54,7 +54,7 @@ template(name='nav')
                     a.item(href='/login' title='login') 
                         i.sign.in.icon
                         // +i name='internal'
-                        |login
+                        span.mobile.hidden login
                 else 
                     i.food.loading.icon
                 
@@ -184,14 +184,14 @@ template(name='right_sidebar')
                 // +i name='check' cl='ui avatar image'
                 i.money.icon
                 |orders
-            a.item.toggle_rightbar(href="/user/#{username}/subscriptions" class="{{isActiveRoute 'user_subscriptions'}}")
-                // +i name='clock' cl='ui avatar image'
-                i.clock.icon
-                |subscriptions
-            a.item.toggle_rightbar(href="/user/#{username}/pantry" class="{{isActiveRoute 'user_pantry'}}")
-                // +i name='cupboard' cl='ui avatar image'
-                i.food.icon
-                |pantry
+            // a.item.toggle_rightbar(href="/user/#{username}/subscriptions" class="{{isActiveRoute 'user_subscriptions'}}")
+            //     // +i name='clock' cl='ui avatar image'
+            //     i.clock.icon
+            //     |subscriptions
+            // a.item.toggle_rightbar(href="/user/#{username}/pantry" class="{{isActiveRoute 'user_pantry'}}")
+            //     // +i name='cupboard' cl='ui avatar image'
+            //     i.food.icon
+            //     |pantry
             a.item.toggle_rightbar(href="/user/#{username}/friends" class="{{isActiveRoute 'user_friends'}}")
                 // +i name='friends' cl='ui avatar image'
                 i.users.icon
@@ -200,10 +200,6 @@ template(name='right_sidebar')
                 i.cart.icon
                 // +i name='shopping-cart' cl='ui avatar image'
                 |cart
-            a.item.toggle_rightbar(href="/user/#{username}/trips" class="{{isActiveRoute 'user_trips'}}")
-                i.bicycle.icon
-                // +i name='bicycle' cl='ui avatar image'
-                |trips
             // a.item.toggle_rightbar(href="/user/#{username}/giftcards" class="{{isActiveRoute 'user_giftcards'}}")
             //     +i name='certificate' cl='ui avatar image'
             //     |gift cards

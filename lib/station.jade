@@ -55,61 +55,13 @@ template(name='stations')
         
             span.ui.stackable.cards.scrolling
                 each station_docs
-                    .ui.card
-                        a(href="/station/#{_id}") 
-                            img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                        a.content(href="/station/#{_id}") 
+                    a.ui.card(href="/station/#{_id}") 
+                        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+                        .content
                             .ui.header 
                                 |#{title}
-                            |added #{when} by #{_author_username}
-                        .content
 
 
-                
-template(name='user_stations')
-    .ui.inline.header 
-        +i name='cookbook'
-        |user stations
-    .ui.basic.icon.button.send_station
-        i.large.plus.icon
-    .ui.padded.stackable.two.column.grid
-        .column
-            .ui.header 
-                +i name='sent--v2'
-                |authored 
-            .ui.stackable.cards.scrolling
-                each sent_stations 
-                    .ui.card
-                        .content
-                            a(href="/station/#{_id}") 
-                                img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-    
-                            .ui.header 
-                                |#{amount} #{recipient_username}
-                            // |created #{when}
-                            |sent {{from_now sent_timestamp}}
-                            small {{cal_time sent_timestamp}}
-                            a.ui.icon.button(href='/station/#{_id}')
-                                i.large.chevron.right.icon
-                            
-        .column
-            .ui.header 
-                +i name='gift--v1'
-                |favorites
-            .ui.stackable.cards.scrolling
-                each favorited
-                    .ui.card
-                        .content
-                            a(href="/station/#{_id}") 
-                                img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                            .ui.header 
-                                |#{amount} #{_author_username}
-                            |received {{from_now sent_timestamp}}
-                            small {{cal_time sent_timestamp}}
-                            a.ui.icon.button(href='/station/#{_id}')
-                            i.ui.large.link.chevron.right.icon.edit_address
-                
-                
                 
 template(name='station_edit')
     with current_doc

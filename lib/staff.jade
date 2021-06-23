@@ -55,14 +55,12 @@ template(name='staff')
         
             span.ui.stackable.cards.scrolling
                 each model_docs_helper 'staff'
-                    .ui.card
-                        a(href="/staff/#{_id}") 
-                            img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                        a.content(href="/staff/#{_id}") 
+                    a.ui.card(href="/staff/#{first_name}") 
+                        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+                        .content
                             .ui.header 
                                 |#{first_name} #{last_name}
                             |#{title}
-                            |added #{when} by #{_author_username}
                 
                 
                 
@@ -92,7 +90,7 @@ template(name='staff_edit')
                 
                 
 template(name='staff_view')
-    with current_doc
+    with current_staff
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
