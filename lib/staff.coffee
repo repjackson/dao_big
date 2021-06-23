@@ -13,15 +13,13 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'model_docs', 'staff', ->
     
     Template.staff_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'staff_work', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'staff_work', Router.current().params.staff_firstname, ->
         @autorun => Meteor.subscribe 'staff_by_firstname', Router.current().params.staff_firstname, ->
     
     
     Template.staff_view.onCreated ->
         @autorun => Meteor.subscribe 'staff_by_firstname', Router.current().params.staff_firstname, ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'staff_work', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'staff_work', Router.current().params.staff_firstname, ->
     
 
 
@@ -45,6 +43,10 @@ if Meteor.isClient
             Docs.findOne
                 model:'staff'
                 
+        staff_work: ->
+            Docs.find
+                model:'work'
+                
         
 if Meteor.isServer
     Meteor.publish 'work_staff', (work_id)->
@@ -52,6 +54,15 @@ if Meteor.isServer
         Docs.find   
             model:'staff'
             _id: work.staff_id
+            
+    Meteor.publish 'staff_work', (first_name)->
+        staff = 
+            Docs.findOne 
+                model:'staff'
+                first_name:first_name
+        Docs.find   
+            model:'work'
+            staff_id: staff._id
             
     Meteor.publish 'staff_by_firstname', (first_name)->
         Docs.find   
