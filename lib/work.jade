@@ -58,12 +58,12 @@ template(name='work')
                 .spacer 
         
             .ui.large.selection.animated.list
-                each model_docs_helper 'work'
+                each work_list
                     a.item(href="/work/#{_id}")
                         img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
                         .content
                             .ui.header 
-                                |#{title}
+                                |#{staff_name} at #{location_title}
                             |added #{when} by #{_author_username}
                         .content
                             +favorite_icon_toggle
@@ -135,24 +135,26 @@ template(name='work_edit')
                         i.remove.icon   
                         | cancel
                 .ten.wide.column
-                    .ui.inline.header 
+                    .ui.header 
                         i.red.marker.icon
                         |location
                     
                     each task_locations
-                        .ui.big.button.pick_location(class=location_button_class)
+                        .ui.big.button.pick_location(class=location_picker_class)
                             |#{title}
-                    .ui.inline.header 
+                    div
+                    .ui.header 
                         i.users.icon
                         |staff
                     each porter_staff
-                        .ui.big.button.pick_staff
-                            |#{title}
+                        .ui.big.button.pick_staff(class=staff_picker_class)
+                            | #{first_name} #{last_name}
                     div
                     +textarea_edit key='notes' label='notes' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
-                    a.ui.massive.icon.circular.green.button(href="/porters" title='submit')
-                        i.checkmark.massive.icon
+                    if staff_id
+                        a.ui.massive.icon.circular.green.button(href="/porters" title='submit')
+                            i.checkmark.massive.icon
                 
                 
 template(name='work_view')
@@ -176,6 +178,7 @@ template(name='work_view')
                     a.ui.icon.button(href="/work/#{_id}/edit")
                         i.pencil.icon
                 .eight.wide.column
+                    .ui.large.header #{staff_name} @#{location_title} #{when}
                     div.scrolling
                         +html_view key='directions' label='directions' direct=true
                     // +array_view key='tags' label='tags' icon='tags' direct=true
@@ -183,4 +186,6 @@ template(name='work_view')
                 .four.wide.column
                     +html_view key='description' label='description' direct=true
                     +voting_full
+                    if in_dev 
+                        +print_this
                         

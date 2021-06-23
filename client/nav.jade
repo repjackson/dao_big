@@ -31,6 +31,8 @@ template(name='nav')
             .mobile.hidden stations
         a.icon.item.zoomer(href='/locations' class="{{isActivePath '/locations'}}")
             i.marker.icon
+        a.icon.item.zoomer(href='/staff' class="{{isActivePath '/staff'}}")
+            i.users.icon
         .right.menu
             if currentUser
                 a.icon.item.toggle_topbar(title='alerts')

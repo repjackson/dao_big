@@ -1,15 +1,11 @@
-template(name='task')
+template(name='staff')
     .ui.stackable.padded.grid
         .sixteen.wide.column
             .ui.inline.header 
                 i.wrench.icon
-                |task
-            .ui.basic.button.add_task
+                |staff
+            .ui.basic.icon.button.add_staff
                 i.large.plus.icon
-                |log task
-            .ui.basic.button.add_task
-                i.large.plus.icon
-                |task
             // each picked_sections
             //     button.ui.blue.compact.small.button.unpick_section(tabindex='0')
             //         //- i.remove.icon
@@ -58,62 +54,19 @@ template(name='task')
                 .spacer 
         
             span.ui.stackable.cards.scrolling
-                each model_docs_helper 'task'
+                each model_docs_helper 'staff'
                     .ui.card
-                        a(href="/task/#{_id}") 
+                        a(href="/staff/#{_id}") 
                             img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                        a.content(href="/task/#{_id}") 
+                        a.content(href="/staff/#{_id}") 
                             .ui.header 
-                                |#{title}
+                                |#{first_name} #{last_name}
+                            |#{title}
                             |added #{when} by #{_author_username}
                 
                 
-template(name='user_task')
-    .ui.inline.header 
-        +i name='tasks'
-        |user task
-    .ui.basic.icon.button.send_task
-        i.large.plus.icon
-    .ui.padded.stackable.two.column.grid
-        .column
-            .ui.header 
-                +i name='sent--v2'
-                |authored 
-            .ui.stackable.cards.scrolling
-                each sent_task 
-                    .ui.card
-                        .content
-                            a(href="/task/#{_id}") 
-                                img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-    
-                            .ui.header 
-                                |#{amount} #{recipient_username}
-                            // |created #{when}
-                            |sent {{from_now sent_timestamp}}
-                            small {{cal_time sent_timestamp}}
-                            a.ui.icon.button(href='/task/#{_id}')
-                                i.large.chevron.right.icon
-                            
-        .column
-            .ui.header 
-                +i name='gift--v1'
-                |favorites
-            .ui.stackable.cards.scrolling
-                each favorited
-                    .ui.card
-                        .content
-                            a(href="/task/#{_id}") 
-                                img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                            .ui.header 
-                                |#{amount} #{_author_username}
-                            |received {{from_now sent_timestamp}}
-                            small {{cal_time sent_timestamp}}
-                            a.ui.icon.button(href='/task/#{_id}')
-                            i.ui.large.link.chevron.right.icon.edit_address
                 
-                
-                
-template(name='task_edit')
+template(name='staff_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
@@ -121,9 +74,11 @@ template(name='task_edit')
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                        small task
-                    a.ui.large.icon.green.button(href="/task/#{_id}/" title='save product')
+                        small staff
+                    a.ui.large.icon.green.button(href="/staff/#{_id}/" title='save product')
                         i.checkmark.big.icon
+                    +text_edit key='first_name' label='first name' direct=true
+                    +text_edit key='last_name' label='last name' direct=true
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
@@ -131,24 +86,26 @@ template(name='task_edit')
                     div
                     +textarea_edit key='description' label='description' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
-                    .ui.red.button.delete_task
+                    .ui.red.button.delete_staff
                         i.remove.icon   
                         | delete
                 
                 
-template(name='task_view')
+template(name='staff_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
-                    a.ui.basic.icon.button(href="/porters")
-                        i.wrench.icon
-                    .ui.inline.header
+                    a.ui.basic.icon.button(href="/staff")
+                        i.users.icon
+                    .ui.header
+                        |#{first_name} #{last_name}
+                    .ui.small.header
                         | #{title}
-                        small task view
+                        small staff view
                     +image_view key='image_id' label='image' direct=true
                     div
-                    a.ui.icon.button(href="/task/#{_id}/edit")
+                    a.ui.icon.button(href="/staff/#{_id}/edit")
                         i.pencil.icon
                 .eight.wide.column
                     div.scrolling

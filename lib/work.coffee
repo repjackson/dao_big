@@ -29,12 +29,18 @@ if Meteor.isClient
     Template.work_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'model_docs', 'location', ->
+        @autorun => Meteor.subscribe 'model_docs', 'staff', ->
 
     Template.work_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'work_task', Router.current().params.doc_id
 
 
+    Template.work.helpers
+        work_list: ->
+            Docs.find {
+                model:'work'
+            }, sort:_timestamp:-1
     Template.work.events
         'click .add_work': ->
             new_id = Docs.insert 
@@ -47,42 +53,38 @@ if Meteor.isClient
             Router.go "/task/#{new_id}/edit"    
     
                 
-    Template.user_work.events
-        'click .send_work': ->
-            new_id = 
-                Docs.insert 
-                    model:'work'
-            
-            Router.go "/work/#{new_id}/edit"
-            
-            
-        # 'click .edit_address': ->
-        #     Session.set('editing_id',@_id)
-        # 'click .remove_address': ->
-        #     if confirm 'confirm delete?'
-        #         Docs.remove @_id
-        # 'click .add_address': ->
-        #     new_id = 
-        #         Docs.insert
-        #             model:'address'
-        #     Session.set('editing_id',new_id)
-            
-           
+    Template.work_edit.events
+        'click .pick_staff': ->
+            Docs.update Router.current().params.doc_id, 
+                $set:
+                    staff_id:@_id
+                    staff_name: "#{@first_name} #{@last_name}"
+        
+        'click .pick_location': ->
+            Docs.update Router.current().params.doc_id, 
+                $set:
+                    location_id:@_id
+                    location_title: "#{@title}"
+        
+        
+        
     Template.work_edit.helpers
         task_locations: ->
             Docs.find 
                 model:'location'
                 
+        porter_staff: ->
+            Docs.find 
+                model:'staff'
+                
+        staff_picker_class: ->
+            work = Docs.findOne Router.current().params.doc_id
+            if work.staff_id is @_id then 'active massive' else 'basic large'
             
-    Template.user_work.helpers
-        sent_work: ()->
-            Docs.find   
-                model:'work'
-                _author_username:Router.current().params.username
-        received_work: ()->
-            Docs.find   
-                model:'work'
-                recipient_username:Router.current().params.username
+        location_picker_class: ->
+            work = Docs.findOne Router.current().params.doc_id
+            if work.location_id is @_id then 'active massive' else 'basic large'
+            
         
 if Meteor.isServer
     Meteor.publish 'user_received_work', (username)->
