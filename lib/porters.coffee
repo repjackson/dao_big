@@ -28,6 +28,7 @@ if Meteor.isClient
                     model:'work'
                     task_id:@_id
                     station:'porters'
+                    task_name:@title
             Router.go "/work/#{new_id}/edit"
     
     

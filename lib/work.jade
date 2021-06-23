@@ -57,7 +57,7 @@ template(name='work')
                             +set_product_limit amount=20
                 .spacer 
         
-            .ui.large.selection.animated.list
+            .ui.large.selection.animated.list.scrolling
                 each work_list
                     a.item(href="/work/#{_id}")
                         img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
@@ -65,8 +65,8 @@ template(name='work')
                             .ui.header 
                                 |#{staff_name} at #{location_title}
                             |added #{when} by #{_author_username}
-                        .content
-                            +favorite_icon_toggle
+                        // .content
+                        //     +favorite_icon_toggle
                 
                 
 template(name='user_work')
@@ -131,6 +131,7 @@ template(name='work_edit')
                     // +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
+                    // +textarea_edit key='notes' label='notes' direct=true
                     .ui.red.button.delete_work
                         i.remove.icon   
                         | cancel
@@ -150,8 +151,7 @@ template(name='work_edit')
                         .ui.big.button.pick_staff(class=staff_picker_class)
                             | #{first_name} #{last_name}
                     div
-                    +textarea_edit key='notes' label='notes' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    // +array_edit key='tags' label='tags' icon='tags' direct=true
                     if staff_id
                         a.ui.massive.icon.circular.green.button(href="/porters" title='submit')
                             i.checkmark.massive.icon
@@ -163,7 +163,7 @@ template(name='work_view')
             .row
                 .four.wide.column
                     a.ui.basic.icon.button(href="/work")
-                        i.wrench.icon
+                        i.wrench.large.icon
                     .ui.inline.header
                         | #{title}
                         small work view
@@ -172,19 +172,25 @@ template(name='work_view')
                             img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                             .ui.header 
                                 |#{title}
-                        
                     +image_view key='image_id' label='image' direct=true
                     div
                     a.ui.icon.button(href="/work/#{_id}/edit")
                         i.pencil.icon
                 .eight.wide.column
-                    .ui.large.header #{staff_name} @#{location_title} #{when}
+                    a.ui.card(href="/staff/#{staff_id}/")
+                        .content
+                            img.ui.small.image(src="{{c.url staff_image_id width=200 height=200 gravity='face' crop='fill'}}")
+                            .ui.large.header #{staff_name} 
+                    a.ui.card(href="/location/#{location_id}/") 
+                        .content
+                            img.ui.small.image(src="{{c.url location_image_id width=200 height=200 gravity='face' crop='fill'}}")
+                            .ui.header @#{location_title}
+                    .ui.header #{when}
                     div.scrolling
-                        +html_view key='directions' label='directions' direct=true
+                        +html_view key='notes' label='directions' direct=true
                     // +array_view key='tags' label='tags' icon='tags' direct=true
                     +comments
                 .four.wide.column
-                    +html_view key='description' label='description' direct=true
                     +voting_full
                     if in_dev 
                         +print_this

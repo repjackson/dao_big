@@ -147,10 +147,18 @@ if Meteor.isClient
             )
 
         'click .delete_work':->
-            if confirm 'delete?'
-                Docs.remove @_id
-                Router.go "/work"
-            
+            Swal.fire({
+                title: 'delete work entry?'
+                # text: "#{@amount} credits"
+                icon: 'question'
+                showCancelButton: true,
+                confirmButtonText: 'confirm'
+                cancelButtonText: 'cancel'
+            }).then((result) =>
+                if result.value
+                    Docs.remove @_id
+                    Router.go "/porters"
+            )            
     Template.work_edit.helpers
         all_shop: ->
             Docs.find
