@@ -11,12 +11,15 @@ template(name='porters')
             .ui.header 
                 i.tasks.icon
                 |tasks
-            .ui.five.cards
+            .ui.five.doubling.cards
                 each porter_tasks
                     .ui.card.log_work
                         img.ui.image.pointer(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
                         .content
                             .ui.header #{title}
+                            |#{description}
+                            each tags
+                                .ui.basic.small.label #{this}
                             if session_is 'admin_mode' true
                                 a.ui.icon.button(href="/task/#{_id}/edit")
                                     i.pencil.icon

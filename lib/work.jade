@@ -4,12 +4,12 @@ template(name='work')
             .ui.inline.header 
                 i.wrench.icon
                 |work
-            .ui.basic.button.add_work
-                i.large.plus.icon
-                |log work
-            .ui.basic.button.add_task
-                i.large.plus.icon
-                |task
+            // .ui.basic.button.add_work
+            //     i.large.plus.icon
+            //     |log work
+            // .ui.basic.button.add_task
+            //     i.large.plus.icon
+            //     |task
             // each picked_sections
             //     button.ui.blue.compact.small.button.unpick_section(tabindex='0')
             //         //- i.remove.icon
@@ -153,8 +153,8 @@ template(name='work_edit')
                     div
                     // +array_edit key='tags' label='tags' icon='tags' direct=true
                     if staff_id
-                        a.ui.massive.icon.circular.green.button(href="/porters" title='submit')
-                            i.checkmark.massive.icon
+                        a.ui.massive.icon.fluid.green.button(href="/porters" title='submit')
+                            i.checkmark.big.icon
                 
                 
 template(name='work_view')
@@ -167,11 +167,6 @@ template(name='work_view')
                     .ui.inline.header
                         | #{title}
                         small work view
-                    with work_task
-                        .ui.segment
-                            img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                            .ui.header 
-                                |#{title}
                     +image_view key='image_id' label='image' direct=true
                     div
                     a.ui.icon.button(href="/work/#{_id}/edit")
@@ -181,6 +176,11 @@ template(name='work_view')
                         .content
                             img.ui.small.image(src="{{c.url staff_image_id width=200 height=200 gravity='face' crop='fill'}}")
                             .ui.large.header #{staff_name} 
+                    a.ui.card(href="/staff/#{staff_id}/")
+                        .ui.segment
+                            img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                            .ui.header 
+                                |#{title}
                     a.ui.card(href="/location/#{location_id}/") 
                         .content
                             img.ui.small.image(src="{{c.url location_image_id width=200 height=200 gravity='face' crop='fill'}}")

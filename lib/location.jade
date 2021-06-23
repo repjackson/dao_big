@@ -55,14 +55,11 @@ template(name='locations')
         
             span.ui.stackable.cards.scrolling
                 each location_docs
-                    .ui.card
-                        a(href="/location/#{_id}") 
-                            img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                        a.content(href="/location/#{_id}") 
+                    a.ui.card(href="/location/#{_id}") 
+                        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+                        .content 
                             .ui.header 
                                 |#{title}
-                            |added #{when} by #{_author_username}
-                        .content
 
 
                 
