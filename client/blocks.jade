@@ -16,11 +16,11 @@ template(name='doc_array_togggle')
 template(name='session_toggle') 
     .ui.icon.button.toggle_session_var(class=session_toggle_class title=key)
         i.large.icon(class=icon)
-        // if on
-        //     i.checkmark.icon
-        //     // |#{key}
-        // else    
-        //     // |#{key}
+        if on
+            i.checkmark.icon
+            // |#{key}
+        else    
+            // |#{key}
         
         
 template(name='bookmark_button')

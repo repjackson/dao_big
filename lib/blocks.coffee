@@ -13,14 +13,14 @@ if Meteor.isClient
 
     Template.session_toggle.helpers
         session_toggle_class: ->
-            if Session.get(@key) then 'active' else 'basic'
+            if Session.get(@key) then 'blue' else 'basic'
    
     Template.session_set.events
         'click .set_value': ->
             Session.set(@key, @value)
     Template.session_set.helpers
         session_set_class: ->
-            if Session.equals(@key,@value) then 'active' else 'basic'
+            if Session.equals(@key,@value) then 'blue' else 'basic'
     Template.print_this.events
         'click .print': ->
             console.log @
@@ -344,7 +344,7 @@ if Meteor.isClient
             if @cl
                 res += @cl
             if Session.equals(@key,@value)
-                res += ' active'
+                res += ' blue'
             # console.log res
             res
 
@@ -398,7 +398,7 @@ if Meteor.isClient
         doc_array_toggle_class: ->
             parent = Template.parentData()
             # user = Meteor.users.findOne Router.current().params.username
-            if parent["#{@key}"] and @value in parent["#{@key}"] then 'active' else 'basic'
+            if parent["#{@key}"] and @value in parent["#{@key}"] then 'blue' else 'basic'
     Template.doc_array_togggle.events
         'click .toggle': (e,t)->
             parent = Template.parentData()
@@ -415,7 +415,7 @@ if Meteor.isClient
 
 
     # Template.friend_finder.onCreated ->
-    #     @user_results = new ReactiveVar
+    #     @user_results = new ReblueVar
     # Template.friend_finder.helpers
     #     user_results: ->Template.instance().user_results.get()
     # Template.friend_finder.events
