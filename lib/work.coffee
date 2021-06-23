@@ -28,6 +28,8 @@ if Meteor.isClient
             
     Template.work_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'model_docs', 'location', ->
+
     Template.work_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'work_task', Router.current().params.doc_id
@@ -44,12 +46,6 @@ if Meteor.isClient
                 model:'task'
             Router.go "/task/#{new_id}/edit"    
     
-    Template.product_work.events
-        'click .add_work': ->
-            new_id = Docs.insert 
-                model:'work'
-                product_id:Router.current().params.doc_id
-            Router.go "/work/#{new_id}/edit"    
                 
     Template.user_work.events
         'click .send_work': ->
@@ -72,7 +68,11 @@ if Meteor.isClient
         #     Session.set('editing_id',new_id)
             
            
-           
+    Template.work_edit.helpers
+        task_locations: ->
+            Docs.find 
+                model:'location'
+                
             
     Template.user_work.helpers
         sent_work: ()->

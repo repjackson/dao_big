@@ -33,12 +33,6 @@ if Meteor.isClient
                 task_id: Router.current().params.doc_id
             Router.go "/work/#{new_id}/edit"    
     
-    Template.product_task.events
-        'click .add_task': ->
-            new_id = Docs.insert 
-                model:'task'
-                product_id:Router.current().params.doc_id
-            Router.go "/task/#{new_id}/edit"    
                 
     Template.user_task.events
         'click .send_task': ->

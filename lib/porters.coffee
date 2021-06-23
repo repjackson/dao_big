@@ -22,6 +22,15 @@ if Meteor.isClient
             Router.go "/task/#{new_id}/edit"
     
     
+        'click .log_work':->
+            new_id = 
+                Docs.insert
+                    model:'work'
+                    task_id:@_id
+                    station:'porters'
+            Router.go "/work/#{new_id}/edit"
+    
+    
                     
                             
             

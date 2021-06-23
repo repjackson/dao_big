@@ -57,32 +57,16 @@ template(name='work')
                             +set_product_limit amount=20
                 .spacer 
         
-            span.ui.stackable.cards.scrolling
+            .ui.large.selection.animated.list
                 each model_docs_helper 'work'
-                    .ui.card
-                        a(href="/work/#{_id}") 
-                            img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                        a.content(href="/work/#{_id}") 
+                    a.item(href="/work/#{_id}")
+                        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+                        .content
                             .ui.header 
                                 |#{title}
                             |added #{when} by #{_author_username}
                         .content
                             +favorite_icon_toggle
-                            i.clock.icon
-                            i.food.icon
-                            i.chat.icon
-                            i.users.icon
-     
-template(name='product_work')
-    .ui.inline.header 
-        +i name='cookbook'
-        |work
-    .ui.icon.basic.button.add_work
-        i.plus.green.icon
-    div
-    each model_docs_helper 'work'
-        a.ui.header(href="/work/#{_id}/view") #{title}
-        
                 
                 
 template(name='user_work')
@@ -139,8 +123,6 @@ template(name='work_edit')
                         i.pencil.icon
                         | #{title}
                         small work
-                    a.ui.large.icon.green.button(href="/work/#{_id}/" title='save product')
-                        i.checkmark.big.icon
                     with work_task
                         .ui.segment
                             img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
@@ -149,13 +131,28 @@ template(name='work_edit')
                     // +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
+                    .ui.red.button.delete_work
+                        i.remove.icon   
+                        | cancel
                 .ten.wide.column
+                    .ui.inline.header 
+                        i.red.marker.icon
+                        |location
+                    
+                    each task_locations
+                        .ui.big.button.pick_location(class=location_button_class)
+                            |#{title}
+                    .ui.inline.header 
+                        i.users.icon
+                        |staff
+                    each porter_staff
+                        .ui.big.button.pick_staff
+                            |#{title}
                     div
                     +textarea_edit key='notes' label='notes' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
-                    .ui.red.button.delete_work
-                        i.remove.icon   
-                        | delete
+                    a.ui.massive.icon.circular.green.button(href="/porters" title='submit')
+                        i.checkmark.massive.icon
                 
                 
 template(name='work_view')

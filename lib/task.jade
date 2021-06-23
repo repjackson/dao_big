@@ -66,21 +66,11 @@ template(name='task')
                             .ui.header 
                                 |#{title}
                             |added #{when} by #{_author_username}
-template(name='product_task')
-    .ui.inline.header 
-        +i name='cookbook'
-        |task
-    .ui.icon.basic.button.add_task
-        i.plus.green.icon
-    div
-    each model_docs_helper 'task'
-        a.ui.header(href="/task/#{_id}/view") #{title}
-        
                 
                 
 template(name='user_task')
     .ui.inline.header 
-        +i name='cookbook'
+        +i name='tasks'
         |user task
     .ui.basic.icon.button.send_task
         i.large.plus.icon
@@ -151,7 +141,7 @@ template(name='task_view')
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
-                    a.ui.basic.icon.button(href="/task")
+                    a.ui.basic.icon.button(href="/tasks")
                         i.wrench.icon
                     .ui.inline.header
                         | #{title}
