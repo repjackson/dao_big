@@ -1,10 +1,10 @@
-template(name='stations')
+template(name='dishes')
     .ui.stackable.padded.grid
         .sixteen.wide.column
             .ui.inline.header 
-                +i name='shop'
-                |stations
-            .ui.basic.icon.button.add_station
+                +i name='cookbook'
+                |dishes
+            .ui.basic.icon.button.add_dish
                 i.large.plus.icon
             // each picked_sections
             //     button.ui.blue.compact.small.button.unpick_section(tabindex='0')
@@ -54,17 +54,24 @@ template(name='stations')
                 .spacer 
         
             span.ui.stackable.cards.scrolling
-                each station_docs
-                    a.ui.card(href="/station/#{_id}") 
-                        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                        .content
+                each model_docs_helper 'dish'
+                    .ui.card
+                        a(href="/dish/#{_id}") 
+                            img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+                        a.content(href="/dish/#{_id}") 
                             .ui.header 
                                 |#{title}
-                            |#{subtitle}
+                            |added #{when} by #{_author_username}
 
 
+template(name='favorite_icon_toggle')
+    i.heart.link.icon.toggle_fav(class=icon_class)
+    |#{favorite_ids.length}
+     
                 
-template(name='station_edit')
+                
+                
+template(name='dish_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
@@ -72,57 +79,53 @@ template(name='station_edit')
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                        small station
-                    a.ui.large.icon.green.button(href="/station/#{_id}/" title='save product')
+                        small dish
+                    a.ui.large.icon.green.button(href="/dish/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
-                    +text_edit key='subtitle' label='subtitle' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
                 .ten.wide.column
                     div
-                    // +html_edit key='directions' label='directions' direct=true
+                    +html_edit key='description' label='description' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
-                    .ui.red.button.delete_station
+                    +array_edit key='ingredients' label='ingredients' icon='tags' direct=true
+                    .ui.red.button.delete_dish
                         i.remove.icon   
                         | delete
                 
                 
-template(name='station_view')
+template(name='dish_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
-                    a.ui.basic.icon.button(href="/stations")
-                        i.store.large.icon
+                    a.ui.basic.icon.button(href="/dishes")
+                        +i name='cookbook'
                     .ui.inline.header
                         | #{title}
-                        small station view
+                        small dish view
                     +image_view key='image_id' label='image' direct=true
                     div
-                    a.ui.icon.button(href="/station/#{_id}/edit")
+                    a.ui.icon.button(href="/dish/#{_id}/edit")
                         i.pencil.icon
-                    .ui.small.header #{subtitle}
-                .eight.wide.column
-                    .ui.inline.header 
-                        +i name='meal'
-                        |dishes
-                        i.plus.circular.icon.add_station_dish
+                    .ui.header 
+                        +i name='ingredients'
+                        |ingredients
                     .ui.large.selection.link.animated.list
-                        each station_dishes
-                            a.item(href="/dish/#{_id}")
-                                img.ui.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                .content
-                                    .header #{title}
-                    .ui.inline.header 
-                        +i name='chef-hat'
-                        |staff
-                        i.plus.circular.icon.add_station_staff
-                    .ui.large.selection.link.animated.list
-                        each station_staff
+                        each ingredients
                             .item 
                                 .ui.header #{title}
+                .six.wide.column
+                    +array_view key='ingredients' label='ingredients' icon='ingredients' direct=true
+                    // +array_view key='tags' label='tags' icon='tags' direct=true
+                    .ui.header 
+                        +i name='popular-topic' cl='ui inline image'
+                        |reviews
+                    each dish_reviews
+                        .ui.header #{when}
                     +comments
-                .four.wide.column
+                .six.wide.column
                     div
                     +html_view key='description' label='description' direct=true
+                    +voting_full
