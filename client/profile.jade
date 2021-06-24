@@ -4,11 +4,11 @@ template(name='user_layout')
         +topbar
         +left_sidebar
         +right_sidebar
-        +cartbar
-        +walletbar
-        +secnav
+        // +cartbar
+        // +walletbar
+        // +secnav
         with user_from_username_param
-            .ui.stackable.padded.grid
+            .ui.stackable.padded.grid.global_conainer.pusher
                 .row
                     //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                     .four.wide.column

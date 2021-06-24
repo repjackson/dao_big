@@ -46,6 +46,12 @@ Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 Template.registerHelper 'cal_time', (input) -> moment(input).calendar()
 
 
+Template.registerHelper 'station_dishes', (input) ->
+    Docs.find 
+        model:'dish'
+        station_id: @_id
+
+
 Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
 
 Template.registerHelper 'current_month', () -> moment(Date.now()).format("MMMM")

@@ -11,6 +11,7 @@ if Meteor.isClient
             
     Template.stations.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'station', ->
+        @autorun => Meteor.subscribe 'model_docs', 'dish', ->
     
     Template.station_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
@@ -62,11 +63,6 @@ if Meteor.isClient
             Docs.find 
                 model:'station'
                 
-    Template.station_view.helpers
-        station_dishes: ->
-            Docs.find 
-                model:'dish'
-                station_id: Router.current().params.doc_id
                
 if Meteor.isServer
     Meteor.publish 'station_dishes', (station_id)->
