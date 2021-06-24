@@ -26,9 +26,10 @@ if Meteor.isClient
             new_id = 
                 Docs.insert
                     model:'work'
-                    task_id:@_id
                     station:'porters'
-                    task_name:@title
+                    task_id:@_id
+                    task_title:@title
+                    task_image_id:@image_id
             Router.go "/work/#{new_id}/edit"
     
     

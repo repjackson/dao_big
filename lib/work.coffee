@@ -11,10 +11,6 @@ if Meteor.isClient
         @layout 'layout'
         @render 'work_view'
         ), name:'work_view'
-    Router.route '/work/:doc_id/view', (->
-        @layout 'layout'
-        @render 'work_view'
-        ), name:'work_view_long'
     
     
     
@@ -59,12 +55,14 @@ if Meteor.isClient
                 $set:
                     staff_id:@_id
                     staff_name: "#{@first_name} #{@last_name}"
+                    staff_image_id: @image_id
         
         'click .pick_location': ->
             Docs.update Router.current().params.doc_id, 
                 $set:
                     location_id:@_id
-                    location_title: "#{@title}"
+                    location_title: @title
+                    location_image_id: @image_id
         
         
         
@@ -121,30 +119,30 @@ if Meteor.isClient
 
 
     Template.work_edit.events
-        'click .send_work': ->
-            Swal.fire({
-                title: 'confirm send card'
-                text: "#{@amount} credits"
-                icon: 'question'
-                showCancelButton: true,
-                confirmButtonText: 'confirm'
-                cancelButtonText: 'cancel'
-            }).then((result) =>
-                if result.value
-                    work = Docs.findOne Router.current().params.doc_id
-                    Meteor.users.update Meteor.userId(),
-                        $inc:credit:-@amount
-                    Docs.update work._id,
-                        $set:
-                            sent:true
-                            sent_timestamp:Date.now()
-                    Swal.fire(
-                        'work sent',
-                        ''
-                        'success'
-                    Router.go "/work/#{@_id}/"
-                    )
-            )
+        # 'click .send_work': ->
+        #     Swal.fire({
+        #         title: 'confirm send card'
+        #         text: "#{@amount} credits"
+        #         icon: 'question'
+        #         showCancelButton: true,
+        #         confirmButtonText: 'confirm'
+        #         cancelButtonText: 'cancel'
+        #     }).then((result) =>
+        #         if result.value
+        #             work = Docs.findOne Router.current().params.doc_id
+        #             Meteor.users.update Meteor.userId(),
+        #                 $inc:credit:-@amount
+        #             Docs.update work._id,
+        #                 $set:
+        #                     sent:true
+        #                     sent_timestamp:Date.now()
+        #             Swal.fire(
+        #                 'work sent',
+        #                 ''
+        #                 'success'
+        #             Router.go "/work/#{@_id}/"
+        #             )
+        #     )
 
         'click .delete_work':->
             Swal.fire({

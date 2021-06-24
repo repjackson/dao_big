@@ -60,11 +60,17 @@ template(name='work')
             .ui.large.selection.animated.list.scrolling
                 each work_list
                     a.item(href="/work/#{_id}")
-                        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
                         .content
-                            .ui.header 
-                                |#{staff_name} at #{location_title}
+                            .ui.inline.header 
+                                img.ui.tiny.inline.image(src="{{c.url staff_image_id width=400 height=300 crop='pad'}}")
+                                |#{staff_name}: 
+                            img.ui.tiny.inline.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
+                            .ui.inline.header 
+                                |#{task_title}
+                            .ui.inline.header @#{location_title}
                             |added #{when} by #{_author_username}
+                            if image_id
+                                img.ui.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
                         // .content
                         //     +favorite_icon_toggle
                 
@@ -155,7 +161,8 @@ template(name='work_edit')
                     if staff_id
                         a.ui.massive.icon.fluid.green.button(href="/porters" title='submit')
                             i.checkmark.big.icon
-                
+                    if in_dev
+                        +print_this
                 
 template(name='work_view')
     with current_doc
@@ -176,11 +183,11 @@ template(name='work_view')
                         .content
                             img.ui.small.image(src="{{c.url staff_image_id width=200 height=200 gravity='face' crop='fill'}}")
                             .ui.large.header #{staff_name} 
-                    a.ui.card(href="/staff/#{staff_id}/")
+                    a.ui.card(href="/task/#{task_id}/")
                         .ui.segment
-                            img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                            img.ui.small.image(src="{{c.url task_image_id width=200 height=200 gravity='face' crop='fill'}}")
                             .ui.header 
-                                |#{title}
+                                |#{task_title}
                     a.ui.card(href="/location/#{location_id}/") 
                         .content
                             img.ui.small.image(src="{{c.url location_image_id width=200 height=200 gravity='face' crop='fill'}}")
