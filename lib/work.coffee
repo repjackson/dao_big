@@ -29,7 +29,7 @@ if Meteor.isClient
 
     Template.work_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'work_task', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'work_task', Router.current().params.doc_id, ->
 
 
     Template.work.helpers
@@ -37,6 +37,16 @@ if Meteor.isClient
             Docs.find {
                 model:'work'
             }, sort:_timestamp:-1
+        eric_total: ->
+            Docs.find({
+                model:'work'
+                staff_id:'vRbbcxAXKY75m8ZTP'
+            }).count()
+        ryan_total: ->
+            Docs.find({
+                model:'work'
+                staff_id:'wgj7J54mLMGdJ49dy'
+            }).count()
     Template.work.events
         'click .add_work': ->
             new_id = Docs.insert 
