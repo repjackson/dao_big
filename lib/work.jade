@@ -152,18 +152,18 @@ template(name='work_edit')
                     each task_locations
                         .ui.big.button.pick_location(class=location_picker_class)
                             |#{title}
-                    div
-                    .ui.header 
-                        i.users.icon
-                        |staff
-                    each porter_staff
-                        .ui.big.button.pick_staff(class=staff_picker_class)
-                            | #{first_name} #{last_name}
-                    div
-                    // +array_edit key='tags' label='tags' icon='tags' direct=true
-                    if staff_id
-                        a.ui.massive.icon.fluid.green.button(href="/porters" title='submit')
-                            i.checkmark.big.icon
+                    // div
+                    // .ui.header 
+                    //     i.users.icon
+                    //     |staff
+                    // each porter_staff
+                    //     .ui.big.button.pick_staff(class=staff_picker_class)
+                    //         | #{first_name} #{last_name}
+                    // div
+                    // // +array_edit key='tags' label='tags' icon='tags' direct=true
+                    // if staff_id
+                    a.ui.massive.icon.fluid.green.button(href="/porters" title='submit')
+                        i.checkmark.big.icon
                     if in_dev
                         +print_this
                 
@@ -182,19 +182,16 @@ template(name='work_view')
                     a.ui.icon.button(href="/work/#{_id}/edit")
                         i.pencil.icon
                 .eight.wide.column
-                    a.ui.card(href="/staff/#{staff_id}/")
-                        .content
-                            img.ui.small.image(src="{{c.url staff_image_id width=200 height=200 gravity='face' crop='fill'}}")
-                            .ui.large.header #{staff_name} 
-                    a.ui.card(href="/task/#{task_id}/")
-                        .ui.segment
-                            img.ui.small.image(src="{{c.url task_image_id width=200 height=200 gravity='face' crop='fill'}}")
-                            .ui.header 
-                                |#{task_title}
-                    a.ui.card(href="/location/#{location_id}/") 
-                        .content
-                            img.ui.small.image(src="{{c.url location_image_id width=200 height=200 gravity='face' crop='fill'}}")
-                            .ui.header @#{location_title}
+                    a.zoomer(href="/staff/#{staff_id}/")
+                        img.ui.small.inline.image(src="{{c.url author.image_id width=200 height=200 gravity='face' crop='fill'}}")
+                        .ui.large.inline.header #{_author_name} 
+                    a.zoomer(href="/task/#{task_id}/")
+                        img.ui.small.inline.image(src="{{c.url task_image_id width=200 height=200 gravity='face' crop='fill'}}")
+                        .ui.inline.header 
+                            |#{task_title}
+                    a.zoomer(href="/location/#{location_id}/") 
+                        img.ui.small.inline.image(src="{{c.url location_image_id width=200 height=200 gravity='face' crop='fill'}}")
+                        .ui.inline.header @#{location_title}
                     .ui.header #{when}
                     div.scrolling
                         +html_view key='notes' label='directions' direct=true

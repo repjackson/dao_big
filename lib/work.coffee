@@ -78,8 +78,10 @@ if Meteor.isClient
         
     Template.work_edit.helpers
         task_locations: ->
+            work_doc = Docs.findOne(model:'task')
             Docs.find 
                 model:'location'
+                _id: $in: work_doc.location_ids
                 
         porter_staff: ->
             Docs.find 
