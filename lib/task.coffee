@@ -65,11 +65,11 @@ if Meteor.isServer
             model:'work'
             task_id:task_id
             
-    Meteor.publish 'work_task', (work_id)->
-        work = Docs.findOne work_id
-        Docs.find   
-            model:'task'
-            _id: work.task_id
+    # Meteor.publish 'work_task', (work_id)->
+    #     work = Docs.findOne work_id
+    #     Docs.find   
+    #         model:'task'
+    #         _id: work.task_id
             
             
     Meteor.publish 'user_sent_task', (username)->

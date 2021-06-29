@@ -35,7 +35,7 @@ template(name='nav')
                 //     i.alerts.icon
                 a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
                     i.wallet.icon
-                    strong ${{int currentUser.points}}
+                    strong {{int currentUser.points}}p
                 a.icon.item.toggle_rightbar.no_blink
                     if currentUser.image_id
                         img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face' crop='fill'}}")

@@ -187,24 +187,41 @@ Meteor.methods
         match = {}
         match._author_username = username
         match.model = 'work'
-        res = Docs.aggregate [
-            { $match: match }
-            # { $project: tags: 1 }
-            { $group:
-                _id: "$item",
-                point_total: { $sum: "$task_points" },
-                # avgAmount: { $avg: { $multiply: [ "$price", "$quantity" ] } },
-                # avgQuantity: { $avg: "$quantity" }
-            }
-            { $project: _id: 0, name: '$_id', count: 1 }
-        ]
-        # console.log res
-        res.forEach (tag, i) ->
-            console.log tag
-            # self.added 'tags', Random.id(),
-            #     name: tag.name
-            #     count: tag.count
-            #     index: i
+        match.task_points = $exists:true
+        point_total = 0
+        
+        
+        point_docs = Docs.find(match).fetch()
+        for point_doc in point_docs 
+            point_total += point_doc.task_points
+            
+        console.log point_total
+        
+        # res = Docs.aggregate [
+        #     { $match: match }
+        #     # { $project: tags: 1 }
+        #     { $group:
+        #         _id: "$item",
+        #         point_total: { $sum: "$task_points" },
+        #         # avgAmount: { $avg: { $multiply: [ "$price", "$quantity" ] } },
+        #         # avgQuantity: { $avg: "$quantity" }
+        #     }
+        #     { $project: _id: 0, point_total: 1 }
+        # ]
+        # console.log res.toArray()
+
+        if point_total
+            Meteor.users.update user._id, 
+                $set:points:point_total
+
+        # res.forEach (tag, i) =>
+        #     console.log tag
+        #     Meteor.users.update user._id, 
+        #         $set:points: tag.point_total
+        #     # self.added 'tags', Random.id(),
+        #     #     name: tag.name
+        #     #     count: tag.count
+        #     #     index: i
 
 
 Meteor.publish 'me', ->
