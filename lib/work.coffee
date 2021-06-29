@@ -158,8 +158,8 @@ if Meteor.isClient
 
         'click .delete_work':->
             Swal.fire({
-                title: 'delete work entry?'
-                # text: "#{@amount} credits"
+                title: "delete work entry?"
+                text: "for #{@task_title}"
                 icon: 'question'
                 showCancelButton: true,
                 confirmButtonText: 'confirm'

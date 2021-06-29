@@ -65,12 +65,12 @@ template(name='work')
                         .content
                             .ui.inline.header 
                                 img.ui.tiny.inline.image(src="{{c.url staff_image_id width=400 height=300 crop='pad'}}")
-                                |#{staff_name}: 
+                                |#{_author_username}: 
                             img.ui.tiny.inline.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
                             .ui.inline.header 
                                 |#{task_title}
                             .ui.inline.header @#{location_title}
-                            | #{when} by #{_author_username} 
+                            | #{when}
                             small ({{long_date _timestamp}})
                             if image_id
                                 img.ui.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")

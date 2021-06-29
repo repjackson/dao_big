@@ -20,9 +20,11 @@ if Meteor.isClient
     Template.task_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'task_work', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'model_docs', 'location', ->
     Template.task_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'task_work', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'model_docs', 'location', ->
     
 
 
@@ -55,7 +57,31 @@ if Meteor.isClient
         #     Session.set('editing_id',new_id)
             
            
-           
+    Template.task_view.helpers
+        possible_locations: ->
+            task = Docs.findOne Router.current().params.doc_id
+            Docs.find
+                model:'location'
+                _id:$in:task.location_ids
+    Template.task_edit.helpers
+        task_locations: ->
+            Docs.find
+                model:'location'
+                
+        location_class: ->
+            task = Docs.findOne Router.current().params.doc_id
+            if task.location_ids and @_id in task.location_ids then 'blue' else 'basic'
+            
+                
+    Template.task_edit.events
+        'click .select_location': ->
+            task = Docs.findOne Router.current().params.doc_id
+            if task.location_ids and @_id in task.location_ids
+                Docs.update Router.current().params.doc_id, 
+                    $pull:location_ids:@_id
+            else
+                Docs.update Router.current().params.doc_id, 
+                    $addToSet:location_ids:@_id
             
     Template.user_task.helpers
         sent_task: ()->

@@ -23,14 +23,15 @@ if Meteor.isClient
     
     
         'click .log_work':->
-            new_id = 
-                Docs.insert
-                    model:'work'
-                    station:'porters'
-                    task_id:@_id
-                    task_title:@title
-                    task_image_id:@image_id
-            Router.go "/work/#{new_id}/edit"
+            if Meteor.user()
+                new_id = 
+                    Docs.insert
+                        model:'work'
+                        station:'porters'
+                        task_id:@_id
+                        task_title:@title
+                        task_image_id:@image_id
+                Router.go "/work/#{new_id}/edit"
     
     
                     

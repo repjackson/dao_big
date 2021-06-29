@@ -130,6 +130,13 @@ template(name='task_edit')
                 .ten.wide.column
                     div
                     +textarea_edit key='description' label='description' direct=true
+                    .ui.header     
+                        i.large.marker.icon
+                        |possible locations
+                    each task_locations
+                        .ui.button.select_location(class=location_class)
+                            img.ui.tiny.inline.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+                            |#{title}
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     .ui.red.button.delete_task
                         i.remove.icon   
@@ -153,6 +160,13 @@ template(name='task_view')
                 .eight.wide.column
                     div.scrolling
                         +html_view key='notes' label='directions' direct=true
+                    .ui.inline.header 
+                        i.large.marker.icon
+                        |possible locations
+                    each possible_locations
+                        .ui.large.label #{title}
+                    div
+                    .ui.header tags
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     if currentUser
                         .ui.button.record_work
