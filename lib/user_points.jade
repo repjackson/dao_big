@@ -6,12 +6,21 @@ template(name='user_points')
                     i.money.icon
                     |{{fixed user_from_username_param.points}}
                     |points
-                .ui.large.bulleted.list.scrolling
+                .ui.selection.link.animated.divided.list.scrolling
                     each user_work
-                        .item 
+                        a.item(href="/work/#{_id}") 
                             .content
-                                a.header(href="/work/#{_id}") 
-                                    |#{task_title} @#{location_title}
-                                .description #{when} {{long_date _timestamp}}
+                                if image_id
+                                    img.ui.small.inline.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+                                img.ui.tiny.inline.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
+                                .ui.inline.header 
+                                    |#{task_title}
+                                if location_image_id
+                                    img.ui.tiny.inline.image(src="{{c.url location_image_id width=400 height=300 crop='pad'}}")
+                                .ui.inline.header 
+                                    |@#{location_title}
+                                    
+                                .description #{when} {{long_date _timestamp}} for 
+                                .ui.inline.header #{task_points}pts
                                 // if in_dev
                                 //     +remove_button

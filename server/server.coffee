@@ -163,7 +163,6 @@ Meteor.publish 'work_facets', ()->
         { $project: _id: 0, name: '$_id', count: 1 }
         ]
     cloud.forEach (tag, i) ->
-
         self.added 'tags', Random.id(),
             name: tag.name
             count: tag.count
@@ -182,6 +181,30 @@ Meteor.methods
              }
         ]
         console.log res
+
+    calc_user_points: (username)->
+        user = Meteor.users.findOne username:username
+        match = {}
+        match._author_username = username
+        match.model = 'work'
+        res = Docs.aggregate [
+            { $match: match }
+            # { $project: tags: 1 }
+            { $group:
+                _id: "$item",
+                point_total: { $sum: "$task_points" },
+                # avgAmount: { $avg: { $multiply: [ "$price", "$quantity" ] } },
+                # avgQuantity: { $avg: "$quantity" }
+            }
+            { $project: _id: 0, name: '$_id', count: 1 }
+        ]
+        # console.log res
+        res.forEach (tag, i) ->
+            console.log tag
+            # self.added 'tags', Random.id(),
+            #     name: tag.name
+            #     count: tag.count
+            #     index: i
 
 
 Meteor.publish 'me', ->

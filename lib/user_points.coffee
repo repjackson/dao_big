@@ -7,6 +7,7 @@ if Meteor.isClient
     Template.user_points.onCreated ->
         @autorun => Meteor.subscribe 'user_by_username', Router.current().params.username, ->
         @autorun => Meteor.subscribe 'user_work', Router.current().params.username, ->
+        Meteor.call 'calc_user_points', Router.current().params.username, ->
         # @autorun => Meteor.subscribe 'model_docs', 'deposit'
         # @autorun => Meteor.subscribe 'model_docs', 'reservation'
         # @autorun => Meteor.subscribe 'model_docs', 'withdrawal'

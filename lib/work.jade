@@ -69,11 +69,14 @@ template(name='work')
                             img.ui.tiny.inline.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
                             .ui.inline.header 
                                 |#{task_title}
-                            .ui.inline.header @#{location_title}
+                            .ui.inline.header 
+                                img.ui.tiny.inline.image(src="{{c.url location_image_id width=400 height=300 crop='pad'}}")
+                                |@#{location_title}
                             | #{when}
                             small ({{long_date _timestamp}})
                             if image_id
                                 img.ui.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
+                            |#{task_points}pts
                         // .content
                         //     +favorite_icon_toggle
                 
@@ -149,19 +152,9 @@ template(name='work_edit')
                     .ui.header 
                         i.red.marker.icon
                         |location
-                    
                     each task_locations
                         .ui.big.circular.button.pick_location(class=location_picker_class)
                             .ui.heaader #{title}
-                    // div
-                    // .ui.header 
-                    //     i.users.icon
-                    //     |staff
-                    // each porter_staff
-                    //     .ui.big.button.pick_staff(class=staff_picker_class)
-                    //         | #{first_name} #{last_name}
-                    // div
-                    // // +array_edit key='tags' label='tags' icon='tags' direct=true
                     if location_id
                         .ui.hidden.divider
                         a.ui.massive.icon.fluid.green.circular.button(href="/porters" title='submit')
@@ -201,6 +194,7 @@ template(name='work_view')
                     +comments
                 .four.wide.column
                     +voting_full
+                    .ui.header #{task_points} pts earned
                     if in_dev 
                         +print_this
                         

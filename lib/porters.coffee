@@ -31,6 +31,7 @@ if Meteor.isClient
                         task_id:@_id
                         task_title:@title
                         task_image_id:@image_id
+                        task_points: @points
                 Router.go "/work/#{new_id}/edit"
     
     

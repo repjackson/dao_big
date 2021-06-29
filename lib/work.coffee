@@ -18,10 +18,6 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'model_docs', 'work', ->
             
             
-    Template.user_work.onCreated ->
-        @autorun => Meteor.subscribe 'user_sent_work', Router.current().params.username, ->
-        @autorun => Meteor.subscribe 'user_received_work', Router.current().params.username, ->
-            
     Template.work_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'model_docs', 'location', ->
