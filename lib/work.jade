@@ -162,8 +162,9 @@ template(name='work_edit')
                     //         | #{first_name} #{last_name}
                     // div
                     // // +array_edit key='tags' label='tags' icon='tags' direct=true
-                    if location_ids
-                        a.ui.massive.icon.fluid.green.button(href="/porters" title='submit')
+                    if location_id
+                        .ui.hidden.divider
+                        a.ui.massive.icon.fluid.green.circular.button(href="/porters" title='submit')
                             i.checkmark.big.icon
                     if in_dev
                         +print_this

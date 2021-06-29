@@ -68,50 +68,6 @@ template(name='tasks')
                             // |added #{when} by #{_author_username}
                 
                 
-template(name='user_task')
-    .ui.inline.header 
-        +i name='tasks'
-        |user task
-    .ui.basic.icon.button.send_task
-        i.large.plus.icon
-    .ui.padded.stackable.two.column.grid
-        .column
-            .ui.header 
-                +i name='sent--v2'
-                |authored 
-            .ui.stackable.cards.scrolling
-                each sent_task 
-                    .ui.card
-                        .content
-                            a(href="/task/#{_id}") 
-                                img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-    
-                            .ui.header 
-                                |#{amount} #{recipient_username}
-                            // |created #{when}
-                            |sent {{from_now sent_timestamp}}
-                            small {{cal_time sent_timestamp}}
-                            a.ui.icon.button(href='/task/#{_id}')
-                                i.large.chevron.right.icon
-                            
-        .column
-            .ui.header 
-                +i name='gift--v1'
-                |favorites
-            .ui.stackable.cards.scrolling
-                each favorited
-                    .ui.card
-                        .content
-                            a(href="/task/#{_id}") 
-                                img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                            .ui.header 
-                                |#{amount} #{_author_username}
-                            |received {{from_now sent_timestamp}}
-                            small {{cal_time sent_timestamp}}
-                            a.ui.icon.button(href='/task/#{_id}')
-                            i.ui.large.link.chevron.right.icon.edit_address
-                
-                
                 
 template(name='task_edit')
     with current_doc
@@ -172,9 +128,11 @@ template(name='task_view')
                     if currentUser
                         .ui.button.record_work
                             |record work
-                            
-                    +comments
+                    .ui.list
+                        each task_work
+                            a.item(href="/work/#{_id}") #{when} #{_author_username}
                 .four.wide.column
                     +html_view key='description' label='description' direct=true
                     +voting_full
+                    +comments
                         

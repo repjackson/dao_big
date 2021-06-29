@@ -8,10 +8,6 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'model_docs', 'task', ->
             
             
-    Template.user_task.onCreated ->
-        @autorun => Meteor.subscribe 'user_sent_task', Router.current().params.username, ->
-        @autorun => Meteor.subscribe 'user_received_task', Router.current().params.username, ->
-            
     Template.task_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.task_view.onCreated ->
@@ -36,26 +32,6 @@ if Meteor.isClient
             Router.go "/work/#{new_id}/edit"    
     
                 
-    Template.user_task.events
-        'click .send_task': ->
-            new_id = 
-                Docs.insert 
-                    model:'task'
-            
-            Router.go "/task/#{new_id}/edit"
-            
-            
-        # 'click .edit_address': ->
-        #     Session.set('editing_id',@_id)
-        # 'click .remove_address': ->
-        #     if confirm 'confirm delete?'
-        #         Docs.remove @_id
-        # 'click .add_address': ->
-        #     new_id = 
-        #         Docs.insert
-        #             model:'address'
-        #     Session.set('editing_id',new_id)
-            
            
     Template.task_view.helpers
         possible_locations: ->
@@ -83,21 +59,11 @@ if Meteor.isClient
                 Docs.update Router.current().params.doc_id, 
                     $addToSet:location_ids:@_id
             
-    Template.user_task.helpers
-        sent_task: ()->
-            Docs.find   
-                model:'task'
-                _author_username:Router.current().params.username
-        received_task: ()->
-            Docs.find   
-                model:'task'
-                recipient_username:Router.current().params.username
-        
 if Meteor.isServer
-    Meteor.publish 'user_received_task', (username)->
+    Meteor.publish 'task_work', (task_id)->
         Docs.find   
-            model:'task'
-            recipient_username:username
+            model:'work'
+            task_id:task_id
             
     Meteor.publish 'work_task', (work_id)->
         work = Docs.findOne work_id
