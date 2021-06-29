@@ -20,9 +20,6 @@ template(name='nav')
         a.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
             i.wrench.icon
             .mobile.hidden work
-        a.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
-            i.food.icon
-            .mobile.hidden #{items.count} items
         a.item.zoomer(href='/porters' class="{{isActivePath '/porters'}}")
             i.dolly.icon
             .mobile.hidden porters
@@ -31,24 +28,22 @@ template(name='nav')
             .mobile.hidden stations
         a.icon.item.zoomer(href='/locations' class="{{isActivePath '/locations'}}")
             i.marker.icon
-        a.icon.item.zoomer(href='/staff' class="{{isActivePath '/staff'}}")
+        a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
         .right.menu
             if currentUser
                 // a.icon.item.toggle_topbar(title='alerts')
                 //     i.bell.outline.icon
                 //     i.alerts.icon
-                // a.item.toggle_walletbar(title='credit')
-                //     i.wallet.icon
-                //     strong ${{int currentUser.credit}}
+                a.item.toggle_walletbar(title='points')
+                    i.wallet.icon
+                    strong ${{int currentUser.points}}
                 a.icon.item.toggle_rightbar.no_blink
                     if currentUser.image_id
                         img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face' crop='fill'}}")
                     else
                         i.user.icon
                     strong.mobile.hidden #{currentUser.username}
-                    // i.bars.icon
-                            
             unless currentUser
                 if subs_ready
                     a.item(href='/login' title='login') 
@@ -60,81 +55,7 @@ template(name='nav')
                 
                 
                 
-template(name='my_latest_activity')
-    .ui.grey.header 
-        i.grey.rss.icon
-        |your activity
-    .ui.list
-        each my_latest_activity
-            .item 
-                img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
-                |#{text} #{body}
-                small #{when}
 
-
-template(name='latest_activity')
-    .ui.grey.header 
-        i.grey.rss.icon
-        |all activity
-    .ui.list
-        each latest_activity
-            .item 
-                img.ui.avatar.image(src="{{c.url author.kiosk_photo width=200 height=200 gravity='face' crop='fill'}}")
-                |#{text} #{body} 
-                .ui.label #{log_type}
-                small #{when}
-
-
-template(name='footer')
-    .ui.stackable.padded.grid
-        .three.column.row
-            // .column
-                // .ui.link.list
-                //     a.item hello@nudefoodsmarket.com
-                //     a.item 555 30th Street
-                //     a.item Boulder, CO 80303
-                    a.item (720) 815-5588
-            .column
-                .ui.link.animated.selection.grey.list
-                    a.item(href="/") 
-                        i.home.icon
-                        |home
-                    a.item(href="/cart") 
-                        i.cart.icon
-                        |cart
-                    a.item(href='/contact')
-                        i.phone.icon
-                        |contact us
-                    a.item
-                        i.smile.icon
-                        |get involved
-                    a.item(href='/account') 
-                        i.user.icon
-                        | account
-                    // a.item(href='/p/newsletter') 
-                    //     i.newspaper.icon
-                    //     | Newsletter
-                    a.item(href='/members') 
-                        i.users.icon
-                        | members
-            .column
-                .ui.link.animated.selection.list
-                    // a.item(href='/p/faq') FAQ
-                    // a.item(href='p/how') How we work
-                    // a.item(href='/p/privacy-policy') Privacy policy
-                    // a.item(href='/p/tos') Terms of Service
-                    // a.item(href='/produce') 
-                    //     i.food.icon
-                    //     | Produce
-                    a.item(href='/cars') 
-                        i.car.icon
-                        | cars
-                    a.item(href='/shop') 
-                        i.shop.icon
-                        | shop
-            // .column
-            //     +icolor name='facebook'
-            //     +icolor name='instagram'
 template(name='topbar')
     .ui.fluid.attached.inverted.segment.topbar.top.sidebar(style="background-color:#062639;")
         .ui.middle.aligned.divided.list
@@ -176,10 +97,10 @@ template(name='right_sidebar')
                 // +i name='dashboard' cl='ui avatar image'
                 i.dashboard.icon
                 |dashboard
-            a.item.toggle_rightbar(href="/user/#{username}/credit" class="{{isActiveRoute regex='user_credit'}}")
+            a.item.toggle_rightbar(href="/user/#{username}/points" class="{{isActiveRoute regex='user_points'}}")
                 // +i name='money' cl='ui avatar image'
                 i.coins.icon
-                |credit
+                |points
             a.item.toggle_rightbar(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
                 // +i name='check' cl='ui avatar image'
                 i.money.icon
@@ -220,11 +141,9 @@ template(name='right_sidebar')
 
 
 template(name='left_sidebar')
-    .ui.left.sidebar.vertical.inverted.menu.smallscroll(style="background-color:#062639;")
+    .ui.left.sidebar.vertical.inverted.thin.menu(style="background-color:#062639;")
         a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
-            // +i name='food' cl='ui inline mini image'
-            // i.home.icon
-            img.ui.small.centered.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
+            img.ui.small.centered.inline.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')
         //     .ui.icon.transparent.input
         //         i.search.icon
@@ -238,6 +157,9 @@ template(name='left_sidebar')
         a.item.toggle_leftbar.zoomer(href='/chat' class="{{isActivePath '/chat'}}" title='news')
             i.chat.icon
             | chat
+        a.item.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
+            i.food.icon
+            .mobile.hidden #{items.count} items
         a.item.toggle_leftbar.zoomer(href='/posts' class="{{isActivePath '/posts'}}" title='posts')
             i.newspaper.icon
             | #{post_count} posts
@@ -247,9 +169,6 @@ template(name='left_sidebar')
         a.item.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
             | #{users.count} users
-        a.item.toggle_leftbar.zoomer(href='/staff' class="{{isActivePath '/staff'}}")
-            i.staff.icon
-            | #{staff.count} staff
         if is_in_admin
             a.icon.item.toggle_admin.toggle_leftbar.no_blink
                 |toggle admin

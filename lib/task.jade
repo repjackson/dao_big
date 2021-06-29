@@ -1,4 +1,4 @@
-template(name='task')
+template(name='tasks')
     .ui.stackable.padded.grid
         .sixteen.wide.column
             .ui.inline.header 
@@ -65,7 +65,7 @@ template(name='task')
                         a.content(href="/task/#{_id}") 
                             .ui.header 
                                 |#{title}
-                            |added #{when} by #{_author_username}
+                            // |added #{when} by #{_author_username}
                 
                 
 template(name='user_task')
@@ -126,6 +126,7 @@ template(name='task_edit')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
+                    +number_edit key='points' label='points' direct=true
                     div
                 .ten.wide.column
                     div

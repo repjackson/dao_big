@@ -4,7 +4,7 @@ if Meteor.isClient
         @render 'task_view'
         ), name:'task_view'
     
-    Template.task.onCreated ->
+    Template.tasks.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'task', ->
             
             
