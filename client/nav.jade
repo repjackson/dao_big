@@ -8,9 +8,9 @@ template(name='nav')
                i.bars.icon 
         a.image.item.zoomer(href='/' class="{{isActivePath '/'}}" title='Rosetta Hall')
             img.ui.avatar.image(src="https://d2s742iet3d3t1.cloudfront.net/restaurants/restaurant-33707000000000000/restaurant_1619610434.jpg")
-        a.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
-            i.bullhorn.icon
-            .mobile.hidden #{requests.count} requests
+        // a.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
+        //     i.bullhorn.icon
+        //     .mobile.hidden #{requests.count} requests
         // a.item.zoomer(href='/dishes' class="{{isActivePath '/dishes'}}")
         //     i.food.icon
         //     .mobile.hidden #{dishes.count} dishes
@@ -26,8 +26,6 @@ template(name='nav')
         a.item.zoomer(href='/stations' class="{{isActivePath '/stations'}}")
             i.store.icon
             .mobile.hidden stations
-        a.icon.item.zoomer(href='/locations' class="{{isActivePath '/locations'}}")
-            i.marker.icon
         a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.users.icon
         .right.menu
@@ -35,7 +33,7 @@ template(name='nav')
                 // a.icon.item.toggle_topbar(title='alerts')
                 //     i.bell.outline.icon
                 //     i.alerts.icon
-                a.item.toggle_walletbar(title='points')
+                a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
                     i.wallet.icon
                     strong ${{int currentUser.points}}
                 a.icon.item.toggle_rightbar.no_blink
@@ -143,7 +141,7 @@ template(name='right_sidebar')
 template(name='left_sidebar')
     .ui.left.sidebar.vertical.inverted.thin.menu(style="background-color:#062639;")
         a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
-            img.ui.small.centered.inline.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
+            img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')
         //     .ui.icon.transparent.input
         //         i.search.icon
@@ -154,15 +152,15 @@ template(name='left_sidebar')
         a.item.toggle_leftbar(href='/dishes' class="{{isActivePath '/dishes'}}")
             i.food.icon
             |#{recipe_count} dishes
-        a.item.toggle_leftbar.zoomer(href='/chat' class="{{isActivePath '/chat'}}" title='news')
-            i.chat.icon
-            | chat
         a.item.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
             i.food.icon
             .mobile.hidden #{items.count} items
         a.item.toggle_leftbar.zoomer(href='/posts' class="{{isActivePath '/posts'}}" title='posts')
             i.newspaper.icon
             | #{post_count} posts
+        a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
+            i.marker.icon
+            |locations
         a.item.toggle_leftbar.zoomer(href='/stations' class="{{isActivePath '/stations'}}" title='posts')
             i.store.icon
             | #{post_count} stations
@@ -176,19 +174,14 @@ template(name='left_sidebar')
                     i.shield.icon
                 else
                     i.shield.icon
-            
         if is_admin
             .divider
             a.item.set_model.toggle_leftbar.no_blink(href="/m/model" class="{{isActivePath '/m/model'}}")
                 i.shield.icon
-                // +i name='shield' cl='ui inline mini image'
                 |admin
             a.item.set_user.toggle_leftbar.no_blink(href="/users" class="{{isActiveRoute '/users'}}")
                 i.users.icon
-                // +i name='groups' cl='ui inline mini image'
                 | users
             a.item.toggle_leftbar.zoomer(href='/orders' class="{{isActivePath '/orders'}}" title='orders')
                 i.list.icon
-                // +i name='list' cl='ui inline mini image'
                 | orders
-                

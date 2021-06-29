@@ -137,6 +137,7 @@ template(name='work_edit')
                             img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                             .ui.header 
                                 |#{title}
+                            |#{description}
                     // +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
@@ -150,8 +151,8 @@ template(name='work_edit')
                         |location
                     
                     each task_locations
-                        .ui.big.button.pick_location(class=location_picker_class)
-                            |#{title}
+                        .ui.big.circular.button.pick_location(class=location_picker_class)
+                            .ui.heaader #{title}
                     // div
                     // .ui.header 
                     //     i.users.icon
@@ -161,9 +162,9 @@ template(name='work_edit')
                     //         | #{first_name} #{last_name}
                     // div
                     // // +array_edit key='tags' label='tags' icon='tags' direct=true
-                    // if staff_id
-                    a.ui.massive.icon.fluid.green.button(href="/porters" title='submit')
-                        i.checkmark.big.icon
+                    if location_ids
+                        a.ui.massive.icon.fluid.green.button(href="/porters" title='submit')
+                            i.checkmark.big.icon
                     if in_dev
                         +print_this
                 

@@ -22,7 +22,7 @@ template(name='porters')
                                 .ui.basic.small.label #{this}
                             each task_locations
                                 .ui.label #{title}
-                            .ui.inline.header #{points}
+                            .ui.inline.header +#{points}p
                             if session_is 'admin_mode' true
                                 a.ui.icon.button(href="/task/#{_id}/edit")
                                     i.pencil.icon

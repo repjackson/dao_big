@@ -1,0 +1,17 @@
+template(name='user_points')
+    .ui.stackable.one.column.padded.grid
+        if is_current_user
+            .column
+                .ui.inline.header
+                    i.money.icon
+                    |{{fixed user_from_username_param.points}}
+                    |points
+                .ui.large.bulleted.list.scrolling
+                    each user_work
+                        .item 
+                            .content
+                                a.header(href="/work/#{_id}") 
+                                    |#{task_title} @#{location_title}
+                                .description #{when} {{long_date _timestamp}}
+                                // if in_dev
+                                //     +remove_button

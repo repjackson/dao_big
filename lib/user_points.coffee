@@ -1,6 +1,12 @@
 if Meteor.isClient
-    Template.user_credit.onCreated ->
-        @autorun => Meteor.subscribe 'user_by_username', Router.current().params.username
+    Router.route '/user/:username/points', (->
+        @layout 'user_layout'
+        @render 'user_points'
+        ), name:'user_points'
+
+    Template.user_points.onCreated ->
+        @autorun => Meteor.subscribe 'user_by_username', Router.current().params.username, ->
+        @autorun => Meteor.subscribe 'user_work', Router.current().params.username, ->
         # @autorun => Meteor.subscribe 'model_docs', 'deposit'
         # @autorun => Meteor.subscribe 'model_docs', 'reservation'
         # @autorun => Meteor.subscribe 'model_docs', 'withdrawal'
@@ -38,17 +44,17 @@ if Meteor.isClient
         #                     amount_with_bonus:deposit_amount*1.05/100
         #                     bonus:deposit_amount*.05/100
         #                 Meteor.users.update user._id,
-        #                     $inc: credit: deposit_amount*1.05/100
+        #                     $inc: points: deposit_amount*1.05/100
     	# )
 
 
-    # Template.user_credit.events
-    #     'click .add_credits': ->
+    # Template.user_points.events
+    #     'click .add_pointss': ->
     #         amount = parseInt $('.deposit_amount').val()
     #         amount_times_100 = parseInt amount*100
     #         calculated_amount = amount_times_100*1.02+20
     #         # Template.instance().checkout.open
-    #         #     name: 'credit deposit'
+    #         #     name: 'points deposit'
     #         #     # email:Meteor.user().emails[0].address
     #         #     description: 'gold run'
     #         #     amount: calculated_amount
@@ -56,7 +62,7 @@ if Meteor.isClient
     #             model:'deposit'
     #             amount: amount
     #         Meteor.users.update Meteor.userId(),
-    #             $inc: credit: amount_times_100
+    #             $inc: points: amount_times_100
 
 
     #     'click .initial_withdrawal': ->
@@ -68,51 +74,41 @@ if Meteor.isClient
     #                 status: 'started'
     #                 complete: false
     #             Meteor.users.update Meteor.userId(),
-    #                 $inc: credit: -withdrawal_amount
+    #                 $inc: points: -withdrawal_amount
 
     #     'click .cancel_withdrawal': ->
     #         if confirm "cancel withdrawal for #{@amount}?"
     #             Docs.remove @_id
     #             Meteor.users.update Meteor.userId(),
-    #                 $inc: credit: @amount
+    #                 $inc: points: @amount
 
 
 
-    Template.user_credit.helpers
-        payments: ->
+    Template.user_points.helpers
+        user_work: ->
             Docs.find {
-                model:'payment'
-                _author_username: Router.current().params.username
-            }, sort:_timestamp:-1
-        deposits: ->
-            Docs.find {
-                model:'deposit'
-                _author_username: Router.current().params.username
-            }, sort:_timestamp:-1
-        topups: ->
-            Docs.find {
-                model:'balance_topup'
+                model:'work'
                 _author_username: Router.current().params.username
             }, sort:_timestamp:-1
 
 
 
 
-    Template.user_credit.events
-        'click .add_credit': ->
+    Template.user_points.events
+        'click .add_points': ->
             user = Meteor.users.findOne(username:Router.current().params.username)
             Meteor.users.update Meteor.userId(),
-                $inc:credit:1
-                # $set:credit:1
-        'click .remove_credit': ->
+                $inc:points:1
+                # $set:points:1
+        'click .remove_points': ->
             user = Meteor.users.findOne(username:Router.current().params.username)
             Meteor.users.update Meteor.userId(),
-                $inc:credit:-1
-        'click .add_credits': ->
+                $inc:points:-1
+        'click .add_pointss': ->
             deposit_amount = parseInt $('.deposit_amount').val()*100
             calculated_amount = deposit_amount*1.02+20
             # Template.instance().checkout.open
-            #     name: 'credit deposit'
+            #     name: 'points deposit'
             #     # email:Meteor.user().emails[0].address
             #     description: 'gold run'
             #     amount: calculated_amount
@@ -127,7 +123,9 @@ if Meteor.isClient
             
             
 if Meteor.isServer
-    Meteor.publish 'my_topups', ->
+    Meteor.publish 'user_work', (username)->
+        # user = Meteor.users.findOne username:username
         Docs.find 
-            model:'balance_topup'
-            _author_id:Meteor.userId()
+            model:'work'
+            _author_username:username
+            
