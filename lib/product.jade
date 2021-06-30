@@ -204,8 +204,8 @@ template(name='product_view')
                             +array_view key='tags' label='tags' icon='tags' direct=true
                             div
                             +voting_full
-                            +link_view key='amazon_referral_link' label='amazon link' icon='amazon' direct=true
-                            +link_view key='external_link' label='external link' icon='globe' direct=true
+                            // +link_view key='amazon_referral_link' label='amazon link' icon='amazon' direct=true
+                            // +link_view key='external_link' label='external link' icon='globe' direct=true
                             +comments
         
         
@@ -282,15 +282,19 @@ template(name='product_edit')
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
-                    +float_edit key='price_usd' label='$ price' direct=true
+                    +boolean_edit key='buy_it_now' label='buy it now' direct=true
+                    if buy_it_now
+                        +number_edit key='price' label='price (points)' direct=true
+                    +boolean_edit key='is_auction' label='auction' direct=true
+                    if is_auction
+                        +number_edit key='minimum_bid' label='minimum bid' direct=true
+                        +datetime_edit key='end_datetime' label='end datetime' direct=true
                 .eight.wide.column
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     +html_edit key='description' label='description' direct=true
                 .four.wide.column
-                    +link_edit key='amazon_referral_link' label='amazon referral link' icon='amazon' direct=true
-                    +link_edit key='external_link' label='external link' icon='globe' direct=true
                     if can_delete
                         .ui.red.button.delete_product
                             i.remove.icon   

@@ -35,18 +35,23 @@ template(name='user_layout')
                         a.ui.basic.button(href="/user/#{username}/requests" class="{{isActiveRoute 'user_requests'}}")
                             i.bullhorn.icon
                             |requests
-                        a.ui.basic.button(href="/user/#{username}/quicklist" class="{{isActiveRoute 'user_quicklist'}}")
-                            i.lightning.icon
-                            |quicklist
-                        a.ui.basic.button(href="/user/#{username}/menu" class="{{isActiveRoute 'user_menu'}}")
-                            i.lightning.icon
-                            |menu
+                        a.ui.basic.button(href="/user/#{username}/work" class="{{isActiveRoute 'user_work'}}")
+                            i.wrench.icon
+                            |work
+                        // a.ui.basic.button(href="/user/#{username}/quicklist" class="{{isActiveRoute 'user_quicklist'}}")
+                        //     i.lightning.icon
+                        //     |quicklist
+                        // a.ui.basic.button(href="/user/#{username}/menu" class="{{isActiveRoute 'user_menu'}}")
+                        //     i.lightning.icon
+                        //     |menu
                         div.global_container
                             .spacer
                             +yield
 
 
 template(name='user_dashboard')
+    with current_user
+        .ui.header #{points} points
     +user_requests
     +user_quicklist
     +user_menu
