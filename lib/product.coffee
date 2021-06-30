@@ -43,9 +43,6 @@ if Meteor.isClient
                 model:'reservation'
                 product_id:@_id
             
-
-
-    Template.product_view.helpers
         product_order_total: ->
             orders = 
                 Docs.find({

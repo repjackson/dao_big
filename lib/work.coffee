@@ -36,12 +36,12 @@ if Meteor.isClient
         eric_total: ->
             Docs.find({
                 model:'work'
-                staff_id:'vRbbcxAXKY75m8ZTP'
+                _author_username: 'dev'
             }).count()
         ryan_total: ->
             Docs.find({
                 model:'work'
-                staff_id:'wgj7J54mLMGdJ49dy'
+                _author_username: 'ryan'
             }).count()
     Template.work.events
         'click .add_work': ->
@@ -153,18 +153,27 @@ if Meteor.isClient
         #     )
 
         'click .delete_work':->
-            Swal.fire({
-                title: "delete work entry?"
-                text: "for #{@task_title}"
-                icon: 'question'
-                showCancelButton: true,
-                confirmButtonText: 'confirm'
-                cancelButtonText: 'cancel'
-            }).then((result) =>
-                if result.value
-                    Docs.remove @_id
-                    Router.go "/porters"
-            )            
+            # Swal.fire({
+            #     title: "delete work entry?"
+            #     text: "for #{@task_title}"
+            #     icon: 'question'
+            #     showCancelButton: true,
+            #     confirmButtonText: 'confirm'
+            #     cancelButtonText: 'cancel'
+            # }).then((result) =>
+            #     if result.value
+            Docs.remove @_id
+            Router.go "/porters"
+            $('body').toast(
+                showIcon: 'remove'
+                message: "#{@task_title} work entry deleted"
+                showProgress: 'bottom'
+                class: 'error'
+                # displayTime: 'auto',
+                position: "bottom right"
+            )
+            
+            # )            
     Template.work_edit.helpers
         all_shop: ->
             Docs.find
