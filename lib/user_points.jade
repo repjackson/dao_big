@@ -3,8 +3,7 @@ template(name='user_points')
         if is_current_user
             .column
                 .ui.inline.header
-                    i.money.icon
-                    |{{fixed user_from_username_param.points}}
+                    |#{user_from_username_param.points}
                     |points
                 .ui.selection.link.animated.divided.list.scrolling
                     each user_work

@@ -3,6 +3,10 @@ if Meteor.isClient
         @layout 'layout'
         @render 'task_view'
         ), name:'task_view'
+    Router.route '/tasks', (->
+        @layout 'layout'
+        @render 'tasks'
+        ), name:'tasks'
     
     Template.tasks.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'task', ->

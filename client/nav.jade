@@ -41,7 +41,7 @@ template(name='nav')
                         img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face' crop='fill'}}")
                     else
                         i.user.icon
-                    strong.mobile.hidden #{currentUser.username}
+                    strong.mobile.hidden #{currentUser.name}
             unless currentUser
                 if subs_ready
                     a.item(href='/login' title='login') 
@@ -139,7 +139,7 @@ template(name='right_sidebar')
 
 
 template(name='left_sidebar')
-    .ui.left.sidebar.vertical.inverted.thin.menu(style="background-color:#062639;")
+    .ui.left.sidebar.vertical.inverted.large.menu(style="background-color:#062639;")
         a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
             img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')
@@ -154,10 +154,10 @@ template(name='left_sidebar')
             |#{recipe_count} dishes
         a.item.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
             i.food.icon
-            .mobile.hidden #{items.count} items
-        a.item.toggle_leftbar.zoomer(href='/posts' class="{{isActivePath '/posts'}}" title='posts')
-            i.newspaper.icon
-            | #{post_count} posts
+            | #{items.count} items
+        a.item.zoomer.toggle_leftbar(href='/tasks' class="{{isActivePath '/tasks'}}")
+            i.tasks.icon
+            | #{tasks.count} tasks
         a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
             i.marker.icon
             |locations

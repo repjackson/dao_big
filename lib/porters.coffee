@@ -23,15 +23,22 @@ if Meteor.isClient
     
     
         'click .log_work':->
+            # task = Docs.findOne Router.current().params.doc_id
             if Meteor.user()
+                new_object = {
+                    model:'work'
+                    station:'porters'
+                    task_id:@_id
+                    task_title:@title
+                    task_image_id:@image_id
+                    task_points: @points
+                }
+                if @location_ids.length is 1
+                    new_object.location_id = @location_ids[0]
                 new_id = 
-                    Docs.insert
-                        model:'work'
-                        station:'porters'
-                        task_id:@_id
-                        task_title:@title
-                        task_image_id:@image_id
-                        task_points: @points
+                    Docs.insert new_object
+                Docs.update @_id,
+                    $inc: work_count:1
                 Router.go "/work/#{new_id}/edit"
     
     

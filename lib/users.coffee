@@ -39,10 +39,12 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'users', (limit)->
+        match = {}
+        match.station = $exists:true
         if limit
-            Meteor.users.find({},limit:limit)
+            Meteor.users.find(match,limit:limit)
         else
-            Meteor.users.find()
+            Meteor.users.find(match)
 
 
     Meteor.publish 'user_search', (username, role)->

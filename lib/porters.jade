@@ -3,14 +3,11 @@ template(name='porters')
         .sixteen.wide.column
             .ui.inline.header
                 i.dolly.icon
-                |porters
+                |porter tasks
             .ui.basic.button.add_porter_task
                 i.plus.icon
                 |add task
             +session_toggle key='admin_mode' icon='shield'
-            .ui.header 
-                i.tasks.icon
-                |tasks
             .ui.five.doubling.cards
                 each porter_tasks
                     .ui.card.log_work
