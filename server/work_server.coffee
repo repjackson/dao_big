@@ -100,4 +100,32 @@ Meteor.publish 'work_facets', (
             # index: i
 
 
+
+
     self.ready()
+    
+Meteor.publish 'work_docs', (
+    picked_staff
+    picked_task
+    picked_location
+    # product_query
+    # view_vegan
+    # view_gf
+    # doc_limit
+    # doc_sort_key
+    # doc_sort_direction
+    )->
+
+    self = @
+    match = {app:'pes'}
+    match.model = 'work'
+    # if view_vegan
+    #     match.vegan = true
+    # if view_gf
+    #     match.gluten_free = true
+    # if view_local
+    #     match.local = true
+    if picked_staff.length > 0 then match._author_username = picked_staff
+    if picked_task.length > 0 then match.task_title = picked_task 
+
+    Docs.find match

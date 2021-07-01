@@ -7,9 +7,12 @@ template(name='work')
             .ui.header filter
             .ui.header staff
             .ui.header task
+            each picked_tasks
+                .ui.blue.button.unpick_task
+                    |#{this}
             each task_results
                 if title
-                    .ui.basic.circular.small.button
+                    .ui.basic.circular.small.button.pick_task
                         |#{title} #{count}
             .ui.header location
         .twelve.wide.column

@@ -19,7 +19,10 @@ if Meteor.isClient
     
     
     Template.work.onCreated ->
-        @autorun => @subscribe 'model_docs', 'work', ->
+        @autorun => @subscribe 'work_docs',
+            picked_staff.array()
+            picked_task.array()
+            picked_location.array()
         @autorun => @subscribe 'work_facets',
             picked_staff.array()
             picked_task.array()
@@ -55,7 +58,15 @@ if Meteor.isClient
                 model:'work'
                 _author_username: 'ryan'
             }).count()
+        picked_tasks: ->
+            picked_task.array()
     Template.work.events
+        'click .pick_task': ->
+            console.log @
+            picked_task.push @title
+        'click .unpick_task': ->
+            console.log @
+            picked_task.remove @valueOf()
         'click .add_work': ->
             new_id = Docs.insert 
                 model:'work'
