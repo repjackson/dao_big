@@ -14,12 +14,12 @@ template(name='user_points')
                                 img.ui.tiny.inline.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
                                 .ui.inline.header 
                                     |#{task_title}
+                                .ui.inline.header #{task_points}pts
                                 if location_image_id
                                     img.ui.tiny.inline.image(src="{{c.url location_image_id width=400 height=300 crop='pad'}}")
                                 .ui.inline.header 
                                     |@#{location_title}
                                     
                                 .description #{when} {{long_date _timestamp}} for 
-                                .ui.inline.header #{task_points}pts
                                 // if in_dev
                                 //     +remove_button

@@ -30,7 +30,7 @@ template(name='nav')
             i.large.shop.icon
             .mobile.hidden store
         a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
-            i.large.users.icon
+            i.large.user.friends.icon
         .right.menu
             if currentUser
                 // a.icon.item.toggle_topbar(title='alerts')
@@ -39,7 +39,7 @@ template(name='nav')
                 a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
                     i.wallet.icon
                     strong {{int currentUser.points}}p
-                a.icon.item.toggle_rightbar.no_blink
+                a.item.toggle_rightbar.no_blink
                     if currentUser.image_id
                         img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face' crop='fill'}}")
                     else
@@ -158,6 +158,9 @@ template(name='left_sidebar')
         a.item.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
             i.food.icon
             | #{items.count} items
+        a.item.zoomer.toggle_leftbar(href='/leaderboard' class="{{isActivePath '/leaderboard'}}")
+            i.award.icon
+            | #{leaderboard.count} leaderboard
         a.item.zoomer.toggle_leftbar(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.tasks.icon
             | #{tasks.count} tasks

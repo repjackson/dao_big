@@ -87,28 +87,19 @@ template(name='item_view')
                     .ui.inline.header
                         | #{title}
                         small item view
-                    +image_view key='image_id' label='image' direct=true
                     div
                     a.ui.icon.button(href="/item/#{_id}/edit")
                         i.pencil.icon
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    +textarea_view key='description' label='description' direct=true
+                    +text_view key='location' label='location' direct=true
+                    +date_view key='date_arrived' label='date arrived' direct=true
                 .eight.wide.column
                     div.scrolling
                         +html_view key='notes' label='directions' direct=true                    
                     +text_view key='title' label='title' direct=true
                     +image_view key='image_id' label='image' direct=true
-                    +text_view key='location' label='location' direct=true
-                    +date_view key='date_arrived' label='date arrived' direct=true
                     div
-                .ten.wide.column
-                    div
-                    +textarea_edit key='description' label='description' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
-                    .ui.red.button.delete_item
-                        i.remove.icon   
-                        | delete
-
-                    .ui.header tags
-                    +array_view key='tags' label='tags' icon='tags' direct=true
                     if currentUser
                         .ui.button.record_work
                             |record work

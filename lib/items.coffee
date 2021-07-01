@@ -38,6 +38,11 @@ if Meteor.isClient
                 
            
     Template.item_view.helpers
+        item_work: ->
+            Docs.find   
+                model:'work'
+                item_id:Router.current().params.doc_id
+
         possible_locations: ->
             item = Docs.findOne Router.current().params.doc_id
             Docs.find

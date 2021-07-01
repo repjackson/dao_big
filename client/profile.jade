@@ -34,7 +34,7 @@ template(name='user_layout')
                         unless is_current_user
                             +friend_button
                     .twelve.wide.column
-                        a.ui.basic.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}")
+                        a.ui.basic.button(href="/user/#{username}" class="{{isActiveRoute 'user_dashboard'}}")
                             i.dashboard.icon
                             |dashboard
                         a.ui.basic.button(href="/user/#{username}/requests" class="{{isActiveRoute 'user_requests'}}")
@@ -43,6 +43,9 @@ template(name='user_layout')
                         a.ui.basic.button(href="/user/#{username}/work" class="{{isActiveRoute 'user_work'}}")
                             i.wrench.icon
                             |work
+                        a.ui.basic.button(href="/user/#{username}/groups" class="{{isActiveRoute 'user_groups'}}")
+                            i.wrench.icon
+                            |groups
                         a.ui.basic.button(href="/user/#{username}/sent" class="{{isActiveRoute 'user_sent'}}")
                             i.wrench.icon
                             |sent

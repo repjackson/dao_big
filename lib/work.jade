@@ -1,9 +1,18 @@
 template(name='work')
     .ui.stackable.padded.grid
-        .sixteen.wide.column
+        .four.wide.column
             .ui.inline.header 
                 i.wrench.icon
                 |work
+            .ui.header filter
+            .ui.header staff
+            .ui.header task
+            each task_results
+                if title
+                    .ui.basic.circular.small.button
+                        |#{title} #{count}
+            .ui.header location
+        .twelve.wide.column
             // .ui.basic.button.add_work
             //     i.large.plus.icon
             //     |log work

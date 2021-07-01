@@ -142,33 +142,33 @@ Meteor.publish 'doc_tags', (selected_tags)->
 
     self.ready()
 
-Meteor.publish 'work_facets', ()->
-    user = Meteor.users.findOne @userId
-    # current_herd = user.profile.current_herd
+# Meteor.publish 'work_facets', ()->
+#     user = Meteor.users.findOne @userId
+#     # current_herd = user.profile.current_herd
 
-    self = @
-    match = {}
+#     self = @
+#     match = {}
 
-    # selected_tags.push current_herd
-    match.tags = $all: selected_tags
+#     # selected_tags.push current_herd
+#     match.tags = $all: selected_tags
 
-    cloud = Docs.aggregate [
-        { $match: match }
-        { $project: tags: 1 }
-        { $unwind: "$tags" }
-        { $group: _id: '$tags', count: $sum: 1 }
-        { $match: _id: $nin: selected_tags }
-        { $sort: count: -1, _id: 1 }
-        { $limit: 25 }
-        { $project: _id: 0, name: '$_id', count: 1 }
-        ]
-    cloud.forEach (tag, i) ->
-        self.added 'tags', Random.id(),
-            name: tag.name
-            count: tag.count
-            index: i
+#     cloud = Docs.aggregate [
+#         { $match: match }
+#         { $project: tags: 1 }
+#         { $unwind: "$tags" }
+#         { $group: _id: '$tags', count: $sum: 1 }
+#         { $match: _id: $nin: selected_tags }
+#         { $sort: count: -1, _id: 1 }
+#         { $limit: 25 }
+#         { $project: _id: 0, name: '$_id', count: 1 }
+#         ]
+#     cloud.forEach (tag, i) ->
+#         self.added 'tags', Random.id(),
+#             name: tag.name
+#             count: tag.count
+#             index: i
 
-    self.ready()
+#     self.ready()
 
 
 Meteor.methods

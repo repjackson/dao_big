@@ -1,4 +1,8 @@
 if Meteor.isClient
+    @picked_staff = new ReactiveArray []
+    @picked_location = new ReactiveArray []
+    @picked_task = new ReactiveArray []
+    
     Router.route '/work', (->
         @layout 'layout'
         @render 'work'
@@ -15,7 +19,11 @@ if Meteor.isClient
     
     
     Template.work.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'work', ->
+        @autorun => @subscribe 'model_docs', 'work', ->
+        @autorun => @subscribe 'work_facets',
+            picked_staff.array()
+            picked_task.array()
+            picked_location.array()
             
             
     Template.work_edit.onCreated ->
@@ -29,6 +37,10 @@ if Meteor.isClient
 
 
     Template.work.helpers
+        task_results: ->
+            Results.find {
+                model:'task'
+            }, sort:_timestamp:-1
         work_list: ->
             Docs.find {
                 model:'work'
