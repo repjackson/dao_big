@@ -7,10 +7,14 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_requests'
         ), name:'user_requests'
-    Router.route '/user/:username/quicklist', (->
+    Router.route '/user/:username/posts', (->
         @layout 'user_layout'
-        @render 'user_quicklist'
-        ), name:'user_quicklist'
+        @render 'user_posts'
+        ), name:'user_posts'
+    Router.route '/user/:username/sent', (->
+        @layout 'user_layout'
+        @render 'user_sent'
+        ), name:'user_sent'
     Router.route '/user/:username/menu', (->
         @layout 'user_layout'
         @render 'user_menu'
@@ -48,8 +52,6 @@ if Meteor.isClient
             Meteor.logout()
             
             
-            
-if Meteor.isClient
     Router.route '/user/:username/edit', -> @render 'user_edit'
 
     Template.user_edit.onCreated ->
@@ -61,6 +63,20 @@ if Meteor.isClient
         , 2000
         
         
-
-
-        
+    Template.friend_button.events
+        'click .friend': ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Meteor.users.update Meteor.userId(),
+                $addToSet:
+                    friend_ids:current_user._id
+                    
+        'click .unfriend': ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Meteor.users.update Meteor.userId(),
+                $pull:
+                    friend_ids:current_user._id
+                    
+    Template.friend_button.helpers
+        is_friend: ->
+            current_user = Meteor.users.findOne username:Router.current().params.username
+            Meteor.user() and Meteor.user().friend_ids and current_user._id in Meteor.user().friend_ids

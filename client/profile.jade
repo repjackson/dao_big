@@ -31,19 +31,21 @@ template(name='user_layout')
                             .ui.basic.button.logout
                                 i.sign.out.alternate.icon
                                 |log out
+                        unless is_current_user
+                            +friend_button
                     .twelve.wide.column
+                        a.ui.basic.button(href="/user/#{username}/dashboard" class="{{isActiveRoute 'user_dashboard'}}")
+                            i.dashboard.icon
+                            |dashboard
                         a.ui.basic.button(href="/user/#{username}/requests" class="{{isActiveRoute 'user_requests'}}")
                             i.bullhorn.icon
                             |requests
                         a.ui.basic.button(href="/user/#{username}/work" class="{{isActiveRoute 'user_work'}}")
                             i.wrench.icon
                             |work
-                        // a.ui.basic.button(href="/user/#{username}/quicklist" class="{{isActiveRoute 'user_quicklist'}}")
-                        //     i.lightning.icon
-                        //     |quicklist
-                        // a.ui.basic.button(href="/user/#{username}/menu" class="{{isActiveRoute 'user_menu'}}")
-                        //     i.lightning.icon
-                        //     |menu
+                        a.ui.basic.button(href="/user/#{username}/sent" class="{{isActiveRoute 'user_sent'}}")
+                            i.wrench.icon
+                            |sent
                         div.global_container
                             .spacer
                             +yield
@@ -52,9 +54,26 @@ template(name='user_layout')
 template(name='user_dashboard')
     with current_user
         .ui.header #{points} points
+    unless is_current_user
+        .ui.button.send_points
+            |send points
     +user_requests
     +user_quicklist
     +user_menu
+    
+    
+template(name='friend_button')
+    if is_friend
+        .ui.blue.button.unfriend
+            // .visible.content
+            |friends
+            // .hidden.content
+            //     i.minus.icon
+    else 
+        .ui.button.friend
+            |+ friend
+        
+    
     
 template(name='user_requests')  
     .ui.header #{user_from_username_param.name} requests

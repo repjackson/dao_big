@@ -62,9 +62,6 @@ Router.route '/', (->
 Router.route '/requests', (->
     @render 'requests'
     ), name:'requests'
-Router.route '/items', (->
-    @render 'items'
-    ), name:'items'
 Router.route '/transfers', (->
     @render 'transfers'
     ), name:'transfers'
@@ -203,7 +200,8 @@ Template.items.events
         new_id = 
             Docs.insert 
                 model:'item'
-        Session.set('editing_item', @_id)
+        Router.go "/item/#{new_id}/edit"
+        # Session.set('editing_item', @_id)
             
             
 Template.item_item.events

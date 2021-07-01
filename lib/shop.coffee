@@ -297,7 +297,7 @@ if Meteor.isServer
         if doc_sort_direction
             sort_direction = parseInt(doc_sort_direction)
         self = @
-        match = {model:'product', app:'bcc'}
+        match = {model:'product', app:'pes'}
         if picked_ingredients.length > 0
             match.ingredients = $all: picked_ingredients
             # sort = 'price_per_serving'
@@ -354,7 +354,7 @@ if Meteor.isServer
     
         # console.log picked_ingredients
         self = @
-        match = {model:'product', app:'bcc'}
+        match = {model:'product', app:'pes'}
         if picked_ingredients.length > 0
             match.ingredients = $all: picked_ingredients
             # sort = 'price_per_serving'
@@ -393,7 +393,7 @@ if Meteor.isServer
         console.log 'picked ingredients', picked_ingredients
 
         self = @
-        match = {app:'bcc'}
+        match = {app:'pes'}
         match.model = 'product'
         if view_vegan
             match.vegan = true

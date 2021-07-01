@@ -57,14 +57,18 @@ template(name='tasks')
                             +set_product_limit amount=20
                 .spacer 
         
-            span.ui.stackable.cards.scrolling
+            span.ui.doubling.five.cards.scrolling
                 each model_docs_helper 'task'
-                    .ui.card
+                    .ui.link.card
                         a(href="/task/#{_id}") 
                             img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
                         a.content(href="/task/#{_id}") 
                             .ui.header 
                                 |#{title}
+                            |#{description}
+                            .ui.inline.header #{points}pts
+                            each tags
+                                .ui.small.basic.label #{this}
                             // |added #{when} by #{_author_username}
                 
                 

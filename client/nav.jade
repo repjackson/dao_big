@@ -8,9 +8,9 @@ template(name='nav')
                i.bars.icon 
         a.image.item.zoomer(href='/' class="{{isActivePath '/'}}" title='Rosetta Hall')
             img.ui.avatar.image(src="https://d2s742iet3d3t1.cloudfront.net/restaurants/restaurant-33707000000000000/restaurant_1619610434.jpg")
-        // a.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
-        //     i.bullhorn.icon
-        //     .mobile.hidden #{requests.count} requests
+        a.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
+            i.bullhorn.icon
+            .mobile.hidden #{requests.count} requests
         // a.item.zoomer(href='/dishes' class="{{isActivePath '/dishes'}}")
         //     i.food.icon
         //     .mobile.hidden #{dishes.count} dishes

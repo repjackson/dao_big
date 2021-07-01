@@ -10,16 +10,16 @@ template(name='porters')
             +session_toggle key='admin_mode' icon='shield'
             .ui.five.doubling.cards
                 each porter_tasks
-                    .ui.card.log_work
+                    .ui.card.log_work(title=description)
                         img.ui.image.pointer(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
                         .content
-                            .ui.header #{title}
-                            |#{description}
-                            each tags
-                                .ui.basic.small.label #{this}
+                            .ui.inline.header #{title}
+                            .ui.inline.grey.header +#{points}p
+                            // |#{description}
+                            // each tags
+                            //     .ui.basic.small.label #{this}
                             each task_locations
                                 .ui.label #{title}
-                            .ui.inline.header +#{points}p
                             if session_is 'admin_mode' true
                                 a.ui.icon.button(href="/task/#{_id}/edit")
                                     i.pencil.icon
