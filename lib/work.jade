@@ -8,12 +8,12 @@ template(name='work')
             .ui.inline.header 
                 i.user.friends.icon
                 |staff
-            each picked_author
-                .ui.blue.button.unpick_author
+            each picked_authors
+                a.ui.blue.label.unpick_author
                     |#{this}
             each author_results
                 if title
-                    .ui.basic.circular.small.link.label.pick_author
+                    a.ui.basic.circular.small.link.label.pick_author
                         |#{title} 
                         small.ui.grey.text #{count}
             div
@@ -21,11 +21,11 @@ template(name='work')
                 i.tasks.icon
                 |task
             each picked_tasks
-                .ui.blue.button.unpick_task
+                a.ui.blue.label.unpick_task
                     |#{this}
             each task_results
                 if title
-                    .ui.basic.circular.small.link.label.pick_task
+                    a.ui.basic.circular.small.link.label.pick_task
                         |#{title} 
                         small.ui.grey.text #{count}
             div
@@ -33,11 +33,11 @@ template(name='work')
                 i.marker.icon
                 |location
             each picked_locations
-                .ui.blue.button.unpick_location
+                a.ui.blue.label.unpick_location
                     |#{this}
             each location_results
                 if title
-                    .ui.basic.circular.small.link.label.pick_location
+                    a.ui.basic.circular.small.link.label.pick_location
                         |#{title} 
                         small.ui.grey.text #{count}
             div
@@ -45,11 +45,11 @@ template(name='work')
                 i.marker.icon
                 |timestamp_tags
             each picked_timestamp_tags
-                .ui.blue.button.unpick_timestamp_tags
+                a.ui.blue.label.unpick_timestamp_tag
                     |#{this}
             each timestamp_tag_results
                 if title
-                    .ui.basic.circular.small.link.label.pick_timestamp_tags
+                    a.ui.basic.circular.small.link.label.pick_timestamp_tag
                         |#{title} 
                         small.ui.grey.text #{count}
         .twelve.wide.column

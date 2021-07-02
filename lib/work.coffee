@@ -73,8 +73,10 @@ if Meteor.isClient
                 model:'work'
                 _author_username: 'ryan'
             }).count()
-        picked_tasks: ->
-            picked_tasks.array()
+        picked_tasks: -> picked_tasks.array()
+        picked_locations: -> picked_locations.array()
+        picked_authors: -> picked_authors.array()
+        picked_timestamp_tags: -> picked_timestamp_tags.array()
     Template.work.events
         'click .pick_timestamp_tag': -> picked_timestamp_tags.push @title
         'click .unpick_timestamp_tag': -> picked_timestamp_tags.remove @valueOf()

@@ -1,7 +1,7 @@
 template(name='user_layout')
     +nav
     .ui.bottom.attached.pushable.segment
-        // +topbar
+        +topbar
         +left_sidebar
         +right_sidebar
         // +cartbar
@@ -26,11 +26,10 @@ template(name='user_layout')
                                     strong #{username}
                         if is_current_user
                             a.ui.basic.circular.icon.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
-                                i.cog.icon
+                                i.cog.large.icon
                         if is_current_user
-                            .ui.basic.button.logout
-                                i.sign.out.alternate.icon
-                                |log out
+                            .ui.basic.icon.circular.button.logout(title='log out')
+                                i.sign.out.alternate.large.icon
                         unless is_current_user
                             +friend_button
                     .twelve.wide.column

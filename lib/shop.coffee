@@ -2,7 +2,7 @@ if Meteor.isClient
     @picked_ingredients = new ReactiveArray []
     @picked_sections = new ReactiveArray []
     
-    Router.route '/shop', (->
+    Router.route '/products', (->
         @layout 'layout'
         @render 'products'
         ), name:'products'

@@ -151,4 +151,7 @@ Meteor.publish 'work_docs', (
     if picked_locations.length > 0 then match.location_title = $in:picked_locations 
     if picked_timestamp_tags.length > 0 then match._timestamp_tags = $in:picked_timestamp_tags 
 
-    Docs.find match
+    Docs.find match, 
+        limit:20
+        sort:
+            _timestamp:-1

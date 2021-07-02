@@ -6,40 +6,26 @@ template(name='nav')
                 i.big.loading.grey.yin.yang.icon.cancel
         else 
             a.icon.item.toggle_leftbar.no_blink
-               i.menu.large.icon 
-        // a.image.item.zoomer(href='/' class="{{isActivePath '/'}}" title='Rosetta Hall')
-        //     .ui.inverted.header R
-        //     // img.ui.avatar.image(src="https://d2s742iet3d3t1.cloudfront.net/restaurants/restaurant-33707000000000000/restaurant_1619610434.jpg")
+               i.bars.large.icon 
         a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
             i.bullhorn.large.icon
-            // .mobile.hidden #{requests.count} requests
-        // a.item.zoomer(href='/dishes' class="{{isActivePath '/dishes'}}")
-        //     i.food.icon
-        //     .mobile.hidden #{dishes.count} dishes
-        // a.item.zoomer(href='/products' class="{{isActivePath '/products'}}")
-        //     i.shop.icon
-        //     .mobile.hidden shop
         a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
             i.large.wrench.icon
-            // .mobile.hidden work
         a.icon.item.zoomer(href='/porters' class="{{isActivePath '/porters'}}")
             i.large.dolly.icon
-            // .mobile.hidden porters
-        // a.icon.item.zoomer(href='/stations' class="{{isActivePath '/stations'}}")
-        //     i.large.store.icon
-        //     // .mobile.hidden stations
-        a.icon.item.zoomer(href='/shop' class="{{isActivePath '/shop'}}")
+        a.icon.item.zoomer(href='/products' class="{{isActivePath '/products'}}")
             i.large.shop.icon
-            // .mobile.hidden store
         a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.large.user.friends.icon
         a.icon.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
-            i.large.users.icon
+            i.large.fire.icon
         .right.menu
             if currentUser
-                // a.icon.item.toggle_topbar(title='alerts')
-                //     i.bell.outline.icon
-                //     i.alerts.icon
+                a.icon.item.toggle_topbar(title='alerts')
+                    i.bell.outline.icon
+                a.icon.item(href="/user/#{currentUser.username}/cart" class="{{isActiveRoute regex='user_cart'}}")
+                    i.cart.icon
+                    // strong {{int currentUser.cart}}p
                 a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
                     i.wallet.icon
                     strong {{int currentUser.points}}p
@@ -53,8 +39,6 @@ template(name='nav')
                 if subs_ready
                     a.icon.item(href='/login' title='login') 
                         i.sign.in.large.icon
-                        // +i name='internal'
-                        // span.mobile.hidden login
                 else 
                     i.food.loading.icon
                 
@@ -150,7 +134,7 @@ template(name='left_sidebar')
             i.user.friends.icon
             | #{users.count} users
         a.item.toggle_leftbar.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
-            i.users.icon
+            i.fire.icon
             | #{users.count} groups
         if is_in_admin
             a.icon.item.toggle_admin.toggle_leftbar.no_blink
