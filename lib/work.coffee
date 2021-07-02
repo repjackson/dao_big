@@ -210,7 +210,7 @@ if Meteor.isClient
                 
             $('body').toast(
                 showIcon: 'remove'
-                message: "#{@task_title} work entry deleted"
+                message: "#{@task_title} work entry"
                 showProgress: 'bottom'
                 class: 'error'
                 # displayTime: 'auto',
@@ -223,7 +223,7 @@ if Meteor.isClient
             , 750
             $('body').toast(
                 showIcon: 'checkmark'
-                message: "#{@task_title} work entry submitted"
+                message: "#{@task_title} work entry"
                 showProgress: 'bottom'
                 class: 'success'
                 # displayTime: 'auto',

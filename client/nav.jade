@@ -6,7 +6,7 @@ template(name='nav')
                 i.big.loading.grey.yin.yang.icon.cancel
         else 
             a.icon.item.toggle_leftbar.no_blink
-               i.ellipsis.vertical.large.icon 
+               i.menu.large.icon 
         // a.image.item.zoomer(href='/' class="{{isActivePath '/'}}" title='Rosetta Hall')
         //     .ui.inverted.header R
         //     // img.ui.avatar.image(src="https://d2s742iet3d3t1.cloudfront.net/restaurants/restaurant-33707000000000000/restaurant_1619610434.jpg")
@@ -25,9 +25,9 @@ template(name='nav')
         a.icon.item.zoomer(href='/porters' class="{{isActivePath '/porters'}}")
             i.large.dolly.icon
             // .mobile.hidden porters
-        a.icon.item.zoomer(href='/stations' class="{{isActivePath '/stations'}}")
-            i.large.store.icon
-            // .mobile.hidden stations
+        // a.icon.item.zoomer(href='/stations' class="{{isActivePath '/stations'}}")
+        //     i.large.store.icon
+        //     // .mobile.hidden stations
         a.icon.item.zoomer(href='/shop' class="{{isActivePath '/shop'}}")
             i.large.shop.icon
             // .mobile.hidden store
@@ -134,12 +134,9 @@ template(name='left_sidebar')
         //     .ui.icon.transparent.input
         //         i.search.icon
         //         input.search_global(type='text')
-        a.item.toggle_leftbar(href='/shop' class="{{isActivePath '/shop'}}" title='shop')
+        a.item.toggle_leftbar(href='/products' class="{{isActivePath '/products'}}" title='products')
             i.shop.icon
             | #{product_count} products
-        a.item.toggle_leftbar(href='/dishes' class="{{isActivePath '/dishes'}}")
-            i.food.icon
-            |#{recipe_count} dishes
         a.item.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
             i.food.icon
             | #{items.count} items
@@ -149,9 +146,6 @@ template(name='left_sidebar')
         a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
             i.marker.icon
             |locations
-        a.item.toggle_leftbar.zoomer(href='/stations' class="{{isActivePath '/stations'}}" title='posts')
-            i.store.icon
-            | #{post_count} stations
         a.item.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.user.friends.icon
             | #{users.count} users

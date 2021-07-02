@@ -93,15 +93,15 @@ template(name='group_view')
                         i.pencil.icon
                 .eight.wide.column
                     .ui.header 
-                        +i name='meal'
-                        |dishes
+                        +i name='shopping-cart'
+                        |products
                     .ui.large.selection.link.animated.list
-                        each staion_dishes
+                        each station_dishes
                             .item 
                                 a.ui.header(href="/dish/#{") #{title}
                     .ui.header 
-                        +i name='chef-hat'
-                        |staff
+                        +i name='groups'
+                        |members
                     .ui.large.selection.link.animated.list
                         each group_staff
                             .item 

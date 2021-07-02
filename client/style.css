@@ -489,6 +489,11 @@ body, p, header {
     /* filter:         drop-shadow(5px 5px 5px rgba(250,250,250, 0.5); */
 }
 
+.move {
+    transition: position 0.5s ease-out !important;
+    transition: height 0.5s ease-out !important;
+}
+
 .profile_grid {
     position: absolute !important;
     top:0px;
@@ -1277,3 +1282,33 @@ html.ios,
 html.ios body {
   height: initial !important;
 }
+
+
+
+/*.upload-btn-wrapper {*/
+/*  position: relative;*/
+/*  overflow: hidden;*/
+/*  display: inline-block;*/
+/*}*/
+
+/*.btn {*/
+/*  border: 2px solid gray;*/
+/*  color: green;*/
+/*  background-color: white;*/
+/*  padding: 30px 30px;*/
+  /* border-radius: 10px; */
+/*  font-size: 30px;*/
+/*  line-height: 130%;*/
+/*  font-weight: bold;*/
+/*}*/
+
+/*.upload-btn-wrapper input[type=file] {*/
+/*  font-size: 100px;*/
+/*  height: 100% !important;*/
+/*  position: absolute;*/
+/*  left: 0;*/
+/*  top: 0;*/
+/*  opacity: 0;*/
+/*}*/
+
+

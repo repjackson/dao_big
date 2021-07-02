@@ -1,5 +1,5 @@
 template(name='requests')
-    .ui.padded.stackable.grid
+    .ui.padded.stackable.grid.move
         // unless is currentUser.username 'porters'
         // .eight.wide.column
         //     .ui.inline.center.aligned.header 
@@ -23,7 +23,7 @@ template(name='requests')
                 each processed_requests
                     +request_item
     unless is_porters
-        .mediumscroll
+        .mediumscroll.move
             +items
 
 

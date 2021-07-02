@@ -238,11 +238,13 @@ template(name='work_view')
                 .eight.wide.column
                     a.zoomer(href="/user/#{_author_username}/")
                         img.ui.small.inline.image(src="{{c.url author.image_id width=200 height=200 gravity='face' crop='fill'}}")
-                        .ui.large.inline.header #{_author_name} 
+                        .ui.large.inline.header #{_author_username} 
+                    div
                     a.zoomer(href="/task/#{task_id}/")
                         img.ui.small.inline.image(src="{{c.url task_image_id width=200 height=200 gravity='face' crop='fill'}}")
                         .ui.inline.header 
                             |#{task_title}
+                    div
                     a.zoomer(href="/location/#{location_id}/") 
                         img.ui.small.inline.image(src="{{c.url location_image_id width=200 height=200 gravity='face' crop='fill'}}")
                         .ui.inline.header @#{location_title}
@@ -253,6 +255,20 @@ template(name='work_view')
                     +comments
                 .four.wide.column
                     +voting_full
+                    .ui.header 
+                        i.checkmark.icon
+                        |vouched by #{vouchers.count}
+                    each vouchers
+                        .ui.header #{username}
+                    unless is_author
+                        if vouched_for
+                            .ui.button.vouch
+                                i.checkmark.icon 
+                                |vouch 
+                        else
+                            .ui.small.button.unvouch
+                                |unvouch
+                        
                     .ui.header #{task_points} pts earned
                     if in_dev 
                         +print_this
