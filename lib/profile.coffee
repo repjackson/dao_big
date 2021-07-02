@@ -15,6 +15,10 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_sent'
         ), name:'user_sent'
+    Router.route '/user/:username/groups', (->
+        @layout 'user_layout'
+        @render 'user_groups'
+        ), name:'user_groups'
     Router.route '/user/:username/menu', (->
         @layout 'user_layout'
         @render 'user_menu'
