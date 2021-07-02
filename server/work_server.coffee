@@ -2,6 +2,7 @@ Meteor.publish 'work_facets', (
     picked_authors
     picked_tasks
     picked_locations
+    picked_timestamp_tags
     # product_query
     # view_vegan
     # view_gf
@@ -24,6 +25,8 @@ Meteor.publish 'work_facets', (
     #     match.local = true
     if picked_authors.length > 0 then match._author_username = $in:picked_authors
     if picked_tasks.length > 0 then match.task_title = $in:picked_tasks 
+    if picked_locations.length > 0 then match.location_title = $in:picked_locations 
+    if picked_timestamp_tags.length > 0 then match._timestamp_tags = $in:picked_timestamp_tags 
     # match.$regex:"#{product_query}", $options: 'i'}
     # if product_query and product_query.length > 1
     author_cloud = Docs.aggregate [
@@ -40,7 +43,7 @@ Meteor.publish 'work_facets', (
     }
     
     author_cloud.forEach (author, i) =>
-        console.log 'queried author ', author
+        # console.log 'queried author ', author
         # console.log 'key', key
         self.added 'results', Random.id(),
             title: author.title
@@ -94,6 +97,28 @@ Meteor.publish 'work_facets', (
             # category:key
             # index: i
 
+    timestamp_tag_cloud = Docs.aggregate [
+        { $match: match }
+        { $project: "_timestamp_tags": 1 }
+        { $unwind: "$_timestamp_tags" }
+        { $match: _id: $nin: picked_timestamp_tags }
+        { $group: _id: "$_timestamp_tags", count: $sum: 1 }
+        { $sort: count: -1, _id: 1 }
+        { $limit: 10 }
+        { $project: _id: 0, title: '$_id', count: 1 }
+    ], {
+        allowDiskUse: true
+    }
+
+    timestamp_tag_cloud.forEach (timestamp_tag, i) =>
+        # console.log 'timestamp_tag result ', timestamp_tag
+        self.added 'results', Random.id(),
+            title: timestamp_tag.title
+            count: timestamp_tag.count
+            model:'timestamp_tag'
+            # category:key
+            # index: i
+
 
 
 
@@ -103,6 +128,7 @@ Meteor.publish 'work_docs', (
     picked_authors
     picked_tasks
     picked_locations
+    picked_timestamp_tags
     # product_query
     # view_vegan
     # view_gf
@@ -114,7 +140,6 @@ Meteor.publish 'work_docs', (
     self = @
     match = {app:'pes'}
     match.model = 'work'
-    console.log 'task', picked_tasks
     # if view_vegan
     #     match.vegan = true
     # if view_gf
@@ -123,5 +148,7 @@ Meteor.publish 'work_docs', (
     #     match.local = true
     if picked_authors.length > 0 then match._author_username = $in:picked_authors
     if picked_tasks.length > 0 then match.task_title = $in:picked_tasks 
+    if picked_locations.length > 0 then match.location_title = $in:picked_locations 
+    if picked_timestamp_tags.length > 0 then match._timestamp_tags = $in:picked_timestamp_tags 
 
     Docs.find match

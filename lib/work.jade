@@ -4,6 +4,7 @@ template(name='work')
             .ui.inline.header 
                 i.wrench.icon
                 |work
+            div
             .ui.inline.header 
                 i.user.friends.icon
                 |staff
@@ -12,19 +13,23 @@ template(name='work')
                     |#{this}
             each author_results
                 if title
-                    .ui.basic.circular.small.button.pick_author
-                        |#{title} #{count}
+                    .ui.basic.circular.small.link.label.pick_author
+                        |#{title} 
+                        small.ui.grey.text #{count}
+            div
             .ui.inline.header 
-                i.task.icon
+                i.tasks.icon
                 |task
             each picked_tasks
                 .ui.blue.button.unpick_task
                     |#{this}
             each task_results
                 if title
-                    .ui.basic.circular.small.button.pick_task
-                        |#{title} #{count}
-            .ui.header 
+                    .ui.basic.circular.small.link.label.pick_task
+                        |#{title} 
+                        small.ui.grey.text #{count}
+            div
+            .ui.inline.header 
                 i.marker.icon
                 |location
             each picked_locations
@@ -32,8 +37,21 @@ template(name='work')
                     |#{this}
             each location_results
                 if title
-                    .ui.basic.circular.small.button.pick_location
-                        |#{title} #{count}
+                    .ui.basic.circular.small.link.label.pick_location
+                        |#{title} 
+                        small.ui.grey.text #{count}
+            div
+            .ui.inline.header 
+                i.marker.icon
+                |timestamp_tags
+            each picked_timestamp_tags
+                .ui.blue.button.unpick_timestamp_tags
+                    |#{this}
+            each timestamp_tag_results
+                if title
+                    .ui.basic.circular.small.link.label.pick_timestamp_tags
+                        |#{title} 
+                        small.ui.grey.text #{count}
         .twelve.wide.column
             // .ui.basic.button.add_work
             //     i.large.plus.icon

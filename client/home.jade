@@ -1,10 +1,32 @@
 template(name='home')
-    .ui.padded.stackable.grid
-        .sixteen.wide.column
-            .ui.header Rosetta Hall
-            .ui.header staff
-            .ui.header posts
-            .ui.header requests
-            .ui.header items
-            .ui.header work
+    .ui.padded.stackable.five.column.centered.grid
+        // .ui.header Rosetta Hall
+        a.center.aligned.column.zoomer(href="/users")
+            .ui.icon.header
+                i.users.icon
+                |users
+        a.center.aligned.column.zoomer(href="/posts")
+            .ui.icon.header
+                i.blog.icon
+                |posts
+        a.center.aligned.column.zoomer(href="/requests")
+            .ui.icon.header
+                i.bullhorn.icon
+                |requests
+        a.center.aligned.column.zoomer(href="/items")
+            .ui.icon.header
+                i.food.icon
+                |items
+        a.center.aligned.column.zoomer(href="/work")
+            .ui.icon.header
+                i.wrench.icon
+                |work
+        a.center.aligned.column.zoomer(href="/shop")
+            .ui.icon.header
+                i.shop.icon
+                |shop
+        a.center.aligned.column.zoomer(href="/groups")
+            .ui.icon.header
+                i.users.circular.icon
+                |groups
             

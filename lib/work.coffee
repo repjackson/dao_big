@@ -2,6 +2,7 @@ if Meteor.isClient
     @picked_authors = new ReactiveArray []
     @picked_locations = new ReactiveArray []
     @picked_tasks = new ReactiveArray []
+    @picked_timestamp_tags = new ReactiveArray []
     
     Router.route '/work', (->
         @layout 'layout'
@@ -23,10 +24,12 @@ if Meteor.isClient
             picked_authors.array()
             picked_tasks.array()
             picked_locations.array()
+            picked_timestamp_tags.array()
         @autorun => @subscribe 'work_facets',
             picked_authors.array()
             picked_tasks.array()
             picked_locations.array()
+            picked_timestamp_tags.array()
             
             
     Template.work_edit.onCreated ->
@@ -43,6 +46,10 @@ if Meteor.isClient
         task_results: ->
             Results.find {
                 model:'task'
+            }, sort:_timestamp:-1
+        timestamp_tag_results: ->
+            Results.find {
+                model:'timestamp_tag'
             }, sort:_timestamp:-1
         author_results: ->
             Results.find {
@@ -69,24 +76,14 @@ if Meteor.isClient
         picked_tasks: ->
             picked_tasks.array()
     Template.work.events
-        'click .pick_task': ->
-            console.log @
-            picked_tasks.push @title
-        'click .unpick_task': ->
-            console.log @
-            picked_tasks.remove @valueOf()
-        'click .pick_location': ->
-            console.log @
-            picked_locations.push @title
-        'click .unpick_location': ->
-            console.log @
-            picked_locations.remove @valueOf()
-        'click .pick_author': ->
-            console.log @
-            picked_authors.push @title
-        'click .unpick_author': ->
-            console.log @
-            picked_authors.remove @valueOf()
+        'click .pick_timestamp_tag': -> picked_timestamp_tags.push @title
+        'click .unpick_timestamp_tag': -> picked_timestamp_tags.remove @valueOf()
+        'click .pick_task': -> picked_tasks.push @title
+        'click .unpick_task': -> picked_tasks.remove @valueOf()
+        'click .pick_location': -> picked_locations.push @title
+        'click .unpick_location': -> picked_locations.remove @valueOf()
+        'click .pick_author': -> picked_authors.push @title
+        'click .unpick_author': -> picked_authors.remove @valueOf()
         'click .add_work': ->
             new_id = Docs.insert 
                 model:'work'

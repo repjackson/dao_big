@@ -1,34 +1,35 @@
 template(name='nav')
-    #topnav.topnav.ui.attached.inverted.borderless.menu(style="background-color:#062639;")
+    #topnav.topnav.ui.attached.inverted.borderless.large.menu(style="background-color:#062639;")
         if is_loading
             .icon.item
                 i.big.loading.grey.food.icon.cancel
         else 
             a.icon.item.toggle_leftbar.no_blink
                i.bars.icon 
-        a.image.item.zoomer(href='/' class="{{isActivePath '/'}}" title='Rosetta Hall')
-            img.ui.avatar.image(src="https://d2s742iet3d3t1.cloudfront.net/restaurants/restaurant-33707000000000000/restaurant_1619610434.jpg")
-        a.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
-            i.bullhorn.icon
-            .mobile.hidden #{requests.count} requests
+        // a.image.item.zoomer(href='/' class="{{isActivePath '/'}}" title='Rosetta Hall')
+        //     .ui.inverted.header R
+        //     // img.ui.avatar.image(src="https://d2s742iet3d3t1.cloudfront.net/restaurants/restaurant-33707000000000000/restaurant_1619610434.jpg")
+        a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
+            i.bullhorn.large.icon
+            // .mobile.hidden #{requests.count} requests
         // a.item.zoomer(href='/dishes' class="{{isActivePath '/dishes'}}")
         //     i.food.icon
         //     .mobile.hidden #{dishes.count} dishes
         // a.item.zoomer(href='/products' class="{{isActivePath '/products'}}")
         //     i.shop.icon
         //     .mobile.hidden shop
-        a.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
+        a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
             i.large.wrench.icon
-            .mobile.hidden work
-        a.item.zoomer(href='/porters' class="{{isActivePath '/porters'}}")
+            // .mobile.hidden work
+        a.icon.item.zoomer(href='/porters' class="{{isActivePath '/porters'}}")
             i.large.dolly.icon
-            .mobile.hidden porters
-        a.item.zoomer(href='/stations' class="{{isActivePath '/stations'}}")
+            // .mobile.hidden porters
+        a.icon.item.zoomer(href='/stations' class="{{isActivePath '/stations'}}")
             i.large.store.icon
-            .mobile.hidden stations
-        a.item.zoomer(href='/shop' class="{{isActivePath '/shop'}}")
+            // .mobile.hidden stations
+        a.icon.item.zoomer(href='/shop' class="{{isActivePath '/shop'}}")
             i.large.shop.icon
-            .mobile.hidden store
+            // .mobile.hidden store
         a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.large.user.friends.icon
         a.icon.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
@@ -125,8 +126,8 @@ template(name='right_sidebar')
 
 template(name='left_sidebar')
     .ui.left.sidebar.vertical.inverted.large.menu(style="background-color:#062639;")
-        a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
-            img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
+        // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
+        //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')
         //     .ui.icon.transparent.input
         //         i.search.icon
