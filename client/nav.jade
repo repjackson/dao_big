@@ -1,11 +1,12 @@
 template(name='nav')
-    #topnav.topnav.ui.attached.inverted.borderless.large.menu(style="background-color:#062639;")
+    // #topnav.topnav.ui.attached.inverted.borderless.large.menu(style="background-color:#062639;")
+    #topnav.topnav.ui.attached.inverted.borderless.large.menu
         if is_loading
             .icon.item
-                i.big.loading.grey.food.icon.cancel
+                i.big.loading.grey.yin.yang.icon.cancel
         else 
             a.icon.item.toggle_leftbar.no_blink
-               i.bars.icon 
+               i.ellipsis.vertical.large.icon 
         // a.image.item.zoomer(href='/' class="{{isActivePath '/'}}" title='Rosetta Hall')
         //     .ui.inverted.header R
         //     // img.ui.avatar.image(src="https://d2s742iet3d3t1.cloudfront.net/restaurants/restaurant-33707000000000000/restaurant_1619610434.jpg")
@@ -92,7 +93,8 @@ template(name='walletbar')
         +user_credit
         
 template(name='right_sidebar')
-    .ui.right.sidebar.vertical.inverted.menu.rightbar(style="background-color:#062639;")
+    // .ui.right.sidebar.vertical.inverted.menu.rightbar(style="background-color:#062639;")
+    .ui.right.sidebar.vertical.inverted.large.menu.rightbar
         a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
             img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |#{currentUser.username}
@@ -115,17 +117,17 @@ template(name='right_sidebar')
             a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}/edit" title='edit your account')
                 i.cog.icon
                 |settings
-        a.item.logout.toggle_rightbar
-            if is_logging_out
-                i.refresh.loading.icon
-            else
-                i.sign.out.icon
-            |logout
+            a.item.logout.toggle_rightbar
+                if is_logging_out
+                    i.refresh.loading.icon
+                elseo
+                    i.sign.out.icon
+                |logout
 
 
 
 template(name='left_sidebar')
-    .ui.left.sidebar.vertical.inverted.large.menu(style="background-color:#062639;")
+    .ui.left.sidebar.vertical.inverted.large.menu
         // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
         //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')
@@ -141,9 +143,6 @@ template(name='left_sidebar')
         a.item.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
             i.food.icon
             | #{items.count} items
-        a.item.zoomer.toggle_leftbar(href='/leaderboard' class="{{isActivePath '/leaderboard'}}")
-            i.award.icon
-            | #{leaderboard.count} leaderboard
         a.item.zoomer.toggle_leftbar(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.tasks.icon
             | #{tasks.count} tasks

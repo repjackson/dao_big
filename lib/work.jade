@@ -196,8 +196,17 @@ template(name='work_edit')
                     // +text_edit key='title' label='title' direct=true
                     div
                     // +textarea_edit key='notes' label='notes' direct=true
+                    if location_id
+                        if image_id
+                            .ui.hidden.divider
+                            a.ui.massive.icon.fluid.green.circular.button.submit_work(title='submit')
+                                i.checkmark.big.icon
                 .ten.wide.column
-                    +image_edit key='image_id' label='image' direct=true capture="camera"
+                    .ui.segment
+                        .ui.header
+                            i.image.icon
+                            |image
+                        +image_edit key='image_id' label='image' direct=true capture="camera"
                     .ui.inline.header 
                         i.red.marker.icon
                         |location
@@ -205,38 +214,11 @@ template(name='work_edit')
                         a.ui.circular.image.link.label.pick_location.zoomer(class=location_picker_class)
                             img.ui.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                             | #{title}
-                    if location_id
-                        if image_id
-                            .ui.hidden.divider
-                            a.ui.massive.icon.fluid.green.circular.button.submit_work(title='submit')
-                                i.checkmark.big.icon
                     .ui.red.small.fluid.button.delete_work
                         i.remove.icon   
                         | cancel
                     if in_dev
                         +print_this
-                    // video#player(controls='' autoplay='')
-                    // button.ui.button#capture Capture
-                    // canvas#canvas(width='320' height='240')
-                    // script.
-                    //     const player = document.getElementById('player');
-                    //     const canvas = document.getElementById('canvas');
-                    //     const context = canvas.getContext('2d');
-                    //     const captureButton = document.getElementById('capture');
-                    //     const constraints = {
-                    //     video: true,
-                    //     };
-                    //     captureButton.addEventListener('click', () => {
-                    //     // Draw the video frame to the canvas.
-                    //     context.drawImage(player, 0, 0, canvas.width, canvas.height);
-                    //     player.srcObject.getVideoTracks().forEach(track => track.stop());
-                        
-                    //     });
-                    //     // Attach the video stream to the video element and autoplay.
-                    //     navigator.mediaDevices.getUserMedia(constraints)
-                    //     .then((stream) => {
-                    //     player.srcObject = stream;
-                    //     });
                         
                 
 template(name='work_view')

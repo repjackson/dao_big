@@ -243,21 +243,21 @@ template(name='image_edit')
     .ui.form
         if icon
             i.icon(class=icon)
-        .ui.inline.header
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            else if key
-                |#{key}
-            else
-                |#{this}            
+        // .ui.inline.header
+        //     if title
+        //         |#{title}
+        //     else if label
+        //         |#{label}
+        //     else if key
+        //         |#{key}
+        //     else
+        //         |#{this}            
         .field
             if field_value
                 //- label Image
-                a(href="{{c.url field_value }}" target='_window')
-                    img.ui.centered.fluid.rounded.image(src="{{c.url field_value height=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                a#remove_photo.ui.right.corner.link.label
+                // a(href="{{c.url field_value }}" target='_window')
+                img.ui.centered.fluid.rounded.image(src="{{c.url field_value height=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                a#remove_photo.ui.right.corner.link.red.large.label
                     i.remove.link.icon
                 // .ui.button.call_cloud_visual
                 //     i.dna.icon
