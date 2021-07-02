@@ -1,5 +1,5 @@
 Meteor.publish 'work_facets', (
-    picked_staff
+    picked_author
     picked_task
     picked_location
     # product_query
@@ -11,7 +11,7 @@ Meteor.publish 'work_facets', (
     )->
     # console.log 'dummy', dummy
     # console.log 'query', query
-    console.log 'picked staff', picked_staff
+    console.log 'picked staff', picked_author
 
     self = @
     match = {app:'pes'}
@@ -22,57 +22,30 @@ Meteor.publish 'work_facets', (
     #     match.gluten_free = true
     # if view_local
     #     match.local = true
-    if picked_staff.length > 0 then match._author_username = picked_staff
+    if picked_author.length > 0 then match._author_username = picked_author
     if picked_task.length > 0 then match.task_title = picked_task 
     # match.$regex:"#{product_query}", $options: 'i'}
     # if product_query and product_query.length > 1
-    #     console.log 'searching product_query', product_query
-    #     match.title = {$regex:"#{product_query}", $options: 'i'}
-    #     # match.tags_string = {$regex:"#{query}", $options: 'i'}
-    # #
-    #     Terms.find {
-    #         title: {$regex:"#{query}", $options: 'i'}
-    #     },
-    #         sort:
-    #             count: -1
-    #         limit: 42
-        # tag_cloud = Docs.aggregate [
-        #     { $match: match }
-        #     { $project: "tags": 1 }
-        #     { $unwind: "$tags" }
-        #     { $group: _id: "$tags", count: $sum: 1 }
-        #     { $match: _id: $nin: picked_ingredients }
-        #     { $match: _id: {$regex:"#{query}", $options: 'i'} }
-        #     { $sort: count: -1, _id: 1 }
-        #     { $limit: 42 }
-        #     { $project: _id: 0, name: '$_id', count: 1 }
-        #     ]
-
-    # else
-    # unless query and query.length > 2
-    # if picked_ingredients.length > 0 then match.tags = $all: picked_ingredients
-    # # match.tags = $all: picked_ingredients
-    # # console.log 'match for tags', match
-    staff_cloud = Docs.aggregate [
+    author_cloud = Docs.aggregate [
         { $match: match }
         { $project: "_author_username": 1 }
-        { $group: _id: "_author_username", count: $sum: 1 }
-        { $match: _id: $nin: picked_staff }
+        { $group: _id: "$_author_username", count: $sum: 1 }
+        { $match: _id: $nin: picked_author }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
         { $limit: 20 }
-        { $project: _id: 0, name: '$_id', count: 1 }
+        { $project: _id: 0, title: '$_id', count: 1 }
     ], {
         allowDiskUse: true
     }
     
-    staff_cloud.forEach (staff, i) =>
-        # console.log 'queried staff ', staff
+    author_cloud.forEach (author, i) =>
+        console.log 'queried author ', author
         # console.log 'key', key
         self.added 'results', Random.id(),
-            title: staff.name
-            count: staff.count
-            model:'staff'
+            title: author.title
+            count: author.count
+            model:'author'
             # category:key
             # index: i
 
@@ -105,7 +78,7 @@ Meteor.publish 'work_facets', (
     self.ready()
     
 Meteor.publish 'work_docs', (
-    picked_staff
+    picked_author
     picked_task
     picked_location
     # product_query
@@ -125,7 +98,7 @@ Meteor.publish 'work_docs', (
     #     match.gluten_free = true
     # if view_local
     #     match.local = true
-    if picked_staff.length > 0 then match._author_username = picked_staff
+    if picked_author.length > 0 then match._author_username = picked_author
     if picked_task.length > 0 then match.task_title = picked_task 
 
     Docs.find match

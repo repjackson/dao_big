@@ -4,9 +4,19 @@ template(name='work')
             .ui.inline.header 
                 i.wrench.icon
                 |work
-            .ui.header filter
-            .ui.header staff
-            .ui.header task
+            .ui.inline.header 
+                i.user.friends.icon
+                |staff
+            each picked_author
+                .ui.blue.button.unpick_author
+                    |#{this}
+            each author_results
+                if title
+                    .ui.basic.circular.small.button.pick_author
+                        |#{title} #{count}
+            .ui.inline.header 
+                i.task.icon
+                |task
             each picked_tasks
                 .ui.blue.button.unpick_task
                     |#{this}

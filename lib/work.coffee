@@ -44,6 +44,10 @@ if Meteor.isClient
             Results.find {
                 model:'task'
             }, sort:_timestamp:-1
+        author_results: ->
+            Results.find {
+                model:'author'
+            }, sort:_timestamp:-1
         work_list: ->
             Docs.find {
                 model:'work'
