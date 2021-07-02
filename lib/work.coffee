@@ -1,7 +1,7 @@
 if Meteor.isClient
-    @picked_staff = new ReactiveArray []
-    @picked_location = new ReactiveArray []
-    @picked_task = new ReactiveArray []
+    @picked_authors = new ReactiveArray []
+    @picked_locations = new ReactiveArray []
+    @picked_tasks = new ReactiveArray []
     
     Router.route '/work', (->
         @layout 'layout'
@@ -20,13 +20,13 @@ if Meteor.isClient
     
     Template.work.onCreated ->
         @autorun => @subscribe 'work_docs',
-            picked_staff.array()
-            picked_task.array()
-            picked_location.array()
+            picked_authors.array()
+            picked_tasks.array()
+            picked_locations.array()
         @autorun => @subscribe 'work_facets',
-            picked_staff.array()
-            picked_task.array()
-            picked_location.array()
+            picked_authors.array()
+            picked_tasks.array()
+            picked_locations.array()
             
             
     Template.work_edit.onCreated ->
@@ -48,6 +48,10 @@ if Meteor.isClient
             Results.find {
                 model:'author'
             }, sort:_timestamp:-1
+        location_results: ->
+            Results.find {
+                model:'location'
+            }, sort:_timestamp:-1
         work_list: ->
             Docs.find {
                 model:'work'
@@ -63,14 +67,26 @@ if Meteor.isClient
                 _author_username: 'ryan'
             }).count()
         picked_tasks: ->
-            picked_task.array()
+            picked_tasks.array()
     Template.work.events
         'click .pick_task': ->
             console.log @
-            picked_task.push @title
+            picked_tasks.push @title
         'click .unpick_task': ->
             console.log @
-            picked_task.remove @valueOf()
+            picked_tasks.remove @valueOf()
+        'click .pick_location': ->
+            console.log @
+            picked_locations.push @title
+        'click .unpick_location': ->
+            console.log @
+            picked_locations.remove @valueOf()
+        'click .pick_author': ->
+            console.log @
+            picked_authors.push @title
+        'click .unpick_author': ->
+            console.log @
+            picked_authors.remove @valueOf()
         'click .add_work': ->
             new_id = Docs.insert 
                 model:'work'

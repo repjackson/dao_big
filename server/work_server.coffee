@@ -33,7 +33,7 @@ Meteor.publish 'work_facets', (
         { $match: _id: $nin: picked_authors }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
-        { $limit: 20 }
+        { $limit: 10 }
         { $project: _id: 0, title: '$_id', count: 1 }
     ], {
         allowDiskUse: true
@@ -57,7 +57,7 @@ Meteor.publish 'work_facets', (
         { $match: _id: $nin: picked_tasks }
         { $group: _id: "$task_title", count: $sum: 1 }
         { $sort: count: -1, _id: 1 }
-        { $limit: 20 }
+        { $limit: 10 }
         { $project: _id: 0, title: '$_id', count: 1 }
     ], {
         allowDiskUse: true
@@ -69,6 +69,28 @@ Meteor.publish 'work_facets', (
             title: task.title
             count: task.count
             model:'task'
+            # category:key
+            # index: i
+
+    location_cloud = Docs.aggregate [
+        { $match: match }
+        { $project: "location_title": 1 }
+        # { $unwind: "$locations" }
+        { $match: _id: $nin: picked_locations }
+        { $group: _id: "$location_title", count: $sum: 1 }
+        { $sort: count: -1, _id: 1 }
+        { $limit: 10 }
+        { $project: _id: 0, title: '$_id', count: 1 }
+    ], {
+        allowDiskUse: true
+    }
+
+    location_cloud.forEach (location, i) =>
+        # console.log 'location result ', location
+        self.added 'results', Random.id(),
+            title: location.title
+            count: location.count
+            model:'location'
             # category:key
             # index: i
 

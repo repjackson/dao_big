@@ -24,7 +24,16 @@ template(name='work')
                 if title
                     .ui.basic.circular.small.button.pick_task
                         |#{title} #{count}
-            .ui.header location
+            .ui.header 
+                i.marker.icon
+                |location
+            each picked_locations
+                .ui.blue.button.unpick_location
+                    |#{this}
+            each location_results
+                if title
+                    .ui.basic.circular.small.button.pick_location
+                        |#{title} #{count}
         .twelve.wide.column
             // .ui.basic.button.add_work
             //     i.large.plus.icon
@@ -164,7 +173,7 @@ template(name='work_edit')
                                 |#{title}
                             |#{description}
                     // +text_edit key='title' label='title' direct=true
-                    +image_edit key='image_id' label='image' direct=true
+                    +image_edit key='image_id' label='image' direct=true capture="camera"
                     div
                     // +textarea_edit key='notes' label='notes' direct=true
                     .ui.red.button.delete_work
@@ -183,6 +192,29 @@ template(name='work_edit')
                             i.checkmark.big.icon
                     if in_dev
                         +print_this
+                    video#player(controls='' autoplay='')
+                    button.ui.button#capture Capture
+                    canvas#canvas(width='320' height='240')
+                    script.
+                        const player = document.getElementById('player');
+                        const canvas = document.getElementById('canvas');
+                        const context = canvas.getContext('2d');
+                        const captureButton = document.getElementById('capture');
+                        const constraints = {
+                        video: true,
+                        };
+                        captureButton.addEventListener('click', () => {
+                        // Draw the video frame to the canvas.
+                        context.drawImage(player, 0, 0, canvas.width, canvas.height);
+                        player.srcObject.getVideoTracks().forEach(track => track.stop());
+                        
+                        });
+                        // Attach the video stream to the video element and autoplay.
+                        navigator.mediaDevices.getUserMedia(constraints)
+                        .then((stream) => {
+                        player.srcObject = stream;
+                        });
+                        
                 
 template(name='work_view')
     with current_doc
