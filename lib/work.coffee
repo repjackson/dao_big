@@ -126,13 +126,13 @@ if Meteor.isClient
             Docs.find 
                 model:'staff'
                 
-        staff_picker_class: ->
-            work = Docs.findOne Router.current().params.doc_id
-            if work.staff_id is @_id then 'active massive' else 'basic large'
+        # staff_picker_class: ->
+        #     work = Docs.findOne Router.current().params.doc_id
+        #     if work.staff_id is @_id then 'blue big' else 'basic large'
             
         location_picker_class: ->
             work = Docs.findOne Router.current().params.doc_id
-            if work.location_id is @_id then 'active massive' else 'basic large'
+            if work.location_id is @_id then 'blue massive' else 'basic big'
             
         
 if Meteor.isServer
@@ -195,7 +195,7 @@ if Meteor.isClient
         #             )
         #     )
 
-        'click .delete_work':->
+        'click .delete_work':(e,t)->
             # Swal.fire({
             #     title: "delete work entry?"
             #     text: "for #{@task_title}"
@@ -205,13 +205,30 @@ if Meteor.isClient
             #     cancelButtonText: 'cancel'
             # }).then((result) =>
             #     if result.value
-            Docs.remove @_id
-            Router.go "/porters"
+            $(e.currentTarget).closest('.grid').transition('fly right', 1000)
+            Meteor.setTimeout =>
+                Docs.remove @_id
+                Router.go "/porters"
+            , 900    
+                
             $('body').toast(
                 showIcon: 'remove'
                 message: "#{@task_title} work entry deleted"
                 showProgress: 'bottom'
                 class: 'error'
+                # displayTime: 'auto',
+                position: "bottom right"
+            )
+        'click .submit_work':(e,t)->
+            $(e.currentTarget).closest('.grid').transition('fly right', 1000)
+            Meteor.setTimeout =>
+                Router.go "/porters"
+            , 900
+            $('body').toast(
+                showIcon: 'checkmark'
+                message: "#{@task_title} work entry submitted"
+                showProgress: 'bottom'
+                class: 'success'
                 # displayTime: 'auto',
                 position: "bottom right"
             )

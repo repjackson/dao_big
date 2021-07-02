@@ -3,11 +3,11 @@ if Meteor.isClient
         'click .toggle_session_var': ->
             Session.set(@key, !Session.get(@key))
             $('body').toast(
-                # showIcon: 'heart'
+                showIcon: 'toggle on'
                 message: "#{@key} #{Session.get(@key)}"
-                # showProgress: 'bottom'
+                showProgress: 'bottom'
                 # class: 'success'
-                displayTime: 'auto',
+                # displayTime: 'auto',
                 position: "bottom right"
             )
 

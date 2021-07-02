@@ -52,16 +52,16 @@ template(name='work')
             //         //- small #{count}
             // // unless one_post
             span.sorting_row
-                +session_set key='view_users' value='grid' icon='th' 
-                +session_set key='view_users' value='list' icon='list'
-                +session_set key='sort_users_direction' value='-1' icon='chevron down'
-                +session_set key='sort_users_direction' value='1' icon='chevron up'
-                +session_set key='sort_users_key' value='points' icon='coins'
-                +session_set key='sort_users_key' value='created_date' icon='clock'
-                +session_set key='view_limit' value=1
-                +session_set key='view_limit' value=10
-                +session_set key='view_limit' value=20
-                +session_set key='view_limit' value=50
+                // +session_set key='view_users' value='grid' icon='th' 
+                // +session_set key='view_users' value='list' icon='list'
+                // +session_set key='sort_users_direction' value='-1' icon='chevron down'
+                // +session_set key='sort_users_direction' value='1' icon='chevron up'
+                // +session_set key='sort_users_key' value='points' icon='coins'
+                // +session_set key='sort_users_key' value='created_date' icon='clock'
+                // +session_set key='view_limit' value=1
+                // +session_set key='view_limit' value=10
+                // +session_set key='view_limit' value=20
+                // +session_set key='view_limit' value=50
 
                 
                 i.large.sort.icon
@@ -165,55 +165,60 @@ template(name='work_edit')
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                        small work
+                        | work edit
                     with work_task
                         .ui.segment
-                            img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                            .ui.header 
+                            img.ui.tiny.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                            .ui.inline.header 
                                 |#{title}
                             |#{description}
+                    .ui.grey.header 
+                        i.clock.icon
+                        |#{when}
                     // +text_edit key='title' label='title' direct=true
-                    +image_edit key='image_id' label='image' direct=true capture="camera"
                     div
                     // +textarea_edit key='notes' label='notes' direct=true
-                    .ui.red.button.delete_work
-                        i.remove.icon   
-                        | cancel
                 .ten.wide.column
-                    .ui.header 
+                    +image_edit key='image_id' label='image' direct=true capture="camera"
+                    .ui.inline.header 
                         i.red.marker.icon
                         |location
                     each task_locations
-                        .ui.big.circular.button.pick_location(class=location_picker_class)
-                            .ui.heaader #{title}
+                        a.ui.circular.image.link.label.pick_location.zoomer(class=location_picker_class)
+                            img.ui.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                            | #{title}
                     if location_id
-                        .ui.hidden.divider
-                        a.ui.massive.icon.fluid.green.circular.button(href="/porters" title='submit')
-                            i.checkmark.big.icon
+                        if image_id
+                            .ui.hidden.divider
+                            a.ui.massive.icon.fluid.green.circular.button(title='submit')
+                                i.checkmark.big.icon
+                    .ui.red.small.fluid.button.delete_work
+                        i.remove.icon   
+                        | cancel
                     if in_dev
                         +print_this
-                    video#player(controls='' autoplay='')
-                    button.ui.button#capture Capture
-                    canvas#canvas(width='320' height='240')
-                    script.
-                        const player = document.getElementById('player');
-                        const canvas = document.getElementById('canvas');
-                        const context = canvas.getContext('2d');
-                        const captureButton = document.getElementById('capture');
-                        const constraints = {
-                        video: true,
-                        };
-                        captureButton.addEventListener('click', () => {
-                        // Draw the video frame to the canvas.
-                        context.drawImage(player, 0, 0, canvas.width, canvas.height);
-                        player.srcObject.getVideoTracks().forEach(track => track.stop());
+                    // video#player(controls='' autoplay='')
+                    // button.ui.button#capture Capture
+                    // canvas#canvas(width='320' height='240')
+                    // script.
+                    //     const player = document.getElementById('player');
+                    //     const canvas = document.getElementById('canvas');
+                    //     const context = canvas.getContext('2d');
+                    //     const captureButton = document.getElementById('capture');
+                    //     const constraints = {
+                    //     video: true,
+                    //     };
+                    //     captureButton.addEventListener('click', () => {
+                    //     // Draw the video frame to the canvas.
+                    //     context.drawImage(player, 0, 0, canvas.width, canvas.height);
+                    //     player.srcObject.getVideoTracks().forEach(track => track.stop());
                         
-                        });
-                        // Attach the video stream to the video element and autoplay.
-                        navigator.mediaDevices.getUserMedia(constraints)
-                        .then((stream) => {
-                        player.srcObject = stream;
-                        });
+                    //     });
+                    //     // Attach the video stream to the video element and autoplay.
+                    //     navigator.mediaDevices.getUserMedia(constraints)
+                    //     .then((stream) => {
+                    //     player.srcObject = stream;
+                    //     });
                         
                 
 template(name='work_view')
