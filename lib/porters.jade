@@ -8,7 +8,7 @@ template(name='porters')
                 i.plus.icon
                 |add task
             +session_toggle key='admin_mode' icon='shield'
-            .ui.five.doubling.cards
+            .ui.six.doubling.cards
                 each porter_tasks
                     .ui.card.log_work(title=description)
                         img.ui.image.pointer(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")

@@ -205,11 +205,11 @@ if Meteor.isClient
             #     cancelButtonText: 'cancel'
             # }).then((result) =>
             #     if result.value
-            $(e.currentTarget).closest('.grid').transition('fly right', 1000)
+            $(e.currentTarget).closest('.grid').transition('fly right', 750)
             Meteor.setTimeout =>
                 Docs.remove @_id
                 Router.go "/porters"
-            , 900    
+            , 750    
                 
             $('body').toast(
                 showIcon: 'remove'
@@ -220,10 +220,10 @@ if Meteor.isClient
                 position: "bottom right"
             )
         'click .submit_work':(e,t)->
-            $(e.currentTarget).closest('.grid').transition('fly right', 1000)
+            $(e.currentTarget).closest('.grid').transition('fly left', 750)
             Meteor.setTimeout =>
                 Router.go "/porters"
-            , 900
+            , 750
             $('body').toast(
                 showIcon: 'checkmark'
                 message: "#{@task_title} work entry submitted"
