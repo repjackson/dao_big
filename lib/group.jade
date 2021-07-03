@@ -4,7 +4,6 @@ template(name='groups')
             .ui.inline.header 
                 i.large.fire.icon
                 |groups
-        .twelve.wide.column
             .ui.basic.icon.button.add_group
                 i.large.plus.icon
             div
@@ -19,6 +18,7 @@ template(name='groups')
                     a.ui.basic.circular.small.link.label.pick_group_tag
                         |#{title} 
                         small.ui.grey.text #{count}
+        .twelve.wide.column
             span.sorting_row
                 // +session_set key='view_users' value='grid' icon='th' 
                 // +session_set key='view_users' value='list' icon='list'
@@ -74,6 +74,20 @@ template(name='group_edit')
                     +image_edit key='image_id' label='image' direct=true
                     div
                 .ten.wide.column
+                    .ui.header members
+                    .ui.header
+                        i.fork.icon
+                        |parent groups
+                    each my_groups
+                        .ui.button.add_parent
+                            i.plus.icon
+                            |#{title}
+                    each parent_groups
+                        .ui.segment
+                            .ui.header #{title}
+                            i.circular.minus.link.icon.remove_parent_group
+                    .ui.header child groups
+                    
                     div
                     // +html_edit key='directions' label='directions' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true

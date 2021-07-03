@@ -17,9 +17,7 @@ if Meteor.isClient
         @autorun => @subscribe 'group_facets',
             picked_group_tags.array()
     
-    Template.group_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'group_work', Router.current().params.doc_id, ->
+    
     Template.group_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'group_work', Router.current().params.doc_id, ->
@@ -72,38 +70,40 @@ if Meteor.isClient
 
     Template.group_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'parent_groups', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        # @autorun => Meteor.subscribe 'model_docs', 'menu_section'
+        @autorun => Meteor.subscribe 'model_docs', 'group'
 
 
+    Template.group_edit.helpers
+        parent_groups: ->
+            current_group = 
+                Docs.findOne Router.current().params.doc_id
+            Docs.find
+                _id:$in:current_group.parent_group_ids
+        my_groups: ->
+            current_group = 
+                Docs.findOne Router.current().params.doc_id
+            Docs.find
+                model:'group'
+                _author_id:Meteor.userId()
+            
     Template.group_edit.events
-        'click .send_group': ->
-            Swal.fire({
-                title: 'confirm send card'
-                text: "#{@amount} credits"
-                icon: 'question'
-                showCancelButton: true,
-                confirmButtonText: 'confirm'
-                cancelButtonText: 'cancel'
-            }).then((result) =>
-                if result.value
-                    group = Docs.findOne Router.current().params.doc_id
-                    Meteor.users.update Meteor.userId(),
-                        $inc:credit:-@amount
-                    Docs.update group._id,
-                        $set:
-                            sent:true
-                            sent_timestamp:Date.now()
-                    Swal.fire(
-                        'group sent',
-                        ''
-                        'success'
-                    Router.go "/group/#{@_id}/"
-                    )
-            )
-
         'click .delete_group':->
             if confirm 'delete?'
                 Docs.remove @_id
-                Router.go "/group"
+                Router.go "/groups"
             
+        'click .add_parent': ->
+            Docs.update Router.current().params.doc_id, 
+                $addToSet: 
+                    parent_group_ids:@_id
+                    
+            
+            
+if Meteor.isServer
+    Meteor.publish 'parent_groups', (group_id)->
+        group = Docs.findOne group_id
+        Docs.find 
+            model:'group'
+            _id:$in:group.parent_ids
