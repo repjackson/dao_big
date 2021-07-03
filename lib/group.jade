@@ -7,16 +7,18 @@ template(name='groups')
         .twelve.wide.column
             .ui.basic.icon.button.add_group
                 i.large.plus.icon
-            // each picked_sections
-            //     button.ui.blue.compact.small.button.unpick_section(tabindex='0')
-            //         //- i.remove.icon
-            //         | #{this}
-            // // div
-            // +i name='clock' cl='ui inline mini image'
-            // each sections
-            //     button.ui.compact.basic.button.pick_section(tabindex="0" class=result_class title=count) #{title}
-            //         //- small #{count}
-            // // unless one_post
+            div
+            .ui.inline.small.header 
+                i.tag.icon
+                |tags
+            each picked_tags
+                a.ui.blue.label.unpick_group_tag
+                    |#{this}
+            each tag_resuslts
+                if title
+                    a.ui.basic.circular.small.link.label.pick_group_tag
+                        |#{title} 
+                        small.ui.grey.text #{count}
             span.sorting_row
                 // +session_set key='view_users' value='grid' icon='th' 
                 // +session_set key='view_users' value='list' icon='list'

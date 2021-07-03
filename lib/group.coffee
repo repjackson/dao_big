@@ -1,4 +1,6 @@
 if Meteor.isClient
+    @picked_group_tags = new ReactiveArray []
+    
     Router.route '/group/:doc_id', (->
         @layout 'layout'
         @render 'group_view'
@@ -10,7 +12,10 @@ if Meteor.isClient
     
             
     Template.groups.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'group', ->
+        @autorun => @subscribe 'group_docs',
+            picked_group_tags.array()
+        @autorun => @subscribe 'group_facets',
+            picked_group_tags.array()
     
     Template.group_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
@@ -26,14 +31,22 @@ if Meteor.isClient
             new_id = Docs.insert 
                 model:'group'
             Router.go "/group/#{new_id}/edit"    
-    
+        'click .pick_group_tag': -> picked_group_tags.push @title
+        'click .unpick_group_tag': -> picked_group_tags.remove @valueOf()
+
                 
             
     Template.groups.helpers
+        picked_group_tags: -> picked_group_tags.array()
+    
         group_docs: ->
             Docs.find 
                 model:'group'
-                
+        tag_results: ->
+            Results.find {
+                model:'group_tag'
+            }, sort:_timestamp:-1
+  
                 
         
 if Meteor.isServer
