@@ -98,8 +98,8 @@ if Meteor.isClient
             current_name = Router.current().route.getName()
             # $(e.currentTarget).closest('.input').transition('pulse', 100)
 
-            unless current_name is 'shop'
-                Router.go '/shop'
+            unless current_name is 'products'
+                Router.go '/products'
             query = $('.search_ingredients').val()
             Session.set('product_query', query)
             # console.log Session.get('product_query')

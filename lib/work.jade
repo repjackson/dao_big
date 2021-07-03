@@ -1,11 +1,11 @@
 template(name='work')
     .ui.stackable.padded.grid
         .four.wide.column
-            .ui.inline.header 
+            .ui.inline.small.header 
                 i.wrench.icon
                 |work
             div
-            .ui.inline.header 
+            .ui.inline.small.header 
                 i.user.friends.icon
                 |staff
             each picked_authors
@@ -17,7 +17,7 @@ template(name='work')
                         |#{title} 
                         small.ui.grey.text #{count}
             div
-            .ui.inline.header 
+            .ui.inline.small.header 
                 i.tasks.icon
                 |task
             each picked_tasks
@@ -29,7 +29,7 @@ template(name='work')
                         |#{title} 
                         small.ui.grey.text #{count}
             div
-            .ui.inline.header 
+            .ui.inline.small.header 
                 i.marker.icon
                 |location
             each picked_locations
@@ -41,7 +41,7 @@ template(name='work')
                         |#{title} 
                         small.ui.grey.text #{count}
             div
-            .ui.inline.header 
+            .ui.inline.small.header 
                 i.marker.icon
                 |timestamp_tags
             each picked_timestamp_tags
@@ -104,21 +104,21 @@ template(name='work')
                            +set_product_limit amount=5
                            +set_product_limit amount=10
                             +set_product_limit amount=20
-                // .ui.inline.header ryan: #{ryan_total}
-                // .ui.inline.header eric: #{eric_total}
+                // .ui.inline.small.header ryan: #{ryan_total}
+                // .ui.inline.small.header eric: #{eric_total}
                 .spacer 
                 
             .ui.large.selection.animated.list.scrolling
                 each work_list
                     a.item(href="/work/#{_id}")
                         .content
-                            .ui.inline.header 
+                            .ui.inline.small.header 
                                 img.ui.tiny.inline.image(src="{{c.url staff_image_id width=400 height=300 crop='pad'}}")
                                 |#{_author_username}: 
                             img.ui.tiny.inline.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
-                            .ui.inline.header 
+                            .ui.inline.small.header 
                                 |#{task_title}
-                            .ui.inline.header 
+                            .ui.inline.small.header 
                                 img.ui.tiny.inline.image(src="{{c.url location_image_id width=400 height=300 crop='pad'}}")
                                 |@#{location_title}
                             | #{when}
@@ -131,7 +131,7 @@ template(name='work')
                 
                 
 template(name='user_work')
-    .ui.inline.header 
+    .ui.inline.small.header 
         +i name='cookbook'
         |user work
     .ui.basic.icon.button.send_work
@@ -180,7 +180,7 @@ template(name='work_edit')
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    .ui.inline.header
+                    .ui.inline.small.header
                         i.pencil.icon
                         | #{title}
                         | work edit

@@ -67,9 +67,9 @@
 }
 
 
- .ui.image:not(.avatar2), .label, img:not(.avatar2) {
-    border-radius: 10px !important;
-} 
+/* .ui.image:not(.avatar2), .label, img:not(.avatar2) {*/
+/*    border-radius: 10px !important;*/
+/*} */
 
 
 /*.scrolling{*/

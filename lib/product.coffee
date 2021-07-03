@@ -11,6 +11,7 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'product_from_product_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'orders_from_product_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'subs_from_product_id', Router.current().params.doc_id
+
     Template.product_view.onRendered ->
         Meteor.call 'log_view', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'ingredients_from_product_id', Router.current().params.doc_id
@@ -263,7 +264,7 @@ if Meteor.isClient
                 Router.go "/"
 
 if Meteor.isServer 
-    Meteor.publish 'source_search_results', (source_title_queary)->
+    Meteor.publish 'source_search_results', (source_title_query)->
         Docs.find 
             model:'source'
-            title: {$regex:"#{source_title_queary}",$options:'i'}
+            title: {$regex:"#{source_title_query}",$options:'i'}
