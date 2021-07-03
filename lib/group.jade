@@ -8,13 +8,13 @@ template(name='groups')
             .ui.basic.icon.button.add_group
                 i.large.plus.icon
             div
-            .ui.inline.small.header 
+            .ui.inline.small.header
                 i.tag.icon
                 |tags
-            each picked_tags
+            each picked_group_tags
                 a.ui.blue.label.unpick_group_tag
                     |#{this}
-            each tag_resuslts
+            each group_tag_results
                 if title
                     a.ui.basic.circular.small.link.label.pick_group_tag
                         |#{title} 

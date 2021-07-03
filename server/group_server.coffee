@@ -9,6 +9,7 @@ Meteor.publish 'group_facets', (
     tag_cloud = Docs.aggregate [
         { $match: match }
         { $project: "tags": 1 }
+        { $unwind: "$tags" }
         { $group: _id: "$tags", count: $sum: 1 }
         { $match: _id: $nin: picked_tags }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
@@ -25,7 +26,7 @@ Meteor.publish 'group_facets', (
         self.added 'results', Random.id(),
             title: tag.title
             count: tag.count
-            model:'tag'
+            model:'group_tag'
             # category:key
             # index: i
     self.ready()

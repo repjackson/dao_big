@@ -42,7 +42,7 @@ if Meteor.isClient
         group_docs: ->
             Docs.find 
                 model:'group'
-        tag_results: ->
+        group_tag_results: ->
             Results.find {
                 model:'group_tag'
             }, sort:_timestamp:-1
