@@ -94,11 +94,11 @@ template(name='location_view')
                 .eight.wide.column
                     .ui.header 
                         +i name='meal'
-                        |dishes
+                        |productes
                     .ui.large.selection.link.animated.list
-                        each station_dishes
+                        each group_products
                             .item 
-                                a.ui.header(href="/dish/#{") #{title}
+                                a.ui.header(href="/product/#{") #{title}
                     .ui.header 
                         +i name='chef-hat'
                         |staff

@@ -15,6 +15,21 @@ Template.registerHelper 'work_task', () ->
 Template.registerHelper 'active_path', (metric) ->
     false
 
+Template.registerHelper 'child_groups', (id)->
+    current_group = 
+        Docs.findOne Router.current().params.doc_id
+    Docs.find
+        model:'group'
+        parent_group_ids:$in:[current_group._id]
+    
+    
+    
+Template.registerHelper 'parent_groups', (id)->
+    current_group = 
+        Docs.findOne Router.current().params.doc_id
+    Docs.find
+        _id:$in:current_group.parent_group_ids
+
 Template.registerHelper 'user_from_id', (id)->
     Meteor.users.findOne id
 Template.registerHelper 'session_is', (key,value)->
@@ -46,9 +61,9 @@ Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 Template.registerHelper 'cal_time', (input) -> moment(input).calendar()
 
 
-Template.registerHelper 'station_dishes', (input) ->
+Template.registerHelper 'group_products', (input) ->
     Docs.find 
-        model:'dish'
+        model:'product'
         station_id: @_id
 
 

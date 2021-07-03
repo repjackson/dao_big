@@ -21,6 +21,7 @@ if Meteor.isClient
     Template.group_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'group_work', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'model_docs', 'group', ->
     
 
 
@@ -76,18 +77,15 @@ if Meteor.isClient
 
 
     Template.group_edit.helpers
-        parent_groups: ->
-            current_group = 
-                Docs.findOne Router.current().params.doc_id
-            Docs.find
-                _id:$in:current_group.parent_group_ids
-        my_groups: ->
+        nonparent_groups: ->
             current_group = 
                 Docs.findOne Router.current().params.doc_id
             Docs.find
                 model:'group'
                 _author_id:Meteor.userId()
-            
+                _id:$nin:current_group.parent_group_ids
+  
+  
     Template.group_edit.events
         'click .delete_group':->
             if confirm 'delete?'
@@ -98,6 +96,23 @@ if Meteor.isClient
             Docs.update Router.current().params.doc_id, 
                 $addToSet: 
                     parent_group_ids:@_id
+                    
+        'click .remove_parent_group': (e,t)->
+            $(e.currentTarget).closest('.segment').transition('fly right', 1000)
+            Meteor.setTimeout =>
+                Docs.update Router.current().params.doc_id, 
+                    $pull: 
+                        parent_group_ids:@_id
+                $('body').toast(
+                    showIcon: 'remove'
+                    message: "#{@title} removed as parent"
+                    # showProgress: 'bottom'
+                    class: 'error'
+                    # displayTime: 'auto',
+                    position: "bottom center"
+                )
+            , 1000
+            
                     
             
             

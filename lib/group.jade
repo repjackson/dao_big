@@ -78,7 +78,7 @@ template(name='group_edit')
                     .ui.header
                         i.fork.icon
                         |parent groups
-                    each my_groups
+                    each nonparent_groups
                         .ui.button.add_parent
                             i.plus.icon
                             |#{title}
@@ -87,6 +87,8 @@ template(name='group_edit')
                             .ui.header #{title}
                             i.circular.minus.link.icon.remove_parent_group
                     .ui.header child groups
+                    each child_groups
+                        .ui.header #{title}
                     
                     div
                     // +html_edit key='directions' label='directions' direct=true
@@ -115,16 +117,23 @@ template(name='group_view')
                         +i name='shopping-cart'
                         |products
                     .ui.large.selection.link.animated.list
-                        each station_dishes
+                        each group_products
                             .item 
-                                a.ui.header(href="/dish/#{") #{title}
+                                a.ui.header(href="/product/#{_id}") #{title}
                     .ui.header 
                         +i name='groups'
                         |members
                     .ui.large.selection.link.animated.list
-                        each group_staff
+                        each group_members
                             .item 
                                 .ui.header #{title}
+                    .ui.header 
+                        i.fork.icon
+                        |parent groups
+                    .ui.large.selection.link.animated.list
+                        each parent_groups
+                            .item 
+                                a.ui.header(href="/group/#{_id}") #{title}
                     +comments
                 .four.wide.column
                     div
