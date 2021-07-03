@@ -2,7 +2,7 @@ template(name='groups')
     .ui.stackable.padded.grid
         .sixteen.wide.column
             .ui.inline.header 
-                i.large.marker.icon
+                i.large.fire.icon
                 |groups
             .ui.basic.icon.button.add_group
                 i.large.plus.icon
@@ -51,6 +51,8 @@ template(name='groups')
                         .content 
                             .ui.header 
                                 |#{title}
+                            each tags
+                                .ui.label #{this}
 
 
                 

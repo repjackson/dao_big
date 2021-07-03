@@ -104,8 +104,8 @@ body, p, header {
 
 
 
-.button, .selector, .card, p, .header, .item, .image, .fade {
-    animation: fadein 1s;
+.button, .selector, .card, p, .header, .item, .image, .fade, .icon {
+    animation: fadein 1s !important;
      /*-webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout .5s; */
 }

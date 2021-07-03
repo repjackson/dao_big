@@ -27,7 +27,7 @@ template(name='nav')
                     i.cart.icon
                     // strong {{int currentUser.cart}}p
                 a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
-                    i.wallet.icon
+                    // i.wallet.icon
                     strong {{int currentUser.points}}p
                 a.item.toggle_rightbar.no_blink
                     if currentUser.image_id
@@ -40,7 +40,7 @@ template(name='nav')
                     a.icon.item(href='/login' title='login') 
                         i.sign.in.large.icon
                 else 
-                    i.food.loading.icon
+                    i.yin.yang.loading.icon
                 
                 
                 
@@ -98,15 +98,15 @@ template(name='right_sidebar')
             a.item.toggle_rightbar(href="/user/#{username}/cart" class="{{isActiveRoute 'user_cart'}}")
                 i.cart.icon
                 |cart
-            a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}/edit" title='edit your account')
+            a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}/edit" title='edit account')
                 i.cog.icon
                 |settings
             a.item.logout.toggle_rightbar
+                |logout
                 if is_logging_out
                     i.refresh.loading.icon
-                elseo
+                else
                     i.sign.out.icon
-                |logout
 
 
 
