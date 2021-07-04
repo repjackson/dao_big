@@ -21,7 +21,7 @@ if Meteor.isClient
     Template.post_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'post_work', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'model_docs', 'post', ->
+        # @autorun => Meteor.subscribe 'model_docs', 'post', ->
     
 
 
@@ -73,7 +73,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'parent_posts', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'post'
+        # @autorun => Meteor.subscribe 'model_docs', 'post'
 
 
     Template.post_edit.helpers
