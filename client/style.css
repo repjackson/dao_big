@@ -104,7 +104,7 @@ body, p, header {
 
 
 
-.button, .selector, .card, p, .header, .item, .image, .fade, .icon {
+.button, .selector, .card, p, .header, .item, .image, .fade {
     animation: fadein 1s !important;
      /*-webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout .5s; */
@@ -799,10 +799,10 @@ h1.ui.header{
   animation: fadein .5s;
 }
 
-.icon {
-  animation: fadein .5s;
+/*.icon {*/
+/*  animation: fadein .5s;*/
   /*filter: invert(.9) !important;*/
-}
+/*}*/
 
 @keyframes fadein {
   from { opacity: 0}

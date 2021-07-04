@@ -30,19 +30,19 @@ template(name='product_card')
             .ui.top.right.attached.corner.green.label(title='local')
                 i.marker.icon
         a(href="/product/#{_id}") 
-            img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+            img.ui.rounded.zoomer.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
         .content
             a.ui.inline.header(href="/product/#{_id}") 
                 //- |#{_author.name}'s
                 | #{title}
             //- if session_is 'view_ingredients' true
-            +ismall name='ingredients'
-            each ingredients
-                .ui.small.basic.label #{this}
-            if gluten_free
-                +i name='no-gluten' cl='ui mini inline image' title='gluten free'
-            if vegan
-                +i name='vegan-food' cl='ui mini inline image' title='vegan'
+            // +ismall name='ingredients'
+            // each ingredients
+            //     .ui.small.basic.label #{this}
+            // if gluten_free
+            //     +i name='no-gluten' cl='ui mini inline image' title='gluten free'
+            // if vegan
+            //     +i name='vegan-food' cl='ui mini inline image' title='vegan'
             //- .ui.inline.small.header tags
             // .content
             //     .right.floated.meta
@@ -53,7 +53,10 @@ template(name='product_card')
         .content    
             .ui.inline.header 
                 |${{fixed price_usd}}
-            i.big.link.cart.plus.icon.add_to_cart
+                |#{points}
+            // i.big.link.cart.plus.icon.add_to_cart
+            |#{group}
+            |#{views}
             if is_admin
                 a(href="/product/#{_id}/edit")
                     i.pencil.link.icon
@@ -69,35 +72,43 @@ template(name='product_card')
 template(name='product_view')
     with current_doc
         .ui.stackable.padded.grid
-                    .row
-                        .six.wide.column
-                            a.ui.basic.icon.button(href="/shop")
-                                i.large.shop.icon
-                            .ui.large.inline.header 
-                                //- small viewing
-                                | #{title}
-                                //- small product
-                            if can_edit
-                                a(href="/product/#{_id}/edit")
-                                    i.pencil.blue.large.link.icon
-                            // a(href="{{c.url image_id}}" target="_window")
-                            img.ui.rounded.fluid.image.zoomer(src="{{c.url image_id}}")
-                            div 
-                            // +text_view key='size_description' label='size description'  direct=true
-                            // +link_view key='product_link' label='link' icon='wordpress' direct=true
-                        .ten.wide.column
-                            .ui.green.basic.inverted.large.button.add_to_cart
-                                i.cart.plus.large.icon
-                                |buy
+            .row
+                .six.wide.column
+                    a.ui.basic.icon.button(href="/products")
+                        i.large.shop.icon
+                    .ui.large.inline.header 
+                        //- small viewing
+                        | #{title}
+                        //- small product
+                    if can_edit
+                        a(href="/product/#{_id}/edit")
+                            i.pencil.blue.large.link.icon
+                    // a(href="{{c.url image_id}}" target="_window")
+                    img.ui.rounded.fluid.image.zoomer(src="{{c.url image_id}}")
+                    div 
+                    // +text_view key='size_description' label='size description'  direct=true
+                    // +link_view key='product_link' label='link' icon='wordpress' direct=true
+                .ten.wide.column
+                    .ui.green.basic.large.button.add_to_cart
+                        i.cart.plus.large.icon
+                        |buy
 
-                            div
-                            +html_view key='description' direct=true
-                            +array_view key='tags' label='tags' icon='tags' direct=true
-                            div
-                            +voting_full
-                            // +link_view key='amazon_referral_link' label='amazon link' icon='amazon' direct=true
-                            // +link_view key='external_link' label='external link' icon='globe' direct=true
-                            +comments
+                    div
+                    +html_view key='description' direct=true
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    .ui.header 
+                        i.fire.icon
+                        |group
+                    .ui.header 
+                        i.eye.icon
+                        |#{views}
+                        |views
+                    div
+                    +voting_full
+                    +link_view key='external_link' label='external link' icon='globe' direct=true
+                    +comments
+                    if in_dev
+                        +print_this
         
         
 template(name='order_status_icons')  

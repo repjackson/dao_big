@@ -42,6 +42,12 @@ Meteor.publish 'docs', (selected_tags, filter)->
     Docs.find match, sort:_timestamp:-1
 
 
+Meteor.methods
+    log_view: (doc_id)->
+        Docs.update doc_id,
+            $inc:views:1
+
+
 Meteor.publish 'model_from_child_id', (child_id)->
     child = Docs.findOne child_id
     Docs.find
@@ -62,11 +68,11 @@ Meteor.publish 'model_docs', (model,limit)->
     if limit
         Docs.find {
             model: model
-            app:'pes'
+            # app:'pes'
         }, limit:limit
     else
         Docs.find
-            app:'pes'
+            # app:'pes'
             model: model
 
 Meteor.publish 'document_by_slug', (slug)->

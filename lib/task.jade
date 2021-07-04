@@ -1,9 +1,34 @@
 template(name='tasks')
     .ui.stackable.padded.grid
-        .sixteen.wide.column
-            .ui.inline.header 
-                i.wrench.icon
+        .four.wide.column
+            .ui.inline.small.header 
+                i.tasks.icon
+                |tasks
+            div
+            .ui.inline.small.header 
+                i.user.friends.icon
+                |staff
+            each picked_authors
+                a.ui.blue.label.unpick_author
+                    |#{this}
+            each author_results
+                if title
+                    a.ui.basic.circular.small.link.label.pick_author
+                        |#{title} 
+                        small.ui.grey.text #{count}
+            div
+            .ui.inline.small.header 
+                i.tasks.icon
                 |task
+            each picked_tasks
+                a.ui.blue.label.unpick_task
+                    |#{this}
+            each task_results
+                if title
+                    a.ui.basic.circular.small.link.label.pick_task
+                        |#{title} 
+                        small.ui.grey.text #{count}
+        .twelve.wide.column
             .ui.basic.button.add_task
                 i.large.plus.icon
                 |log task
