@@ -14,6 +14,12 @@ $.cloudinary.config
     # action: 'not_found'
 
 Template.body.events
+    'click .zoomer': (e,t)->
+        $(e.currentTarget).closest('.grid').transition('scale', 500)
+    'click .fly_right': (e,t)->
+        $(e.currentTarget).closest('.grid').transition('fly right', 500)
+
+
     "click a:not('.no_blink')": ->
         $('.global_container')
         .transition('fade out', 200)

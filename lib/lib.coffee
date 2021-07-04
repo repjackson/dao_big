@@ -1,6 +1,4 @@
 @Docs = new Meteor.Collection 'docs'
-@Tags = new Meteor.Collection 'tags'
-
 @Results = new Meteor.Collection 'results'
 
 Docs.before.insert (userId, doc)->
