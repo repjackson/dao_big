@@ -1,6 +1,7 @@
 template(name='nav')
-    // #topnav.topnav.ui.attached.inverted.borderless.large.menu(style="background-color:#062639;")
-    #topnav.topnav.ui.attached.inverted.borderless.large.menu
+    // #topnav.topnav.ui.attached.inverted.borderless.menu(style="background-color:#062639;")
+    #topnav.topnav.ui.attached.inverted.borderless.menu
+        +status
         if is_loading
             .icon.item
                 i.big.loading.grey.yin.yang.icon.cancel
@@ -40,7 +41,6 @@ template(name='nav')
                     i.yin.yang.loading.icon
                 
                 
-                
 
 template(name='topbar')
     .ui.fluid.attached.inverted.segment.topbar.top.sidebar(style="background-color:#062639;")
@@ -75,7 +75,7 @@ template(name='walletbar')
         
 template(name='right_sidebar')
     // .ui.right.sidebar.vertical.inverted.menu.rightbar(style="background-color:#062639;")
-    .ui.right.sidebar.vertical.inverted.large.menu.rightbar
+    .ui.right.sidebar.vertical.inverted.menu.rightbar
         a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
             img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |#{currentUser.username}
@@ -108,7 +108,7 @@ template(name='right_sidebar')
 
 
 template(name='left_sidebar')
-    .ui.left.sidebar.vertical.inverted.large.menu
+    .ui.left.sidebar.vertical.inverted.menu
         // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
         //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')

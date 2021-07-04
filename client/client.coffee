@@ -1,6 +1,9 @@
 @picked_tags = new ReactiveArray []
 
 
+Meteor.startup ->
+    Status.setTemplate('semantic_ui')
+
 Tracker.autorun ->
     current = Router.current()
     Tracker.afterFlush ->
@@ -14,7 +17,7 @@ $.cloudinary.config
     # action: 'not_found'
 
 Template.body.events
-    'click .zoomer': (e,t)->
+    'click .zoom_out': (e,t)->
         $(e.currentTarget).closest('.grid').transition('scale', 500)
     'click .fly_right': (e,t)->
         $(e.currentTarget).closest('.grid').transition('fly right', 500)

@@ -22,7 +22,7 @@ template(name='set_product_limit')
 
 
 template(name='product_card')
-    .center.aligned.column.zoomer(class=product_card_class title=ingredients)
+    .center.aligned.column.zoomer.zoom_out(class=product_card_class title=ingredients)
         if rescued 
             .ui.top.right.attached.blue.label(title='rescued')
                 i.search.icon
