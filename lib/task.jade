@@ -17,24 +17,16 @@ template(name='tasks')
                         |#{title} 
                         small.ui.grey.text #{count}
             div
-            .ui.inline.small.header 
-                i.tasks.icon
-                |task
-            each picked_tasks
+            i.tags.icon
+            each picked_task_tags
                 a.ui.blue.label.unpick_task
                     |#{this}
-            each task_results
+            each task_tag_results
                 if title
                     a.ui.basic.circular.small.link.label.pick_task
                         |#{title} 
                         small.ui.grey.text #{count}
         .twelve.wide.column
-            .ui.basic.button.add_task
-                i.large.plus.icon
-                |log task
-            .ui.basic.button.add_task
-                i.large.plus.icon
-                |task
             // each picked_sections
             //     button.ui.blue.compact.small.button.unpick_section(tabindex='0')
             //         //- i.remove.icon
@@ -82,7 +74,7 @@ template(name='tasks')
                             +set_product_limit amount=20
                 .spacer 
         
-            span.ui.doubling.five.cards.scrolling
+            span.ui.doubling.cards.scrolling
                 each model_docs_helper 'task'
                     .ui.link.card
                         a(href="/task/#{_id}") 
