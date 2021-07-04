@@ -151,3 +151,5 @@ template(name='group_view')
                 .four.wide.column
                     div
                     +html_view key='description' label='description' direct=true
+                    if in_dev
+                        +print_this

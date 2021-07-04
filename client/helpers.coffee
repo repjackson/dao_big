@@ -64,7 +64,7 @@ Template.registerHelper 'cal_time', (input) -> moment(input).calendar()
 Template.registerHelper 'group_products', (input) ->
     Docs.find 
         model:'product'
-        station_id: @_id
+        group_id: @_id
 
 
 Template.registerHelper 'logging_out', () -> Session.get 'logging_out'

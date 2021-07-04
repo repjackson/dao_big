@@ -13,6 +13,17 @@ template(name='products')
             if currentUser
                 a.ui.icon.button.add_product(title='add product')
                     i.plus.green.large.icon
+            .ui.inline.small.header
+                i.tag.icon
+                |tags
+            each picked_product_tags
+                a.ui.blue.label.unpick_product_tag
+                    |#{this}
+            each product_tag_results
+                if title
+                    a.ui.basic.circular.small.link.label.pick_product_tag
+                        |#{title} 
+                        small.ui.grey.text #{count}
             
             // .ui.left.icon.search.input
             //     i.search.icon.refresh_tags
@@ -158,11 +169,16 @@ template(name='product_card')
                 
         .content    
             .ui.inline.header 
-                |${{fixed price_usd}}
-                |#{points}
+                if price_usd
+                    |${{fixed price_usd}}
+                if point_price
+                    |#{point_price}pts
             // i.big.link.cart.plus.icon.add_to_cart
-            |#{group}
-            |#{views}
+            if group_title
+                |#{group_title}
+            if views
+                i.grey.eye.icon
+                |#{views}
             if is_admin
                 a(href="/product/#{_id}/edit")
                     i.pencil.link.icon
@@ -201,9 +217,11 @@ template(name='product_view')
                     div
                     +html_view key='description' direct=true
                     +array_view key='tags' label='tags' icon='tags' direct=true
-                    .ui.header 
+                    .ui.small.inline.header 
                         i.fire.icon
-                        |group
+                        small group
+                    a.ui.inline.header(href="/group/#{group_id}")
+                        |#{group_title}
                     .ui.header 
                         i.list.icon
                         |orders
