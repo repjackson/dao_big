@@ -49,13 +49,26 @@ template(name='posts')
         
             span.ui.stackable.cards.scrolling
                 each post_docs
-                    a.ui.card(href="/post/#{_id}") 
-                        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                        .content 
-                            .ui.header 
-                                |#{title}
-                            each tags
-                                .ui.label #{this}
+                    +post_card
+                
+
+template(name='post_card')                
+    a.ui.card(href="/post/#{_id}") 
+        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+        .content 
+            .ui.header 
+                |#{title}
+            i.grey.tag.icon
+            each tags
+                .ui.label #{this}
+            if location_tags
+                i.grey.marker.icon
+                each location_tags
+                    .ui.small.label #{this}
+            if people_tags
+                i.grey.marker.icon
+                each people_tags
+                    .ui.small.label #{this}
 
 
                 
@@ -99,14 +112,19 @@ template(name='post_view')
                     div
                     a.ui.icon.button(href="/post/#{_id}/edit")
                         i.pencil.icon
+                    .ui.header added #{when}
+                    each _timestamp_tags
+                        .ui.label #{this}
                 .eight.wide.column
                     +html_view key='body' direct=true
-                    
+                    +html_view key='content' direct=true
                     .ui.header 
                         i.users.icon
                         |audience
                     +comments
                 .four.wide.column
+                    if in_dev
+                        +print_this
                     div
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     div

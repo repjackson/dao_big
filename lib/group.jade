@@ -47,15 +47,28 @@ template(name='groups')
                             +set_product_limit amount=20
                 .spacer 
         
-            span.ui.stackable.cards.scrolling
+            span.ui.doubling.cards.scrolling
                 each group_docs
-                    a.ui.card(href="/group/#{_id}") 
-                        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                        .content 
-                            .ui.header 
-                                |#{title}
-                            each tags
-                                .ui.label #{this}
+                    +group_card
+                    
+
+template(name='group_card')                    
+    a.ui.card(href="/group/#{_id}") 
+        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+        .content 
+            .ui.header 
+                |#{title}
+            i.grey.tag.icon
+            each tags
+                .ui.small.label #{this}
+            if location_tags
+                i.grey.marker.icon
+                each location_tags
+                    .ui.small.label #{this}
+            if people_tags
+                i.grey.marker.icon
+                each people_tags
+                    .ui.small.label #{this}
 
 
                 

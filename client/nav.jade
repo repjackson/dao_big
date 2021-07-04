@@ -129,6 +129,9 @@ template(name='left_sidebar')
         a.item.zoomer.toggle_leftbar(href='/orders' class="{{isActivePath '/orders'}}")
             i.money.icon
             | #{orders.count} orders
+        a.item.zoomer.toggle_leftbar(href='/posts' class="{{isActivePath '/posts'}}")
+            i.blog.icon
+            | #{posts.count} posts
         a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
             i.marker.icon
             |locations
