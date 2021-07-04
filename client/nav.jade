@@ -1,6 +1,6 @@
 template(name='nav')
     // #topnav.topnav.ui.attached.inverted.borderless.menu(style="background-color:#062639;")
-    #topnav.topnav.ui.attached.inverted.borderless.menu
+    #topnav.topnav.ui.attached.inverted.borderless.big.menu
         +status
         if is_loading
             .icon.item
@@ -16,6 +16,8 @@ template(name='nav')
             i.large.tasks.icon
         a.icon.item.zoomer(href='/products' class="{{isActivePath '/products'}}")
             i.large.shop.icon
+        a.icon.item.zoomer(href='/posts' class="{{isActivePath '/posts'}}")
+            i.large.blog.icon
         a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.large.user.friends.icon
         a.icon.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")

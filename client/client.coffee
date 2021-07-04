@@ -1,8 +1,8 @@
 @picked_tags = new ReactiveArray []
 
 
-Meteor.startup ->
-    Status.setTemplate('semantic_ui')
+# Meteor.startup ->
+#     Status.setTemplate('semantic_ui')
 
 Tracker.autorun ->
     current = Router.current()

@@ -80,10 +80,11 @@ if Meteor.isClient
         nonparent_groups: ->
             current_group = 
                 Docs.findOne Router.current().params.doc_id
-            Docs.find
-                model:'group'
-                _author_id:Meteor.userId()
-                _id:$nin:current_group.parent_group_ids
+            if current_group
+                Docs.find
+                    model:'group'
+                    # _author_id:Meteor.userId()
+                    _id:$nin:current_group.parent_group_ids
   
   
     Template.group_edit.events

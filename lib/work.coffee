@@ -207,7 +207,7 @@ if Meteor.isClient
             $(e.currentTarget).closest('.grid').transition('fly right', 750)
             Meteor.setTimeout =>
                 Docs.remove @_id
-                Router.go "/porters"
+                Router.go "/work"
             , 750    
                 
             $('body').toast(
@@ -221,7 +221,7 @@ if Meteor.isClient
         'click .submit_work':(e,t)->
             $(e.currentTarget).closest('.grid').transition('fly left', 750)
             Meteor.setTimeout =>
-                Router.go "/porters"
+                Router.go "/work"
             , 750
             $('body').toast(
                 showIcon: 'checkmark'

@@ -7,7 +7,7 @@ template(name='user_points')
                     |points
                 .ui.selection.link.animated.divided.list.scrolling
                     each user_work
-                        a.item(href="/work/#{_id}") 
+                        a.item.zoom_out(href="/work/#{_id}") 
                             .content
                                 if image_id
                                     img.ui.small.inline.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")

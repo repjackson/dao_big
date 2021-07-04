@@ -89,16 +89,20 @@ template(name='product_view')
                     // +text_view key='size_description' label='size description'  direct=true
                     // +link_view key='product_link' label='link' icon='wordpress' direct=true
                 .ten.wide.column
-                    .ui.green.basic.large.button.add_to_cart
+                    .ui.green.basic.big.button.add_to_cart
                         i.cart.plus.large.icon
                         |buy
-
                     div
                     +html_view key='description' direct=true
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     .ui.header 
                         i.fire.icon
                         |group
+                    .ui.header 
+                        i.list.icon
+                        |orders
+                    each product_orders
+                        a.ui.header(href="/order/#{_id}") #{title} #{when}
                     .ui.header 
                         i.eye.icon
                         |#{views}
