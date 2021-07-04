@@ -41,8 +41,8 @@
 	},
 	"galaxy.meteor.com": {
 		"env": {
-			"MONGO_URL": "mongodb+srv://daoadmin:daoadminpassword@daocluster.etul3.mongodb.net/daodb",
-			"ROOT_URL": "https://www.res.community"
+			"MONGO_URL": "mongodb+srv://daoadmin:1aAycZtOcBEdQ2lt@daocluster.etul3.mongodb.net/daodb",
+			"ROOT_URL": "https://www.dao.af"
 		}
 	}
 }
