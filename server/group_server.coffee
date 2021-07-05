@@ -1,11 +1,16 @@
 Meteor.publish 'group_facets', (
     picked_tags
+    title_filter
     )->
     self = @
     match = {app:'pes'}
     match.model = 'group'
     if picked_tags.length > 0 then match.tags = $in:picked_tags
-    # if product_query and product_query.length > 1
+    if title_filter and title_filter.length > 1
+        match.title = {$regex:title_filter, $options:'i'}
+            
+        
+
     tag_cloud = Docs.aggregate [
         { $match: match }
         { $project: "tags": 1 }
@@ -33,12 +38,15 @@ Meteor.publish 'group_facets', (
     
 Meteor.publish 'group_docs', (
     picked_tags
+    title_filter
     )->
 
     self = @
     match = {app:'pes'}
     match.model = 'group'
     if picked_tags.length > 0 then match.tags = $in:picked_tags
+    if title_filter and title_filter.length > 1
+        match.title = {$regex:title_filter, $options:'i'}
 
     Docs.find match, 
         limit:20

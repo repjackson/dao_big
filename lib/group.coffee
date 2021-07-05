@@ -14,18 +14,25 @@ if Meteor.isClient
     Template.groups.onCreated ->
         @autorun => @subscribe 'group_docs',
             picked_group_tags.array()
+            Session.get('group_title_filter')
         @autorun => @subscribe 'group_facets',
             picked_group_tags.array()
+            Session.get('group_title_filter')
     
     
     Template.group_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'group_work', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'model_docs', 'group', ->
     
 
 
     Template.groups.events
+        'keyup .search_group_title': (e,t)->
+            val = $('.search_group_title').val()
+            console.log val
+            Session.set('group_title_filter', val)
+            
+            
         'click .add_group': ->
             new_id = Docs.insert 
                 model:'group'
@@ -49,6 +56,7 @@ if Meteor.isClient
                 
         
 if Meteor.isServer
+        
     Meteor.publish 'user_sent_group', (username)->
         Docs.find   
             model:'group'

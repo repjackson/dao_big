@@ -102,7 +102,14 @@ template(name='post_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .four.wide.column
+                .ten.wide.column
+                    +html_view key='body' direct=true
+                    +html_view key='content' direct=true
+                    .ui.header 
+                        i.users.icon
+                        |audience
+                    +comments
+                .six.wide.column
                     a.ui.basic.icon.button(href="/posts")
                         i.blog.large.icon
                     .ui.inline.header
@@ -115,14 +122,6 @@ template(name='post_view')
                     .ui.header added #{when}
                     each _timestamp_tags
                         .ui.label #{this}
-                .eight.wide.column
-                    +html_view key='body' direct=true
-                    +html_view key='content' direct=true
-                    .ui.header 
-                        i.users.icon
-                        |audience
-                    +comments
-                .four.wide.column
                     if in_dev
                         +print_this
                     div
