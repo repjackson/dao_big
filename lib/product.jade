@@ -228,8 +228,9 @@ template(name='product_view')
                     .ui.header 
                         i.list.icon
                         |orders
-                    each product_orders
-                        a.ui.header(href="/order/#{_id}") #{title} #{when}
+                    .ui.selection.animated.list
+                        each product_orders
+                            a.item(href="/order/#{_id}") #{when} #{_author_username}
                     .ui.header 
                         i.eye.icon
                         |#{views}

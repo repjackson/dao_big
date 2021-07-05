@@ -44,6 +44,11 @@ if Meteor.isClient
 
             
     Template.product_view.helpers
+        product_orders: ->
+            Docs.find 
+                model:'order'
+                product_id:Router.current().params.doc_id
+    
         editing_this: ->
             Session.equals('editing_inventory_id', @_id)
         reservations: ->

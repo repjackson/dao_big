@@ -87,6 +87,8 @@ template(name='group_edit')
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
+                    if in_dev 
+                        +print_this
                 .ten.wide.column
                     .ui.header members
                     .ui.header
