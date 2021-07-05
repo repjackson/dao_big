@@ -27,9 +27,7 @@ template(name='groups')
                 // +session_set key='sort_users_key' value='points' icon='coins'
                 // +session_set key='sort_users_key' value='created_date' icon='clock'
                 // +session_set key='view_limit' value=1
-                .ui.icon.input
-                    i.search.icon
-                    input.search_group_title(type='text' placeholder='title...')
+                +search_input model='group' field='title'
                 i.large.sort.icon
                 .ui.compact.icon.button.set_sort_direction(title='toggle sort direction')
                     if sorting_up
@@ -43,7 +41,17 @@ template(name='groups')
             span.ui.doubling.cards.scrolling
                 each group_docs
                     +group_card
-                    
+                 
+                 
+                 
+template(name='search_input')
+    .ui.icon.input
+        if current_group_title_filter
+            i.circular.link.remove.icon.clear_query
+        else
+            i.search.icon
+        input.search_field(type='text' placeholder='title...' val=current_group_title_filter)
+
 
 template(name='group_card')                    
     a.ui.card(href="/group/#{_id}") 

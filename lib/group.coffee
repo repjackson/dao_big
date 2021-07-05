@@ -25,13 +25,21 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'group_work', Router.current().params.doc_id, ->
     
 
+    Template.search_input.events
+        'click .clear_query': -> 
+            Session.set("#{@model}_#{@field}_filter", null)
+
+        'keyup .search_field': (e,t)->
+            if e.which is 27
+                Session.set("#{@model}_#{@field}_filter", null)
+                $('.search_field').val('')
+            else 
+                val = $('.search_field').val()
+                console.log val
+                Session.set("#{@model}_#{@field}_filter", val)
+            
 
     Template.groups.events
-        'keyup .search_group_title': (e,t)->
-            val = $('.search_group_title').val()
-            console.log val
-            Session.set('group_title_filter', val)
-            
             
         'click .add_group': ->
             new_id = Docs.insert 
@@ -44,7 +52,8 @@ if Meteor.isClient
             
     Template.groups.helpers
         picked_group_tags: -> picked_group_tags.array()
-    
+        current_group_title_filter: ->
+            Session.get('group_title_filter')
         group_docs: ->
             Docs.find 
                 model:'group'

@@ -31,7 +31,7 @@ template(name='nav')
                     strong {{int currentUser.points}}p
                 a.item.toggle_rightbar.no_blink
                     if currentUser.image_id
-                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face' crop='fill'}}")
+                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
                     else
                         i.user.icon
                     strong.mobile.hidden #{currentUser.name}
