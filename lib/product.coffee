@@ -34,6 +34,13 @@ if Meteor.isClient
                     position: "bottom right"
                 )
 
+        'click .record_order': ->
+            new_id = 
+                Docs.insert 
+                    model:'order'
+                    product_id:Router.current().params.doc_id
+            Router.go "/order/#{new_id}/edit"
+            
 
             
     Template.product_view.helpers

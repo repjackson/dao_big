@@ -7,19 +7,19 @@ template(name='orders')
                         |alerts
                         i.alert.icon
                     |view
-                    // +skvs key='order_sort_filter' value='open'               
-                    +skvs key='order_sort_filter' value='now'               
-                    +skvs key='order_sort_filter' value='later'   
-                    +skvs key='order_sort_filter' value=null label='all'
+                    // +session_set key='order_sort_filter' value='open'               
+                    +session_set key='order_sort_filter' value='now'               
+                    +session_set key='order_sort_filter' value='later'   
+                    +session_set key='order_sort_filter' value=null label='all'
                     |delivery
-                    +skvs key='order_delivery_filter' value='pickup'   
-                    +skvs key='order_delivery_filter' value='delivery'   
-                    +skvs key='order_delivery_filter' value=null label='all'   
-                    +skvs key='order_status_filter' value='cart' label='cart' icon='cart'   
-                    +skvs key='order_status_filter' value=null label='all status' icon='cart'   
+                    +session_set key='order_delivery_filter' value='pickup'   
+                    +session_set key='order_delivery_filter' value='delivery'   
+                    +session_set key='order_delivery_filter' value=null label='all'   
+                    +session_set key='order_status_filter' value='cart' label='cart' icon='cart'   
+                    +session_set key='order_status_filter' value=null label='all status' icon='cart'   
                     div
                     |sort by
-                    +skvs key='order_sort_key' value='price'               
+                    +session_set key='order_sort_key' value='price'               
                 .twelve.wide.column
                     a.ui.center.aligned.header(href="/orders")
                         +i name='clock' cl='ui tiny inline image'
@@ -341,3 +341,40 @@ template(name='user_order_item')
         if is_admin 
             +print_this
             +remove_button
+
+
+
+template(name='order_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column
+                    .ui.inline.header
+                        i.pencil.icon
+                        small order
+                    .ui.large.icon.green.button.save_product(title='save product')
+                        i.checkmark.large.icon   
+                    div
+                    +linked_product
+                    .ui.header #{when}
+                .eight.wide.column
+                    div
+                    +image_edit key='image_id' label='image' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    +textarea_edit key='notes' label='notes' direct=true
+                    if in_dev
+                        +print_this
+                .four.wide.column
+                    .ui.red.circular.icon.button.delete_order
+                        i.large.remove.icon
+                        
+                        
+template(name='linked_product')
+    .ui.segment
+        with linked_product_doc
+            a.zoomer.fly_right(href="/product/#{_id}")
+                img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                .ui.header
+                    |#{title}
+            

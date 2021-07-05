@@ -186,3 +186,43 @@ if Meteor.isServer
         Docs.find
             model:'product'
             _id: order.product_id
+
+
+if Meteor.isClient
+    Router.route '/order/:doc_id/edit', (->
+        @layout 'layout'
+        @render 'order_edit'
+        ), name:'order_edit'
+
+
+
+    Template.order_edit.onCreated ->
+        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'model_docs', 'source'
+
+    Template.order_edit.onRendered ->
+        Meteor.setTimeout ->
+            today = new Date()
+            $('#availability')
+                .calendar({
+                    inline:true
+                    # minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 5),
+                    # maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5)
+                })
+        , 2000
+
+    Template.order_edit.events
+        'click .delete_order': ->
+            Docs.remove @_id
+            Router.go "/orders"
+
+
+    Template.linked_product.onCreated ->
+        # console.log @data
+        @autorun => Meteor.subscribe 'doc_by_id', @data.product_id, ->
+
+    Template.linked_product.helpers
+        linked_product_doc: ->
+            console.log @
+            Docs.findOne @product_id
