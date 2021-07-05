@@ -115,17 +115,17 @@ if Meteor.isClient
                 Docs.remove @_id
                 Router.go "/groups"
             
-        'click .add_parent': ->
+        'click .set_parent': ->
             Docs.update Router.current().params.doc_id, 
-                $addToSet: 
-                    parent_group_ids:@_id
+                $set: 
+                    parent_group_id:@_id
                     
-        'click .remove_parent_group': (e,t)->
-            $(e.currentTarget).closest('.segment').transition('fly right', 1000)
+        'click .clear_parent_group': (e,t)->
+            $(e.currentTarget).closest('.segment').transition('fly right', 500)
             Meteor.setTimeout =>
                 Docs.update Router.current().params.doc_id, 
-                    $pull: 
-                        parent_group_ids:@_id
+                    $unset: 
+                        parent_group_id:1
                 $('body').toast(
                     showIcon: 'remove'
                     message: "#{@title} removed as parent"
@@ -134,7 +134,7 @@ if Meteor.isClient
                     # displayTime: 'auto',
                     position: "bottom center"
                 )
-            , 1000
+            , 600
             
                     
             

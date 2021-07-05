@@ -16,19 +16,19 @@ Template.registerHelper 'active_path', (metric) ->
     false
 
 Template.registerHelper 'child_groups', (id)->
-    current_group = 
-        Docs.findOne Router.current().params.doc_id
+    # current_group = 
+        # Docs.findOne Router.current().params.doc_id
+        # Docs.findOne Router.
     Docs.find
         model:'group'
-        parent_group_ids:$in:[current_group._id]
+        # parent_group_ids:$in:[current_group._id]
+        parent_group_ids:$in:[@_id]
     
     
     
-Template.registerHelper 'parent_groups', (id)->
-    current_group = 
-        Docs.findOne Router.current().params.doc_id
-    Docs.find
-        _id:$in:current_group.parent_group_ids
+Template.registerHelper 'parent_group', ()->
+    Docs.findOne
+        _id:@parent_group_id
 
 Template.registerHelper 'user_from_id', (id)->
     Meteor.users.findOne id

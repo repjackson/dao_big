@@ -91,17 +91,26 @@ template(name='group_edit')
                         +print_this
                 .ten.wide.column
                     .ui.header members
-                    .ui.header
-                        i.fork.icon
-                        |parent groups
-                    each nonparent_groups
-                        .ui.button.add_parent
-                            i.plus.icon
-                            |#{title}
-                    each parent_groups
+                    unless parent_group
+                        .ui.inline.header
+                            i.fork.icon
+                            |set parent group
+                        each nonparent_groups
+                            a.ui.basic.image.big.link.label.set_parent
+                                img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                                |#{title}
+                    with parent_group
+                        .ui.header
+                            i.fork.icon
+                            |parent group
                         .ui.segment
-                            .ui.header #{title}
-                            i.circular.minus.link.icon.remove_parent_group
+                            .ui.inline.header
+                                img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                                |#{title}
+                            i.circular.minus.link.icon.clear_parent_group
+                            i.active.directory.icon
+                            each child_groups
+                                .ui.label #{title}
                     .ui.header child groups
                     each child_groups
                         .ui.header #{title}
