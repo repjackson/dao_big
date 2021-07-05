@@ -22,7 +22,17 @@ Template.registerHelper 'child_groups', (id)->
     Docs.find
         model:'group'
         # parent_group_ids:$in:[current_group._id]
-        parent_group_ids:$in:[@_id]
+        parent_group_id:@_id
+    
+Template.registerHelper 'sibling_groups', (id)->
+    # current_group = 
+        # Docs.findOne Router.current().params.doc_id
+        # Docs.findOne Router.
+    Docs.find
+        model:'group'
+        # parent_group_ids:$in:[current_group._id]
+        parent_group_id:@parent_group_id
+        _id:$ne:@_id
     
     
     

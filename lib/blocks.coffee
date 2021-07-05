@@ -24,6 +24,23 @@ if Meteor.isClient
     Template.print_this.events
         'click .print': ->
             console.log @
+ 
+    Template.search_input.events
+        'click .clear_query': -> 
+            Session.set("#{@model}_#{@field}_filter", null)
+
+        'keyup .search_field': (e,t)->
+            if e.which is 27
+                Session.set("#{@model}_#{@field}_filter", null)
+                $('.search_field').val('')
+            else 
+                val = $('.search_field').val()
+                # console.log val
+                Session.set("#{@model}_#{@field}_filter", val)
+            
+    Template.search_input.helpers
+        current_filter: ->
+            Session.get("#{@model}_#{@field}_filter")
    
    
     Template.comments.onRendered ->

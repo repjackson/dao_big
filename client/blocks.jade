@@ -455,3 +455,15 @@ template(name='session_set')
             i.icon(class=icon)
         else 
             |#{value}
+
+
+
+                 
+template(name='search_input')
+    .ui.icon.input
+        if current_filter
+            i.red.large.link.remove.icon.clear_query
+        else
+            i.search.icon
+        input.search_field(type='text' placeholder='title...' value=current_filter)
+

@@ -4,8 +4,7 @@ template(name='groups')
             .ui.inline.header 
                 i.large.fire.icon
                 |groups
-            .ui.basic.icon.button.add_group
-                i.large.plus.icon
+            i.plus.circular.link.icon.add_group
             div
             .ui.inline.small.header
                 i.tag.icon
@@ -43,15 +42,6 @@ template(name='groups')
                     +group_card
                  
                  
-                 
-template(name='search_input')
-    .ui.icon.input
-        if current_filter
-            i.red.large.link.remove.icon.clear_query
-        else
-            i.search.icon
-        input.search_field(type='text' placeholder='title...' value=current_filter)
-
 
 template(name='group_card')                    
     a.ui.card(href="/group/#{_id}") 
@@ -90,27 +80,30 @@ template(name='group_edit')
                     if in_dev 
                         +print_this
                 .ten.wide.column
+                    +html_edit key='description' label='description' direct=true
                     .ui.header members
-                    unless parent_group
-                        .ui.inline.header
-                            i.fork.icon
-                            |set parent group
-                        each nonparent_groups
-                            a.ui.basic.image.big.link.label.set_parent
-                                img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                |#{title}
-                    with parent_group
-                        .ui.header
-                            i.fork.icon
-                            |parent group
-                        .ui.segment
+                    +boolean_edit key='has_parent_group' label='has parent group' icon='fork' direct=true
+                    if has_parent_group
+                        unless parent_group
                             .ui.inline.header
-                                img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                |#{title}
-                            i.circular.minus.link.icon.clear_parent_group
-                            i.active.directory.icon
-                            each child_groups
-                                .ui.label #{title}
+                                i.fork.icon
+                                |set parent group
+                            each nonparent_groups
+                                a.ui.basic.image.big.link.label.set_parent
+                                    img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                                    |#{title}
+                        with parent_group
+                            .ui.header
+                                i.fork.icon
+                                |parent group
+                            .ui.segment
+                                .ui.inline.header
+                                    img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                                #{title}
+                                i.circular.minus.link.icon.clear_parent_group
+                                i.active.directory.icon
+                                each child_groups
+                                    .ui.label #{title}
                     .ui.header child groups
                     each child_groups
                         .ui.header #{title}
@@ -118,6 +111,7 @@ template(name='group_edit')
                     div
                     // +html_edit key='directions' label='directions' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     .ui.red.button.delete_group
                         i.remove.icon   
                         | delete
@@ -152,16 +146,30 @@ template(name='group_view')
                         each group_members
                             .item 
                                 .ui.header #{title}
-                    .ui.header 
+                    div
+                    .ui.inline.header 
                         i.fork.icon
-                        |parent groups
-                    .ui.large.selection.link.animated.list
-                        each parent_groups
-                            .item 
-                                a.ui.header(href="/group/#{_id}") #{title}
+                        |parent group
+                    with parent_group
+                        a.ui.inline.header(href="/group/#{_id}") 
+                            img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                            |#{title}
+                    .ui.header sibling groups
+                    each sibling_groups
+                        .ui.small.header 
+                            |#{title}
+                            img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                    .ui.header child groups
+                    each child_groups
+                        .ui.small.header 
+                            |#{title}
+                            img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                     +comments
                 .four.wide.column
                     div
                     +html_view key='description' label='description' direct=true
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    div
+                    +array_view key='location_tags' label='location tags' icon='marker' direct=true
                     if in_dev
                         +print_this

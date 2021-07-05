@@ -23,24 +23,10 @@ if Meteor.isClient
     Template.group_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'group_work', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'parent_group_from_child_id', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'child_groups_from_parent_id', Router.current().params.doc_id, ->
     
 
-    Template.search_input.events
-        'click .clear_query': -> 
-            Session.set("#{@model}_#{@field}_filter", null)
-
-        'keyup .search_field': (e,t)->
-            if e.which is 27
-                Session.set("#{@model}_#{@field}_filter", null)
-                $('.search_field').val('')
-            else 
-                val = $('.search_field').val()
-                # console.log val
-                Session.set("#{@model}_#{@field}_filter", val)
-            
-    Template.search_input.helpers
-        current_filter: ->
-            Session.get("#{@model}_#{@field}_filter")
 
     Template.groups.events
         'click .add_group': ->
@@ -90,7 +76,7 @@ if Meteor.isClient
 
     Template.group_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'parent_groups', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'parent_group_from_child_id', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'model_docs', 'group'
 
@@ -99,7 +85,7 @@ if Meteor.isClient
         nonparent_groups: ->
             current_group = 
                 Docs.findOne Router.current().params.doc_id
-            if current_group and current_group.parent_group_ids
+            if current_group and current_group.parent_group_id
                 Docs.find
                     model:'group'
                     # _author_id:Meteor.userId()
@@ -107,6 +93,7 @@ if Meteor.isClient
             else 
                 Docs.find
                     model:'group'
+                    _id:$ne:current_group._id
   
   
     Template.group_edit.events
@@ -140,8 +127,16 @@ if Meteor.isClient
             
             
 if Meteor.isServer
-    Meteor.publish 'parent_groups', (group_id)->
-        group = Docs.findOne group_id
+    Meteor.publish 'parent_group_from_child_id', (child_id)->
+        group = Docs.findOne child_id
         Docs.find 
             model:'group'
-            _id:$in:group.parent_ids
+            _id:group.parent_group_id
+            
+    Meteor.publish 'child_groups_from_parent_id', (parent_id)->
+        group = Docs.findOne parent_id
+        Docs.find 
+            model:'group'
+            parent_group_id:parent_id
+            
+            
