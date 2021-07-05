@@ -46,11 +46,11 @@ template(name='groups')
                  
 template(name='search_input')
     .ui.icon.input
-        if current_group_title_filter
-            i.circular.link.remove.icon.clear_query
+        if current_filter
+            i.red.large.link.remove.icon.clear_query
         else
             i.search.icon
-        input.search_field(type='text' placeholder='title...' val=current_group_title_filter)
+        input.search_field(type='text' placeholder='title...' value=current_filter)
 
 
 template(name='group_card')                    

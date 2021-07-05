@@ -1,5 +1,6 @@
 Meteor.publish 'post_facets', (
     picked_post_tags=[]
+    title_filter
     picked_authors=[]
     picked_tasks=[]
     picked_locations=[]
@@ -13,6 +14,9 @@ Meteor.publish 'post_facets', (
     match = {}
     # match = {app:'pes'}
     match.model = 'post'
+    if title_filter and title_filter.length > 1
+        match.title = {$regex:title_filter, $options:'i'}
+    
     # if view_vegan
     #     match.vegan = true
     # if view_gf
@@ -124,6 +128,7 @@ Meteor.publish 'post_facets', (
     
 Meteor.publish 'post_docs', (
     picked_post_tags
+    title_filter
     picked_authors=[]
     picked_tasks=[]
     picked_locations=[]
@@ -140,6 +145,9 @@ Meteor.publish 'post_docs', (
     match = {}
     # match = {app:'pes'}
     match.model = 'post'
+    if title_filter and title_filter.length > 1
+        match.title = {$regex:title_filter, $options:'i'}
+    
     # if view_vegan
     #     match.vegan = true
     # if view_gf

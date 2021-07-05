@@ -15,7 +15,9 @@ template(name='nav')
         a.icon.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.large.tasks.icon
         a.icon.item.zoomer(href='/posts' class="{{isActivePath '/posts'}}")
-            i.large.blog.icon
+            i.large.newspaper.icon
+        a.icon.item.zoomer(href='/events' class="{{isActivePath '/events'}}")
+            i.large.calendar.icon
         a.icon.item.zoomer(href='/products' class="{{isActivePath '/products'}}")
             i.large.shop.icon
         a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
@@ -130,7 +132,7 @@ template(name='left_sidebar')
             i.money.icon
             | #{orders.count} orders
         a.item.zoomer.toggle_leftbar(href='/posts' class="{{isActivePath '/posts'}}")
-            i.blog.icon
+            i.newspaper.icon
             | #{posts.count} posts
         a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
             i.marker.icon

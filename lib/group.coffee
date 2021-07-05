@@ -35,12 +35,14 @@ if Meteor.isClient
                 $('.search_field').val('')
             else 
                 val = $('.search_field').val()
-                console.log val
+                # console.log val
                 Session.set("#{@model}_#{@field}_filter", val)
             
+    Template.search_input.helpers
+        current_filter: ->
+            Session.get("#{@model}_#{@field}_filter")
 
     Template.groups.events
-            
         'click .add_group': ->
             new_id = Docs.insert 
                 model:'group'

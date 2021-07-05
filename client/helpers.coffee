@@ -85,15 +85,11 @@ Template.registerHelper 'key_value_is', (key, value)->
     # console.log 'this', this
     @["#{key}"] is value
 
-Template.registerHelper 'is_porters', ->
+Template.registerHelper 'is_in_role', (role)->
     if Meteor.user()
-        Meteor.user().username is 'porters'
-Template.registerHelper 'is_roof', ->
-    if Meteor.user()
-        Meteor.user().username is 'roof'
-Template.registerHelper 'is_admin', ->
-    if Meteor.user()
-        Meteor.user().username is 'admin'
+        Meteor.user().roles and role in Meteor.user().roles
+
+
 Template.registerHelper 'is_requester', ->
     if Meteor.user()
         @_author_username is Meteor.user().username

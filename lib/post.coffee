@@ -14,8 +14,12 @@ if Meteor.isClient
     Template.posts.onCreated ->
         @autorun => @subscribe 'post_docs',
             picked_post_tags.array()
+            Session.get('post_title_filter')
+
         @autorun => @subscribe 'post_facets',
             picked_post_tags.array()
+            Session.get('post_title_filter')
+
     
     
     Template.post_view.onCreated ->

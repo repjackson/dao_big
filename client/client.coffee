@@ -171,15 +171,6 @@ Template.requests.helpers
             
             
 Template.request_item.helpers
-    # is_porters: ->
-    #     console.log Meteor.user().username
-    #     Meteor.user().username is 'porters'
-    # is_requester: ->
-    #     @_author_username is Meteor.user().username
-    # is_requested: -> @status is 'requested'
-    # is_processing: -> @status is 'processing'
-    # is_delivered: -> @status is 'delivered'
-    
     delivery_time: ->
         moment_delivered = moment(@delivered_timestamp)
         moment_pickup = moment(@pick_up_timestamp)

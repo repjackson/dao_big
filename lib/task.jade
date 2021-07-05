@@ -1,7 +1,7 @@
 template(name='tasks')
     .ui.stackable.padded.grid
         .four.wide.column
-            .ui.inline.small.header 
+            .ui.inline.header 
                 i.tasks.icon
                 |tasks
             div
@@ -38,6 +38,7 @@ template(name='tasks')
             //         //- small #{count}
             // // unless one_post
             span.sorting_row
+                +search_input model='task' field='title'
                 // +session_set key='view_users' value='grid' icon='th' 
                 // +session_set key='view_users' value='list' icon='list'
                 // +session_set key='sort_users_direction' value='-1' icon='chevron down'
@@ -51,8 +52,6 @@ template(name='tasks')
 
                 
                 i.large.sort.icon
-                +set_product_sort_key key='price_usd' label='price' icon='money'
-                //- +set_product_sort_key key='_timestamp' label='added' icon='clock'
                 +set_product_sort_key key='comment_count' label='comment count' icon='chat'
                 +set_product_sort_key key='views' label='views' icon='eye'
                 +set_product_sort_key key='points' label='points' icon='line chart'
@@ -126,7 +125,7 @@ template(name='task_view')
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
-                    a.ui.basic.icon.button(href="/porters")
+                    a.ui.basic.icon.button(href="/tasks")
                         i.wrench.icon
                     .ui.inline.header
                         | #{title}

@@ -20,6 +20,7 @@ template(name='posts')
                         small.ui.grey.text #{count}
         .twelve.wide.column
             span.sorting_row
+                +search_input model='post' field='title'
                 // +session_set key='view_users' value='grid' icon='th' 
                 // +session_set key='view_users' value='list' icon='list'
                 // +session_set key='sort_users_direction' value='-1' icon='chevron down'
@@ -55,6 +56,8 @@ template(name='posts')
 template(name='post_card')                
     a.ui.card(href="/post/#{_id}") 
         img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+        if youtube_id
+            +youtube_view key='youtube_id' direct=true
         .content 
             .ui.header 
                 |#{title}
@@ -105,6 +108,8 @@ template(name='post_view')
                 .ten.wide.column
                     +html_view key='body' direct=true
                     +html_view key='content' direct=true
+                    if youtube_id
+                        +youtube_view key='youtube_id' direct=true
                     .ui.header 
                         i.users.icon
                         |audience

@@ -1,93 +1,93 @@
 if Meteor.isClient
-    @picked_task_tags = new ReactiveArray []
+    @picked_event_tags = new ReactiveArray []
     
-    Router.route '/task/:doc_id', (->
+    Router.route '/event/:doc_id', (->
         @layout 'layout'
-        @render 'task_view'
-        ), name:'task_view'
-    Router.route '/tasks', (->
+        @render 'event_view'
+        ), name:'event_view'
+    Router.route '/events', (->
         @layout 'layout'
-        @render 'tasks'
-        ), name:'tasks'
+        @render 'events'
+        ), name:'events'
     
-    Template.tasks.onCreated ->
-        @autorun => @subscribe 'task_docs',
-            picked_task_tags.array()
-            Session.get('task_title_filter')
+    Template.events.onCreated ->
+        @autorun => @subscribe 'event_docs',
+            picked_event_tags.array()
+            Session.get('event_title_filter')
 
-        @autorun => @subscribe 'task_facets',
-            picked_task_tags.array()
-            Session.get('task_title_filter')
+        @autorun => @subscribe 'event_facets',
+            picked_event_tags.array()
+            Session.get('event_title_filter')
 
-    Template.tasks.events
-        'click .add_task': ->
+    Template.events.events
+        'click .add_event': ->
             new_id = Docs.insert 
-                model:'task'
-            Router.go "/task/#{new_id}/edit"    
-        'click .pick_task_tag': -> picked_task_tags.push @title
-        'click .unpick_task_tag': -> picked_task_tags.remove @valueOf()
+                model:'event'
+            Router.go "/event/#{new_id}/edit"    
+        'click .pick_event_tag': -> picked_event_tags.push @title
+        'click .unpick_event_tag': -> picked_event_tags.remove @valueOf()
 
                 
             
-    Template.tasks.helpers
-        picked_task_tags: -> picked_task_tags.array()
+    Template.events.helpers
+        picked_event_tags: -> picked_event_tags.array()
     
-        task_docs: ->
+        event_docs: ->
             Docs.find 
-                model:'task'
-        task_tag_results: ->
+                model:'event'
+        event_tag_results: ->
             Results.find {
-                model:'task_tag'
+                model:'event_tag'
             }, sort:_timestamp:-1
   
                 
 
             
-    Template.task_edit.onCreated ->
+    Template.event_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-    Template.task_view.onCreated ->
+    Template.event_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     
-    Template.task_edit.onCreated ->
+    Template.event_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'task_work', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'event_work', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'model_docs', 'location', ->
-    Template.task_view.onCreated ->
+    Template.event_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'task_work', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'event_work', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'model_docs', 'location', ->
     
 
 
-    Template.task_view.events
+    Template.event_view.events
         'click .record_work': ->
             new_id = Docs.insert 
                 model:'work'
-                task_id: Router.current().params.doc_id
+                event_id: Router.current().params.doc_id
             Router.go "/work/#{new_id}/edit"    
     
                 
            
-    Template.task_view.helpers
+    Template.event_view.helpers
         possible_locations: ->
-            task = Docs.findOne Router.current().params.doc_id
+            event = Docs.findOne Router.current().params.doc_id
             Docs.find
                 model:'location'
-                _id:$in:task.location_ids
-    Template.task_edit.helpers
-        task_locations: ->
+                _id:$in:event.location_ids
+    Template.event_edit.helpers
+        event_locations: ->
             Docs.find
                 model:'location'
                 
         location_class: ->
-            task = Docs.findOne Router.current().params.doc_id
-            if task.location_ids and @_id in task.location_ids then 'blue' else 'basic'
+            event = Docs.findOne Router.current().params.doc_id
+            if event.location_ids and @_id in event.location_ids then 'blue' else 'basic'
             
                 
-    Template.task_edit.events
+    Template.event_edit.events
         'click .select_location': ->
-            task = Docs.findOne Router.current().params.doc_id
-            if task.location_ids and @_id in task.location_ids
+            event = Docs.findOne Router.current().params.doc_id
+            if event.location_ids and @_id in event.location_ids
                 Docs.update Router.current().params.doc_id, 
                     $pull:location_ids:@_id
             else
@@ -95,46 +95,46 @@ if Meteor.isClient
                     $addToSet:location_ids:@_id
             
 if Meteor.isServer
-    Meteor.publish 'task_work', (task_id)->
+    Meteor.publish 'event_work', (event_id)->
         Docs.find   
             model:'work'
-            task_id:task_id
+            event_id:event_id
             
-    # Meteor.publish 'work_task', (work_id)->
+    # Meteor.publish 'work_event', (work_id)->
     #     work = Docs.findOne work_id
     #     Docs.find   
-    #         model:'task'
-    #         _id: work.task_id
+    #         model:'event'
+    #         _id: work.event_id
             
             
-    Meteor.publish 'user_sent_task', (username)->
+    Meteor.publish 'user_sent_event', (username)->
         Docs.find   
-            model:'task'
+            model:'event'
             _author_username:username
-    Meteor.publish 'product_task', (product_id)->
+    Meteor.publish 'product_event', (product_id)->
         Docs.find   
-            model:'task'
+            model:'event'
             product_id:product_id
             
             
             
             
 if Meteor.isClient
-    Router.route '/task/:doc_id/edit', (->
+    Router.route '/event/:doc_id/edit', (->
         @layout 'layout'
-        @render 'task_edit'
-        ), name:'task_edit'
+        @render 'event_edit'
+        ), name:'event_edit'
 
 
 
-    Template.task_edit.onCreated ->
+    Template.event_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'model_docs', 'menu_section'
 
 
-    Template.task_edit.events
-        'click .send_task': ->
+    Template.event_edit.events
+        'click .send_event': ->
             Swal.fire({
                 title: 'confirm send card'
                 text: "#{@amount} credits"
@@ -144,27 +144,27 @@ if Meteor.isClient
                 cancelButtonText: 'cancel'
             }).then((result) =>
                 if result.value
-                    task = Docs.findOne Router.current().params.doc_id
+                    event = Docs.findOne Router.current().params.doc_id
                     Meteor.users.update Meteor.userId(),
                         $inc:credit:-@amount
-                    Docs.update task._id,
+                    Docs.update event._id,
                         $set:
                             sent:true
                             sent_timestamp:Date.now()
                     Swal.fire(
-                        'task sent',
+                        'event sent',
                         ''
                         'success'
-                    Router.go "/task/#{@_id}/"
+                    Router.go "/event/#{@_id}/"
                     )
             )
 
-        'click .delete_task':->
+        'click .delete_event':->
             if confirm 'delete?'
                 Docs.remove @_id
-                Router.go "/tasks"
+                Router.go "/events"
             
-    Template.task_edit.helpers
+    Template.event_edit.helpers
         all_shop: ->
             Docs.find
-                model:'task'
+                model:'event'

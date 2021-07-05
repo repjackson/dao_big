@@ -8,8 +8,6 @@ Meteor.publish 'group_facets', (
     if picked_tags.length > 0 then match.tags = $in:picked_tags
     if title_filter and title_filter.length > 1
         match.title = {$regex:title_filter, $options:'i'}
-            
-        
 
     tag_cloud = Docs.aggregate [
         { $match: match }
