@@ -1,6 +1,6 @@
 template(name='nav')
     // #topnav.topnav.ui.attached.inverted.borderless.menu(style="background-color:#062639;")
-    #topnav.topnav.ui.attached.inverted.borderless.big.menu
+    #topnav.topnav.ui.attached.inverted.borderless.menu
         +status
         if is_loading
             .icon.item
@@ -79,7 +79,7 @@ template(name='walletbar')
         
 template(name='right_sidebar')
     // .ui.right.sidebar.vertical.inverted.menu.rightbar(style="background-color:#062639;")
-    .ui.right.sidebar.vertical.inverted.menu.rightbar
+    .ui.right.sidebar.vertical.inverted.borderless.menu.rightbar
         a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
             img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |#{currentUser.username}
@@ -90,6 +90,21 @@ template(name='right_sidebar')
             a.item.toggle_rightbar(href="/user/#{username}/points" class="{{isActiveRoute regex='user_points'}}")
                 i.coins.icon
                 |points
+            a.item.toggle_rightbar(href="/user/#{username}/tasks" class="{{isActiveRoute regex='user_tasks'}}")
+                i.tasks.icon
+                |work tasks
+            a.item.toggle_rightbar(href="/user/#{username}/communication" class="{{isActiveRoute regex='user_communication'}}")
+                i.chat.icon
+                |team communication
+            a.item.toggle_rightbar(href="/user/#{username}/timeclock" class="{{isActiveRoute regex='user_timeclock'}}")
+                i.clock.icon
+                |timeclock
+            a.item.toggle_rightbar(href="/user/#{username}/scheduling" class="{{isActiveRoute regex='user_scheduling'}}")
+                i.calendar.icon
+                |scheduling
+            a.item.toggle_rightbar(href="/user/#{username}/payroll" class="{{isActiveRoute regex='user_payroll'}}")
+                i.money.icon
+                |payroll
             a.item.toggle_rightbar(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
                 i.money.icon
                 |orders
