@@ -19,10 +19,10 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_groups'
         ), name:'user_groups'
-    Router.route '/user/:username/menu', (->
+    Router.route '/user/:username/timeclock', (->
         @layout 'user_layout'
-        @render 'user_menu'
-        ), name:'user_menu'
+        @render 'user_timeclock'
+        ), name:'user_timeclock'
 
 
 

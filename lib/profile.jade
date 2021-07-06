@@ -8,7 +8,7 @@ template(name='user_layout')
         // +walletbar
         // +secnav
         with user_from_username_param
-            .ui.stackable.padded.grid.global_conainer.pusher
+            .ui.stackable.grid.global_conainer.pusher
                 .row
                     //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                     .four.wide.column
@@ -48,6 +48,9 @@ template(name='user_layout')
                         a.ui.basic.button(href="/user/#{username}/sent" class="{{isActiveRoute 'user_sent'}}")
                             i.wrench.icon
                             |sent
+                        a.ui.basic.button(href="/user/#{username}/timeclock" class="{{isActiveRoute 'user_timeclock'}}")
+                            i.clock.icon
+                            |timeclock
                         a.ui.basic.button(href="/user/#{username}/roles" class="{{isActiveRoute 'user_roles'}}")
                             i.shield.icon
                             |roles
@@ -86,6 +89,12 @@ template(name='friend_button')
         
     
     
+template(name='user_timeclock')
+    .ui.header timeclock
+    .ui.button.clock_in
+        |in
+    .ui.button.clock_off
+        |off
 template(name='user_requests')  
     .ui.header #{user_from_username_param.name} requests
 template(name='user_groups')  
