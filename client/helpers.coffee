@@ -12,6 +12,10 @@ Template.registerHelper 'work_task', () ->
     Docs.findOne @task_id
     # Template.parentData()
 
+Template.registerHelper 'current_route', () ->
+    console.log Router.current().location.get().path
+    Router.current().location.get().path
+    
 Template.registerHelper 'active_path', (metric) ->
     false
 
@@ -95,7 +99,7 @@ Template.registerHelper 'key_value_is', (key, value)->
     # console.log 'this', this
     @["#{key}"] is value
 
-Template.registerHelper 'is_in_role', (role)->
+Template.registerHelper 'in_role', (role)->
     if Meteor.user()
         Meteor.user().roles and role in Meteor.user().roles
 

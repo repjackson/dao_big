@@ -49,29 +49,14 @@ template(name='layout')
         else
             .global_conainer.pusher
                 +yield
-                // unless currentUser
-                //     .ui.center.aligned.basic.segment
-                //         strong pick station
-                //         +role_picker name='middle_eastern' icon='israel'
-                //         +role_picker name='mexican' icon='kawaii-taco'
-                //         +role_picker name='mediterranean' icon='greek-salad'
-                //         +role_picker name='chinese' icon='rice-bowl'
-                //         +role_picker name='italian' icon='spaghetti'
-                //         +role_picker name='american' icon='hamburger'
-                //         +role_picker name='pastry' icon='confectionery'
-                //         +role_picker name='porters' icon='productwasher' 
-                //         +role_picker name='roof' icon='bar-building'
-                //         +role_picker name='lower_bar' icon='bar'
-                //         +role_picker name='admin' icon='shield'
-                //     .ui.center.aligned.basic.segment
-                //         strong or pick user
-                //             each users
-                //                 +role_picker name=username
-                // else
-                    // #ain_area.global_conainer.pusher
-    
-
-                
+                if in_role 'admin'
+                    .ui.fluid.segment
+                        .ui.header 
+                            i.shield.icon
+                            |admin
+                        .ui.header 
+                            |current route
+                            |#{current_route}
 
 
 template(name='role_picker')
