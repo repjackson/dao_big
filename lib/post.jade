@@ -129,6 +129,9 @@ template(name='post_view')
                         .ui.label #{this}
                     if in_dev
                         +print_this
+                    .ui.header
+                        |views
+                        |#{views}
                     div
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     div

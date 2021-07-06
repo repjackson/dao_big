@@ -9,7 +9,10 @@ if Meteor.isClient
         @layout 'layout'
         @render 'posts'
         ), name:'posts'
-    
+        
+    Template.post_view.onRendered ->
+        Meteor.call 'log_view', Router.current().params.doc_id
+
             
     Template.posts.onCreated ->
         @autorun => @subscribe 'post_docs',

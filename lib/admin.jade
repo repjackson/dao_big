@@ -1,11 +1,12 @@
 template(name='admin')
     .ui.stackable.padded.grid
-        .ui.header
-            i.shield.icon
-            |admin
-        .ui.large.list
-            each admin_tasks
-                .item 
-                    .content
-                        .header #{title}
-                        .ui.circular.icon.button.mark_read
+        .ui.sixteen.wide.column
+            .ui.header
+                i.shield.icon
+                |admin
+            .ui.large.list
+                each admin_tasks
+                    .item 
+                        .content
+                            .header #{title}
+                            .ui.circular.icon.button.mark_read
