@@ -26,8 +26,11 @@ template(name='nav')
             i.large.fire.icon
         .right.menu
             if currentUser
-                // a.icon.item.toggle_topbar(title='alerts')
-                //     i.bell.outline.icon
+                if in_role 'admin'
+                    a.icon.item.toggle_topbar(href='/admin' title='admin')
+                        i.large.shield.icon
+                a.icon.item.toggle_topbar(title='alerts')
+                    i.bell.outline.icon
                 a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
                     // i.wallet.icon
                     strong {{int currentUser.points}}p
