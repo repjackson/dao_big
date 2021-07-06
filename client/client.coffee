@@ -16,6 +16,29 @@ $.cloudinary.config
 # Router.notFound =
     # action: 'not_found'
 
+
+Template.admin_footer.onCreated ->
+    @autorun -> Meteor.subscribe 'admin_tasks'
+
+Template.admin_footer.helpers
+    admin_tasks: ->
+        Docs.find
+            model:'task'
+            admin:true
+    is_editing: ->
+        Session.equals('editing_id', @_id)
+    
+Template.admin_footer.events
+    'click .save': -> Session.set('editing_id', null)
+    'click .edit': -> Session.set('editing_id',@_id) 
+
+    'click .add_admin_task': ->
+        new_id = 
+            Docs.insert 
+                model:'task'
+                admin:true
+        
+        
 Template.body.events
     'click .zoom_out': (e,t)->
         $(e.currentTarget).closest('.grid').transition('scale', 500)

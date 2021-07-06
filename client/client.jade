@@ -50,13 +50,34 @@ template(name='layout')
             .global_conainer.pusher
                 +yield
                 if in_role 'admin'
-                    .ui.fluid.segment
-                        .ui.header 
-                            i.shield.icon
-                            |admin
-                        .ui.header 
-                            |current route
-                            |#{current_route}
+                    +admin_footer
+                
+                
+template(name='admin_footer')
+    .ui.fluid.red.segment
+        .ui.inline.header 
+            i.shield.icon
+            |admin
+        .ui.label 
+            |current route:
+            |#{current_route}
+        .ui.label
+            |pathname root:
+            |#{pathname_root}
+        div
+        .ui.inline.header
+            i.tasks.icon
+            |tasks
+        i.plus.circular.link.icon.add_admin_task
+        .ui.selection.list
+            each admin_tasks
+                if is_editing   
+                    +text_edit key='body' direct=true
+                    i.checkmark.circular.link.icon.save
+                else
+                    .ui.header #{body}
+                    i.pencil.circular.link.icon.edit
+                        
 
 
 template(name='role_picker')

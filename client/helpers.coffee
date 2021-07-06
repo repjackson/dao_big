@@ -12,8 +12,10 @@ Template.registerHelper 'work_task', () ->
     Docs.findOne @task_id
     # Template.parentData()
 
+Template.registerHelper 'pathname_root', () ->
+    window.location.pathname.split('/')[1]
 Template.registerHelper 'current_route', () ->
-    console.log Router.current().location.get().path
+    # console.log window.location.pathname.split('/')[1]
     Router.current().location.get().path
     
 Template.registerHelper 'active_path', (metric) ->

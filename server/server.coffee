@@ -79,6 +79,12 @@ Meteor.publish 'document_by_slug', (slug)->
     Docs.find
         model: 'document'
         slug:slug
+        
+        
+Meteor.publish 'admin_tasks', ()->
+    Docs.find
+        model:'task'
+        admin:true
 
 Meteor.publish 'child_docs', (id)->
     Docs.find
