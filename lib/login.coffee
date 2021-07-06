@@ -55,7 +55,7 @@ if Meteor.isClient
 
         'click .register': (e,t)->
             username = $('.username').val()
-            email = $('.email_field').val()
+            # email = $('.email_field').val()
             password = $('.password').val()
             # if Session.equals 'enter_mode', 'register'
             # if confirm "register #{username}?"
@@ -66,26 +66,27 @@ if Meteor.isClient
             #     password:password
             # }
             options = {
-                email:email
+                # email:email
                 username:username
                 password:password
                 }
+            console.log username, password
             Meteor.call 'create_user', options, (err,res)=>
                 if err
                     alert err
                 else
                     console.log res
-                    unless username
-                        username = "#{Session.get('first_name').toLowerCase()}_#{Session.get('last_name').toLowerCase()}"
+                    # unless username
+                    #     username = "#{Session.get('first_name').toLowerCase()}_#{Session.get('last_name').toLowerCase()}"
                     # console.log username
                     Meteor.users.update res,
                         $addToSet: 
                             roles: 'customer'
-                            levels: 'customer'
+                            # levels: 'customer'
                         $set:
-                            first_name: Session.get('first_name')
-                            last_name: Session.get('last_name')
-                            app:'nf'
+                            # first_name: Session.get('first_name')
+                            # last_name: Session.get('last_name')
+                            # app:'nf'
                             username:username
                     Router.go "/user/#{username}"
                     # Meteor.loginWithPassword username, password, (err,res)=>

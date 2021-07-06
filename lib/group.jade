@@ -123,7 +123,7 @@ template(name='group_view')
             .row
                 .four.wide.column
                     a.ui.basic.icon.button(href="/groups")
-                        i.users.circle.large.icon
+                        i.fire.large.icon
                     .ui.inline.header
                         | #{title}
                         small group view
@@ -159,7 +159,8 @@ template(name='group_view')
                         .ui.small.header 
                             |#{title}
                             img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                    .ui.header child groups
+                    .ui.header 
+                        |child groups
                     each child_groups
                         .ui.small.header 
                             |#{title}

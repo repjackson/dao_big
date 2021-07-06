@@ -48,6 +48,9 @@ template(name='user_layout')
                         a.ui.basic.button(href="/user/#{username}/sent" class="{{isActiveRoute 'user_sent'}}")
                             i.wrench.icon
                             |sent
+                        a.ui.basic.button(href="/user/#{username}/roles" class="{{isActiveRoute 'user_roles'}}")
+                            i.shield.icon
+                            |roles
                         div.global_container
                             .spacer
                             +yield
@@ -56,12 +59,18 @@ template(name='user_layout')
 template(name='user_dashboard')
     with current_user
         .ui.header #{points} points
+        .ui.header 
+            i.shield.icon
+            |roles
+        each roles
+            .ui.label #{this}
     unless is_current_user
         .ui.button.send_points
             |send points
     +user_requests
     +user_quicklist
     +user_menu
+    
     
     
 template(name='friend_button')

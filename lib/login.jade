@@ -37,18 +37,20 @@ template(name='register')
     .ui.padded.stackable.grid
         .centered.middle.aligned.row
             .ten.wide.column
-                img.ui.centered.image(src="https://mark.trademarkia.com/services/logo.ashx?sid=88023400")
-                h1.ui.center.aligned.header
-                    +i name='user-add'
-                    | register
+                .ui.center.aligned.basic.segment
+                    i.massive.yin.yang.icon
+                    // img.ui.centered.image(src="https://mark.trademarkia.com/services/logo.ashx?sid=88023400")
+                    .ui.center.aligned.inline.header
+                        | register
+                div
                 .ui.inline.small.header 
-                    +i name='user-male'
+                    i.user.icon
                     |username
                 .ui.fluid.large.input(class=login_class)
                     input.username(type='text')
                 .spacer
                 .ui.inline.small.header 
-                    +i name='password'
+                    i.lock.icon
                     | password
                 .ui.fluid.large.input(class=login_class)
                     input.password(type='password')
@@ -59,18 +61,18 @@ template(name='register')
                 //-         | password again
                 //-     input.password2(type='password')
                 .ui.hidden.divider
-                if can_register
-                    //- if registering
-                    .ui.fluid.big.basic.button.register(class=enter_class)
-                        i.user.plus.icon
-                        |register
-                else
-                    .ui.fluid.big.disabled.button(class=enter_class)
-                        i.user.plus.icon
-                        |register
-                    // // .ui.small.header username "#{username}" found
+                // if can_register
+                //- if registering
+                .ui.fluid.big.basic.button.register(class=enter_class)
+                    i.user.plus.icon
+                    |register
+                // else
+                //     .ui.fluid.big.disabled.button(class=enter_class)
+                //         i.user.plus.icon
+                //         |register
+                //     // // .ui.small.header username "#{username}" found
                     
-                    a.ui.basic.button(href='/login') 
-                        i.right.chevron.icon
-                        // +i name='internal' cl='ui avatar image'
-                        |login
+                //     a.ui.basic.button(href='/login') 
+                //         i.right.chevron.icon
+                //         // +i name='internal' cl='ui avatar image'
+                //         |login
