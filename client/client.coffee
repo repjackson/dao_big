@@ -31,6 +31,9 @@ Template.admin_footer.helpers
 Template.admin_footer.events
     'click .save': -> Session.set('editing_id', null)
     'click .edit': -> Session.set('editing_id',@_id) 
+    'click .delete': -> 
+        if confirm "delete #{@title} task?"
+            Docs.remove @_id
 
     'click .add_admin_task': ->
         new_id = 

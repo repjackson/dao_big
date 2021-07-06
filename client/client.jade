@@ -73,10 +73,11 @@ template(name='admin_footer')
             each admin_tasks
                 if is_editing   
                     +text_edit key='body' direct=true
-                    i.checkmark.circular.link.icon.save
+                    i.checkmark.circular.green.link.icon.save
+                    i.remove.circular.red.link.icon.delete
                 else
-                    .ui.header #{body}
                     i.pencil.circular.link.icon.edit
+                    .ui.inline.header #{body}
                         
 
 

@@ -7,7 +7,7 @@ template(name='tasks')
             div
             .ui.inline.small.header 
                 i.user.friends.icon
-                |staff
+                |authors
             each picked_authors
                 a.ui.blue.label.unpick_author
                     |#{this}
@@ -17,7 +17,9 @@ template(name='tasks')
                         |#{title} 
                         small.ui.grey.text #{count}
             div
-            i.tags.icon
+            .ui.small.inline.header
+                i.tags.icon
+                |tags
             each picked_task_tags
                 a.ui.blue.label.unpick_task
                     |#{this}
@@ -26,17 +28,19 @@ template(name='tasks')
                     a.ui.basic.circular.small.link.label.pick_task
                         |#{title} 
                         small.ui.grey.text #{count}
+            div
+            .ui.small.inline.header
+                i.fire.icon
+                |groups
+            each picked_task_groups
+                a.ui.blue.label.unpick_group
+                    |#{this}
+            each task_group_results
+                if title
+                    a.ui.basic.circular.small.link.label.pick_group
+                        |#{title} 
+                        small.ui.grey.text #{count}
         .twelve.wide.column
-            // each picked_sections
-            //     button.ui.blue.compact.small.button.unpick_section(tabindex='0')
-            //         //- i.remove.icon
-            //         | #{this}
-            // // div
-            // +i name='clock' cl='ui inline mini image'
-            // each sections
-            //     button.ui.compact.basic.button.pick_section(tabindex="0" class=result_class title=count) #{title}
-            //         //- small #{count}
-            // // unless one_post
             span.sorting_row
                 +search_input model='task' field='title'
                 // +session_set key='view_users' value='grid' icon='th' 
