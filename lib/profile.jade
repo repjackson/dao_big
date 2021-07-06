@@ -43,10 +43,10 @@ template(name='user_layout')
                             i.wrench.icon
                             |work
                         a.ui.basic.button(href="/user/#{username}/groups" class="{{isActiveRoute 'user_groups'}}")
-                            i.wrench.icon
+                            i.users.icon
                             |groups
                         a.ui.basic.button(href="/user/#{username}/sent" class="{{isActiveRoute 'user_sent'}}")
-                            i.wrench.icon
+                            i.send.icon
                             |sent
                         a.ui.basic.button(href="/user/#{username}/timeclock" class="{{isActiveRoute 'user_timeclock'}}")
                             i.clock.icon
@@ -54,6 +54,9 @@ template(name='user_layout')
                         a.ui.basic.button(href="/user/#{username}/roles" class="{{isActiveRoute 'user_roles'}}")
                             i.shield.icon
                             |roles
+                        a.ui.basic.button(href="/user/#{username}/payroll" class="{{isActiveRoute 'user_payroll'}}")
+                            i.money.icon
+                            |payroll
                         div.global_container
                             .spacer
                             +yield
@@ -91,10 +94,22 @@ template(name='friend_button')
     
 template(name='user_timeclock')
     .ui.header timeclock
-    .ui.button.clock_in
-        |in
-    .ui.button.clock_off
-        |off
+    .ui.header status: 
+        if current_user.clocked_in
+            |clocked IN
+        else 
+            |clocked OUT
+    unless current_user.clocked_in    
+        .ui.button.clock_in
+            |clock in
+    if current_user.clocked_in
+        .ui.button.clock_out
+            |clock out
+    each time_sessions
+        |#{when}
+        
+        
+        
 template(name='user_requests')  
     .ui.header #{user_from_username_param.name} requests
 template(name='user_groups')  

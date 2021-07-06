@@ -23,6 +23,18 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_timeclock'
         ), name:'user_timeclock'
+    Router.route '/user/:username/payroll', (->
+        @layout 'user_layout'
+        @render 'user_payroll'
+        ), name:'user_payroll'
+    Router.route '/user/:username/scheduling', (->
+        @layout 'user_layout'
+        @render 'user_scheduling'
+        ), name:'user_scheduling'
+    Router.route '/user/:username/roles', (->
+        @layout 'user_layout'
+        @render 'user_roles'
+        ), name:'user_roles'
 
 
 
@@ -84,3 +96,40 @@ if Meteor.isClient
         is_friend: ->
             current_user = Meteor.users.findOne username:Router.current().params.username
             Meteor.user() and Meteor.user().friend_ids and current_user._id in Meteor.user().friend_ids
+            
+            
+            
+            
+            
+    
+    Template.user_timeclock.onCreated ->
+        @autorun -> Meteor.subscribe 'user_model_docs', Router.current().params.username, 'time_session', ->
+        # @autorun -> Meteor.subscribe 'user_referenced_docs', Router.current().params.username
+
+    Template.user_timeclock.events
+        'click .clock_in':->
+            Meteor.users.update Meteor.userId(),
+                $set:
+                    clocked_in:true
+            
+            
+        'click .clock_out':->
+            Meteor.users.update Meteor.userId(),
+                $set:
+                    clocked_in:false
+            
+            
+            
+            
+    Template.user_timeclock.helpers
+        time_sessions: ->
+            Docs.find 
+                model:'time_session'
+                
+                
+                
+if Meteor.isServer
+    Meteor.publish 'user_model_docs', (username,model)->
+        Docs.find 
+            model:model
+            _author_username:username
