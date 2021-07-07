@@ -55,46 +55,48 @@ template(name='layout')
                 
 template(name='admin_footer')
     .ui.fluid.red.segment
-        .ui.inline.header 
-            i.shield.icon
-            |admin
-        .ui.large.basic.label 
-            |current route:
-            |#{current_route}
-        .ui.large.basic.label
-            |pathname root:
-            |#{pathname_root}
+        span.pointer.toggle_admin_view
+            a.ui.inline.header 
+                i.shield.icon
+                |admin
+            .ui.large.basic.label 
+                |current route:
+                |#{current_route}
+            .ui.large.basic.label
+                |pathname root:
+                |#{pathname_root}
         div
-        .ui.inline.header
-            i.content.icon
-            |notes
-        i.plus.circular.link.icon.add_admin_note
-        .ui.list
-            each admin_notes
-                if is_editing
-                    +textarea_edit key='body' label='body' direct=true
-                    i.checkmark.circular.green.link.big.icon.save
-                    i.remove.circular.red.link.icon.delete
-                else
-                    .item 
-                        |#{body}
+        if session_is 'view_admin' true
+            .ui.inline.header
+                i.content.icon
+                |notes
+            i.plus.circular.link.icon.add_admin_note
+            .ui.list
+                each admin_notes
+                    if is_editing
+                        +textarea_edit key='body' label='body' direct=true
+                        i.checkmark.circular.green.link.big.icon.save
+                        i.remove.circular.red.link.icon.delete
+                    else
+                        .item 
+                            |#{body}
+                            .ui.label #{_author_username}
+                        i.pencil.circular.link.icon.edit
+            .ui.inline.header
+                i.tasks.icon
+                |tasks
+            i.plus.circular.link.icon.add_admin_task
+            .ui.selection.list
+                each admin_tasks
+                    if is_editing   
+                        +text_edit key='body' direct=true
+                        i.checkmark.circular.green.link.big.icon.save
+                        i.remove.circular.red.link.icon.delete
+                    else
+                        i.pencil.circular.link.icon.edit
+                        .ui.inline.header #{body}
                         .ui.label #{_author_username}
-                    i.pencil.circular.link.icon.edit
-        .ui.inline.header
-            i.tasks.icon
-            |tasks
-        i.plus.circular.link.icon.add_admin_task
-        .ui.selection.list
-            each admin_tasks
-                if is_editing   
-                    +text_edit key='body' direct=true
-                    i.checkmark.circular.green.link.big.icon.save
-                    i.remove.circular.red.link.icon.delete
-                else
-                    i.pencil.circular.link.icon.edit
-                    .ui.inline.header #{body}
-                    .ui.label #{_author_username}
-                        
+                            
 
 
 template(name='role_picker')

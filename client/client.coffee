@@ -36,6 +36,8 @@ Template.admin_footer.helpers
         Session.equals('editing_id', @_id)
     
 Template.admin_footer.events
+    'click .toggle_admin_view': -> 
+        Session.set('view_admin', !Session.get('view_admin'))
     'click .save': -> Session.set('editing_id', null)
     'click .edit': -> Session.set('editing_id',@_id) 
     'click .delete': -> 

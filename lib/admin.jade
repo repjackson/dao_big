@@ -4,9 +4,30 @@ template(name='admin')
             .ui.header
                 i.shield.icon
                 |admin
+        .eight.wide.column
+            .ui.header
+                i.tasks.icon
+                |tasks
             .ui.large.list
                 each admin_tasks
                     .item 
                         .content
-                            .header #{title}
+                            a.header(href="/task/#{_id}") #{body}
+                            .ui.basic.label(title='pathname root') #{pathname_root}
+                            +mark_read_button
+                            .ui.circular.icon.button.mark_read    
+                                i.eye.icon
+                            +voting_full
+        .eight.wide.column
+            .ui.header 
+                i.content.icon
+                |notes
+            .ui.large.list
+                each admin_notes
+                    .item 
+                        .content
+                            .header #{body}
+                            .ui.basic.label(title='pathname root') #{pathname_root}
                             .ui.circular.icon.button.mark_read
+                                i.eye.icon
+                            +voting_full

@@ -27,7 +27,7 @@ template(name='nav')
         .right.menu
             if currentUser
                 if in_role 'admin'
-                    a.icon.item.toggle_topbar(href='/admin' title='admin')
+                    a.icon.item(href='/admin' title='admin')
                         i.large.shield.icon
                 a.icon.item.toggle_topbar(title='alerts')
                     i.bell.outline.icon

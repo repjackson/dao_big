@@ -7,13 +7,16 @@ if Meteor.isClient
         ), name:'admin'
             
     Template.admin.onCreated ->
-        @autorun => @subscribe 'post_docs',
+        @autorun => @subscribe 'admin_tasks',
+            picked_post_tags.array()
+            Session.get('post_title_filter')
+        @autorun => @subscribe 'admin_notes',
             picked_post_tags.array()
             Session.get('post_title_filter')
 
-        @autorun => @subscribe 'post_facets',
-            picked_post_tags.array()
-            Session.get('post_title_filter')
+        # @autorun => @subscribe 'post_facets',
+        #     picked_post_tags.array()
+        #     Session.get('post_title_filter')
 
     
     
@@ -37,23 +40,21 @@ if Meteor.isClient
     Template.admin.helpers
         picked_post_tags: -> picked_post_tags.array()
     
-        post_docs: ->
+        admin_tasks: ->
             Docs.find 
-                model:'post'
-        post_tag_results: ->
-            Results.find {
-                model:'post_tag'
-            }, sort:_timestamp:-1
-  
+                model:'task'
+        admin_notes: ->
+            Docs.find
+                model:'note'
                 
         
 if Meteor.isServer
-    Meteor.publish 'user_sent_post', (username)->
+    Meteor.publish 'admin_notes', (username)->
         Docs.find   
-            model:'post'
-            _author_username:username
-    Meteor.publish 'product_post', (product_id)->
+            model:'note'
+            admin:true
+            # _author_username:username
+    Meteor.publish 'admin_tasks', (product_id)->
         Docs.find   
-            model:'post'
-            product_id:product_id
-            
+            model:'task'
+            admin:true            

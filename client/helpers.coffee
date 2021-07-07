@@ -48,9 +48,6 @@ Template.registerHelper 'parent_group', ()->
 
 Template.registerHelper 'user_from_id', (id)->
     Meteor.users.findOne id
-Template.registerHelper 'session_is', (key,value)->
-    Session.equals(key,value)
-
 Template.registerHelper 'gs', () ->
     Docs.findOne
         model:'global_settings'
