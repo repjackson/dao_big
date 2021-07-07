@@ -58,10 +58,10 @@ template(name='admin_footer')
         .ui.inline.header 
             i.shield.icon
             |admin
-        .ui.label 
+        .ui.large.basic.label 
             |current route:
             |#{current_route}
-        .ui.label
+        .ui.large.basic.label
             |pathname root:
             |#{pathname_root}
         div
@@ -73,10 +73,12 @@ template(name='admin_footer')
             each admin_notes
                 if is_editing
                     +textarea_edit key='body' label='body' direct=true
-                    i.checkmark.circular.green.link.icon.save
+                    i.checkmark.circular.green.link.big.icon.save
+                    i.remove.circular.red.link.icon.delete
                 else
                     .item 
                         |#{body}
+                        .ui.label #{_author_username}
                     i.pencil.circular.link.icon.edit
         .ui.inline.header
             i.tasks.icon
@@ -86,11 +88,12 @@ template(name='admin_footer')
             each admin_tasks
                 if is_editing   
                     +text_edit key='body' direct=true
-                    i.checkmark.circular.green.link.icon.save
+                    i.checkmark.circular.green.link.big.icon.save
                     i.remove.circular.red.link.icon.delete
                 else
                     i.pencil.circular.link.icon.edit
                     .ui.inline.header #{body}
+                    .ui.label #{_author_username}
                         
 
 

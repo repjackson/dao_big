@@ -26,10 +26,12 @@ Template.admin_footer.helpers
         Docs.find
             model:'note'
             admin:true
+            pathname_root: window.location.pathname.split('/')[1]
     admin_tasks: ->
         Docs.find
             model:'task'
             admin:true
+            pathname_root: window.location.pathname.split('/')[1]
     is_editing: ->
         Session.equals('editing_id', @_id)
     
@@ -41,16 +43,21 @@ Template.admin_footer.events
             Docs.remove @_id
 
     'click .add_admin_task': ->
+        console.log window.location.pathname.split('/')[1]
+
         new_id = 
             Docs.insert 
                 model:'task'
                 admin:true
-        
+                pathname_root: window.location.pathname.split('/')[1]
+        Session.set('editing_id', new_id)
     'click .add_admin_note': ->
         new_id = 
             Docs.insert 
                 model:'note'
                 admin:true
+                pathname_root: window.location.pathname.split('/')[1]
+        Session.set('editing_id', new_id)
         
         
 Template.body.events
