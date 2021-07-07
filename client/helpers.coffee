@@ -21,6 +21,12 @@ Template.registerHelper 'current_route', () ->
 Template.registerHelper 'active_path', (metric) ->
     false
 
+Template.registerHelper 'member_groups', (id)->
+    Docs.find 
+        model:'group'
+        _id:$in:@membership_group_ids
+    
+    
 Template.registerHelper 'child_groups', (id)->
     # current_group = 
         # Docs.findOne Router.current().params.doc_id

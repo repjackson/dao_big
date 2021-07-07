@@ -39,7 +39,8 @@ if Meteor.isClient
 
 
     Template.user_layout.onCreated ->
-        @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
+        @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username, ->
+        @autorun -> Meteor.subscribe 'user_groups', Router.current().params.username, ->
         # @autorun -> Meteor.subscribe 'user_referenced_docs', Router.current().params.username
 
     Template.user_layout.onRendered ->
@@ -133,3 +134,11 @@ if Meteor.isServer
         Docs.find 
             model:model
             _author_username:username
+            
+    Meteor.publish 'user_groups', (username)->
+        user = Meteor.users.findOne username:username
+        Docs.find 
+            model:'group'
+            _id:$in:user.membership_group_ids
+            
+            

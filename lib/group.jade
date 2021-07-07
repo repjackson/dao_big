@@ -147,7 +147,9 @@ template(name='group_view')
                     .ui.large.selection.link.animated.list
                         each group_members
                             .item 
-                                a.ui.header(href="/user/#{username}") #{username}
+                                a.ui.header(href="/user/#{username}") 
+                                    img.ui.avatar.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
+                                    |#{username}
                     div
                     if has_parent_group
                         .ui.inline.header 
