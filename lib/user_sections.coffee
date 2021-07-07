@@ -35,3 +35,28 @@ if Meteor.isClient
     Template.user_dashboard.events
         'click .recalc_wage_stats': (e,t)->
             Meteor.call 'recalc_wage_stats', Router.current().params.username
+
+
+    Template.user_chat.helpers
+        chat_messages: ->
+            Docs.find 
+                model:'chat_message'
+
+    Template.user_chat.events
+        'keyup .add_chat': (e,t)->
+            if e.which is 13
+                # parent = Docs.findOne Router.current().params.doc_id
+                body = t.$('.add_chat').val()
+                Docs.insert
+                    model:'chat_message'
+                    body:body
+                t.$('.add_chat').val('')
+    Template.user_chat.onCreated ->
+        @autorun => Meteor.subscribe 'user_chat', Router.current().params.username
+        
+        
+if Meteor.isServer
+    Meteor.publish 'user_chat', (username)->
+        Docs.find 
+            model:'chat_message'
+            # _author_username:username

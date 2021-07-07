@@ -150,9 +150,9 @@ template(name='right_sidebar')
             a.item.toggle_rightbar(href="/user/#{username}/tasks" class="{{isActiveRoute regex='user_tasks'}}")
                 i.tasks.icon
                 |work tasks
-            a.item.toggle_rightbar(href="/user/#{username}/communication" class="{{isActiveRoute regex='user_communication'}}")
+            a.item.toggle_rightbar(href="/user/#{username}/chat" class="{{isActiveRoute regex='user_chat'}}")
                 i.chat.icon
-                |team communication
+                |team chat
             a.item.toggle_rightbar(href="/user/#{username}/timeclock" class="{{isActiveRoute regex='user_timeclock'}}")
                 i.clock.icon
                 |timeclock

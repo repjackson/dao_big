@@ -27,6 +27,10 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_payroll'
         ), name:'user_payroll'
+    Router.route '/user/:username/chat', (->
+        @layout 'user_layout'
+        @render 'user_chat'
+        ), name:'user_chat'
     Router.route '/user/:username/scheduling', (->
         @layout 'user_layout'
         @render 'user_scheduling'

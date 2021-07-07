@@ -54,6 +54,9 @@ template(name='user_layout')
                         a.ui.basic.button(href="/user/#{username}/roles" class="{{isActiveRoute 'user_roles'}}")
                             i.shield.icon
                             |roles
+                        a.ui.basic.button(href="/user/#{username}/chat" class="{{isActiveRoute 'chat'}}")
+                            i.chat.icon
+                            |chat
                         a.ui.basic.button(href="/user/#{username}/payroll" class="{{isActiveRoute 'user_payroll'}}")
                             i.money.icon
                             |payroll
@@ -118,6 +121,14 @@ template(name='user_timeclock')
     each time_sessions
         |#{when}
         
+        
+template(name='user_chat')
+    .ui.header chat
+    each chat_messages
+        .ui.item 
+            |#{body}
+    .ui.input
+        input.add_chat(type='text' placeholder='add chat')
         
         
 template(name='user_requests')  
