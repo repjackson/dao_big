@@ -10,6 +10,8 @@ template(name='nav')
                i.bars.large.icon 
         a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
             i.bullhorn.large.icon
+        a.icon.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
+            i.large.list.icon
         a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
             i.large.wrench.icon
         a.icon.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
@@ -30,7 +32,7 @@ template(name='nav')
                     a.icon.item(href='/admin' title='admin')
                         i.large.shield.icon
                 a.icon.item.toggle_topbar(title='alerts')
-                    i.bell.outline.icon
+                    i.bell.outline.large.icon
                 a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
                     // i.wallet.icon
                     strong {{int currentUser.points}}p
@@ -50,7 +52,7 @@ template(name='nav')
                 
 
 template(name='topbar')
-    .ui.fluid.attached.inverted.segment.topbar.top.sidebar(style="background-color:#062639;")
+    .ui.fluid.attached.segment.topbar.top.sidebar
         .ui.middle.aligned.divided.list
         .ui.list
             each recent_alerts
@@ -80,6 +82,58 @@ template(name='walletbar')
     .ui.right.sidebar.walletbar
         +user_credit
         
+template(name='left_sidebar')
+    .ui.left.sidebar.vertical.inverted.menu
+        // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
+        //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
+        // .search.item(title='search')
+        //     .ui.icon.transparent.input
+        //         i.search.icon
+        //         input.search_global(type='text')
+        a.item.toggle_leftbar(href='/products' class="{{isActivePath '/products'}}" title='products')
+            i.shop.icon
+            | #{product_count} products
+        a.item.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
+            i.list.icon
+            | #{items.count} items
+        a.item.zoomer.toggle_leftbar(href='/tasks' class="{{isActivePath '/tasks'}}")
+            i.tasks.icon
+            | #{tasks.count} tasks
+        a.item.zoomer.toggle_leftbar(href='/orders' class="{{isActivePath '/orders'}}")
+            i.money.icon
+            | #{orders.count} orders
+        a.item.zoomer.toggle_leftbar(href='/posts' class="{{isActivePath '/posts'}}")
+            i.newspaper.icon
+            | #{posts.count} posts
+        a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
+            i.marker.icon
+            |locations
+        a.item.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
+            i.user.friends.icon
+            | #{users.count} users
+        a.item.toggle_leftbar.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
+            i.fire.icon
+            | #{users.count} groups
+        if is_in_admin
+            a.icon.item.toggle_admin.toggle_leftbar.no_blink
+                |toggle admin
+                if is_admin
+                    i.shield.icon
+                else
+                    i.shield.icon
+        if is_admin
+            .divider
+            a.item.set_model.toggle_leftbar.no_blink(href="/m/model" class="{{isActivePath '/m/model'}}")
+                i.shield.icon
+                |admin
+            a.item.set_user.toggle_leftbar.no_blink(href="/users" class="{{isActiveRoute '/users'}}")
+                i.users.icon
+                | users
+            a.item.toggle_leftbar.zoomer(href='/orders' class="{{isActivePath '/orders'}}" title='orders')
+                i.list.icon
+                | orders
+
+
 template(name='right_sidebar')
     // .ui.right.sidebar.vertical.inverted.menu.rightbar(style="background-color:#062639;")
     .ui.right.sidebar.vertical.inverted.borderless.menu.rightbar
@@ -126,56 +180,3 @@ template(name='right_sidebar')
                     i.refresh.loading.icon
                 else
                     i.sign.out.icon
-
-
-
-template(name='left_sidebar')
-    .ui.left.sidebar.vertical.inverted.menu
-        // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
-        //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
-        // .search.item(title='search')
-        //     .ui.icon.transparent.input
-        //         i.search.icon
-        //         input.search_global(type='text')
-        a.item.toggle_leftbar(href='/products' class="{{isActivePath '/products'}}" title='products')
-            i.shop.icon
-            | #{product_count} products
-        a.item.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
-            i.food.icon
-            | #{items.count} items
-        a.item.zoomer.toggle_leftbar(href='/tasks' class="{{isActivePath '/tasks'}}")
-            i.tasks.icon
-            | #{tasks.count} tasks
-        a.item.zoomer.toggle_leftbar(href='/orders' class="{{isActivePath '/orders'}}")
-            i.money.icon
-            | #{orders.count} orders
-        a.item.zoomer.toggle_leftbar(href='/posts' class="{{isActivePath '/posts'}}")
-            i.newspaper.icon
-            | #{posts.count} posts
-        a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
-            i.marker.icon
-            |locations
-        a.item.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
-            i.user.friends.icon
-            | #{users.count} users
-        a.item.toggle_leftbar.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
-            i.fire.icon
-            | #{users.count} groups
-        if is_in_admin
-            a.icon.item.toggle_admin.toggle_leftbar.no_blink
-                |toggle admin
-                if is_admin
-                    i.shield.icon
-                else
-                    i.shield.icon
-        if is_admin
-            .divider
-            a.item.set_model.toggle_leftbar.no_blink(href="/m/model" class="{{isActivePath '/m/model'}}")
-                i.shield.icon
-                |admin
-            a.item.set_user.toggle_leftbar.no_blink(href="/users" class="{{isActiveRoute '/users'}}")
-                i.users.icon
-                | users
-            a.item.toggle_leftbar.zoomer(href='/orders' class="{{isActivePath '/orders'}}" title='orders')
-                i.list.icon
-                | orders

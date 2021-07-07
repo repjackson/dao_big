@@ -61,6 +61,8 @@ template(name='user_layout')
                             .spacer
                             +yield
 
+        if in_role 'admin'
+            +admin_footer
 
 template(name='user_dashboard')
     with current_user
