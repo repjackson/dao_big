@@ -1,6 +1,8 @@
 if Meteor.isClient
     Template.user_dashboard.onCreated ->
         @autorun => Meteor.subscribe 'user_upcoming_reservations', Router.current().params.username
+    Template.user_dashboard.onCreated ->
+        @autorun => Meteor.subscribe 'user_upcoming_reservations', Router.current().params.username
         # @autorun => Meteor.subscribe 'user_handling', Router.current().params.username
         @autorun => Meteor.subscribe 'user_current_reservations', Router.current().params.username
     Template.user_dashboard.helpers

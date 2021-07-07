@@ -19,8 +19,13 @@ $.cloudinary.config
 
 Template.admin_footer.onCreated ->
     @autorun -> Meteor.subscribe 'admin_tasks'
+    @autorun -> Meteor.subscribe 'admin_notes'
 
 Template.admin_footer.helpers
+    admin_notes: ->
+        Docs.find
+            model:'note'
+            admin:true
     admin_tasks: ->
         Docs.find
             model:'task'
@@ -39,6 +44,12 @@ Template.admin_footer.events
         new_id = 
             Docs.insert 
                 model:'task'
+                admin:true
+        
+    'click .add_admin_note': ->
+        new_id = 
+            Docs.insert 
+                model:'note'
                 admin:true
         
         

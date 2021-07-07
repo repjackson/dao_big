@@ -66,6 +66,19 @@ template(name='admin_footer')
             |#{pathname_root}
         div
         .ui.inline.header
+            i.content.icon
+            |notes
+        i.plus.circular.link.icon.add_admin_note
+        .ui.list
+            each admin_notes
+                if is_editing
+                    +textarea_edit key='body' label='body' direct=true
+                    i.checkmark.circular.green.link.icon.save
+                else
+                    .item 
+                        |#{body}
+                    i.pencil.circular.link.icon.edit
+        .ui.inline.header
             i.tasks.icon
             |tasks
         i.plus.circular.link.icon.add_admin_task

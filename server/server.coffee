@@ -85,6 +85,10 @@ Meteor.publish 'admin_tasks', ()->
     Docs.find
         model:'task'
         admin:true
+Meteor.publish 'admin_notes', ()->
+    Docs.find
+        model:'note'
+        admin:true
 
 Meteor.publish 'child_docs', (id)->
     Docs.find
