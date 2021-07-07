@@ -25,9 +25,47 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'group_work', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'parent_group_from_child_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'child_groups_from_parent_id', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'group_members', Router.current().params.doc_id, ->
     
 
-
+    Template.group_view.helpers
+        group_members: ->
+            Meteor.users.find 
+                membership_group_ids:$in:[Router.current().params.doc_id]
+        
+    Template.group_view.events
+        'click .add_group_member': ->
+            current_group_id = Router.current().params.doc_id
+            new_username = prompt('new group member username')
+            console.log new_username
+            
+            options = {
+                username:new_username
+                password:new_username
+                }
+            console.log new_username
+            Meteor.call 'create_user', options, (err,res)=>
+                if err
+                    alert err
+                else
+                    console.log res
+                    # unless username
+                    #     username = "#{Session.get('first_name').toLowerCase()}_#{Session.get('last_name').toLowerCase()}"
+                    # console.log username
+                    Meteor.users.update res,
+                        $addToSet: 
+                            roles: 'employee'
+                            membership_group_ids:current_group_id
+                            # levels: 'customer'
+                        # $set:
+                        #     # first_name: Session.get('first_name')
+                        #     # last_name: Session.get('last_name')
+                        #     # app:'nf'
+                        #     username:username
+                    # Router.go "/user/#{username}"
+            
+            
+            
     Template.groups.events
         'click .add_group': ->
             new_id = Docs.insert 
@@ -53,11 +91,12 @@ if Meteor.isClient
                 
         
 if Meteor.isServer
-        
-    Meteor.publish 'user_sent_group', (username)->
-        Docs.find   
-            model:'group'
-            _author_username:username
+    Meteor.publish 'group_members', (group_id)->
+        Meteor.users.find   
+            membership_group_ids:$in:[group_id]
+            
+
+
     Meteor.publish 'product_group', (product_id)->
         Docs.find   
             model:'group'

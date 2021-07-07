@@ -139,21 +139,24 @@ template(name='group_view')
                         each group_products
                             .item 
                                 a.ui.header(href="/product/#{_id}") #{title}
-                    .ui.header 
+                    div
+                    .ui.inline.header 
                         +i name='groups'
                         |members
+                    i.circular.plus.link.icon.add_group_member
                     .ui.large.selection.link.animated.list
                         each group_members
                             .item 
-                                .ui.header #{title}
+                                a.ui.header(href="/user/#{username}") #{username}
                     div
-                    .ui.inline.header 
-                        i.fork.icon
-                        |parent group
-                    with parent_group
-                        a.ui.inline.header(href="/group/#{_id}") 
-                            img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                            |#{title}
+                    if has_parent_group
+                        .ui.inline.header 
+                            i.fork.icon
+                            |parent group
+                        with parent_group
+                            a.ui.inline.header(href="/group/#{_id}") 
+                                img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                                |#{title}
                     .ui.header sibling groups
                     each sibling_groups
                         .ui.small.header 
@@ -161,10 +164,13 @@ template(name='group_view')
                             img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                     .ui.header 
                         |child groups
-                    each child_groups
-                        .ui.small.header 
-                            |#{title}
-                            img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                    .ui.stackable.three.link.cards
+                        each child_groups
+                            a.ui.card(href="/group/#{_id}")
+                                img.ui.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                                .content
+                                    header 
+                                        |#{title}
                     +comments
                 .four.wide.column
                     div
