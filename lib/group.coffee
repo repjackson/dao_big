@@ -2,13 +2,29 @@ if Meteor.isClient
     @picked_group_tags = new ReactiveArray []
     
     Router.route '/group/:doc_id', (->
-        @layout 'layout'
+        @layout 'group_layout'
         @render 'group_view'
         ), name:'group_view'
     Router.route '/groups', (->
         @layout 'layout'
         @render 'groups'
         ), name:'groups'
+    Router.route '/group/:doc_id/items', (->
+        @layout 'group_layout'
+        @render 'group_items'
+        ), name:'group_items'
+    Router.route '/group/:doc_id/members', (->
+        @layout 'group_layout'
+        @render 'group_members'
+        ), name:'group_members'
+    Router.route '/group/:doc_id/products', (->
+        @layout 'group_layout'
+        @render 'group_products'
+        ), name:'group_products'
+    Router.route '/group/:doc_id/work', (->
+        @layout 'group_layout'
+        @render 'group_work'
+        ), name:'group_work'
     
             
     Template.groups.onCreated ->
@@ -20,7 +36,26 @@ if Meteor.isClient
             Session.get('group_title_filter')
     
     
-    Template.group_view.onCreated ->
+    Template.group_products.onCreated ->
+        @autorun => Meteor.subscribe 'group_model_docs', Router.current().params.doc_id, 'product',->
+    Template.group_products.events
+        'click .add_group_product': ->
+            new_id = 
+                Docs.insert
+                    model:'product'
+                    group_id:Router.current().params.doc_id
+            Router.go "/product/#{new_id}/edit"
+    
+if Meteor.isServer
+    Meteor.publish 'group_model_docs', (group_id,model)->
+        Docs.find 
+            model:model
+            group_id:group_id
+if Meteor.isClient
+        
+        
+        
+    Template.group_layout.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'group_work', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'parent_group_from_child_id', Router.current().params.doc_id, ->

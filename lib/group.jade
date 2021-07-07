@@ -117,68 +117,105 @@ template(name='group_edit')
                         | delete
                 
                 
-template(name='group_view')
-    with current_doc
-        .ui.stackable.padded.grid
-            .row
-                .four.wide.column
-                    a.ui.basic.icon.button(href="/groups")
-                        i.fire.large.icon
-                    .ui.inline.header
-                        | #{title}
-                        small group view
-                    +image_view key='image_id' label='image' direct=true
-                    div
-                    a.ui.icon.button(href="/group/#{_id}/edit")
-                        i.pencil.icon
-                .eight.wide.column
-                    .ui.header 
-                        +i name='shopping-cart'
-                        |products
-                    .ui.large.selection.link.animated.list
-                        each group_products
-                            .item 
-                                a.ui.header(href="/product/#{_id}") #{title}
-                    div
-                    .ui.inline.header 
-                        +i name='groups'
-                        |members
-                    i.circular.plus.link.icon.add_group_member
-                    .ui.large.selection.link.animated.list
-                        each group_members
-                            .item 
-                                a.ui.header(href="/user/#{username}") 
-                                    img.ui.avatar.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
-                                    |#{username}
-                    div
-                    if has_parent_group
-                        .ui.inline.header 
-                            i.fork.icon
-                            |parent group
-                        with parent_group
-                            a.ui.inline.header(href="/group/#{_id}") 
-                                img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                |#{title}
-                    .ui.header sibling groups
-                    each sibling_groups
-                        .ui.small.header 
-                            |#{title}
-                            img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                    .ui.header 
-                        |child groups
-                    .ui.stackable.three.link.cards
-                        each child_groups
-                            a.ui.card(href="/group/#{_id}")
-                                img.ui.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                .content
-                                    header 
-                                        |#{title}
-                    +comments
-                .four.wide.column
-                    div
-                    +html_view key='description' label='description' direct=true
-                    +array_view key='tags' label='tags' icon='tags' direct=true
-                    div
-                    +array_view key='location_tags' label='location tags' icon='marker' direct=true
-                    if in_dev
-                        +print_this
+template(name='group_layout')
+    +nav
+    .ui.bottom.attached.pushable.segment
+        +topbar
+        +left_sidebar
+        +right_sidebar
+        // +cartbar
+        // +walletbar
+        // +secnav
+        with current_doc
+            .ui.stackable.padded.grid
+                .row
+                    .five.wide.column
+                        a.ui.basic.icon.button(href="/groups")
+                            i.fire.large.icon
+                        .ui.inline.header
+                            | #{title}
+                            small group view
+                        +image_view key='image_id' label='image' direct=true
+                        div
+                        if can_edit
+                            a.ui.icon.button(href="/group/#{_id}/edit")
+                                i.pencil.large.icon
+                        div
+                        +html_view key='description' label='description' direct=true
+                        +array_view key='tags' label='tags' icon='tags' direct=true
+                        div
+                        +array_view key='location_tags' label='location tags' icon='marker' direct=true
+                        if in_dev
+                            +print_this
+                    .eleven.wide.column
+                        a.ui.basic.button(href="/group/#{_id}/members")
+                            i.users.icon
+                            |members
+                        a.ui.basic.button(href="/group/#{_id}/products")
+                            i.cart.icon
+                            |products
+                        a.ui.button(href="/group/#{_id}/items")
+                            i.list.icon
+                            |items
+                        a.ui.button(href="/group/#{_id}/tasks")
+                            |tasks
+                        a.ui.button(href="/group/#{_id}/work")
+                            |work
+                        a.ui.button(href="/group/#{_id}/relations")
+                            |relations
+                        +yield
+                        
+                        
+template(name='group_products')  
+    .ui.header 
+        i.cart.icon
+        |group products
+    i.plus.circular.link.icon.add_group_product
+    each group_products
+        a.ui.header(href="/product/#{_id}")
+            |#{title}
+
+
+template(name='group_view')            
+    .ui.header 
+        +i name='shopping-cart'
+        |products
+    .ui.large.selection.link.animated.list
+        each group_products
+            .item 
+                a.ui.header(href="/product/#{_id}") #{title}
+    div
+    .ui.inline.header 
+        +i name='groups'
+        |members
+    i.circular.plus.link.icon.add_group_member
+    .ui.large.selection.link.animated.list
+        each group_members
+            .item 
+                a.ui.header(href="/user/#{username}") 
+                    img.ui.avatar.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
+                    |#{username}
+    div
+    if has_parent_group
+        .ui.inline.header 
+            i.fork.icon
+            |parent group
+        with parent_group
+            a.ui.inline.header(href="/group/#{_id}") 
+                img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                |#{title}
+    .ui.header sibling groups
+    each sibling_groups
+        .ui.small.header 
+            |#{title}
+            img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+    .ui.header 
+        |child groups
+    .ui.stackable.three.link.cards
+        each child_groups
+            a.ui.card(href="/group/#{_id}")
+                img.ui.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                .content
+                    header 
+                        |#{title}
+    +comments
