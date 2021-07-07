@@ -51,10 +51,10 @@ if Meteor.isServer
         Docs.find 
             model:model
             group_id:group_id
+        
+        
+        
 if Meteor.isClient
-        
-        
-        
     Template.group_layout.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'group_work', Router.current().params.doc_id, ->
@@ -68,7 +68,37 @@ if Meteor.isClient
             Meteor.users.find 
                 membership_group_ids:$in:[Router.current().params.doc_id]
         
+        is_member: ->
+            Meteor.user().membership_group_ids and Router.current().params.doc_id in Meteor.user().membership_group_ids
+        
+        can_join: ->
+            current_group = Docs.findOne Router.current().params.doc_id
+            unless current_group.private
+                unless Router.current().params.doc_id in Meteor.user().membership_group_ids
+                    true
+                else
+                    false
+            else
+                true
+        can_leave: ->
+            current_group = Docs.findOne Router.current().params.doc_id
+            unless current_group.private
+                unless Router.current().params.doc_id in Meteor.user().membership_group_ids
+                    true
+                else
+                    false
+                # unless Meteor.userId() in current_group.member_ids
+        
     Template.group_view.events
+        'click .join': ->
+            Meteor.users.update Meteor.userId(),
+                $addToSet:
+                    membership_group_ids:Router.current().params.doc_id
+        'click .leave': ->
+            Meteor.users.update Meteor.userId(),
+                $pull:
+                    membership_group_ids:Router.current().params.doc_id
+        
         'click .add_group_member': ->
             current_group_id = Router.current().params.doc_id
             new_username = prompt('new group member username')

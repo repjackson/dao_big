@@ -87,8 +87,6 @@ template(name='user_dashboard')
         .ui.button.send_points
             |send points
     +user_requests
-    +user_quicklist
-    +user_menu
     
     
     
@@ -123,20 +121,31 @@ template(name='user_timeclock')
         
         
 template(name='user_chat')
-    .ui.header chat
-    each chat_messages
-        .ui.item 
-            |#{body}
+    .ui.header
+        i.chat.outline.icon
+        |chat
     .ui.input
         input.add_chat(type='text' placeholder='add chat')
+    .ui.comments
+        each chat_messages
+            .comment
+                .content
+                    .ui.inline.header #{body}
+                    .meta #{when}
+                        |by 
+                        a(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
+                        if currentUser
+                            +voting_small
+                            if can_edit
+                                +remove_button
         
         
 template(name='user_requests')  
-    .ui.header #{user_from_username_param.name} requests
+    .ui.header
+        i.bullhorn.icon
+        |#{user_from_username_param.name} requests
 template(name='user_groups')  
-    .ui.header #{user_from_username_param.name} groups
-template(name='user_quicklist')    
-    .ui.header #{user_from_username_param.name} quicklist
-template(name='user_menu')    
-    .ui.header #{user_from_username_param.name} menu
+    .ui.header 
+        i.fire.icon
+        |#{user_from_username_param.name} groups
     

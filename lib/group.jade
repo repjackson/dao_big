@@ -189,6 +189,16 @@ template(name='group_view')
         +i name='groups'
         |members
     i.circular.plus.link.icon.add_group_member
+    // if can_join
+    unless is_member
+        .ui.basic.button.join
+            i.user.plus.icon
+            |join
+    if is_member
+        .ui.basic.button.leave
+            i.undo.icon
+            |leave
+        
     .ui.large.selection.link.animated.list
         each group_members
             .item 
@@ -204,12 +214,15 @@ template(name='group_view')
             a.ui.inline.header(href="/group/#{_id}") 
                 img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                 |#{title}
-    .ui.header sibling groups
+    .ui.header 
+        i.transfer.icon
+        |sibling groups
     each sibling_groups
         .ui.small.header 
             |#{title}
             img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
     .ui.header 
+        i.fork.icon
         |child groups
     .ui.stackable.three.link.cards
         each child_groups
