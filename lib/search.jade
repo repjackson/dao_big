@@ -1,8 +1,17 @@
 template(name='search')
     .ui.padded.grid
         .sixteen.wide.column
-            .ui.header search
+            .ui.inline.header
+                i.search.icon
+                |search:
+                strong  #{current_search}
             each search_results
-                .ui.header #{title}
-            .ui.header search #{current_search}
+                .ui.header #{title} 
+                .ui.label #{model}
+                .ui.label #{_author_username}
+                +print_this
+                |#{when}
+                each tags
+                    .ui.label #{this}
+            
         

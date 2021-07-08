@@ -25,8 +25,10 @@ if Meteor.isClient
         
 if Meteor.isServer
     Meteor.publish 'global_search', (search)->
-        Docs.find 
-            title: {$regex:"#{search}", $options: 'i'}
-        
+        Docs.find(
+            {
+                title: {$regex:"#{search}", $options: 'i'}
+            }, limit:20
+            )
         
         
