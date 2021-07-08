@@ -92,28 +92,33 @@ if Meteor.isClient
                 Router.go '/'
                 
     
+    
+    Template.nav.helpers
+        current_search: ->
+            Session.get('global_search')
+        
     Template.nav.events
-        'keyup .search_ingredients': _.throttle((e,t)->
+        'keyup .global_search': _.throttle((e,t)->
             # console.log Router.current().route.getName()
             current_name = Router.current().route.getName()
             # $(e.currentTarget).closest('.input').transition('pulse', 100)
 
             unless current_name is 'products'
-                Router.go '/products'
-            query = $('.search_ingredients').val()
-            Session.set('product_query', query)
+                Router.go '/search'
+            query = $('.global_search').val()
+            Session.set('global_search', query)
             # console.log Session.get('product_query')
             if e.key == "Escape"
-                Session.set('product_query', null)
+                Session.set('global_search', null)
                 
             if e.which is 13
-                search = $('#product_search').val().trim().toLowerCase()
+                search = $('.global_search').val().trim().toLowerCase()
                 if search.length > 0
                     picked_tags.push search
                     console.log 'search', search
                     # Meteor.call 'log_term', search, ->
-                    $('#product_search').val('')
-                    Session.set('product_query', null)
+                    $('.global_search').val('')
+                    Session.set('.global_search', null)
                     # # $('#search').val('').blur()
                     # # $( "p" ).blur();
                     # Meteor.setTimeout ->
@@ -148,6 +153,8 @@ if Meteor.isClient
     #     @autorun => Meteor.subscribe 'my_sent_messages'
     
     Template.nav.helpers
+        search_value: ->
+            Session.get('global_search')
         unread_count: ->
             unread_count = Docs.find({
                 model:'message'
