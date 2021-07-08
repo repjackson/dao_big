@@ -154,14 +154,17 @@ template(name='group_layout')
                         a.ui.basic.button(href="/group/#{_id}/products")
                             i.cart.icon
                             |products
-                        a.ui.button(href="/group/#{_id}/items")
+                        a.ui.basic.button(href="/group/#{_id}/items")
                             i.list.icon
                             |items
-                        a.ui.button(href="/group/#{_id}/tasks")
+                        a.ui.basic.button(href="/group/#{_id}/tasks")
+                            i.tasks.icon
                             |tasks
-                        a.ui.button(href="/group/#{_id}/work")
+                        a.ui.basic.button(href="/group/#{_id}/work")
+                            i.wrench.icon
                             |work
-                        a.ui.button(href="/group/#{_id}/relations")
+                        a.ui.basic.button(href="/group/#{_id}/relations")
+                            i.exchange.icon
                             |relations
                         +yield
                         
@@ -192,11 +195,11 @@ template(name='group_view')
     // if can_join
     unless is_member
         .ui.basic.button.join
-            i.user.plus.icon
+            i.user.plus.green.icon
             |join
     if is_member
         .ui.basic.button.leave
-            i.undo.icon
+            i.undo.red.icon
             |leave
         
     .ui.large.selection.link.animated.list
