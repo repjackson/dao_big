@@ -26,9 +26,9 @@ template(name='nav')
             i.large.user.friends.icon
         a.icon.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
             i.large.fire.icon
-        .ui.input.item
+        .ui.inverted.input.item
             i.search.icon
-            input.global_search(type='text')
+            input.global_search(type='text' value=current_search)
         .right.menu
             if currentUser
                 if in_role 'admin'

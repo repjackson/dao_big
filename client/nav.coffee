@@ -100,11 +100,11 @@ if Meteor.isClient
     Template.nav.events
         'keyup .global_search': _.throttle((e,t)->
             # console.log Router.current().route.getName()
-            current_name = Router.current().route.getName()
+            # current_name = Router.current().route.getName()
             # $(e.currentTarget).closest('.input').transition('pulse', 100)
 
-            unless current_name is 'products'
-                Router.go '/search'
+            # unless current_name is 'products'
+            Router.go '/search'
             query = $('.global_search').val()
             Session.set('global_search', query)
             # console.log Session.get('product_query')
