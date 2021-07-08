@@ -29,6 +29,6 @@ if Meteor.isServer
             {
                 title: {$regex:"#{search}", $options: 'i'}
             }, limit:20
-            )
+        )
         
         

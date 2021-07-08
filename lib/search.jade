@@ -5,13 +5,19 @@ template(name='search')
                 i.search.icon
                 |search:
                 strong  #{current_search}
-            each search_results
-                .ui.header #{title} 
-                .ui.label #{model}
-                .ui.label #{_author_username}
-                +print_this
-                |#{when}
-                each tags
-                    .ui.label #{this}
+            .ui.selection.animated.link.list
+                each search_results
+                    a.item(href="/post/#{_id}")
+                        .ui.inline.header #{title} 
+                        .ui.basic.label
+                            i.database.icon
+                            |#{model}
+                        if _author_username
+                            a.ui.basic.label(href="/user/#{_author_username") #{_author_username}
+                        if in_dev
+                            +print_this
+                        |#{when}
+                        each tags
+                            .ui.label #{this}
+                
             
-        

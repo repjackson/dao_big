@@ -8,6 +8,10 @@ template(name='nav')
         else 
             a.icon.item.toggle_leftbar.no_blink
                i.bars.large.icon 
+        .item
+            .ui.icon.transparent.inverted.input
+                i.search.icon
+                input.global_search(type='text' value=current_search)
         a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
             i.bullhorn.large.icon
         a.icon.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
@@ -26,9 +30,6 @@ template(name='nav')
             i.large.user.friends.icon
         a.icon.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
             i.large.fire.icon
-        .ui.inverted.input.item
-            i.search.icon
-            input.global_search(type='text' value=current_search)
         .right.menu
             if currentUser
                 if in_role 'admin'

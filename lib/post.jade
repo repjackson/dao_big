@@ -109,6 +109,7 @@ template(name='post_view')
                 .ten.wide.column
                     +html_view key='body' direct=true
                     +html_view key='content' direct=true
+                    +html_view key='description' direct=true
                     if youtube_id
                         +youtube_view key='youtube_id' direct=true
                     .ui.header 
