@@ -55,8 +55,9 @@ Meteor.methods
         #         content_type:'text/html'
         # if mode is 'text'
         params =
-            toneInput: { 'text': doc.watson.analyzed_text }
+            toneInput: { 'text': doc.analyzed_text }
             contentType: 'application/json'
+        console.log doc.analyzed_text
         tone_analyzer.tone params, Meteor.bindEnvironment((err, response)->
             if err
             else

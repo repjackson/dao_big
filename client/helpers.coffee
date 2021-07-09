@@ -12,6 +12,9 @@ Template.registerHelper 'work_task', () ->
     Docs.findOne @task_id
     # Template.parentData()
 
+
+Template.registerHelper 'lowered', (input)-> input.toLowerCase()
+
 Template.registerHelper 'pathname_root', () ->
     window.location.pathname.split('/')[1]
 Template.registerHelper 'current_route', () ->
@@ -380,3 +383,39 @@ Template.registerHelper 'my_cart_subtotal', () ->
     # console.log subtotal
     subtotal.toFixed(2)
     
+
+
+Template.registerHelper 'commafy', (num)-> if num then num.toLocaleString()
+
+    
+Template.registerHelper 'trunc', (input) ->
+    if input
+        input[0..300]
+   
+   
+Template.registerHelper 'emotion_avg', (metric) -> results.findOne(model:'emotion_avg')
+Template.registerHelper 'skve', (key,val) -> 
+    Session.equals(key,val)
+
+Template.registerHelper 'calculated_size', (metric) ->
+    # whole = parseInt(@["#{metric}"]*10)
+    whole = parseInt(metric*10)
+    switch whole
+        when 0 then 'f5'
+        when 1 then 'f6'
+        when 2 then 'f7'
+        when 3 then 'f8'
+        when 4 then 'f9'
+        when 5 then 'f10'
+        when 6 then 'f11'
+        when 7 then 'f12'
+        when 8 then 'f13'
+        when 9 then 'f14'
+        when 10 then 'f15'
+        
+        
+        
+        
+Template.registerHelper 'abs_percent', (num) -> 
+    # console.l/og Math.abs(num*100)
+    parseInt(Math.abs(num*100))

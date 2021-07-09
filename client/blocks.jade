@@ -23,6 +23,15 @@ template(name='session_toggle')
             // |#{key}
         
         
+
+template(name='fluent')
+    img(src="https://img.icons8.com/fluent/48/000000/#{name}.png" class=classes)
+
+template(name='emoji')
+    em(data-emoji=name)
+        
+        
+        
 template(name='bookmark_button')
     if currentUser
         .ui.icon.compact.button.toggle(class=bookmark_button_class title=label)

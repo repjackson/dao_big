@@ -21,6 +21,7 @@ Template.small_sentiment.helpers
 
 Template.call_tone.events
     'click #call_tone': ->
+        console.log @
         Meteor.call 'call_tone', Router.current().params.doc_id, ->
 
 Template.tone_view.events
