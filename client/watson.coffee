@@ -99,7 +99,7 @@ Template.call_watson.events
                     position: 'bottom center',
                     showIcon: 'alert'
                     message: 'error', err.error
-                    displayTime: 'auto',
+                    # displayTime: 'auto',
                     classProgress: 'purple'
                 )
             else 
@@ -107,7 +107,7 @@ Template.call_watson.events
                     position: 'bottom center',
                     showIcon: 'checkmark'
                     message: 'autotagged', res
-                    displayTime: 'auto',
+                    # displayTime: 'auto',
                     class:'success'
                     classProgress: 'blue'
                 )

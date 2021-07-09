@@ -108,16 +108,18 @@ template(name='post_view')
             .row
                 .ten.wide.column
                     +html_view key='body' direct=true
-                    +html_view key='content' direct=true
-                    +html_view key='description' direct=true
+                    // +html_view key='content' direct=true
+                    // +html_view key='description' direct=true
                     if youtube_id
                         +youtube_view key='youtube_id' direct=true
                     .ui.header 
                         i.users.icon
                         |audience
                     +comments
-                    +if watson
+                    if watson
                         +watson_view
+                    if tone 
+                        +tone_view
                 .six.wide.column
                     a.ui.basic.icon.button(href="/posts")
                         i.blog.large.icon
@@ -130,7 +132,7 @@ template(name='post_view')
                         i.pencil.icon
                     .ui.header added #{when}
                     +call_watson key='body' mode='html'
-                    
+                    +call_tone key='body'
                     each _timestamp_tags
                         .ui.label #{this}
                     if in_dev
