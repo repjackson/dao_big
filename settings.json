@@ -15,12 +15,12 @@
 			"password": "OzX5px2EtWGt"
 		},
 		"language": {
-			"apikey": "NNPM77_CjQv7IyPrhwjyA34SGd8BLLP103TnPuVmd8Qn",
-			"iam_apikey_description": "Auto generated apikey during resource-key operation for Instance - crn:v1:bluemix:public:natural-language-understanding:us-south:a/f18c8f41459468045d98bcffc36f39d4:16a0e5c6-0fa1-4618-9b24-511e02143ab0::",
-			"iam_apikey_name": "auto-generated-apikey-9618be9d-9ba7-4fb3-9fa2-f887746fb110",
+			"apikey": "rNP98SQHG74ELI6LdD4E7Xjza6H74FU5W74Sv5LDiO9H",
+			"iam_apikey_description": "Auto-generated for key a2dc955a-dcc8-46fe-85ec-b2bea2f954a2",
+			"iam_apikey_name": "Service credentials-1",
 			"iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-			"iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/f18c8f41459468045d98bcffc36f39d4::serviceid:ServiceId-cf75d1ab-91b0-4f1f-a21b-986412a8b311",
-			"url": "https://gateway.watsonplatform.net/natural-language-understanding/api"
+			"iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/34a2c275aeff460081c2074ab5abe5c6::serviceid:ServiceId-bc13d8a2-a3e9-4fae-b8cf-d5ca5730f9f4",
+			"url": "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/99c07466-eb75-4afa-91be-c50619832504"
 		},
 		"visual": {
 			"apikey": "dKgeK3U6JYQn235P2f4y1JchqFROfW9ZwlhGe_5ffRA-",

@@ -129,6 +129,8 @@ template(name='post_view')
                     a.ui.icon.button(href="/post/#{_id}/edit")
                         i.pencil.icon
                     .ui.header added #{when}
+                    +call_watson key='body' mode='html'
+                    
                     each _timestamp_tags
                         .ui.label #{this}
                     if in_dev

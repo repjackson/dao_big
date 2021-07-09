@@ -7,17 +7,40 @@ template(name='search')
                 strong  #{current_search}
             .ui.selection.animated.link.list
                 each search_results
-                    a.item(href="/post/#{_id}")
-                        .ui.inline.header #{title} 
-                        .ui.basic.label
-                            i.database.icon
-                            |#{model}
-                        if _author_username
-                            a.ui.basic.label(href="/user/#{_author_username") #{_author_username}
-                        if in_dev
-                            +print_this
-                        |#{when}
-                        each tags
-                            .ui.label #{this}
+                    if kve 'model' 'post'
+                        +post_search_result
+                    if kve 'model' 'group'
+                        +group_search_result
+                        
+template(name='post_search_result')                        
+    a.item(href="/post/#{_id}")
+        .ui.inline.header #{title} 
+        .ui.basic.label
+            i.database.icon
+            |#{model}
+        if _author_username
+            a.ui.basic.label(href="/user/#{_author_username") #{_author_username}
+        if in_dev
+            +print_this
+        |#{when}
+        each tags
+            .ui.label #{this}
+                
+            
+template(name='group_search_result')                        
+    a.item(href="/group/#{_id}")
+        .ui.inline.header #{title} 
+        .ui.basic.label
+            i.database.icon
+            |#{model}
+        if _author_username
+            a.ui.basic.label(href="/user/#{_author_username") #{_author_username}
+        if in_dev
+            +print_this
+        |#{when}
+        each tags
+            .ui.label #{this}
+        each group_members
+            .ui.label #{username}
                 
             
