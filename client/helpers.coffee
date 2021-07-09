@@ -54,6 +54,10 @@ Template.registerHelper 'parent_group', ()->
 
 Template.registerHelper 'user_from_id', (id)->
     Meteor.users.findOne id
+    
+Template.registerHelper 'kve', (key,value) ->
+    @["#{key}"] is value
+    
 Template.registerHelper 'gs', () ->
     Docs.findOne
         model:'global_settings'

@@ -116,6 +116,8 @@ template(name='post_view')
                         i.users.icon
                         |audience
                     +comments
+                    +if watson
+                        +watson_view
                 .six.wide.column
                     a.ui.basic.icon.button(href="/posts")
                         i.blog.large.icon
@@ -144,3 +146,4 @@ template(name='post_view')
                     +array_view key='people_tags' label='people tags' icon='tags' direct=true
                     +voting_full
                     +boolean_view key='published' label='published' direct=true
+                    
