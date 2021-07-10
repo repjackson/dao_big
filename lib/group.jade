@@ -72,7 +72,7 @@ template(name='group_edit')
                         i.pencil.icon
                         | #{title}
                         small group
-                    a.ui.large.icon.green.button(href="/group/#{_id}/" title='save product')
+                    a.ui.large.icon.green.circular.button(href="/group/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
@@ -81,7 +81,9 @@ template(name='group_edit')
                         +print_this
                 .ten.wide.column
                     +html_edit key='description' label='description' direct=true
-                    .ui.header members
+                    .ui.header 
+                        i.user.icon
+                        |members
                     +boolean_edit key='has_parent_group' label='has parent group' icon='fork' direct=true
                     if has_parent_group
                         unless parent_group
@@ -93,13 +95,13 @@ template(name='group_edit')
                                     img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                                     |#{title}
                         with parent_group
-                            .ui.header
+                            .ui.inline.header
                                 i.fork.icon
                                 |parent group
-                            .ui.segment
+                            .ui.basic.inline.segment
                                 .ui.inline.header
                                     img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                #{title}
+                                    |#{title}
                                 i.circular.minus.link.icon.clear_parent_group
                                 i.active.directory.icon
                                 each child_groups

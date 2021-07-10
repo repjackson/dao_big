@@ -43,6 +43,8 @@ template(name='nav')
             i.large.fire.icon
         .right.menu
             if currentUser
+                a.icon.item(href="/group/#{currentUser.current_group_id}/edit" title='edit current group')
+                    i.large.setting.icon
                 if in_role 'admin'
                     a.icon.item(href='/admin' title='admin')
                         i.large.shield.icon

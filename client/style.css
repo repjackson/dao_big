@@ -110,6 +110,9 @@ body, p, header {
 
 
 
+.admin_panel {
+    animation: drop 1s !important;
+}
 .button, .selector, .card, p, .header, .image, .fade {
     animation: fadein 1s !important;
      /*-webkit-transition: opacity 2s ease-out; */
@@ -122,6 +125,10 @@ body, p, header {
 @keyframes slide {
   from { width: 0%}
   to   { width: 100%}
+}
+@keyframes drop {
+  from { height: 0%}
+  to   { height: 100%}
 }
 
 @keyframes fadeout {

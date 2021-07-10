@@ -61,7 +61,7 @@ if Meteor.isClient
         top_groups: ->
             Docs.find   
                 model:'group'
-                parent_group_id:$exists:false
+                has_parent_group:$ne:true
                 # _author_username:username
                 
                 
@@ -90,7 +90,8 @@ if Meteor.isServer
     Meteor.publish 'top_groups', ()->
         Docs.find   
             model:'group'
-            parent_group_id:$exists:false
+            has_parent_group:$ne:true
+            # parent_group_id:$exists:false
             # _author_username:username
     Meteor.publish 'admin_notes', (username)->
         Docs.find   

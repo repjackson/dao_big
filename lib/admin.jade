@@ -58,58 +58,64 @@ template(name='admin_footer')
             i.chevron.right.icon
         div
         if session_is 'view_admin' true
-            .ui.large.basic.label 
-                |current route:
-                |#{current_route}
-            .ui.large.basic.label
-                |pathname root:
-                |#{pathname_root}
-            .ui.inline.header
-                i.content.icon
-                |notes
-            i.plus.circular.link.icon.add_admin_note
-            .ui.list
-                each admin_notes
-                    if is_editing
-                        +textarea_edit key='body' label='body' direct=true
-                        i.checkmark.circular.green.link.big.icon.save
-                        i.remove.circular.red.link.icon.delete
-                    else
-                        .item 
-                            |#{body}
-                            .ui.label #{_author_username}
-                        i.pencil.circular.link.icon.edit
-            .ui.inline.header
-                i.tasks.icon
-                |tasks
-            i.plus.circular.link.icon.add_admin_task
-            .ui.selection.list
-                each admin_tasks
-                    if is_editing   
-                        +text_edit key='body' direct=true
-                        i.checkmark.circular.green.link.big.icon.save
-                        i.remove.circular.red.link.icon.delete
-                    else
-                        i.pencil.circular.link.icon.edit
-                        .ui.inline.header #{body}
-                        .ui.label #{_author_username}
-            div
-            .ui.inline.header 
-                i.fire.icon
-                |group switcher
-            .ui.large.label
-                |#{currentUser.current_group_id}
-            each top_groups
-                .ui.button.switch_to_group(class=group_switcher_class)
-                    |#{title}
-            div
-            .ui.inline.header 
-                i.user.icon
-                |user switcher
-            each current_group_members
-                .ui.button.switch_to_user
-                    |#{username} 
-                    .ui.label #{role}
+            .ui.stackable.padded.grid.admin_panel
+                .eight.wide.column
+                    .ui.large.basic.label 
+                        |current route:
+                        |#{current_route}
+                    .ui.large.basic.label
+                        |pathname root:
+                        |#{pathname_root}
+                    .ui.inline.header
+                        i.content.icon
+                        |notes
+                    i.plus.circular.link.icon.add_admin_note
+                    .ui.list
+                        each admin_notes
+                            if is_editing
+                                +textarea_edit key='body' label='body' direct=true
+                                i.checkmark.circular.green.link.big.icon.save
+                                i.remove.circular.red.link.icon.delete
+                            else
+                                .item 
+                                    |#{body}
+                                    .ui.label #{_author_username}
+                                i.pencil.circular.link.icon.edit
+                .eight.wide.column
+                    .ui.inline.header
+                        i.tasks.icon
+                        |tasks
+                    i.plus.circular.link.icon.add_admin_task
+                    .ui.selection.list
+                        each admin_tasks
+                            if is_editing   
+                                +text_edit key='body' direct=true
+                                i.checkmark.circular.green.link.big.icon.save
+                                i.remove.circular.red.link.icon.delete
+                            else
+                                i.pencil.circular.link.icon.edit
+                                .ui.inline.header #{body}
+                                .ui.label #{_author_username}
+                    div
+                .eight.wide.column
+                    .ui.inline.header 
+                        i.fire.icon
+                        |group switcher
+                    // .ui.large.label
+                    //     |#{currentUser.current_group_id}
+                    each top_groups
+                        a.ui.link.image.label.switch_to_group(class=group_switcher_class)
+                            img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+                            |#{title}
+                    div
+                .eight.wide.column
+                    .ui.inline.header 
+                        i.user.icon
+                        |user switcher
+                    each current_group_members
+                        .ui.button.switch_to_user
+                            |#{username} 
+                            .ui.label #{role}
 
 
 template(name='role_picker')
