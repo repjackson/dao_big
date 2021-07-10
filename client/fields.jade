@@ -646,7 +646,7 @@ template(name='child_view')
         //     .ui.divider
 template(name='boolean_edit')
     //- div
-    .ui.button.toggle_boolean(class="#{boolean_toggle_class} #{cl}" title=tooltip)
+    .ui.circular.button.toggle_boolean(class="#{boolean_toggle_class} #{cl}" title=tooltip)
         if field_value
             i.green.checkmark.icon
         else

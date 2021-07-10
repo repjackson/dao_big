@@ -409,7 +409,7 @@ Template.boolean_edit.helpers
             parent = Template.parentData()
         else
             parent = Template.parentData(5)
-        if parent["#{@key}"] then 'active' else 'basic'
+        if parent["#{@key}"] then 'blue' else 'basic'
 
 
 Template.boolean_edit.events
@@ -461,11 +461,11 @@ Template.single_doc_edit.helpers
         target = Template.parentData(2)
         if @direct
             if target["#{ref_field.key}"]
-                if @ref_field is target["#{ref_field.key}"] then 'active' else ''
+                if @ref_field is target["#{ref_field.key}"] then 'blue' else ''
             else ''
         else
             if parent["#{ref_field.key}"]
-                if @slug is parent["#{ref_field.key}"] then 'active' else ''
+                if @slug is parent["#{ref_field.key}"] then 'blue' else ''
             else ''
 
 
@@ -532,7 +532,7 @@ Template.multi_doc_edit.helpers
         target = Template.parentData(2)
 
         if target["#{ref_field.key}"]
-            if @slug in target["#{ref_field.key}"] then 'active' else ''
+            if @slug in target["#{ref_field.key}"] then 'blue' else ''
         else
             ''
 

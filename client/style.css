@@ -115,6 +115,7 @@ body, p, header {
 }
 .button, .selector, .card, p, .header, .image, .fade {
     animation: fadein 1s !important;
+    /*animation: slide 1s !important;*/
      /*-webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout .5s; */
 }
@@ -124,7 +125,8 @@ body, p, header {
 }
 @keyframes slide {
   from { width: 0%}
-  to   { width: 100%}
+  /*to   { width: 100%}*/
+  to   { width: inherit}
 }
 @keyframes drop {
   from { height: 0%}
@@ -640,7 +642,11 @@ input.username_search{
     padding:40px!important;
 } */
 
+.label {
+    border-radius: 10px !important; 
+}
 .button {
+    border-radius: 20px !important; 
     margin:2px !important;
 }
 
@@ -795,7 +801,7 @@ input.username_search{
 }
 
 .ui.header{
-    /* font-family: 'Raleway', sans-serif !important; */
+     font-family: 'Ubuntu', sans-serif !important; 
     /* font-family: 'Roboto', sans-serif !important; */
      /*font-family: 'Benne' !important; */
     /*font-family: 'Goudy Bookletter 1911', sans-serif !important;*/
