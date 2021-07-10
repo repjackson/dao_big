@@ -35,6 +35,8 @@ if Meteor.isClient
         task_docs: ->
             Docs.find 
                 model:'task'
+                group_id: Meteor.user().current_group_id
+                
         task_tag_results: ->
             Results.find {
                 model:'task_tag'
