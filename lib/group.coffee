@@ -193,7 +193,7 @@ if Meteor.isClient
                 Docs.find
                     model:'group'
                     # _author_id:Meteor.userId()
-                    _id:$nin:current_group.parent_group_ids
+                    _id:$nin:[current_group.parent_group_id]
             else 
                 Docs.find
                     model:'group'

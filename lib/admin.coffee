@@ -6,6 +6,12 @@ if Meteor.isClient
         @render 'admin'
         ), name:'admin'
             
+    Template.admin_footer.onCreated ->
+        @autorun => @subscribe 'top_groups', ->
+        @autorun => @subscribe 'admin_user_switcher', ->
+        
+        
+        
     Template.admin.onCreated ->
         @autorun => @subscribe 'admin_tasks',
             picked_post_tags.array()
@@ -20,10 +26,10 @@ if Meteor.isClient
 
     
     
-    Template.post_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'post_work', Router.current().params.doc_id, ->
-        # @autorun => Meteor.subscribe 'model_docs', 'post', ->
+    # Template.post_view.onCreated ->
+    #     @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
+    #     @autorun => Meteor.subscribe 'post_work', Router.current().params.doc_id, ->
+    #     # @autorun => Meteor.subscribe 'model_docs', 'post', ->
     
 
 
@@ -37,6 +43,28 @@ if Meteor.isClient
 
                 
             
+    Template.admin_footer.events
+        'click .switch_to_group': ->
+            Meteor.users.update Meteor.userId(),
+                $set:
+                    current_group_id:@_id
+                    
+    
+    Template.admin_footer.helpers
+        group_switcher_class: ->
+            if Meteor.user().current_group_id and @_id is Meteor.user().current_group_id
+                'black'
+            else
+                'basic'
+            
+        top_groups: ->
+            Docs.find   
+                model:'group'
+                parent_group_id:$exists:false
+                # _author_username:username
+                
+                
+                
     Template.admin.helpers
         picked_post_tags: -> picked_post_tags.array()
     
@@ -49,6 +77,11 @@ if Meteor.isClient
                 
         
 if Meteor.isServer
+    Meteor.publish 'top_groups', ()->
+        Docs.find   
+            model:'group'
+            parent_group_id:$exists:false
+            # _author_username:username
     Meteor.publish 'admin_notes', (username)->
         Docs.find   
             model:'note'

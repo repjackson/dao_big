@@ -89,7 +89,23 @@ template(name='admin_footer')
                         i.pencil.circular.link.icon.edit
                         .ui.inline.header #{body}
                         .ui.label #{_author_username}
-                            
+            div
+            .ui.inline.header 
+                i.fire.icon
+                |group switcher
+            .ui.large.label
+                |#{currentUser.current_group_id}
+            each top_groups
+                .ui.button.switch_to_group(class=group_switcher_class)
+                    |#{title}
+            div
+            .ui.inline.header 
+                i.user.icon
+                |user switcher
+            each group_members
+                .ui.button.switch_to_user
+                    |#{username} 
+                    .ui.label #{role}
 
 
 template(name='role_picker')
