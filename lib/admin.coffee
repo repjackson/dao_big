@@ -10,7 +10,33 @@ if Meteor.isClient
         @autorun => @subscribe 'top_groups', ->
         @autorun => @subscribe 'admin_user_switcher', ->
         @autorun => @subscribe 'current_group_members', ->
+    Template.admin_footer.events
+        'click .toggle_admin_view': -> 
+            Session.set('view_admin', !Session.get('view_admin'))
+        'click .save': -> Session.set('editing_id', null)
+        'click .edit': -> Session.set('editing_id',@_id) 
+        'click .delete': -> 
+            if confirm "delete #{@title} task?"
+                Docs.remove @_id
+    
+        'click .add_admin_task': ->
+            console.log window.location.pathname.split('/')[1]
+    
+            new_id = 
+                Docs.insert 
+                    model:'task'
+                    admin:true
+                    pathname_root: window.location.pathname.split('/')[1]
+            Session.set('editing_id', new_id)
+        'click .add_admin_note': ->
+            new_id = 
+                Docs.insert 
+                    model:'note'
+                    admin:true
+                    pathname_root: window.location.pathname.split('/')[1]
+            Session.set('editing_id', new_id)
         
+
         
         
     Template.admin.onCreated ->

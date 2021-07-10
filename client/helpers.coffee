@@ -51,6 +51,7 @@ Template.registerHelper 'sibling_groups', (id)->
     Docs.find
         model:'group'
         # parent_group_ids:$in:[current_group._id]
+        has_parent_group:true
         parent_group_id:@parent_group_id
         _id:$ne:@_id
     

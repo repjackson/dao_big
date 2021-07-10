@@ -61,9 +61,9 @@ template(name='transfers')
             .ui.inline.header 
                 i.exchange.icon
                 |#{request_docs.count} requests
-            .ui.basic.compact.circular.button new
-            .ui.basic.compact.circular.button in progress
-            .ui.basic.compact.circular.button delivered
+            .ui.basic.compact.button new
+            .ui.basic.compact.button in progress
+            .ui.basic.compact.button delivered
             .ui.large.selection.link.animated.list.scrolling
                 each request_docs
                     +request_item

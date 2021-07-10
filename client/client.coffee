@@ -35,38 +35,14 @@ Template.admin_footer.helpers
     is_editing: ->
         Session.equals('editing_id', @_id)
     
-Template.admin_footer.events
-    'click .toggle_admin_view': -> 
-        Session.set('view_admin', !Session.get('view_admin'))
-    'click .save': -> Session.set('editing_id', null)
-    'click .edit': -> Session.set('editing_id',@_id) 
-    'click .delete': -> 
-        if confirm "delete #{@title} task?"
-            Docs.remove @_id
-
-    'click .add_admin_task': ->
-        console.log window.location.pathname.split('/')[1]
-
-        new_id = 
-            Docs.insert 
-                model:'task'
-                admin:true
-                pathname_root: window.location.pathname.split('/')[1]
-        Session.set('editing_id', new_id)
-    'click .add_admin_note': ->
-        new_id = 
-            Docs.insert 
-                model:'note'
-                admin:true
-                pathname_root: window.location.pathname.split('/')[1]
-        Session.set('editing_id', new_id)
-        
         
 Template.body.events
     'click .zoom_out': (e,t)->
         $(e.currentTarget).closest('.grid').transition('scale', 500)
     'click .fly_right': (e,t)->
         $(e.currentTarget).closest('.grid').transition('fly right', 500)
+    'click .fly_left': (e,t)->
+        $(e.currentTarget).closest('.grid').transition('fly left', 500)
 
 
     "click a:not('.no_blink')": ->
