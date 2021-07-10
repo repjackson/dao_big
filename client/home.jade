@@ -1,36 +1,41 @@
 template(name='home')
     .ui.padded.stackable.five.column.centered.grid
-        // .ui.header Rosetta Hall
-        a.center.aligned.column.zoomer(href="/users")
-            .ui.icon.header
-                i.users.icon
-                |users
-        a.center.aligned.column.zoomer(href="/posts")
-            .ui.icon.header
-                i.blog.icon
-                |posts
-        a.center.aligned.column.zoomer(href="/requests")
-            .ui.icon.header
-                i.bullhorn.icon
-                |requests
-        a.center.aligned.column.zoomer(href="/items")
-            .ui.icon.header
-                i.food.icon
-                |items
-        a.center.aligned.column.zoomer(href="/tasks")
-            .ui.icon.header
-                i.tasks.icon
-                |tasks
-        a.center.aligned.column.zoomer(href="/work")
-            .ui.icon.header
-                i.wrench.icon
-                |work
-        a.center.aligned.column.zoomer(href="/products")
-            .ui.icon.header
-                i.shop.icon
-                |products
-        a.center.aligned.column.zoomer(href="/groups")
-            .ui.icon.header
-                i.fire.icon
-                |groups
+        .row
+            img.ui.small.inline.image(src="{{c.url current_group.image_id }}")
+
+            .ui.header 
+                |#{current_group.title}
+        .row
+            a.center.aligned.column.zoomer(href="/users")
+                .ui.icon.header
+                    i.users.icon
+                    |users
+            a.center.aligned.column.zoomer(href="/posts")
+                .ui.icon.header
+                    i.blog.icon
+                    |posts
+            a.center.aligned.column.zoomer(href="/requests")
+                .ui.icon.header
+                    i.bullhorn.icon
+                    |requests
+            a.center.aligned.column.zoomer(href="/items")
+                .ui.icon.header
+                    i.food.icon
+                    |items
+            a.center.aligned.column.zoomer(href="/tasks")
+                .ui.icon.header
+                    i.tasks.icon
+                    |tasks
+            a.center.aligned.column.zoomer(href="/work")
+                .ui.icon.header
+                    i.wrench.icon
+                    |work
+            a.center.aligned.column.zoomer(href="/products")
+                .ui.icon.header
+                    i.shop.icon
+                    |products
+            a.center.aligned.column.zoomer(href="/groups")
+                .ui.icon.header
+                    i.fire.icon
+                    |groups
             

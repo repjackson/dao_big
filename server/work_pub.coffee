@@ -16,6 +16,8 @@ Meteor.publish 'work_facets', (
 
     self = @
     match = {app:'pes'}
+    match.group_id = Meteor.user().current_group_id
+    
     match.model = 'work'
     # if view_vegan
     #     match.vegan = true
@@ -140,6 +142,8 @@ Meteor.publish 'work_docs', (
     self = @
     match = {app:'pes'}
     match.model = 'work'
+    match.group_id = Meteor.user().current_group_id
+    
     # if view_vegan
     #     match.vegan = true
     # if view_gf

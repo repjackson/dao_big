@@ -298,6 +298,8 @@ if Meteor.isServer
             sort_direction = parseInt(doc_sort_direction)
         self = @
         match = {model:'product', app:'pes'}
+        match.group_id = Meteor.user().current_group_id
+
         if picked_ingredients.length > 0
             match.ingredients = $all: picked_ingredients
             # sort = 'price_per_serving'

@@ -13,6 +13,8 @@ Meteor.publish 'task_facets', (
     self = @
     match = {}
     # match = {app:'pes'}
+    match.group_id = Meteor.user().current_group_id
+    
     match.model = 'task'
     if title_filter and title_filter.length > 1
         match.title = {$regex:title_filter, $options:'i'}
@@ -145,6 +147,8 @@ Meteor.publish 'task_docs', (
     match = {}
     # match = {app:'pes'}
     match.model = 'task'
+    match.group_id = Meteor.user().current_group_id
+    
     if title_filter and title_filter.length > 1
         match.title = {$regex:title_filter, $options:'i'}
     

@@ -9,7 +9,7 @@ Template.registerHelper 'rental', () ->
     Docs.findOne @rental_id
     # Template.parentData()
 Template.registerHelper 'current_group', () ->
-    if Meteor.userId() and Meteor.user().current_group_id
+    if Meteor.user() and Meteor.user().current_group_id
         Docs.findOne Meteor.user().current_group_id
         
     # Template.parentData()

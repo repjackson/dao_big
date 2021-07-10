@@ -124,8 +124,6 @@ Router.route '/group/:name', (->
     @render 'group'
     ), name:'group'
 
-Template.items.onCreated ->
-    @autorun -> Meteor.subscribe 'model_docs', 'item'
 Template.transfers.onCreated ->
     @autorun -> Meteor.subscribe 'model_docs', 'request'
 Template.requests.onCreated ->

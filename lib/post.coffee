@@ -56,10 +56,6 @@ if Meteor.isClient
                 
         
 if Meteor.isServer
-    Meteor.publish 'user_sent_post', (username)->
-        Docs.find   
-            model:'post'
-            _author_username:username
     Meteor.publish 'product_post', (product_id)->
         Docs.find   
             model:'post'
