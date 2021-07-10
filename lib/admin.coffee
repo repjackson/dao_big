@@ -9,6 +9,7 @@ if Meteor.isClient
     Template.admin_footer.onCreated ->
         @autorun => @subscribe 'top_groups', ->
         @autorun => @subscribe 'admin_user_switcher', ->
+        @autorun => @subscribe 'current_group_members', ->
         
         
         
@@ -64,6 +65,11 @@ if Meteor.isClient
                 # _author_username:username
                 
                 
+        current_group_members: ->
+            Meteor.users.find   
+                membership_group_ids:$in:[Meteor.user().current_group_id]
+                
+                
                 
     Template.admin.helpers
         picked_post_tags: -> picked_post_tags.array()
@@ -77,6 +83,10 @@ if Meteor.isClient
                 
         
 if Meteor.isServer
+    Meteor.publish 'current_group_members', ()->
+        Meteor.users.find   
+            membership_group_ids:$in:[Meteor.user().current_group_id]
+        
     Meteor.publish 'top_groups', ()->
         Docs.find   
             model:'group'

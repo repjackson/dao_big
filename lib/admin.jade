@@ -102,7 +102,7 @@ template(name='admin_footer')
             .ui.inline.header 
                 i.user.icon
                 |user switcher
-            each group_members
+            each current_group_members
                 .ui.button.switch_to_user
                     |#{username} 
                     .ui.label #{role}
