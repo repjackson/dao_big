@@ -9,15 +9,15 @@ template(name='nav')
             a.icon.item.toggle_leftbar.no_blink
                i.bars.large.icon 
         if session_is 'is_global_searching' true
-            .ui.icon.transparent.inverted.input
-                if current_search
-                    i.link.remove.icon.clear_search(title='clear search')
-                else
-                    i.search.icon
+            .ui.icon.transparent.inverted.input.global_search_input
+                i.link.large.remove.icon.clear_search(title='clear search')
+                // if current_search
+                // else
+                //     i.search.icon
                 input.global_search(type='text' value=current_search autocomplete="off")
         else
             a.icon.item.init_global_search(title='search')
-                i.search.icon
+                i.search.large.icon
                 
         a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
             i.bullhorn.large.icon

@@ -106,7 +106,7 @@ template(name='post_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .ten.wide.column
+                .ten.wide.column.scrolling
                     +html_view key='body' direct=true
                     // +html_view key='content' direct=true
                     // +html_view key='description' direct=true

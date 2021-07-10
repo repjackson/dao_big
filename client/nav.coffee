@@ -147,8 +147,10 @@ if Meteor.isClient
         #     Meteor.call 'calc_user_points', Meteor.userId(), ->
             
         'click .init_global_search': -> 
-            $('.global_search').focus()
             Session.set('is_global_searching', true)
+            Meteor.setTimeout =>
+                $('.global_search').focus()
+            , 500
         'click .clear_search': -> 
             $('.global_search').val('')
             Session.set('is_global_searching', false)
