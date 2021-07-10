@@ -78,11 +78,13 @@ template(name='user_dashboard')
                 |#{title}
     with current_user
         .ui.header #{points} points
-        .ui.header 
+        .ui.inline.header 
             i.shield.icon
             |roles
         each roles
             .ui.label #{this}
+        .ui.header role (placeholder during beta): #{role}
+        
     unless is_current_user
         .ui.button.send_points
             |send points

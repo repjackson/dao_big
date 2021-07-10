@@ -118,7 +118,7 @@ if Meteor.isClient
                     console.log 'search', search
                     # Meteor.call 'log_term', search, ->
                     $('.global_search').val('')
-                    Session.set('.global_search', null)
+                    Session.set('global_search', null)
                     # # $('#search').val('').blur()
                     # # $( "p" ).blur();
                     # Meteor.setTimeout ->
@@ -146,7 +146,13 @@ if Meteor.isClient
         # 'click .view_profile': ->
         #     Meteor.call 'calc_user_points', Meteor.userId(), ->
             
-        # 'click .clear_tags': -> picked_tags.clear()
+        'click .init_global_search': -> 
+            $('.global_search').focus()
+            Session.set('is_global_searching', true)
+        'click .clear_search': -> 
+            $('.global_search').val('')
+            Session.set('is_global_searching', false)
+            Session.set('global_search', null)
     
     # Template.topbar.onCreated ->
     #     @autorun => Meteor.subscribe 'my_received_messages'

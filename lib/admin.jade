@@ -47,11 +47,15 @@ template(name='mark_read_button')
 
 
 template(name='admin_footer')
-    .ui.fluid.red.segment
+    .ui.fluid.black.segment
         span.pointer.toggle_admin_view
             a.ui.inline.header 
                 i.shield.icon
                 |admin
+        if session_is 'view_admin' true
+            i.chevron.down.icon
+        else
+            i.chevron.right.icon
         div
         if session_is 'view_admin' true
             .ui.large.basic.label 
