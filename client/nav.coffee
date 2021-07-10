@@ -1,7 +1,7 @@
 if Meteor.isClient
     Template.nav.onCreated ->
         @autorun => Meteor.subscribe 'me'
-        # @autorun => Meteor.subscribe 'all_users'
+        @autorun => Meteor.subscribe 'current_group'
         # @autorun => Meteor.subscribe 'my_cart'
         # @autorun => Meteor.subscribe 'my_unread_messages'
         # @autorun => Meteor.subscribe 'global_stats'
@@ -124,6 +124,12 @@ if Meteor.isClient
                     # Meteor.setTimeout ->
                     #     Session.set('dummy', !Session.get('dummy'))
                     # , 10000
+            else if e.which is 27
+                $('.global_search').val('')
+                $('.global_search').blur()
+                Session.set('is_global_searching', false)
+                Session.set('global_search', null)
+                    
         , 500)
     
         # 'click .alerts': ->
@@ -262,4 +268,8 @@ if Meteor.isClient
         #         Router.go '/'
 
 
-    Template.nav.helpers
+if Meteor.isServer
+    Meteor.publish 'current_group', ->
+        Docs.find
+            model:'group'
+            _id:Meteor.user().current_group_id

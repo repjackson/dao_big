@@ -8,6 +8,8 @@ template(name='nav')
         else 
             a.icon.item.toggle_leftbar.no_blink
                i.bars.large.icon 
+        if current_group
+            a.item(href='/') #{current_group.title}
         if session_is 'is_global_searching' true
             .ui.icon.transparent.inverted.input.global_search_input
                 i.link.large.remove.icon.clear_search(title='clear search')
