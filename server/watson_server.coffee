@@ -100,20 +100,20 @@ Meteor.methods
                 limit:20
             features:
                 entities:
-                    emotion: false
-                    sentiment: false
-                    mentions: false
+                    emotion: true
+                    sentiment: true
+                    mentions: true
                     limit: 20
                 keywords:
-                    emotion: false
-                    sentiment: false
+                    emotion: true
+                    sentiment: true
                     limit: 20
                 concepts: {}
                 emotion: {}
-                # categories:
-                #     explanation:false
-                # metadata: {}
-                # relations: {}
+                categories:
+                    explanation:false
+                metadata: {}
+                relations: {}
                 # semantic_roles: {}
                 sentiment: {}
         # console.log 'doc watson', doc.domain

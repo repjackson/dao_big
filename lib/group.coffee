@@ -146,8 +146,12 @@ if Meteor.isClient
         current_group_title_filter: ->
             Session.get('group_title_filter')
         group_docs: ->
-            Docs.find 
-                model:'group'
+            match = {model:'group'}
+            if Session.get('group_title_filter')
+                match.title = {$regex:Session.get('group_title_filter'), $options:'i'}
+            Docs.find match
+            
+            
         group_tag_results: ->
             Results.find {
                 model:'group_tag'

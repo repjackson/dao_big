@@ -89,9 +89,9 @@ Template.call_watson.events
     'click .autotag': -> 
         $('body').toast(
             position: 'bottom center',
-            showIcon: 'refresh'
+            showIcon: 'brain'
             message: 'autotagging'
-            displayTime: 'auto',
+            # displayTime: 'auto',
         )
         # Meteor.call 'call_watson',Router.current().params.doc_id,'url','url',(err,res)=>
         Meteor.call 'call_watson',Router.current().params.doc_id,@key,@mode,(err,res)=>

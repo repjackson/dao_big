@@ -5,6 +5,8 @@ template(name='tasks')
                 i.tasks.icon
                 |tasks
             div
+            if currentUser
+                i.plus.large.link.circular.icon.add_task
             .ui.inline.small.header 
                 i.user.friends.icon
                 |authors
@@ -106,7 +108,20 @@ template(name='task_edit')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
-                    +number_edit key='points' label='points' direct=true
+                    +boolean_edit key='has_user_assignment' label='has user assignment' direct=true
+                    if has_user_assignment
+                        each group_members
+                            .ui.button.assign_member #{username}
+                    +boolean_edit key='has_minute_expectation' label='has minute expectation' direct=true
+                    if has_minute_expectation
+                        +number_edit key='minute_expectation' label='time expectation (minutes)' direct=true
+                    +boolean_edit key='has_duedatetime' label='has due date/time' icon='calendar' direct=true
+                    if has_duedatetime
+                        +datetime_edit key='due_datetime' label='due date/time' icon='calendar' direct=true
+                    +number_edit key='amount' label='amount (leave 0 for infinite)' direct=true
+                    +boolean_edit key='has_point_bounty' label='has point bounty' icon='hashtag' direct=true
+                    if has_point_bounty
+                        +number_edit key='point_bounty' label='point_bounty' direct=true
                     div
                 .ten.wide.column
                     div
@@ -128,7 +143,7 @@ template(name='task_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .four.wide.column
+                .six.wide.column
                     a.ui.basic.icon.button(href="/tasks")
                         i.wrench.icon
                     .ui.inline.header
@@ -138,7 +153,22 @@ template(name='task_view')
                     div
                     a.ui.icon.button(href="/task/#{_id}/edit")
                         i.pencil.icon
-                .eight.wide.column
+                    +boolean_view key='has_user_assignment' label='has user assignment' direct=true
+                    if has_user_assignment
+                        each group_members
+                            .ui.button.assign_member #{username}
+                    +boolean_view key='has_minute_expectation' label='has minute expectation' direct=true
+                    if has_minute_expectation
+                        +number_view key='minute_expectation' label='time expectation (minutes)' direct=true
+                    +boolean_view key='has_duedatetime' label='has due date/time' icon='calendar' direct=true
+                    if has_duedatetime
+                        +datetime_view key='due_datetime' label='due date/time' icon='calendar' direct=true
+                    +number_view key='amount' label='amount (leave 0 for infinite)' direct=true
+                    +boolean_view key='has_point_bounty' label='has point bounty' icon='hashtag' direct=true
+                    if has_point_bounty
+                        +number_view key='point_bounty' label='point_bounty' direct=true
+                        
+                .ten.wide.column
                     div.scrolling
                         +html_view key='notes' label='directions' direct=true
                     .ui.inline.header 
@@ -155,7 +185,6 @@ template(name='task_view')
                     .ui.list
                         each task_work
                             a.item(href="/work/#{_id}") #{when} #{_author_username}
-                .four.wide.column
                     +html_view key='description' label='description' direct=true
                     +voting_full
                     +comments
