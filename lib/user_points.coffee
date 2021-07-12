@@ -110,11 +110,13 @@ if Meteor.isClient
 
     Template.user_points.events
         'click .top_up': ->
-            user = Meteor.users.findOne(username:Router.current().params.username)
-            Docs.insert 
-                model:'topup'
-                topup_amount:10
-            Meteor.call 'calc_user_points', Router.current().params.username, ->
+            amount = prompt('amount?')
+            if amount
+                user = Meteor.users.findOne(username:Router.current().params.username)
+                Docs.insert 
+                    model:'topup'
+                    topup_amount:parseInt(amount)
+                Meteor.call 'calc_user_points', Router.current().params.username, ->
             # Meteor.users.update Meteor.userId(),
             #     $inc:points:1
             #     # $set:points:1

@@ -219,7 +219,7 @@ Meteor.methods
         for topup_doc in point_topup_docs 
             console.log topup_doc.topup_amount
             if topup_doc.topup_amount
-                point_topup_total += topup_doc.topup_amount
+                point_topup_total += parseInt(topup_doc.topup_amount)
             
         console.log 'topup credit total', point_topup_total
         
@@ -246,7 +246,7 @@ Meteor.methods
         for order in orders.fetch() 
             # console.log 'order purchase amount', order.purchase_amount
             if order.purchase_amount
-                total_debits += order.purchase_amount
+                total_debits += parseInt(order.purchase_amount)
             
         console.log 'total debits', total_debits
         console.log 'total credits', point_credit_total
