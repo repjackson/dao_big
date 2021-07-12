@@ -8,6 +8,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'user_by_username', Router.current().params.username, ->
         @autorun => Meteor.subscribe 'user_work', Router.current().params.username, ->
         @autorun => Meteor.subscribe 'user_orders', Router.current().params.username, ->
+        @autorun => Meteor.subscribe 'user_topups', Router.current().params.username, ->
         Meteor.call 'calc_user_points', Router.current().params.username, ->
         # @autorun => Meteor.subscribe 'model_docs', 'deposit'
         # @autorun => Meteor.subscribe 'model_docs', 'reservation'
@@ -99,15 +100,25 @@ if Meteor.isClient
                 _author_username: Router.current().params.username
             }, sort:_timestamp:-1
 
+        user_topups: ->
+            Docs.find {
+                model:'topup'
+                _author_username: Router.current().params.username
+            }, sort:_timestamp:-1
 
 
 
     Template.user_points.events
-        'click .add_points': ->
+        'click .top_up': ->
             user = Meteor.users.findOne(username:Router.current().params.username)
-            Meteor.users.update Meteor.userId(),
-                $inc:points:1
-                # $set:points:1
+            Docs.insert 
+                model:'topup'
+                topup_amount:10
+            Meteor.call 'calc_user_points', Router.current().params.username, ->
+            # Meteor.users.update Meteor.userId(),
+            #     $inc:points:1
+            #     # $set:points:1
+
         'click .remove_points': ->
             user = Meteor.users.findOne(username:Router.current().params.username)
             Meteor.users.update Meteor.userId(),
@@ -142,6 +153,13 @@ if Meteor.isServer
         # user = Meteor.users.findOne username:username
         Docs.find 
             model:'order'
+            _author_username:username
+            
+            
+    Meteor.publish 'user_topups', (username)->
+        # user = Meteor.users.findOne username:username
+        Docs.find 
+            model:'topup'
             _author_username:username
             
             

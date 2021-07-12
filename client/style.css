@@ -123,7 +123,8 @@ body {
 }
 
 body, p, header {
-  font-family: "Ubuntu","Montserrat",sans-serif;
+  /*font-family: "Ubuntu","Montserrat",sans-serif;*/
+  /*font-family: "Benne",sans-serif;*/
 }
 
 
@@ -819,7 +820,7 @@ input.username_search{
 }
 
 .ui.header{
-     font-family: 'Ubuntu', sans-serif !important; 
+     /*font-family: 'Ubuntu', sans-serif !important; */
     /* font-family: 'Roboto', sans-serif !important; */
      /*font-family: 'Benne' !important; */
     /*font-family: 'Goudy Bookletter 1911', sans-serif !important;*/

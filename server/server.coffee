@@ -182,20 +182,22 @@ Meteor.publish 'doc_tags', (selected_tags)->
 
 
 Meteor.methods
-    calc_request_stats: ->
-        res = Docs.aggregate [
-            { $group:
-                _id: "$item",
-                avgAmount: { $avg: { $multiply: [ "$price", "$quantity" ] } },
-                avgQuantity: { $avg: "$quantity" }
-             }
-        ]
-        console.log res
+    # calc_request_stats: ->
+    #     res = Docs.aggregate [
+    #         { $group:
+    #             _id: "$item",
+    #             avgAmount: { $avg: { $multiply: [ "$price", "$quantity" ] } },
+    #             avgQuantity: { $avg: "$quantity" }
+    #          }
+    #     ]
+    #     console.log res
 
     calc_user_points: (username)->
         user = Meteor.users.findOne username:username
         match = {}
         match._author_username = username
+       
+       
         match.model = 'work'
         match.task_points = $exists:true
         point_credit_total = 0
@@ -205,7 +207,21 @@ Meteor.methods
         for point_doc in point_credit_docs 
             point_credit_total += point_doc.task_points
             
-        console.log point_credit_total
+        console.log 'work credit total', point_credit_total
+        
+        topup_match = {}
+        topup_match.model = 'topup'
+        topup_match.topup_amount = $exists:true
+        point_topup_total = 0
+        
+        
+        point_topup_docs = Docs.find(topup_match).fetch()
+        for topup_doc in point_topup_docs 
+            console.log topup_doc.topup_amount
+            if topup_doc.topup_amount
+                point_topup_total += topup_doc.topup_amount
+            
+        console.log 'topup credit total', point_topup_total
         
         # res = Docs.aggregate [
         #     { $match: match }
@@ -228,13 +244,13 @@ Meteor.methods
                 
         total_debits = 0
         for order in orders.fetch() 
-            console.log 'order purchase amount', order.purchase_amount
+            # console.log 'order purchase amount', order.purchase_amount
             if order.purchase_amount
                 total_debits += order.purchase_amount
             
         console.log 'total debits', total_debits
         console.log 'total credits', point_credit_total
-        final_calculated_points = point_credit_total - total_debits
+        final_calculated_points = point_credit_total - total_debits + point_topup_total
         
         console.log 'total points', final_calculated_points
         if final_calculated_points
