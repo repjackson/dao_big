@@ -38,11 +38,11 @@ Template.admin_footer.helpers
         
 Template.body.events
     'click .zoom_out': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('scale', 500)
+        $(e.currentTarget).closest('.grid').transition('scale', 250)
     'click .fly_right': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly right', 500)
+        $(e.currentTarget).closest('.grid').transition('fly right', 250)
     'click .fly_left': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly left', 500)
+        $(e.currentTarget).closest('.grid').transition('fly left', 250)
 
 
     "click a:not('.no_blink')": ->

@@ -248,25 +248,4 @@ if Meteor.isServer
                     purchased:true
                     purchase_timestamp: Date.now()
             console.log 'marked complete'
-            # Meteor.call 'calc_customer_points', @_author_id
-                
-                    
-            # calc_customer_points: (user_id)->
-            user = Meteor.users.findOne current_order._author_id
-            console.log 'user points', user.points
-            orders = 
-                Docs.find 
-                    model:'order'
-                    _author_id:current_order._author_id
-                    
-            total_debits = 0
-            for order in orders.fetch() 
-                console.log 'order purchase amount', order.purchase_amount
-                if order.purchase_amount
-                    total_debits += order.purchase_amount
-                
-            console.log 'total debits', total_debits
-            
-            Meteor.users.update current_order._author_id,
-                $set:
-                    points: -total_debits
+            Meteor.call 'calc_user_points', @_author_id, ->

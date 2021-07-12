@@ -190,62 +190,77 @@ template(name='product_card')
             // .ui.inline.inline.small.grey.header #{points} 
                 // i.line.chart.icon
 
-
+template(name='product_layout')
+    +nav
+    .ui.bottom.attached.pushable.segment
+        // +topbar
+        +left_sidebar
+        +right_sidebar
+        // +cartbar
+        // +walletbar
+        // +secnav
+        with current_doc
+            .ui.stackable.padded.grid
+                .row
+                    .six.wide.column
+                        a.ui.basic.icon.button.fly_left(href="/products")
+                            i.large.shop.icon
+                        .ui.large.inline.header 
+                            //- small viewing
+                            | #{title}
+                            //- small product
+                        if can_edit
+                            a.fly_right(href="/product/#{_id}/edit")
+                                i.pencil.blue.large.circular.link.icon
+                        // a(href="{{c.url image_id}}" target="_window")
+                        img.ui.rounded.fluid.image.zoomer(src="{{c.url image_id}}")
+                        div 
+                        // +text_view key='size_description' label='size description'  direct=true
+                        // +link_view key='product_link' label='link' icon='wordpress' direct=true
+                        a.ui.small.inline.header.zoomer(href="/group/#{group_doc._id}") 
+                            i.fire.icon
+                            img.ui.rounded.tiny.image.zoomer(src="{{c.url group_doc.image_id}}")
+                            small group
+                            |#{group_doc.title}
+                        .ui.header 
+                            i.eye.icon
+                            |#{views}
+                            |views
+                        div
+                        +voting_full
+                        +html_view key='description' direct=true
+                        +array_view key='tags' label='tags' icon='tags' direct=true
+                        a.ui.inline.header(href="/group/#{group_id}")
+                            |#{group_doc._title}
+                    .ten.wide.column
+                        .ui.green.big.button.record_order.fly_right
+                            i.send.big.icon
+                            |buy for #{price_points}p
+                        // div
+                        a.ui.button(href="/product/#{_id}/timeline" class="{{isActiveRoute 'product_timeline }}"))
+                            i.line.chart.icon
+                            |timeline
+                        a.ui.button(href="/product/#{_id}/orders" class="{{isActiveRoute 'product_orders}}"))
+                            i.money.icon
+                            |orders
+                        a.ui.button(href="/product/#{_id}/reviews" class="{{isActivePath '/tasks'}}"))
+                            i.bullhorn.icon
+                            |reviews
+                        a.ui.button(href="/product/#{_id}/description" class="{{isActivePath '/tasks'}}"))
+                            i.content.icon
+                            |description
+                        a.ui.button(href="/product/#{_id}/comments" class="{{isActivePath '/tasks'}}"))
+                            i.chat.icon
+                            |comments
+                        a.ui.button(href="/product/#{_id}/fans" class="{{isActivePath '/tasks'}}"))
+                            i.certificate.icon
+                            |fans
+                        +yield
+                    
 template(name='product_view')
-    with current_doc
-        .ui.stackable.padded.grid
-            .row
-                .six.wide.column
-                    a.ui.basic.icon.button.fly_left(href="/products")
-                        i.large.shop.icon
-                    .ui.large.inline.header 
-                        //- small viewing
-                        | #{title}
-                        //- small product
-                    if can_edit
-                        a.fly_right(href="/product/#{_id}/edit")
-                            i.pencil.blue.large.circular.link.icon
-                    // a(href="{{c.url image_id}}" target="_window")
-                    img.ui.rounded.fluid.image.zoomer(src="{{c.url image_id}}")
-                    div 
-                    // +text_view key='size_description' label='size description'  direct=true
-                    // +link_view key='product_link' label='link' icon='wordpress' direct=true
-                    .ui.small.inline.header 
-                        i.fire.icon
-                        small group
-                        |#{group_doc.title}
-                    .ui.header 
-                        i.eye.icon
-                        |#{views}
-                        |views
-                    div
-                    +voting_full
-                    +html_view key='description' direct=true
-                    +array_view key='tags' label='tags' icon='tags' direct=true
-                    a.ui.inline.header(href="/group/#{group_id}")
-                        |#{group_doc._title}
-                .ten.wide.column
-                    .ui.green.big.fluid.button.record_order.fly_right
-                        i.send.large.icon
-                        |buy
-                    // .ui.large.button.record_order
-                    //     i.large.pencil.icon
-                    //     |record order
-                    div
-                    .ui.header 
-                        i.list.icon
-                        |#{product_orders.count}
-                        |orders
-                    .ui.selection.animated.list
-                        each product_orders
-                            a.item.fly_right(href="/order/#{_id}") 
-                                .content
-                                    .header #{purchase_amount}p by @#{_author_username}
-                                    .meta #{when}
-                    +link_view key='external_link' label='external link' icon='globe' direct=true
-                    +comments
-                    if in_dev
-                        +print_this
+    +comments
+    if in_dev
+        +print_this
         
         
 template(name='order_status_icons')  
@@ -339,3 +354,23 @@ template(name='product_edit')
                         .ui.red.button.delete_product
                             i.remove.icon   
                             | delete
+                            
+                            
+                            
+                            
+template(name='product_comments')
+template(name='product_timeline')
+    .ui.header timeline
+template(name='product_orders')
+    .ui.header orders
+    .ui.header 
+        i.list.icon
+        |#{product_orders.count}
+        |orders
+    .ui.selection.animated.list
+        each product_orders
+            a.item.fly_right(href="/order/#{_id}") 
+                .content
+                    .header #{purchase_amount}p by @#{_author_username}
+                    .meta #{when}
+    +link_view key='external_link' label='external link' icon='globe' direct=true
