@@ -36,18 +36,18 @@ if Meteor.isClient
                 })
                 .sidebar('attach events', '.toggle_rightbar')
         , 2000
-        Meteor.setTimeout ->
-            $('.ui.topbar.sidebar')
-                .sidebar({
-                    context: $('.bottom.segment')
-                    transition:'scale'
-                    mobileTransition:'scale'
-                    exclusive:true
-                    duration:200
-                    scrollLock:true
-                })
-                .sidebar('attach events', '.toggle_topbar')
-        , 2000
+        # Meteor.setTimeout ->
+        #     $('.ui.topbar.sidebar')
+        #         .sidebar({
+        #             context: $('.bottom.segment')
+        #             transition:'scale'
+        #             mobileTransition:'scale'
+        #             exclusive:true
+        #             duration:200
+        #             scrollLock:true
+        #         })
+        #         .sidebar('attach events', '.toggle_topbar')
+        # , 2000
         # Meteor.setTimeout ->
         #     $('.ui.secnav.sidebar')
         #         .sidebar({
@@ -204,29 +204,29 @@ if Meteor.isClient
         #         recipient_id:Meteor.userId()
         #         read_ids:$nin:[Meteor.userId()]
         #     ).count()
-    Template.topbar.helpers
-        recent_alerts: ->
-            Docs.find 
-                model:'message'
-                recipient_id:Meteor.userId()
-                read_ids:$nin:[Meteor.userId()]
-            , sort:_timestamp:-1
+    # Template.topbar.helpers
+    #     recent_alerts: ->
+    #         Docs.find 
+    #             model:'message'
+    #             recipient_id:Meteor.userId()
+    #             read_ids:$nin:[Meteor.userId()]
+    #         , sort:_timestamp:-1
             
-    Template.recent_alert.events
-        'click .mark_read': (e,t)->
-            # console.log @
-            # console.log $(e.currentTarget).closest('.alert')
-            # $(e.currentTarget).closest('.alert').transition('slide left')
-            Meteor.call 'mark_read', @_id, ->
+    # Template.recent_alert.events
+    #     'click .mark_read': (e,t)->
+    #         # console.log @
+    #         # console.log $(e.currentTarget).closest('.alert')
+    #         # $(e.currentTarget).closest('.alert').transition('slide left')
+    #         Meteor.call 'mark_read', @_id, ->
                 
-            # Meteor.setTimeout ->
-            # , 500
+    #         # Meteor.setTimeout ->
+    #         # , 500
          
          
             
-    Template.topbar.events
-        'click .close_topbar': ->
-            Session.set('viewing_alerts', false)
+    # Template.topbar.events
+    #     'click .close_topbar': ->
+    #         Session.set('viewing_alerts', false)
     
             
             
