@@ -212,10 +212,8 @@ if Meteor.isClient
         'click .complete_order': (e,t)->
             console.log @
             if @purchase_amount
-                Router.go "/product/#{@product_id}"
-                Meteor.users.update Meteor.userId(),
-                    $inc:
-                        points: -@purchase_amount
+                Meteor.call 'complete_order', @_id, =>
+                    Router.go "/product/#{@product_id}"
             else 
                 alert 'no purchase amount'
             
@@ -233,3 +231,38 @@ if Meteor.isClient
         linked_product_doc: ->
             console.log @
             Docs.findOne @product_id
+            
+            
+if Meteor.isServer
+    Meteor.methods  
+        complete_order: (order_id)->
+            console.log 'completing order', order_id
+            current_order = Docs.findOne order_id            
+            Docs.update order_id, 
+                $set:
+                    status:'purchased'
+                    purchased:true
+                    purchase_timestamp: Date.now()
+            console.log 'marked complete'
+            # Meteor.call 'calc_customer_points', @_author_id
+                
+                    
+            # calc_customer_points: (user_id)->
+            user = Meteor.users.findOne current_order._author_id
+            console.log 'user points', user.points
+            orders = 
+                Docs.find 
+                    model:'order'
+                    _author_id:current_order._author_id
+                    
+            total_debits = 0
+            for order in orders.fetch() 
+                console.log 'order purchase amount', order.purchase_amount
+                if order.purchase_amount
+                    total_debits += order.purchase_amount
+                
+            console.log 'total debits', total_debits
+            
+            Meteor.users.update current_order._author_id,
+                $set:
+                    points: -total_debits

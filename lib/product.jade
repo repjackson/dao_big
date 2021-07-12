@@ -210,6 +210,10 @@ template(name='product_view')
                     div 
                     // +text_view key='size_description' label='size description'  direct=true
                     // +link_view key='product_link' label='link' icon='wordpress' direct=true
+                    .ui.small.inline.header 
+                        i.fire.icon
+                        small group
+                        |#{group_doc.title}
                 .ten.wide.column
                     .ui.green.big.fluid.button.record_order.fly_right
                         i.send.large.icon
@@ -220,9 +224,6 @@ template(name='product_view')
                     div
                     +html_view key='description' direct=true
                     +array_view key='tags' label='tags' icon='tags' direct=true
-                    .ui.small.inline.header 
-                        i.fire.icon
-                        small group
                     a.ui.inline.header(href="/group/#{group_id}")
                         |#{group_title}
                     .ui.header 

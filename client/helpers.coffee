@@ -60,6 +60,11 @@ Template.registerHelper 'sibling_groups', (id)->
 Template.registerHelper 'parent_group', ()->
     Docs.findOne
         _id:@parent_group_id
+        model:'group'
+Template.registerHelper 'group_doc', ()->
+    Docs.findOne
+        _id:@group_id
+        model:'group'
 
 Template.registerHelper 'user_from_id', (id)->
     Meteor.users.findOne id
