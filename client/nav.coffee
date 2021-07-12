@@ -271,6 +271,7 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.publish 'current_group', ->
-        Docs.find
-            model:'group'
-            _id:Meteor.user().current_group_id
+        if Meteor.user()
+            Docs.find
+                model:'group'
+                _id:Meteor.user().current_group_id

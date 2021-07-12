@@ -81,6 +81,7 @@ template(name='order_view')
                         |orders
                     a.ui.icon.button.fly_left(href="/product/#{product_id}")
                         i.chevron.left.icon
+                        |#{product_doc.title}
                         |product
                         // +i name='invoice' cl='ui avatar image'
                     .ui.inline.header 

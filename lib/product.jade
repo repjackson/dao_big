@@ -214,6 +214,16 @@ template(name='product_view')
                         i.fire.icon
                         small group
                         |#{group_doc.title}
+                    .ui.header 
+                        i.eye.icon
+                        |#{views}
+                        |views
+                    div
+                    +voting_full
+                    +html_view key='description' direct=true
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    a.ui.inline.header(href="/group/#{group_id}")
+                        |#{group_doc._title}
                 .ten.wide.column
                     .ui.green.big.fluid.button.record_order.fly_right
                         i.send.large.icon
@@ -222,12 +232,9 @@ template(name='product_view')
                     //     i.large.pencil.icon
                     //     |record order
                     div
-                    +html_view key='description' direct=true
-                    +array_view key='tags' label='tags' icon='tags' direct=true
-                    a.ui.inline.header(href="/group/#{group_id}")
-                        |#{group_title}
                     .ui.header 
                         i.list.icon
+                        |#{product_orders.count}
                         |orders
                     .ui.selection.animated.list
                         each product_orders
@@ -235,12 +242,6 @@ template(name='product_view')
                                 .content
                                     .header #{purchase_amount}p by @#{_author_username}
                                     .meta #{when}
-                    .ui.header 
-                        i.eye.icon
-                        |#{views}
-                        |views
-                    div
-                    +voting_full
                     +link_view key='external_link' label='external link' icon='globe' direct=true
                     +comments
                     if in_dev

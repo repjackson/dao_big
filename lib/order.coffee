@@ -212,8 +212,12 @@ if Meteor.isClient
         'click .complete_order': (e,t)->
             console.log @
             if @purchase_amount
-                Meteor.call 'complete_order', @_id, =>
-                    Router.go "/product/#{@product_id}"
+                if Meteor.user().points and @purchase_amount < Meteor.user().points
+                    Meteor.call 'complete_order', @_id, =>
+                        Router.go "/product/#{@product_id}"
+                else 
+                    alert "not enough points"
+                    Router.go "/user/#{Meteor.user().username}/points"
             else 
                 alert 'no purchase amount'
             
