@@ -71,13 +71,17 @@ template(name='order_item')
                 // each order_things
                 |#{when}, #{_author_username} 
 
-template(name='order')
+template(name='order_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
-                    a.ui.icon.button(href="/orders")
+                    a.ui.icon.button.fly_left(href="/orders")
                         i.chevron.left.icon
+                        |orders
+                    a.ui.icon.button.fly_left(href="/product/#{product_id}")
+                        i.chevron.left.icon
+                        |product
                         // +i name='invoice' cl='ui avatar image'
                     .ui.inline.header 
                         // strong '#{order_product.title}'
@@ -183,12 +187,12 @@ template(name='order')
                         |customer
                     if delivered
                         if is_author
-                            +kvs key='status' value='picked_up' label='picked up' direct=true
+                            // +kvs key='status' value='picked_up' label='picked up' direct=true
                             .ui.basic.large.button.mark_arrived
                                 +i name='pick-up' cl='ui inline image'
                                 |mark picked up
                             
-                    +kvs key='status' value='picked_up' label='mark picked up' direct=true
+                    // +kvs key='status' value='picked_up' label='mark picked up' direct=true
                         
                 .six.wide.column
                     +product_delivery
@@ -207,7 +211,7 @@ template(name='order')
                             |cancel
                     .ui.hidden.divider
                     +comments
-                    
+                    +print_this
                     
                     
                     
@@ -356,10 +360,11 @@ template(name='order_edit')
                     +linked_product
                     .ui.header #{when}
                 .eight.wide.column
+                    .ui.header purchase price: #{purchase_amount}pts
                     div
-                    +image_edit key='image_id' label='image' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
-                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    // +image_edit key='image_id' label='image' direct=true
+                    // +array_edit key='tags' label='tags' icon='tags' direct=true
+                    // +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     +textarea_edit key='notes' label='notes' direct=true
                     if in_dev
                         +print_this

@@ -26,21 +26,17 @@ if Meteor.isClient
 if Meteor.isClient
     Router.route '/order/:doc_id', (->
         @layout 'layout'
-        @render 'order'
-        ), name:'order'
-    Router.route '/order/:doc_id/view', (->
-        @layout 'layout'
-        @render 'order'
-        ), name:'order_long'
+        @render 'order_view'
+        ), name:'order_view'
 
 
-    Template.order.onCreated ->
+    Template.order_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'product_by_order_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'order_things', Router.current().params.doc_id
 
 
-    Template.order.events
+    Template.order_view.events
         'click .mark_viewed': ->
             # if confirm 'mark viewed?'
             Docs.update Router.current().params.doc_id, 
@@ -104,7 +100,7 @@ if Meteor.isClient
                     order_status:'ready'
 
 
-    Template.order.helpers
+    Template.order_view.helpers
         can_order: ->
             # if StripeCheckout
             unless @_author_id is Meteor.userId()
@@ -215,9 +211,14 @@ if Meteor.isClient
     Template.order_edit.events
         'click .complete_order': (e,t)->
             console.log @
-            # Meteor.users.update Meteor.userId(),
-            #     $inc:
-            #         points: @purchase_amount
+            if @purchase_amount
+                Router.go "/product/#{@product_id}"
+                Meteor.users.update Meteor.userId(),
+                    $inc:
+                        points: -@purchase_amount
+            else 
+                alert 'no purchase amount'
+            
             
         'click .delete_order': ->
             Docs.remove @_id

@@ -36,13 +36,16 @@ if Meteor.isClient
 
         'click .record_order': ->
             console.log @
-            new_id = 
-                Docs.insert 
-                    model:'order'
-                    product_id:Router.current().params.doc_id
-                    purchase_amount:@point_price
-            Router.go "/order/#{new_id}/edit"
-            
+            if @price_points
+                new_id = 
+                    Docs.insert 
+                        model:'order'
+                        product_id:Router.current().params.doc_id
+                        purchase_amount:@price_points
+                Router.go "/order/#{new_id}/edit"
+            else 
+                alert 'no price points'
+                Router.go "/product/#{@_id}/edit"
 
             
     Template.product_view.helpers

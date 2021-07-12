@@ -230,7 +230,10 @@ template(name='product_view')
                         |orders
                     .ui.selection.animated.list
                         each product_orders
-                            a.item(href="/order/#{_id}") #{when} #{_author_username}
+                            a.item.fly_right(href="/order/#{_id}") 
+                                .content
+                                    .header #{purchase_amount}p by @#{_author_username}
+                                    .meta #{when}
                     .ui.header 
                         i.eye.icon
                         |#{views}

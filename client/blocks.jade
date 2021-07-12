@@ -349,12 +349,12 @@ template(name='voting_full')
     // +ismall name='elections'
     // .ui.inline.header 
     //     |voting
-    .ui.large.icon.compact.basic.button.upvote(title='upvote')
-        i.thumbs.up.outline.icon(class=upvote_class)
-        //- |like
-    .ui.large.icon.compact.basic.button.downvote(title='downvote')
-        i.thumbs.down.outline.icon(class=downvote_class)
-        //- |dislike
+    // .ui.large.icon.compact.basic.button.upvote(title='upvote')
+    i.thumbs.up.outline.circular.large.link.icon.upvote(class=upvote_class)
+    //- |like
+    // .ui.large.icon.compact.basic.button.downvote(title='downvote')
+    i.thumbs.down.outline.link.large.circular.icon.downvote(class=downvote_class)
+    //- |dislike
     if points
         .ui.large.basic.label(title='points') #{points}pts
         if anon_points
