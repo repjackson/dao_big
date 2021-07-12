@@ -68,28 +68,31 @@ template(name='user_layout')
         //     +admin_footer
 
 template(name='user_dashboard')
-    .ui.header 
-        i.fire.icon
-        |groups
-    .ui.link.selection.list
-        each member_groups
-            a.item(href="/group/#{_id}")
-                img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
-                |#{title}
     with current_user
-        .ui.header #{points} points
-        .ui.inline.header 
-            i.shield.icon
-            |roles
-        each roles
-            .ui.label #{this}
-        .ui.header role (placeholder during beta): #{role}
-        
-    unless is_current_user
-        .ui.button.send_points
-            |send points
-    +user_requests
-    
+        .ui.four.column.grid
+            .column
+                .ui.header 
+                    i.fire.icon
+                    |groups
+                .ui.link.selection.list
+                    each member_groups
+                        a.item(href="/group/#{_id}")
+                            img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+                            |#{title}
+            .column
+                .ui.header #{points} points
+                .ui.inline.header 
+                    i.shield.icon
+                    |roles
+                each roles
+                    .ui.label #{this}
+                .ui.header role (placeholder during beta): #{role}
+                
+            unless is_current_user
+                .ui.button.send_points
+                    |send points
+            +user_requests
+            
     
     
 template(name='friend_button')

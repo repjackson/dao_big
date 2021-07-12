@@ -48,8 +48,8 @@ template(name='nav')
                 if in_role 'admin'
                     a.icon.item(href='/admin' title='admin')
                         i.large.shield.icon
-                a.icon.item.toggle_topbar(title='alerts')
-                    i.bell.outline.large.icon
+                // a.icon.item.toggle_topbar(title='alerts')
+                //     i.bell.outline.large.icon
                 a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
                     // i.wallet.icon
                     strong {{int currentUser.points}}p

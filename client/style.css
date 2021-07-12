@@ -661,11 +661,8 @@ input.username_search{
     padding:40px!important;
 } */
 
-.label {
-    border-radius: 10px !important; 
-}
-.button {
-    border-radius: 10px !important; 
+.button, input, .label {
+    border-radius: 20px !important; 
     margin:2px !important;
 }
 
