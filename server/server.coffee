@@ -203,7 +203,7 @@ Meteor.methods
         
         point_credit_docs = Docs.find(match).fetch()
         for point_doc in point_credit_docs 
-            point_total += point_doc.task_points
+            point_credit_total += point_doc.task_points
             
         console.log point_credit_total
         
@@ -219,12 +219,12 @@ Meteor.methods
         #     { $project: _id: 0, point_total: 1 }
         # ]
         # console.log res.toArray()
-        user = Meteor.users.findOne current_order._author_id
+        # user = Meteor.users.findOne current_order._author_id
         console.log 'user points', user.points
         orders = 
             Docs.find 
                 model:'order'
-                _author_id:current_order._author_id
+                _author_id:user._id
                 
         total_debits = 0
         for order in orders.fetch() 
@@ -237,14 +237,14 @@ Meteor.methods
         final_calculated_points = point_credit_total - total_debits
         
         console.log 'total points', final_calculated_points
-        Meteor.users.update current_order._author_id,
-            $set:
-                points: final_calculated_points
+        if final_calculated_points
+            Meteor.users.update user._id,
+                $set:
+                    points: final_calculated_points
 
 
-        if point_total
-            Meteor.users.update user._id, 
-                $set:points:point_total
+        #     Meteor.users.update user._id, 
+        #         $set:points:point_total
 
         # res.forEach (tag, i) =>
         #     console.log tag

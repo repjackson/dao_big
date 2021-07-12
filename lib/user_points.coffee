@@ -7,6 +7,7 @@ if Meteor.isClient
     Template.user_points.onCreated ->
         @autorun => Meteor.subscribe 'user_by_username', Router.current().params.username, ->
         @autorun => Meteor.subscribe 'user_work', Router.current().params.username, ->
+        @autorun => Meteor.subscribe 'user_orders', Router.current().params.username, ->
         Meteor.call 'calc_user_points', Router.current().params.username, ->
         # @autorun => Meteor.subscribe 'model_docs', 'deposit'
         # @autorun => Meteor.subscribe 'model_docs', 'reservation'
@@ -92,6 +93,12 @@ if Meteor.isClient
                 _author_username: Router.current().params.username
             }, sort:_timestamp:-1
 
+        user_orders: ->
+            Docs.find {
+                model:'order'
+                _author_username: Router.current().params.username
+            }, sort:_timestamp:-1
+
 
 
 
@@ -129,4 +136,14 @@ if Meteor.isServer
         Docs.find 
             model:'work'
             _author_username:username
+            
+            
+    Meteor.publish 'user_orders', (username)->
+        # user = Meteor.users.findOne username:username
+        Docs.find 
+            model:'order'
+            _author_username:username
+            
+            
+            
             
