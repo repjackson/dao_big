@@ -100,7 +100,7 @@ template(name='walletbar')
         +user_credit
         
 template(name='left_sidebar')
-    .ui.left.sidebar.vertical.inverted.menu
+    .ui.left.sidebar.vertical.inverted.large.menu
         // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
         //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')
@@ -122,6 +122,9 @@ template(name='left_sidebar')
         a.item.zoomer.toggle_leftbar(href='/posts' class="{{isActivePath '/posts'}}")
             i.newspaper.icon
             | #{posts.count} posts
+        a.item.zoomer.toggle_leftbar(href='/roles' class="{{isActivePath '/roles'}}")
+            i.shield.icon
+            | #{posts.count} roles
         a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
             i.marker.icon
             |locations
@@ -153,7 +156,7 @@ template(name='left_sidebar')
 
 template(name='right_sidebar')
     // .ui.right.sidebar.vertical.inverted.menu.rightbar(style="background-color:#062639;")
-    .ui.right.sidebar.vertical.inverted.borderless.menu.rightbar
+    .ui.right.sidebar.vertical.inverted.borderless.large.menu.rightbar
         a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
             img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |#{currentUser.username}
@@ -166,10 +169,10 @@ template(name='right_sidebar')
                 |points
             a.item.toggle_rightbar(href="/user/#{username}/tasks" class="{{isActiveRoute regex='user_tasks'}}")
                 i.tasks.icon
-                |work tasks
+                |tasks
             a.item.toggle_rightbar(href="/user/#{username}/chat" class="{{isActiveRoute regex='user_chat'}}")
                 i.chat.icon
-                |team chat
+                |chat
             a.item.toggle_rightbar(href="/user/#{username}/timeclock" class="{{isActiveRoute regex='user_timeclock'}}")
                 i.clock.icon
                 |timeclock

@@ -43,7 +43,7 @@ template(name='groups')
                  
                  
 
-template(name='group_card')                    
+template(name='group_card')
     a.ui.card.fly_left(href="/group/#{_id}") 
         img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
         .content 
@@ -145,6 +145,8 @@ template(name='group_layout')
                         div
                         +html_view key='description' label='description' direct=true
                         +array_view key='tags' label='tags' icon='tags' direct=true
+                        .ui.button.switch_to_group
+                            |switch to
                         div
                         +array_view key='location_tags' label='location tags' icon='marker' direct=true
                         if in_dev
@@ -162,6 +164,9 @@ template(name='group_layout')
                         a.ui.basic.button(href="/group/#{_id}/tasks")
                             i.tasks.icon
                             |tasks
+                        a.ui.basic.button(href="/group/#{_id}/roles")
+                            i.shield.icon
+                            |roles
                         a.ui.basic.button(href="/group/#{_id}/work")
                             i.wrench.icon
                             |work

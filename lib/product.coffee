@@ -23,22 +23,24 @@ if Meteor.isClient
                 Router.go "/source/#{product.source_id}"
             , 240
         
-        'click .add_to_cart': ->
-            Meteor.call 'add_to_cart', @_id, =>
-                $('body').toast(
-                    showIcon: 'cart plus'
-                    message: "#{@title} added"
-                    # showProgress: 'bottom'
-                    class: 'success'
-                    # displayTime: 'auto',
-                    position: "bottom right"
-                )
+        # 'click .add_to_cart': ->
+        #     Meteor.call 'add_to_cart', @_id, =>
+        #         $('body').toast(
+        #             showIcon: 'cart plus'
+        #             message: "#{@title} added"
+        #             # showProgress: 'bottom'
+        #             class: 'success'
+        #             # displayTime: 'auto',
+        #             position: "bottom right"
+        #         )
 
         'click .record_order': ->
+            console.log @
             new_id = 
                 Docs.insert 
                     model:'order'
                     product_id:Router.current().params.doc_id
+                    purchase_amount:@point_price
             Router.go "/order/#{new_id}/edit"
             
 

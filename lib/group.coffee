@@ -21,6 +21,10 @@ if Meteor.isClient
         @layout 'group_layout'
         @render 'group_products'
         ), name:'group_products'
+    Router.route '/group/:doc_id/roles', (->
+        @layout 'group_layout'
+        @render 'group_roles'
+        ), name:'group_roles'
     Router.route '/group/:doc_id/work', (->
         @layout 'group_layout'
         @render 'group_work'
@@ -89,6 +93,12 @@ if Meteor.isClient
                     false
                 # unless Meteor.userId() in current_group.member_ids
         
+    Template.group_layout.events
+        'click .switch_to_group': (e,t)->
+            $(e.currentTarget).closest('.grid').transition('pulse',200)
+            Meteor.users.update Meteor.userId(),
+                $set:
+                    current_group_id:Router.current().params.doc_id
     Template.group_view.events
         'click .join': ->
             Meteor.users.update Meteor.userId(),
@@ -237,9 +247,11 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.publish 'parent_group_from_child_id', (child_id)->
         group = Docs.findOne child_id
-        Docs.find 
-            model:'group'
-            _id:group.parent_group_id
+        if group.parent_group_id
+            Docs.find 
+                model:'group'
+                _id:group.parent_group_id
+                
             
     Meteor.publish 'child_groups_from_parent_id', (parent_id)->
         group = Docs.findOne parent_id

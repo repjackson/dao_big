@@ -1,0 +1,15 @@
+template(name='group_roles')
+    .ui.header 
+        i.shield.icon
+        |roles
+    i.plus.circular.link.icon
+    each group_roles
+        if can_edit 
+            i.pencil.circular.link.icon
+        else 
+            if is_editing
+                +text_edit key='title' label='title' direct=true
+            else    
+                .ui.header #{title}
+        
+        

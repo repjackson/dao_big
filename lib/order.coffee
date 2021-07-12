@@ -202,20 +202,26 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'model_docs', 'source'
 
     Template.order_edit.onRendered ->
-        Meteor.setTimeout ->
-            today = new Date()
-            $('#availability')
-                .calendar({
-                    inline:true
-                    # minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 5),
-                    # maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5)
-                })
-        , 2000
+        # Meteor.setTimeout ->
+        #     today = new Date()
+        #     $('#availability')
+        #         .calendar({
+        #             inline:true
+        #             # minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 5),
+        #             # maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5)
+        #         })
+        # , 2000
 
     Template.order_edit.events
+        'click .complete_order': (e,t)->
+            console.log @
+            # Meteor.users.update Meteor.userId(),
+            #     $inc:
+            #         points: @purchase_amount
+            
         'click .delete_order': ->
             Docs.remove @_id
-            Router.go "/orders"
+            Router.go "/product/#{@product_id}"
 
 
     Template.linked_product.onCreated ->

@@ -1,3 +1,21 @@
+body {
+    /* font-family: 'Raleway', sans-serif !important; */
+    /*font-family: 'Ubuntu', sans-serif !important;*/
+    /* font-family: 'Lato+Mono', sans-serif !important; */
+    /* font-family: 'Lato', sans-serif !important; */
+    /* font-size: 110% !important; */
+    /* line-height: 200% !important; */
+    /* background: rgba(0,0,0,.8) !important; */
+    /*scroll-behavior: smooth;*/
+    /*margin-top: 5em;*/
+    background: rgba(200,200,200,1) !important;
+     /*filter: invert(1) !important; */
+    /* overscroll-behavior: none; */
+    transition: all .5s ease !important;
+    /* background: #0e0e44 !important; */
+}
+
+
 .pointer:hover {
     cursor: pointer !important;
     filter: drop-shadow(10px 10px 10px rgba(250,250,250, 0.5)) !important;
@@ -190,7 +208,7 @@ body, p, header {
 .teal.button {
     background-color: #008080 !important;
 }
-.blue.button , .blue.segment{
+.blue.button, .blue.segment{
     background-color: #0E6EB8 !important;
 }
 .violet.button {
@@ -646,7 +664,7 @@ input.username_search{
     border-radius: 10px !important; 
 }
 .button {
-    border-radius: 20px !important; 
+    border-radius: 10px !important; 
     margin:2px !important;
 }
 

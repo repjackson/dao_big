@@ -1,5 +1,6 @@
 if Meteor.isClient
     Template.nav.onCreated ->
+        Session.setDefault('is_global_searching')
         @autorun => Meteor.subscribe 'me'
         @autorun => Meteor.subscribe 'current_group'
         # @autorun => Meteor.subscribe 'my_cart'

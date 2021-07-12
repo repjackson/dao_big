@@ -352,8 +352,6 @@ template(name='order_edit')
                     .ui.inline.header
                         i.pencil.icon
                         small order
-                    .ui.large.icon.green.button.save_product(title='save product')
-                        i.checkmark.large.icon   
                     div
                     +linked_product
                     .ui.header #{when}
@@ -366,8 +364,13 @@ template(name='order_edit')
                     if in_dev
                         +print_this
                 .four.wide.column
-                    .ui.red.circular.icon.button.delete_order
+                    .ui.large.fluid.green.button.complete_order.fly_left(title='complete order')
+                        i.checkmark.large.icon   
+                        |complete
+                    .ui.hidden.divider
+                    .ui.red.circular.button.delete_order.fly_left
                         i.large.remove.icon
+                        |cancel
                         
                         
 template(name='linked_product')

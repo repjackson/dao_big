@@ -196,27 +196,27 @@ template(name='product_view')
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    a.ui.basic.icon.button.fly_right(href="/products")
+                    a.ui.basic.icon.button.fly_left(href="/products")
                         i.large.shop.icon
                     .ui.large.inline.header 
                         //- small viewing
                         | #{title}
                         //- small product
                     if can_edit
-                        a(href="/product/#{_id}/edit")
-                            i.pencil.blue.large.link.icon
+                        a.fly_right(href="/product/#{_id}/edit")
+                            i.pencil.blue.large.circular.link.icon
                     // a(href="{{c.url image_id}}" target="_window")
                     img.ui.rounded.fluid.image.zoomer(src="{{c.url image_id}}")
                     div 
                     // +text_view key='size_description' label='size description'  direct=true
                     // +link_view key='product_link' label='link' icon='wordpress' direct=true
                 .ten.wide.column
-                    .ui.green.big.button.add_to_cart
-                        i.cart.plus.large.icon
+                    .ui.green.big.fluid.button.record_order.fly_right
+                        i.send.large.icon
                         |buy
-                    .ui.large.button.record_order
-                        i.large.pencil.icon
-                        |record order
+                    // .ui.large.button.record_order
+                    //     i.large.pencil.icon
+                    //     |record order
                     div
                     +html_view key='description' direct=true
                     +array_view key='tags' label='tags' icon='tags' direct=true
@@ -306,19 +306,20 @@ template(name='product_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .four.wide.column
+                .five.wide.column
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
                         small product
-                    .ui.large.icon.green.button.save_product(title='save product')
-                        i.checkmark.large.icon   
+                    .ui.large.fluid.icon.green.button.save_product.fly_right(title='save product')
+                        i.checkmark.big.icon   
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
                     +boolean_edit key='buy_it_now' label='buy it now' direct=true
                     if buy_it_now
-                        +number_edit key='price' label='price (points)' direct=true
+                        +number_edit key='price_usd' label='$ price' direct=true
+                        +number_edit key='price_points' label='price (points)' direct=true
                     +boolean_edit key='is_auction' label='auction' direct=true
                     if is_auction
                         +number_edit key='minimum_bid' label='minimum bid' direct=true
@@ -328,7 +329,7 @@ template(name='product_edit')
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     +html_edit key='description' label='description' direct=true
-                .four.wide.column
+                .three.wide.column
                     if can_delete
                         .ui.red.button.delete_product
                             i.remove.icon   
