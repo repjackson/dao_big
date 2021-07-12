@@ -2,11 +2,12 @@ template(name='user_points')
     .ui.header 
         |#{current_user.points}
         |points
-    .ui.stackable.two.column.padded.grid
+    .ui.stackable.three.column.padded.grid
         // if is_current_user
         .column
             .ui.inline.header
                 i.wallet.icon
+                |#{user_topups.count}
                 |topups
             .ui.button.top_up
                 |topup

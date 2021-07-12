@@ -11,12 +11,12 @@ template(name='user_layout')
             .ui.stackable.grid.global_conainer.pusher
                 .row
                     //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
-                    .four.wide.column
-                        a.item.mobile.hidden(href="/user/#{username}")
-                            img.ui.centered.rounded.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
-                        .spacer
+                    .sixteen.wide.column
+                        a.item.mobile.hidden.zoomer(href="/user/#{username}")
+                            img.ui.centered.rounded.inline.small.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                        // .spacer
                         a(href="/user/#{username}")
-                            .ui.center.aligned.header
+                            .ui.inline.header
                                 | #{username}
                         .ui.two.column.middle.aligned.grid.mobile.only
                             .column
@@ -32,13 +32,13 @@ template(name='user_layout')
                                 i.sign.out.alternate.large.icon
                         unless is_current_user
                             +friend_button
-                    .twelve.wide.column
-                        a.ui.basic.button(href="/user/#{username}" class="{{isActiveRoute 'user_dashboard'}}")
-                            i.dashboard.icon
-                            |dashboard
-                        a.ui.basic.button(href="/user/#{username}/requests" class="{{isActiveRoute 'user_requests'}}")
-                            i.bullhorn.icon
-                            |requests
+                        // .twelve.wide.column
+                        // a.ui.basic.button(href="/user/#{username}" class="{{isActiveRoute 'user_dashboard'}}")
+                        //     i.dashboard.icon
+                        //     |dashboard
+                        a.ui.basic.button(href="/user/#{username}/points" class="{{isActiveRoute 'user_points'}}")
+                            i.hashtag.icon
+                            |points
                         a.ui.basic.button(href="/user/#{username}/work" class="{{isActiveRoute 'user_work'}}")
                             i.wrench.icon
                             |work
@@ -48,24 +48,24 @@ template(name='user_layout')
                         a.ui.basic.button(href="/user/#{username}/sent" class="{{isActiveRoute 'user_sent'}}")
                             i.send.icon
                             |sent
-                        a.ui.basic.button(href="/user/#{username}/timeclock" class="{{isActiveRoute 'user_timeclock'}}")
-                            i.clock.icon
-                            |timeclock
+                        // a.ui.basic.button(href="/user/#{username}/timeclock" class="{{isActiveRoute 'user_timeclock'}}")
+                        //     i.clock.icon
+                        //     |timeclock
                         a.ui.basic.button(href="/user/#{username}/roles" class="{{isActiveRoute 'user_roles'}}")
                             i.shield.icon
                             |roles
-                        a.ui.basic.button(href="/user/#{username}/chat" class="{{isActiveRoute 'chat'}}")
-                            i.chat.icon
-                            |chat
-                        a.ui.basic.button(href="/user/#{username}/payroll" class="{{isActiveRoute 'user_payroll'}}")
-                            i.money.icon
-                            |payroll
+                        // a.ui.basic.button(href="/user/#{username}/chat" class="{{isActiveRoute 'chat'}}")
+                        //     i.chat.icon
+                        //     |chat
+                        // a.ui.basic.button(href="/user/#{username}/payroll" class="{{isActiveRoute 'user_payroll'}}")
+                        //     i.money.icon
+                        //     |payroll
                         div.global_container
                             .spacer
                             +yield
 
-        if in_role 'admin'
-            +admin_footer
+        // if in_role 'admin'
+        //     +admin_footer
 
 template(name='user_dashboard')
     .ui.header 
