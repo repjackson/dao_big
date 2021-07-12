@@ -182,9 +182,10 @@ template(name='group_products')
         i.cart.icon
         |group products
     i.plus.circular.link.icon.add_group_product
-    each group_products
-        a.ui.header(href="/product/#{_id}")
-            |#{title}
+    .ui.large.link.big.selection.list
+        each group_products
+            a.item(href="/product/#{_id}")
+                |#{title}
 
 
 template(name='group_view')            

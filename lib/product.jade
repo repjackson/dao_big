@@ -213,7 +213,7 @@ template(name='product_layout')
                             a.fly_right(href="/product/#{_id}/edit")
                                 i.pencil.blue.large.circular.link.icon
                         // a(href="{{c.url image_id}}" target="_window")
-                        img.ui.rounded.fluid.image.zoomer(src="{{c.url image_id}}")
+                        .ui.header calories #{calories}
                         div 
                         // +text_view key='size_description' label='size description'  direct=true
                         // +link_view key='product_link' label='link' icon='wordpress' direct=true
@@ -232,29 +232,30 @@ template(name='product_layout')
                         +array_view key='tags' label='tags' icon='tags' direct=true
                         a.ui.inline.header(href="/group/#{group_id}")
                             |#{group_doc._title}
+                        img.ui.rounded.fluid.image.zoomer(src="{{c.url image_id}}")
                     .ten.wide.column
                         .ui.green.big.button.record_order.fly_right
                             i.send.big.icon
                             |buy for #{price_points}p
                         // div
-                        a.ui.button(href="/product/#{_id}/timeline" class="{{isActiveRoute 'product_timeline }}"))
+                        a.ui.basic.button(href="/product/#{_id}/timeline" class="{{isActiveRoute 'product_timeline'}}")
                             i.line.chart.icon
                             |timeline
-                        a.ui.button(href="/product/#{_id}/orders" class="{{isActiveRoute 'product_orders}}"))
+                        a.ui.basic.button(href="/product/#{_id}/orders" class="{{isActiveRoute 'product_orders'}}")
                             i.money.icon
                             |orders
-                        a.ui.button(href="/product/#{_id}/reviews" class="{{isActivePath '/tasks'}}"))
+                        a.ui.basic.button(href="/product/#{_id}/reviews" class="{{isActivePath '/tasks'}}")
                             i.bullhorn.icon
                             |reviews
-                        a.ui.button(href="/product/#{_id}/description" class="{{isActivePath '/tasks'}}"))
+                        a.ui.basic.button(href="/product/#{_id}/description" class="{{isActivePath '/tasks'}}")
                             i.content.icon
                             |description
-                        a.ui.button(href="/product/#{_id}/comments" class="{{isActivePath '/tasks'}}"))
+                        a.ui.basic.button(href="/product/#{_id}/comments" class="{{isActivePath '/tasks'}}")
                             i.chat.icon
                             |comments
-                        a.ui.button(href="/product/#{_id}/fans" class="{{isActivePath '/tasks'}}"))
+                        a.ui.basic.button(href="/product/#{_id}/leaderboard" class="{{isActivePath '/tasks'}}")
                             i.certificate.icon
-                            |fans
+                            |leaderboard
                         +yield
                     
 template(name='product_view')
@@ -336,6 +337,15 @@ template(name='product_edit')
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
+                .eight.wide.column
+                    div
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    +html_edit key='description' label='description' direct=true
+                .three.wide.column
+                    +boolean_edit key='has_calories' label='has calories' direct=true
+                    if has_calories
+                        +number_edit key='calories' label='calories' direct=true
                     +boolean_edit key='buy_it_now' label='buy it now' direct=true
                     if buy_it_now
                         +number_edit key='price_usd' label='$ price' direct=true
@@ -344,12 +354,6 @@ template(name='product_edit')
                     if is_auction
                         +number_edit key='minimum_bid' label='minimum bid' direct=true
                         +datetime_edit key='end_datetime' label='end datetime' direct=true
-                .eight.wide.column
-                    div
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
-                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                    +html_edit key='description' label='description' direct=true
-                .three.wide.column
                     if can_delete
                         .ui.red.button.delete_product
                             i.remove.icon   
@@ -359,10 +363,17 @@ template(name='product_edit')
                             
                             
 template(name='product_comments')
+    +comments
 template(name='product_timeline')
-    .ui.header timeline
+    .ui.header 
+        i.line.chart.icon
+        |timeline
+template(name='product_leaderboard')
+    .ui.header 
+        i.certificate.icon
+        |#{product_orders.count}
+        |leaderboard
 template(name='product_orders')
-    .ui.header orders
     .ui.header 
         i.list.icon
         |#{product_orders.count}

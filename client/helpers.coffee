@@ -357,6 +357,12 @@ Template.registerHelper 'order_things',->
     Docs.find 
         model:'thing'
         order_id:@_id
+Template.registerHelper 'product_doc',-> 
+    # console.log @
+    # console.log 'product doc'
+    Docs.findOne
+        model:'product'
+        _id:@product_id
 
 Template.registerHelper 'order_count',-> Counts.get('order_count')
 Template.registerHelper 'product_count',-> Counts.get('product_count')

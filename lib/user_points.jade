@@ -1,63 +1,68 @@
 template(name='user_points')
-    .ui.header 
-        |#{current_user.points}
-        |points
     .ui.stackable.three.column.padded.grid
         // if is_current_user
         .column
-            .ui.inline.header
-                i.wallet.icon
-                |#{user_topups.count}
-                |topups
-            .ui.button.top_up
-                |topup
-            .ui.link.selection.list.smallscroll
-                each user_topups
-                    .item #{topup_amount} #{when}
+            +user_topups
+        .column
+            +user_work
+        .column
+            +user_orders
 
-        .column
-            .ui.inline.header
-                i.wrench.icon
-                |#{user_work.count}
-                |jobs 
-            .ui.selection.link.animated.divided.list.smallscroll
-                each user_work
-                    a.item.zoom_out(href="/work/#{_id}") 
-                        .content
-                            if image_id
-                                img.ui.small.inline.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                            img.ui.tiny.inline.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
-                            .ui.inline.header 
-                                |#{task_title}
-                            .ui.inline.header #{task_points}pts
-                            if location_image_id
-                                img.ui.tiny.inline.image(src="{{c.url location_image_id width=400 height=300 crop='pad'}}")
-                            .ui.inline.header 
-                                |@#{location_title}
-                                
-                            .description #{when} {{long_date _timestamp}} for 
-                            // if in_dev
-                            //     +remove_button            
-        .column
-            .ui.inline.header
-                i.shop.icon
-                |#{user_orders.count}
-                |orders
-            .ui.selection.link.animated.divided.list.smallscroll
-                each user_orders
-                    a.item.fly_right(href="/order/#{_id}") 
-                        .content
-                            if image_id
-                                img.ui.small.inline.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                            img.ui.tiny.inline.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
-                            .ui.inline.header 
-                                |#{product.title}
-                            .ui.inline.header #{purchase_amount}pts
-                            // if location_image_id
-                            //     img.ui.tiny.inline.image(src="{{c.url location_image_id width=400 height=300 crop='pad'}}")
-                            // .ui.inline.header 
-                            //     |@#{location_title}
-                                
-                            .description #{when} {{long_date _timestamp}} 
-                            // if in_dev
-                            //     +remove_button
+template(name='user_topups')
+    .ui.inline.header
+        i.wallet.icon
+        |#{user_topups.count}
+        |topups
+    .ui.button.top_up
+        |topup
+    .ui.link.selection.list.scrolling
+        each user_topup_docs
+            a.item(href="/topup/#{_id}" title='view topup') #{topup_amount} #{when}
+template(name='user_work')
+    .ui.inline.header
+        i.wrench.icon
+        |#{user_work.count}
+        |jobs 
+    .ui.selection.link.animated.divided.list.scrolling
+        each user_work_docs
+            a.item.zoom_out(href="/work/#{_id}") 
+                .content
+                    if image_id
+                        img.ui.small.inline.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+                    img.ui.tiny.inline.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
+                    .ui.inline.header 
+                        |#{task_title}
+                    .ui.inline.header #{task_points}pts
+                    if location_image_id
+                        img.ui.tiny.inline.image(src="{{c.url location_image_id width=400 height=300 crop='pad'}}")
+                    .ui.inline.header 
+                        |@#{location_title}
+                        
+                    .description #{when} {{long_date _timestamp}} for 
+                    // if in_dev
+                    //     +remove_button      
+                    
+                    
+// template(name='user_orders')            
+//     .ui.inline.header
+//         i.shop.icon
+//         |#{user_orders.count}
+//         |orders
+//     .ui.selection.link.animated.divided.list.scrolling
+//         each user_orders
+//             a.item.fly_right(href="/order/#{_id}") 
+//                 .content
+//                     if image_id
+//                         img.ui.small.inline.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+//                     img.ui.tiny.inline.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
+//                     .ui.inline.header 
+//                         |#{product.title}
+//                     .ui.inline.header #{purchase_amount}pts
+//                     // if location_image_id
+//                     //     img.ui.tiny.inline.image(src="{{c.url location_image_id width=400 height=300 crop='pad'}}")
+//                     // .ui.inline.header 
+//                     //     |@#{location_title}
+                        
+//                     .description #{when} {{long_date _timestamp}} 
+//                     // if in_dev
+//                     //     +remove_button

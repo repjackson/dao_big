@@ -4,13 +4,14 @@ if Meteor.isClient
         @render 'user_points'
         ), name:'user_points'
 
+    # Template.user_orders.onCreated ->
+    #     @autorun => Meteor.subscribe 'user_orders', Router.current().params.username, ->
     Template.user_points.onCreated ->
         @autorun => Meteor.subscribe 'user_by_username', Router.current().params.username, ->
         @autorun => Meteor.subscribe 'user_work', Router.current().params.username, ->
-        @autorun => Meteor.subscribe 'user_orders', Router.current().params.username, ->
         @autorun => Meteor.subscribe 'user_topups', Router.current().params.username, ->
         Meteor.call 'calc_user_points', Router.current().params.username, ->
-        # @autorun => Meteor.subscribe 'model_docs', 'deposit'
+        @autorun => Meteor.subscribe 'model_docs', 'product'
         # @autorun => Meteor.subscribe 'model_docs', 'reservation'
         # @autorun => Meteor.subscribe 'model_docs', 'withdrawal'
         # @autorun => Meteor.subscribe 'my_topups'
@@ -87,20 +88,22 @@ if Meteor.isClient
 
 
 
-    Template.user_points.helpers
-        user_work: ->
+    Template.user_work.helpers
+        user_work_docs: ->
             Docs.find {
                 model:'work'
                 _author_username: Router.current().params.username
             }, sort:_timestamp:-1
 
-        user_orders: ->
-            Docs.find {
-                model:'order'
-                _author_username: Router.current().params.username
-            }, sort:_timestamp:-1
+    # Template.user_points.helpers
+    #     user_orders: ->
+    #         Docs.find {
+    #             model:'order'
+    #             _author_username: Router.current().params.username
+    #         }, sort:_timestamp:-1
 
-        user_topups: ->
+    Template.user_topups.helpers
+        user_topup_docs: ->
             Docs.find {
                 model:'topup'
                 _author_username: Router.current().params.username

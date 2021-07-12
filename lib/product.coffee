@@ -23,10 +23,10 @@ if Meteor.isClient
         @layout 'product_layout'
         @render 'product_comments'
         ), name:'product_comments'
-    Router.route '/product/:doc_id/fans', (->
+    Router.route '/product/:doc_id/leaderboard', (->
         @layout 'product_layout'
-        @render 'product_fans'
-        ), name:'product_fans'
+        @render 'product_leaderboard'
+        ), name:'product_leaderboard'
         
 
 
