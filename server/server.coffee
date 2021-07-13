@@ -250,14 +250,31 @@ Meteor.methods
             
         console.log 'total debits', total_debits
         console.log 'total credits', point_credit_total
-        final_calculated_points = point_credit_total - total_debits + point_topup_total
+        final_calculated_current_points = point_credit_total - total_debits + point_topup_total
         
-        console.log 'total points', final_calculated_points
-        if final_calculated_points
+        console.log 'total current points', final_calculated_current_points
+        if final_calculated_current_points
             Meteor.users.update user._id,
                 $set:
-                    points: final_calculated_points
-            amount = Meteor.users.find(points:$gt:parseInt(final_calculated_points)).count()
+                    points: final_calculated_current_points
+            amount = Meteor.users.find(points:$gt:parseInt(final_calculated_current_points)).count()
+            console.log 'amount more ranked', amount
+            Meteor.users.update user._id, 
+                $set:point_rank:amount
+
+        calculated_total_earned_credits = point_credit_total
+        calculated_total_bought_credits = point_topup_total
+        calculated_total_credits = point_credit_total + point_topup_total
+        
+        console.log 'total current points', final_calculated_current_points
+        if final_calculated_current_points
+            Meteor.users.update user._id,
+                $set:
+                    points: final_calculated_current_points
+                    total_earned_credits: point_credit_total
+                    total_bought_credits: point_topup_total
+                    total_credits: point_credit_total + point_topup_total
+            amount = Meteor.users.find(points:$gt:parseInt(final_calculated_current_points)).count()
             console.log 'amount more ranked', amount
             Meteor.users.update user._id, 
                 $set:point_rank:amount

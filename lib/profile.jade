@@ -17,16 +17,39 @@ template(name='user_layout')
                         // .spacer
                         a.ui.inline.header(href="/user/#{username}")
                             | #{username}
-                        .ui.inline.horizontal.statistic
+                        .ui.inline.horizontal.small.statistic
                             .value
                                 |#{current_user.points}
                             .label
                                 |points
-                        .ui.inline.horizontal.statistic
+                        .ui.inline.horizontal.small.statistic
                             .value
                                 |##{current_user.point_rank}
                             .label
                                 |rank
+                            
+                        .ui.inline.tiny.horizontal.statistic
+                            .value
+                                |#{current_user.total_earned_credits}
+                            .label
+                                |total points earned
+                        .ui.inline.tiny.horizontal.statistic
+                            .value
+                                |##{current_user.total_earned_credit_rank}
+                            .label
+                                |total earned points rank
+                            
+                            
+                        .ui.inline.tiny.horizontal.statistic
+                            .value
+                                |#{current_user.total_bought_credits}
+                            .label
+                                |total points bought
+                        .ui.inline.tiny.horizontal.statistic
+                            .value
+                                |##{current_user.total_bought_credit_rank}
+                            .label
+                                |total bought points rank
                             
                         .ui.two.column.middle.aligned.grid.mobile.only
                             .column
