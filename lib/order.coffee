@@ -181,7 +181,7 @@ if Meteor.isServer
             model:'order'
             _author_id: user._id
         }, 
-            limit:100
+            limit:20
             sort:_timestamp:-1
             
     Meteor.publish 'product_from_order_id', (order_id)->

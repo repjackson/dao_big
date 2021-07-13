@@ -149,18 +149,18 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.publish 'user_work', (username)->
         # user = Meteor.users.findOne username:username
-        Docs.find 
+        Docs.find({
             model:'work'
             _author_username:username
-            
+        }, limit:20)
             
             
     Meteor.publish 'user_topups', (username)->
         # user = Meteor.users.findOne username:username
-        Docs.find 
+        Docs.find({
             model:'topup'
             _author_username:username
-            
+        }, limit:20)
             
             
             

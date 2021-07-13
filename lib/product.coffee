@@ -201,11 +201,11 @@ if Meteor.isServer
         Docs.find
             model:'order'
             product_id:product_id
-    Meteor.publish 'reservations_from_product_id', (product_id)->
-        # product = Docs.findOne product_id
-        Docs.find
-            model:'reservations'
-            product_id:product_id
+    # Meteor.publish 'reservations_from_product_id', (product_id)->
+    #     # product = Docs.findOne product_id
+    #     Docs.find
+    #         model:'reservations'
+    #         product_id:product_id
             
 
 

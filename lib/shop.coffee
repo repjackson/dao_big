@@ -1,6 +1,7 @@
 if Meteor.isClient
     @picked_ingredients = new ReactiveArray []
     @picked_sections = new ReactiveArray []
+    @picked_product_tags = new ReactiveArray []
     
     Router.route '/products', (->
         @layout 'layout'
@@ -17,6 +18,7 @@ if Meteor.isClient
 
     Template.products.onCreated ->
         @autorun => @subscribe 'product_facets',
+            picked_product_tags.array()
             picked_ingredients.array()
             picked_sections.array()
             Session.get('view_vegan')
@@ -28,6 +30,7 @@ if Meteor.isClient
             Session.get('product_sort_direction')
 
         @autorun => @subscribe 'product_results',
+            picked_product_tags.array()
             picked_ingredients.array()
             picked_sections.array()
             Session.get('product_query')
@@ -64,6 +67,8 @@ if Meteor.isClient
         'click .toggle_pickup': -> Session.set('view_pickup', !Session.get('view_pickup'))
         'click .toggle_open': -> Session.set('view_open', !Session.get('view_open'))
 
+        'click .pick_product_tag': -> picked_product_tags.push @title
+        'click .unpick_product_tag': -> picked_product_tags.remove @valueOf()
         'click .pick_section': -> picked_sections.push @title
         'click .unpick_section': -> picked_sections.remove @valueOf()
         'click .pick_ingredient': -> picked_ingredients.push @title
@@ -147,16 +152,16 @@ if Meteor.isClient
                     
         product_count: -> Counts.get('product_counter')
      
-        tags: ->
+        product_tag_results: ->
             # if Session.get('product_query') and Session.get('product_query').length > 1
             #     Terms.find({}, sort:count:-1)
             # else
-            product_count = Docs.find().count()
+            product_count = Docs.find(model:'product').count()
             # console.log 'product count', product_count
             if product_count < 3
-                Results.find({model:'tag', count: $lt: product_count})
+                Results.find({model:'product_tag', count: $lt: product_count})
             else
-                Results.find({model:'tag'})
+                Results.find({model:'product_tag'})
 
         ingredients: ->
             # if Session.get('product_query') and Session.get('product_query').length > 1
@@ -177,6 +182,7 @@ if Meteor.isClient
 
         picked_ingredients: -> picked_ingredients.array()
         picked_sections: -> picked_sections.array()
+        picked_product_tags: -> picked_product_tags.array()
         picked_ingredients_plural: -> picked_ingredients.array().length > 1
         searching: -> Session.get('searching')
 
@@ -277,6 +283,7 @@ if Meteor.isServer
             
                     
     Meteor.publish 'product_results', (
+        picked_product_tags
         picked_ingredients
         picked_sections
         product_query
@@ -306,6 +313,8 @@ if Meteor.isServer
             # sort = 'price_per_serving'
         if picked_sections.length > 0
             match.menu_section = $all: picked_sections
+        if picked_product_tags.length > 0
+            match.tags = $all: picked_product_tags
             # sort = 'price_per_serving'
         # else
             # match.tags = $nin: ['wikipedia']
@@ -347,6 +356,7 @@ if Meteor.isServer
                 gluten_free:1
             
     Meteor.publish 'product_search_count', (
+        picked_product_tags
         picked_ingredients
         picked_sections
         product_query
@@ -362,6 +372,8 @@ if Meteor.isServer
         if picked_ingredients.length > 0
             match.ingredients = $all: picked_ingredients
             # sort = 'price_per_serving'
+        if picked_product_tags.length > 0
+            match.tags = $all: picked_product_tags
         if picked_sections.length > 0
             match.menu_section = $all: picked_sections
             # sort = 'price_per_serving'
@@ -380,6 +392,7 @@ if Meteor.isServer
         return undefined
 
     Meteor.publish 'product_facets', (
+        picked_product_tags
         picked_ingredients
         picked_sections
         product_query
@@ -394,10 +407,12 @@ if Meteor.isServer
         )->
         # console.log 'dummy', dummy
         # console.log 'query', query
-        console.log 'picked ingredients', picked_ingredients
+        # console.log 'picked ingredients', picked_ingredients
 
         self = @
-        match = {app:'pes'}
+        # match = {app:'pes'}
+        # match = {}
+        match = {group_id:Meteor.user().current_group_id}
         match.model = 'product'
         if view_vegan
             match.vegan = true
@@ -407,6 +422,7 @@ if Meteor.isServer
         #     match.local = true
         if picked_ingredients.length > 0 then match.ingredients = $all: picked_ingredients
         if picked_sections.length > 0 then match.menu_section = $all: picked_sections
+        if picked_product_tags.length > 0 then match.tags = $all: picked_product_tags
             # match.$regex:"#{product_query}", $options: 'i'}
         if product_query and product_query.length > 1
             console.log 'searching product_query', product_query
@@ -419,18 +435,27 @@ if Meteor.isServer
         #         sort:
         #             count: -1
         #         limit: 42
-            # tag_cloud = Docs.aggregate [
-            #     { $match: match }
-            #     { $project: "tags": 1 }
-            #     { $unwind: "$tags" }
-            #     { $group: _id: "$tags", count: $sum: 1 }
-            #     { $match: _id: $nin: picked_ingredients }
-            #     { $match: _id: {$regex:"#{query}", $options: 'i'} }
-            #     { $sort: count: -1, _id: 1 }
-            #     { $limit: 42 }
-            #     { $project: _id: 0, name: '$_id', count: 1 }
-            #     ]
+        tag_cloud = Docs.aggregate [
+            { $match: match }
+            { $project: "tags": 1 }
+            { $unwind: "$tags" }
+            { $group: _id: "$tags", count: $sum: 1 }
+            { $match: _id: $nin: picked_product_tags }
+            # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
+            { $sort: count: -1, _id: 1 }
+            { $limit: 42 }
+            { $project: _id: 0, name: '$_id', count: 1 }
+            ]
 
+        tag_cloud.forEach (tag, i) =>
+            # console.log 'queried tag ', tag
+            # console.log 'key', key
+            self.added 'results', Random.id(),
+                title: tag.name
+                count: tag.count
+                model:'product_tag'
+                # category:key
+                # index: i
         # else
         # unless query and query.length > 2
         # if picked_ingredients.length > 0 then match.tags = $all: picked_ingredients

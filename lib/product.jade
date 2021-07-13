@@ -2,7 +2,7 @@ template(name='products')
     .ui.stackable.padded.grid
         .four.wide.column
             .ui.inline.header
-                |#{product_count}
+                |#{product_docs.count}
                 |products
             .ui.icon.input
                 if product_query
@@ -11,8 +11,8 @@ template(name='products')
                     i.search.icon
                 input#product_search(type='text' placeholder='title...' value=product_query)
             if currentUser
-                a.ui.icon.button.add_product(title='add product')
-                    i.plus.green.large.icon
+                a.add_product(title='add product')
+                    i.plus.large.circular.link.icon
             .ui.inline.small.header
                 i.tag.icon
                 |tags

@@ -35,6 +35,10 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_roles'
         ), name:'user_roles'
+    Router.route '/user/:username/stats', (->
+        @layout 'user_layout'
+        @render 'user_stats'
+        ), name:'user_stats'
 
 
 

@@ -21,35 +21,35 @@ template(name='user_layout')
                             .value
                                 |#{current_user.points}
                             .label
-                                |points
+                                |current pts
                         .ui.inline.horizontal.small.statistic
                             .value
                                 |##{current_user.point_rank}
                             .label
-                                |rank
+                                |current rank
                             
                         .ui.inline.tiny.horizontal.statistic
                             .value
                                 |#{current_user.total_earned_credits}
                             .label
-                                |total points earned
+                                |pts earned
                         .ui.inline.tiny.horizontal.statistic
                             .value
                                 |##{current_user.total_earned_credit_rank}
                             .label
-                                |total earned points rank
+                                |earned pts rank
                             
                             
                         .ui.inline.tiny.horizontal.statistic
                             .value
                                 |#{current_user.total_bought_credits}
                             .label
-                                |total points bought
+                                |pts bought
                         .ui.inline.tiny.horizontal.statistic
                             .value
                                 |##{current_user.total_bought_credit_rank}
                             .label
-                                |total bought points rank
+                                |bought pts rank
                             
                         .ui.two.column.middle.aligned.grid.mobile.only
                             .column
@@ -90,6 +90,9 @@ template(name='user_layout')
                         a.ui.basic.button(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
                             i.money.icon
                             |orders
+                        a.ui.basic.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}")
+                            i.money.icon
+                            |stats
                         // a.ui.basic.button(href="/user/#{username}/payroll" class="{{isActiveRoute 'user_payroll'}}")
                         //     i.money.icon
                         //     |payroll
@@ -100,6 +103,11 @@ template(name='user_layout')
         // if in_role 'admin'
         //     +admin_footer
 
+template(name='user_stats')
+    .ui.header
+        i.line.chart.icon
+        |stats
+    .ui.header total calories consumed #{currentUser.total_calories_consumed}
 template(name='user_friends')
     .ui.header
         i.user.friends.icon

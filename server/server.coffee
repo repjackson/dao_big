@@ -214,7 +214,6 @@ Meteor.methods
         topup_match.topup_amount = $exists:true
         point_topup_total = 0
         
-        
         point_topup_docs = Docs.find(topup_match).fetch()
         for topup_doc in point_topup_docs 
             console.log topup_doc.topup_amount
@@ -243,14 +242,20 @@ Meteor.methods
                 _author_id:user._id
                 
         total_debits = 0
+        total_calories_consumed = 0
         for order in orders.fetch() 
             # console.log 'order purchase amount', order.purchase_amount
             if order.purchase_amount
                 total_debits += parseInt(order.purchase_amount)
-            
+            product = Docs.findOne _id:order.product_id
+            if product
+                if product.calories
+                    console.log 'calories added', product.calories
+                    total_calories_consumed += parseInt(product.calories)
         console.log 'total debits', total_debits
         console.log 'total credits', point_credit_total
         final_calculated_current_points = point_credit_total - total_debits + point_topup_total
+        
         
         console.log 'total current points', final_calculated_current_points
         if final_calculated_current_points
@@ -274,6 +279,7 @@ Meteor.methods
                     total_earned_credits: point_credit_total
                     total_bought_credits: point_topup_total
                     total_credits: point_credit_total + point_topup_total
+                    total_calories_consumed: total_calories_consumed
             amount = Meteor.users.find(points:$gt:parseInt(final_calculated_current_points)).count()
             console.log 'amount more ranked', amount
             Meteor.users.update user._id, 
