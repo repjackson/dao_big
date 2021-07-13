@@ -16,37 +16,18 @@ $.cloudinary.config
 # Router.notFound =
     # action: 'not_found'
 
-
-Template.admin_footer.onCreated ->
-    @autorun -> Meteor.subscribe 'admin_tasks'
-    @autorun -> Meteor.subscribe 'admin_notes'
-
-Template.admin_footer.helpers
-    admin_notes: ->
-        Docs.find
-            model:'note'
-            admin:true
-            pathname_root: window.location.pathname.split('/')[1]
-    admin_tasks: ->
-        Docs.find
-            model:'task'
-            admin:true
-            pathname_root: window.location.pathname.split('/')[1]
-    is_editing: ->
-        Session.equals('editing_id', @_id)
-    
         
 Template.body.events
     'click .zoom_out': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('scale', 500)
+        $(e.currentTarget).closest('.grid').transition('scale', 750)
     'click .fly_up': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly up', 500)
+        $(e.currentTarget).closest('.grid').transition('fly up', 750)
     'click .fly_down': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly down', 500)
+        $(e.currentTarget).closest('.grid').transition('fly down', 750)
     'click .fly_right': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly right', 500)
+        $(e.currentTarget).closest('.grid').transition('fly right', 750)
     'click .fly_left': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly left', 500)
+        $(e.currentTarget).closest('.grid').transition('fly left', 750)
 
 
     "click a:not('.no_blink')": ->
@@ -250,28 +231,3 @@ Template.item_item.events
             
             
         
-        
-Template.role_picker.events
-    'click .pick_user': ->
-        # console.log @username
-        # console.log @username
-        Meteor.loginWithPassword(@name, @name, (e,r)=>
-            if e
-                if e.error is 403
-                    Accounts.createUser({username:@name, password:@name}, (e,res)=>
-                        console.log res
-                        )
-            else 
-                console.log r
-                $('body').toast(
-                    showIcon: 'user'
-                    message: "switched to #{@name}"
-                    # showProgress: 'bottom'
-                    class: 'success'
-                    # displayTime: 'auto',
-                    position: "bottom center"
-                )
-                
-        )        
-                
-                

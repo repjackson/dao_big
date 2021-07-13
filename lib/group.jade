@@ -178,13 +178,14 @@ template(name='group_layout')
         +admin_footer           
                         
 template(name='group_products')  
-    .ui.header 
+    .ui.inline.header 
         i.cart.icon
         |group products
     i.plus.circular.link.icon.add_group_product
     .ui.large.link.big.selection.list
         each group_products
             a.item(href="/product/#{_id}")
+                img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
                 |#{title}
 
 
@@ -216,6 +217,7 @@ template(name='group_view')
                 a.ui.header(href="/user/#{username}") 
                     img.ui.avatar.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
                     |#{username}
+                    small #{points}pts
     div
     if has_parent_group
         .ui.inline.header 

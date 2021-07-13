@@ -210,6 +210,10 @@ template(name='product_layout')
                             //- small viewing
                             | #{title}
                             //- small product
+                        if dynamic_pricing
+                            .ui.small.header
+                                i.calculator.icon(title='dynamic pricing')
+                                |dynamic pricing (=/- #{dynamic_pricing_increment}pts)
                         a(href="https://www.google.com/search?q=#{title}" title='search google for product' target='_blank')
                             i.google.link.grey.icon
                         a(href="https://www.amazon.com/s?k=#{title}" title='search amazon for product' target='_blank')
@@ -218,7 +222,7 @@ template(name='product_layout')
                             a.fly_down(href="/product/#{_id}/edit")
                                 i.pencil.blue.large.circular.link.icon
                         // a(href="{{c.url image_id}}" target="_window")
-                        .ui.header calories #{calories}
+                        .ui.small.header #{calories} calories
                         div 
                         // +text_view key='size_description' label='size description'  direct=true
                         // +link_view key='product_link' label='link' icon='wordpress' direct=true
@@ -231,6 +235,13 @@ template(name='product_layout')
                             i.eye.icon
                             |#{views}
                             |views
+                        .ui.header
+                            |curent point price $#{price_usd}
+                        .ui.header
+                            |core usd price $#{price_usd}
+                        .ui.header
+                            |core point price #{price_points}p
+                            
                         div
                         +voting_full
                         +html_view key='description' direct=true
@@ -342,6 +353,10 @@ template(name='product_edit')
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
+                    +boolean_edit key='dynamic_pricing' label='dynamic pricing' direct=true
+                    if dynamic_pricing
+                        |how much price changes based on sales in the last day
+                        +number_edit key='dynamic_pricing_increment' label='dynamic pricing increment (pts)' unit='points' direct=true
                 .eight.wide.column
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
