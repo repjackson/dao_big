@@ -3,7 +3,8 @@ Meteor.publish 'group_facets', (
     title_filter
     )->
     self = @
-    match = {app:'pes'}
+    # match = {app:'pes'}
+    match = {}
     match.model = 'group'
     if picked_tags.length > 0 then match.tags = $in:picked_tags
     if title_filter and title_filter.length > 1
@@ -40,7 +41,7 @@ Meteor.publish 'group_docs', (
     )->
 
     self = @
-    match = {app:'pes'}
+    match = {}
     match.model = 'group'
     if picked_tags.length > 0 then match.tags = $in:picked_tags
     if title_filter and title_filter.length > 1

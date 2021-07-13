@@ -257,10 +257,11 @@ Meteor.methods
             Meteor.users.update user._id,
                 $set:
                     points: final_calculated_points
+            amount = Meteor.users.find(points:$gt:parseInt(final_calculated_points)).count()
+            console.log 'amount more ranked', amount
+            Meteor.users.update user._id, 
+                $set:point_rank:amount
 
-
-        #     Meteor.users.update user._id, 
-        #         $set:points:point_total
 
         # res.forEach (tag, i) =>
         #     console.log tag

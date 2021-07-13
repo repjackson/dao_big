@@ -30,7 +30,7 @@ Docs.before.insert (userId, doc)->
         doc._timestamp_tags = date_array
 
     doc._author_id = Meteor.userId()
-    doc.app = 'pes'
+    # doc.app = 'pes'
     # doc.points = 0
     # doc.downvoters = []
     # doc.upvoters = []

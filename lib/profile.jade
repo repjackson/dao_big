@@ -22,6 +22,11 @@ template(name='user_layout')
                                 |#{current_user.points}
                             .label
                                 |points
+                        .ui.inline.horizontal.statistic
+                            .value
+                                |##{current_user.point_rank}
+                            .label
+                                |rank
                             
                         .ui.two.column.middle.aligned.grid.mobile.only
                             .column
@@ -53,15 +58,15 @@ template(name='user_layout')
                         a.ui.basic.button(href="/user/#{username}/sent" class="{{isActiveRoute 'user_sent'}}")
                             i.send.icon
                             |sent
-                        // a.ui.basic.button(href="/user/#{username}/timeclock" class="{{isActiveRoute 'user_timeclock'}}")
-                        //     i.clock.icon
-                        //     |timeclock
+                        a.ui.basic.button(href="/user/#{username}/friends" class="{{isActiveRoute 'user_friends'}}")
+                            i.user.friends.icon
+                            |friends
                         a.ui.basic.button(href="/user/#{username}/roles" class="{{isActiveRoute 'user_roles'}}")
                             i.shield.icon
                             |roles
-                        // a.ui.basic.button(href="/user/#{username}/chat" class="{{isActiveRoute 'chat'}}")
-                        //     i.chat.icon
-                        //     |chat
+                        a.ui.basic.button(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
+                            i.money.icon
+                            |orders
                         // a.ui.basic.button(href="/user/#{username}/payroll" class="{{isActiveRoute 'user_payroll'}}")
                         //     i.money.icon
                         //     |payroll
@@ -72,9 +77,19 @@ template(name='user_layout')
         // if in_role 'admin'
         //     +admin_footer
 
+template(name='user_friends')
+    .ui.header
+        i.user.friends.icon
+        |user friends
+    .ui.input
+        input.add_friend_by_username(type='text' placeholder='add user by friend')
+    each user_friends
+        .ui.big.button(href="/user/#{username}") #{username}
+
+
 template(name='user_dashboard')
     with current_user
-        .ui.four.column.grid
+        .ui.four.column.stackable.grid
             .column
                 .ui.header 
                     i.fire.icon

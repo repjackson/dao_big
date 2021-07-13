@@ -168,13 +168,20 @@ if Meteor.isClient
             }, sort:_timestamp:-1
 
 if Meteor.isServer
+    # Meteor.publish 'user_orders', (username)->
+    #     # user = Meteor.users.findOne username:username
+    #     Docs.find 
+    #         model:'order'
+    #         _author_username:username
+            
+    
     Meteor.publish 'user_orders', (username)->
         user = Meteor.users.findOne username:username
         Docs.find {
             model:'order'
             _author_id: user._id
         }, 
-            limit:10
+            limit:100
             sort:_timestamp:-1
             
     Meteor.publish 'product_from_order_id', (order_id)->

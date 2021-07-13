@@ -7,10 +7,14 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_requests'
         ), name:'user_requests'
-    Router.route '/user/:username/posts', (->
+    Router.route '/user/:username/orders', (->
         @layout 'user_layout'
-        @render 'user_posts'
-        ), name:'user_posts'
+        @render 'user_orders'
+        ), name:'user_orders'
+    Router.route '/user/:username/friends', (->
+        @layout 'user_layout'
+        @render 'user_friends'
+        ), name:'user_friends'
     Router.route '/user/:username/sent', (->
         @layout 'user_layout'
         @render 'user_sent'
@@ -19,14 +23,6 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_groups'
         ), name:'user_groups'
-    Router.route '/user/:username/timeclock', (->
-        @layout 'user_layout'
-        @render 'user_timeclock'
-        ), name:'user_timeclock'
-    Router.route '/user/:username/payroll', (->
-        @layout 'user_layout'
-        @render 'user_payroll'
-        ), name:'user_payroll'
     Router.route '/user/:username/chat', (->
         @layout 'user_layout'
         @render 'user_chat'
@@ -45,7 +41,7 @@ if Meteor.isClient
     Template.user_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username, ->
         @autorun -> Meteor.subscribe 'user_groups', Router.current().params.username, ->
-        # @autorun -> Meteor.subscribe 'user_referenced_docs', Router.current().params.username
+        @autorun -> Meteor.subscribe 'user_friends', Router.current().params.username
 
     Template.user_layout.onRendered ->
         Meteor.setTimeout ->
@@ -57,6 +53,19 @@ if Meteor.isClient
     #     user_section_template: ->
     #         "user_#{Router.current().params.group}"
 
+        
+    Template.user_friends.events    
+        'keyup .add_friend_by_username': (e,t)->
+            if e.which is '13'
+                val = $('.add_friend_by_username').va()
+                Meteor.call 'search_by_username', (val, err, res)->
+                    console.log res
+                    
+            
+    Template.user_friends.helpers
+        user_friends: ->
+            
+            Meteor.users.findOne username:Router.current().params.username
     Template.user_layout.helpers
         user_from_username_param: ->
             Meteor.users.findOne username:Router.current().params.username
@@ -111,29 +120,34 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'user_model_docs', Router.current().params.username, 'time_session', ->
         # @autorun -> Meteor.subscribe 'user_referenced_docs', Router.current().params.username
 
-    Template.user_timeclock.events
-        'click .clock_in':->
-            Meteor.users.update Meteor.userId(),
-                $set:
-                    clocked_in:true
+    # Template.user_timeclock.events
+    #     'click .clock_in':->
+    #         Meteor.users.update Meteor.userId(),
+    #             $set:
+    #                 clocked_in:true
             
             
-        'click .clock_out':->
-            Meteor.users.update Meteor.userId(),
-                $set:
-                    clocked_in:false
+    #     'click .clock_out':->
+    #         Meteor.users.update Meteor.userId(),
+    #             $set:
+    #                 clocked_in:false
             
             
             
             
-    Template.user_timeclock.helpers
-        time_sessions: ->
-            Docs.find 
-                model:'time_session'
+    # Template.user_timeclock.helpers
+    #     time_sessions: ->
+    #         Docs.find 
+    #             model:'time_session'
                 
                 
                 
 if Meteor.isServer
+    Meteor.publish 'user_friends', (username)->
+        user = Meteor.users.findOne username:username
+        Meteor.users.find
+            _id: $in: user.friend_ids
+            
     Meteor.publish 'user_model_docs', (username,model)->
         Docs.find 
             model:model
@@ -145,4 +159,7 @@ if Meteor.isServer
             model:'group'
             _id:$in:user.membership_group_ids
             
-            
+    Meteor.methods 
+        search_by_username: (username)->
+            found = Meteor.users.findOne 
+                username:username
