@@ -372,7 +372,7 @@ template(name='order_edit')
                     .ui.header purchase price: #{purchase_amount}pts
                     .ui.header current balance #{currentUser.points}pts
                     .ui.header balance after purchase #{balance_after_purchase}pts
-                    .ui.header % difference {{fixed percent_difference}}pts
+                        small ({{fixed percent_difference}}% difference)
                     div
                     // +image_edit key='image_id' label='image' direct=true
                     // +array_edit key='tags' label='tags' icon='tags' direct=true

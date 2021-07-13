@@ -21,9 +21,9 @@ template(name='products')
                     |#{this}
             each product_tag_results
                 if title
-                    a.ui.basic.circular.small.link.label.pick_product_tag
+                    a.ui.basic.circular.link.label.pick_product_tag(title="#{count} results")
                         |#{title} 
-                        small.ui.grey.text #{count}
+                        // small.ui.grey.text #{count}
             
             // .ui.left.icon.search.input
             //     i.search.icon.refresh_tags
@@ -209,6 +209,8 @@ template(name='product_layout')
                             //- small viewing
                             | #{title}
                             //- small product
+                        a(href="https://www.google.com/search?q=#{title}" target='_blank')
+                            i.google.link.grey.icon
                         if can_edit
                             a.fly_right(href="/product/#{_id}/edit")
                                 i.pencil.blue.large.circular.link.icon
