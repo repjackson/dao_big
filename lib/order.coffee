@@ -215,6 +215,14 @@ if Meteor.isClient
         #         })
         # , 2000
 
+    Template.order_edit.helpers
+        balance_after_purchase: ->
+            Meteor.user().points - @purchase_amount
+        percent_difference: ->
+            balance_after_purchase = 
+                Meteor.user().points - @purchase_amount
+            # difference
+            @purchase_amount/Meteor.user().points
     Template.order_edit.events
         'click .complete_order': (e,t)->
             console.log @

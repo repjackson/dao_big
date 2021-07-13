@@ -189,7 +189,7 @@ template(name='order_view')
                     if delivered
                         if is_author
                             // +kvs key='status' value='picked_up' label='picked up' direct=true
-                            .ui.basic.large.button.mark_arrived
+                            .ui.basic.large.fluid.button.mark_arrived
                                 +i name='pick-up' cl='ui inline image'
                                 |mark picked up
                             
@@ -245,59 +245,64 @@ template(name='product_delivery')
             i.shield.icon
             |staff
         unless runner_viewed
-            .ui.basic.large.button.mark_viewed
+            .ui.basic.large.fluid.button.mark_viewed
                 +i name='eye-checked' cl='ui avatar image'
                 |mark viewed
         if runner_viewed 
             div
             +i name='eye-checked' cl='ui avatar image'
             .ui.inline.header viewed {{from_now runner_viewed_timestamp}} 
+            div
             .ui.small.grey.inline.header {{cal_time runner_viewed_timestamp}}
             div
             unless preparing
                 .ui.basic.large.button.mark_preparing
                     +i name='new-product--v1' cl='ui avatar image'
-                    |preparing
+                    |mark preparing
         if preparing 
             div
             +i name='new-product--v1' cl='ui inline image'
             .ui.inline.header prep started {{from_now preparing_timestamp}} 
+            div
             .ui.small.grey.inline.header {{cal_time preparing_timestamp}}
             div
             unless prepared
-                .ui.basic.large.button.mark_prepared
+                .ui.basic.large.fluid.button.mark_prepared
                     +i name='handle-with-care' cl='ui avatar image'
-                    |prepared
+                    |mark prepared
         if prepared 
             div
             +i name='handle-with-care' cl='ui inline image'
             .ui.inline.header prepared {{from_now prepared_timestamp}} 
+            div
             .ui.small.grey.inline.header {{cal_time prepared_timestamp}}
             div
             unless delivering
-                .ui.basic.large.button.mark_delivering
+                .ui.basic.large.fluid.button.mark_delivering
                     +i name='truck' cl='ui inline image'
-                    |delivering
+                    |mark delivering
         if delivering 
             div
             +i name='truck' cl='ui inline image'
             .ui.inline.header started delivery {{from_now delivering_timestamp}} 
+            div
             .ui.small.grey.inline.header {{cal_time delivering_timestamp}}
             
             div
             unless arrived
-                .ui.basic.large.button.mark_arrived
+                .ui.basic.large.fluid.button.mark_arrived
                     +i name='checked-truck' cl='ui inline image'
-                    |arrived
+                    |mark arrived
         if arrived 
             div
             +i name='checked-truck' cl='ui inline image'
             .ui.inline.header arrived {{from_now arrived_timestamp}} 
+            div
             .ui.small.grey.inline.header {{cal_time arrived_timestamp}}
             +image_edit key='delivery_photo' direct=true
             if delivery_photo                        
                 div
-                .ui.basic.large.button.mark_delivery_complete
+                .ui.basic.large.fluid.button.mark_delivery_complete
                     i.large.checkmark.icon
                     |delivered
 
@@ -365,6 +370,9 @@ template(name='order_edit')
                     .ui.header #{when}
                 .eight.wide.column
                     .ui.header purchase price: #{purchase_amount}pts
+                    .ui.header current balance #{currentUser.points}pts
+                    .ui.header balance after purchase #{balance_after_purchase}pts
+                    .ui.header % difference {{fixed percent_difference}}pts
                     div
                     // +image_edit key='image_id' label='image' direct=true
                     // +array_edit key='tags' label='tags' icon='tags' direct=true
