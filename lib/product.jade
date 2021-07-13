@@ -140,7 +140,7 @@ template(name='set_product_limit')
 
 
 template(name='product_card')
-    .center.aligned.column.zoomer.zoom_out(class=product_card_class title=ingredients)
+    .center.aligned.column.zoomer.zoom_in_card(class=product_card_class title=ingredients)
         if rescued 
             .ui.top.right.attached.blue.label(title='rescued')
                 i.search.icon
@@ -214,9 +214,9 @@ template(name='product_layout')
                             .ui.small.header
                                 i.calculator.icon(title='dynamic pricing')
                                 |dynamic pricing (=/- #{dynamic_pricing_increment}pts)
-                        a(href="https://www.google.com/search?q=#{title}" title='search google for product' target='_blank')
+                        a.zoomer(href="https://www.google.com/search?q=#{title}" title='search google for product' target='_blank')
                             i.google.link.grey.icon
-                        a(href="https://www.amazon.com/s?k=#{title}" title='search amazon for product' target='_blank')
+                        a.zoomer(href="https://www.amazon.com/s?k=#{title}" title='search amazon for product' target='_blank')
                             i.amazon.link.grey.icon
                         if can_edit
                             a.fly_down(href="/product/#{_id}/edit")
@@ -343,12 +343,12 @@ template(name='product_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .five.wide.column
+                .six.wide.column
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
                         small product
-                    .ui.large.fluid.icon.green.button.save_product.fly_up(title='save product')
+                    .ui.large.icon.green.button.save_product.fly_up(title='save product')
                         i.checkmark.big.icon   
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
@@ -357,19 +357,24 @@ template(name='product_edit')
                     if dynamic_pricing
                         |how much price changes based on sales in the last day
                         +number_edit key='dynamic_pricing_increment' label='dynamic pricing increment (pts)' unit='points' direct=true
-                .eight.wide.column
+                .ten.wide.column
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     +html_edit key='description' label='description' direct=true
-                .three.wide.column
-                    +boolean_edit key='has_calories' label='has calories' direct=true
-                    if has_calories
+                    +boolean_edit key='is_food' label='is food' icon='food' direct=true
+                    if is_food
+                        // +boolean_edit key='has_calories' label='has calories' direct=true
+                        // if has_calories
+                        +number_edit key='fat_grams' label='fat grams' direct=true
+                        +number_edit key='serving_size' label='serving size' direct=true
                         +number_edit key='calories' label='calories' direct=true
                     +boolean_edit key='buy_it_now' label='buy it now' direct=true
-                    if buy_it_now
-                        +number_edit key='price_usd' label='$ price' direct=true
-                        +number_edit key='price_points' label='price (points)' direct=true
+                    // if buy_it_now
+                    div
+                    +number_edit key='price_usd' label='$ price' direct=true
+                    div
+                    +number_edit key='price_points' label='price (points)' direct=true
                     +boolean_edit key='is_auction' label='auction' direct=true
                     if is_auction
                         +number_edit key='minimum_bid' label='minimum bid' direct=true

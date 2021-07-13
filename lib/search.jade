@@ -11,6 +11,8 @@ template(name='search')
                         +post_search_result
                     if kve 'model' 'group'
                         +group_search_result
+                    if kve 'model' 'product'
+                        +group_product_result
                         
 template(name='post_search_result')                        
     a.item(href="/post/#{_id}")
@@ -18,6 +20,23 @@ template(name='post_search_result')
         .ui.basic.label
             i.database.icon
             |#{model}
+        if _author_username
+            a.ui.basic.label(href="/user/#{_author_username") #{_author_username}
+        if in_dev
+            +print_this
+        |#{when}
+        each tags
+            .ui.label #{this}
+                
+            
+template(name='group_product_result')                        
+    a.item(href="/product/#{_id}")
+        .ui.inline.header #{title} 
+        .ui.basic.label
+            i.shop.icon
+            |#{model}
+        |$#{price_usd}
+        |#{price_points}pts
         if _author_username
             a.ui.basic.label(href="/user/#{_author_username") #{_author_username}
         if in_dev

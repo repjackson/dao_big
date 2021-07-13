@@ -18,6 +18,8 @@ $.cloudinary.config
 
         
 Template.body.events
+    'click .zoom_in_card': (e,t)->
+        $(e.currentTarget).closest('.column').transition('scale', 750)
     'click .zoom_out': (e,t)->
         $(e.currentTarget).closest('.grid').transition('scale', 750)
     'click .fly_up': (e,t)->

@@ -16,7 +16,7 @@ if Meteor.isClient
         search_results: ->
             search = Session.get('global_search')
             Docs.find 
-                title: {$regex:"#{search}", $options: 'i'}
+                title: {$regex:Session.get('global_search'), $options: 'i'}
 
                 
                 
@@ -29,6 +29,7 @@ if Meteor.isServer
             Docs.find(
                 {
                     title: {$regex:"#{search}", $options: 'i'}
+                    group_id:Meteor.user().current_group_id
                 }, limit:20
             )
         
