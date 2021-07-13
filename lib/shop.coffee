@@ -84,7 +84,9 @@ if Meteor.isClient
             Session.set('product_query',null)
             picked_ingredients.clear()
 
-        'click .clear_product_query': ->
+        'click .clear_product_query': (e,t)->
+            $(e.currentTarget).closest('.input').transition('shake', 500)
+
             Session.set('product_query', null)
 
         'keyup #product_search': _.throttle((e,t)->

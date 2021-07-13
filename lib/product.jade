@@ -2,17 +2,18 @@ template(name='products')
     .ui.stackable.padded.grid
         .four.wide.column
             .ui.inline.header
+                i.large.shop.icon
                 |#{product_docs.count}
                 |products
+            if currentUser
+                a.add_product(title='add product')
+                    i.plus.large.circular.link.icon
             .ui.icon.input
                 if product_query
                     i.remove.link.icon.clear_product_query(title='clear search')
                 else 
                     i.search.icon
                 input#product_search(type='text' placeholder='title...' value=product_query)
-            if currentUser
-                a.add_product(title='add product')
-                    i.plus.large.circular.link.icon
             .ui.inline.small.header
                 i.tag.icon
                 |tags
@@ -209,10 +210,12 @@ template(name='product_layout')
                             //- small viewing
                             | #{title}
                             //- small product
-                        a(href="https://www.google.com/search?q=#{title}" target='_blank')
+                        a(href="https://www.google.com/search?q=#{title}" title='search google for product' target='_blank')
                             i.google.link.grey.icon
+                        a(href="https://www.amazon.com/s?k=#{title}" title='search amazon for product' target='_blank')
+                            i.amazon.link.grey.icon
                         if can_edit
-                            a.fly_right(href="/product/#{_id}/edit")
+                            a.fly_down(href="/product/#{_id}/edit")
                                 i.pencil.blue.large.circular.link.icon
                         // a(href="{{c.url image_id}}" target="_window")
                         .ui.header calories #{calories}
@@ -334,7 +337,7 @@ template(name='product_edit')
                         i.pencil.icon
                         | #{title}
                         small product
-                    .ui.large.fluid.icon.green.button.save_product.fly_right(title='save product')
+                    .ui.large.fluid.icon.green.button.save_product.fly_up(title='save product')
                         i.checkmark.big.icon   
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
