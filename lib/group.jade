@@ -185,7 +185,14 @@ template(name='group_products')
         each group_products
             a.item(href="/product/#{_id}")
                 img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
-                |#{title}
+                .content
+                    .header
+                        |#{title}
+                    .description
+                        |$#{price_usd}/#{price_points}pts
+                        if dynamic_pricing
+                            i.calculator.icon(title='dynamic pricing')
+                        
 
 
 template(name='group_view')            

@@ -22,34 +22,19 @@ template(name='user_layout')
                                 |#{current_user.points}
                             .label
                                 |current pts
-                        .ui.inline.horizontal.small.statistic
-                            .value
-                                |##{current_user.point_rank}
-                            .label
-                                |current rank
-                            
+                                span(title='rank') (##{current_user.point_rank})
                         .ui.inline.tiny.horizontal.statistic
                             .value
                                 |#{current_user.total_earned_credits}
                             .label
                                 |pts earned
-                        .ui.inline.tiny.horizontal.statistic
-                            .value
-                                |##{current_user.total_earned_credit_rank}
-                            .label
-                                |earned pts rank
-                            
-                            
+                                span(title='rank') (##{current_user.total_earned_credit_rank})
                         .ui.inline.tiny.horizontal.statistic
                             .value
                                 |#{current_user.total_bought_credits}
                             .label
                                 |pts bought
-                        .ui.inline.tiny.horizontal.statistic
-                            .value
-                                |##{current_user.total_bought_credit_rank}
-                            .label
-                                |bought pts rank
+                                span(title='rank') (##{current_user.total_bought_credit_rank})
                             
                         .ui.two.column.middle.aligned.grid.mobile.only
                             .column
@@ -104,15 +89,17 @@ template(name='user_layout')
         //     +admin_footer
 
 template(name='user_stats')
+    
     .ui.header
         i.line.chart.icon
         |stats
     .ui.button.make_chart
         |make chart
+    .ui.header total calories consumed #{currentUser.total_calories_consumed}
+    .ui.header total calories consumed #{currentUser.total_earned_credit_rank}
     div(style="width:800px; height:500px;")
         canvas.chart(width="400" height="400")
 
-    .ui.header total calories consumed #{currentUser.total_calories_consumed}
 template(name='user_friends')
     .ui.header
         i.user.friends.icon

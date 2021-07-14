@@ -1,6 +1,6 @@
 template(name='nav')
     // #topnav.topnav.ui.attached.inverted.borderless.menu(style="background-color:#062639;")
-    #topnav.topnav.ui.attached.inverted.borderless.large.seven.item.menu
+    #topnav.topnav.ui.attached.inverted.borderless.large.menu
         +status
         if is_loading
             .icon.item
@@ -25,12 +25,12 @@ template(name='nav')
                 
         // a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
         //     i.bullhorn.large.icon
-        // a.icon.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
-        //     i.large.list.icon
-        // a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
-        //     i.large.wrench.icon
-        // a.icon.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
-        //     i.large.checkmark.icon
+        a.icon.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
+            i.large.list.icon
+        a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
+            i.large.wrench.icon
+        a.icon.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
+            i.large.checkmark.icon
         // a.icon.item.zoomer(href='/posts' class="{{isActivePath '/posts'}}")
         //     i.large.newspaper.icon
         // a.icon.item.zoomer(href='/events' class="{{isActivePath '/events'}}")

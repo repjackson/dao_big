@@ -35,7 +35,7 @@ if Meteor.isClient
         task_docs: ->
             Docs.find 
                 model:'task'
-                group_id: Meteor.user().current_group_id
+                # group_id: Meteor.user().current_group_id
                 
         task_tag_results: ->
             Results.find {
@@ -45,8 +45,6 @@ if Meteor.isClient
                 
 
             
-    Template.task_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     Template.task_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     
@@ -54,6 +52,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'task_work', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'model_docs', 'location', ->
+        @autorun => Meteor.subscribe 'child_groups_from_parent_id', Router.current().params.doc_id,->
     Template.task_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'task_work', Router.current().params.doc_id, ->
@@ -101,7 +100,6 @@ if Meteor.isServer
         Docs.find   
             model:'work'
             task_id:task_id
-            
     # Meteor.publish 'work_task', (work_id)->
     #     work = Docs.findOne work_id
     #     Docs.find   
@@ -170,3 +168,9 @@ if Meteor.isClient
         all_shop: ->
             Docs.find
                 model:'task'
+
+
+        current_subgroups: ->
+            Docs.find 
+                model:'group'
+                parent_group_id:Meteor.user().current_group_id

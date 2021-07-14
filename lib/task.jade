@@ -31,17 +31,17 @@ template(name='tasks')
                         |#{title} 
                         small.ui.grey.text #{count}
             div
-            .ui.small.inline.header
-                i.fire.icon
-                |groups
-            each picked_task_groups
-                a.ui.blue.label.unpick_group
-                    |#{this}
-            each task_group_results
-                if title
-                    a.ui.basic.circular.small.link.label.pick_group
-                        |#{title} 
-                        small.ui.grey.text #{count}
+            // .ui.small.inline.header
+            //     i.fire.icon
+            //     |groups
+            // each picked_task_groups
+            //     a.ui.blue.label.unpick_group
+            //         |#{this}
+            // each task_group_results
+            //     if title
+            //         a.ui.basic.circular.small.link.label.pick_group
+            //             |#{title} 
+            //             small.ui.grey.text #{count}
         .twelve.wide.column
             span.sorting_row
                 +search_input model='task' field='title'
@@ -68,19 +68,10 @@ template(name='tasks')
                         i.sort.amount.up.icon
                 |&nbsp;
                 |&nbsp;
-                // .ui.compact.menu
-                //     .ui.simple.dropdown.item
-                //         strong #{product_limit}
-                //         i.dropdown.icon
-                //         .menu
-                        //   +set_product_limit amount=1
-                           +set_product_limit amount=5
-                           +set_product_limit amount=10
-                            +set_product_limit amount=20
                 .spacer 
         
             span.ui.doubling.cards.scrolling
-                each model_docs_helper 'task'
+                each task_docs
                     .ui.link.card
                         a(href="/task/#{_id}") 
                             img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
@@ -108,24 +99,41 @@ template(name='task_edit')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
+                    div
                     +boolean_edit key='has_user_assignment' label='has user assignment' direct=true
                     if has_user_assignment
                         each group_members
                             .ui.button.assign_member #{username}
+                    div
                     +boolean_edit key='has_minute_expectation' label='has minute expectation' direct=true
+                    div
                     if has_minute_expectation
                         +number_edit key='minute_expectation' label='time expectation (minutes)' direct=true
+                    div
                     +boolean_edit key='has_duedatetime' label='has due date/time' icon='calendar' direct=true
+                    div
                     if has_duedatetime
                         +datetime_edit key='due_datetime' label='due date/time' icon='calendar' direct=true
                     +number_edit key='amount' label='amount (leave 0 for infinite)' direct=true
+                    div
                     +boolean_edit key='has_point_bounty' label='has point bounty' icon='hashtag' direct=true
+                    div
                     if has_point_bounty
                         +number_edit key='point_bounty' label='point_bounty' direct=true
                     div
                 .ten.wide.column
                     div
-                    +textarea_edit key='description' label='description' direct=true
+                    +boolean_edit key='has_subgroup_specification' label='has specific subgroup' icon='users' direct=true
+                    div
+                    .ui.header     
+                        i.users.icon
+                        |subgroup availability
+                    each current_subgroups
+                        .ui.button.select_subgroup(class=subgroup_class)
+                            img.ui.tiny.inline.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+                            |#{title}
+                    +number_edit key='amount' label='amount (leave 0 for infinite)' direct=true
+                    +html_edit key='description' label='description' direct=true
                     .ui.header     
                         i.large.marker.icon
                         |possible locations

@@ -221,7 +221,12 @@ Meteor.methods
                 point_topup_total += parseInt(topup_doc.topup_amount)
             
         console.log 'topup credit total', point_topup_total
-        
+                        # 
+        total_bought_credit_rank = Meteor.users.find(total_bought_credits:$gt:parseInt(point_topup_total)).count()
+        console.log 'total earned credit rank', total_earned_credit_rank
+        Meteor.users.update user._id, 
+            $set:total_bought_credit_rank:total_bought_credit_rank+1
+
         # res = Docs.aggregate [
         #     { $match: match }
         #     # { $project: tags: 1 }
@@ -262,13 +267,21 @@ Meteor.methods
             Meteor.users.update user._id,
                 $set:
                     points: final_calculated_current_points
-            amount = Meteor.users.find(points:$gt:parseInt(final_calculated_current_points)).count()
-            console.log 'amount more ranked', amount
+            current_point_rank = Meteor.users.find(points:$gt:parseInt(final_calculated_current_points)).count()
+            console.log 'amount more ranked', current_point_rank
             Meteor.users.update user._id, 
-                $set:point_rank:amount
+                $set:point_rank:current_point_rank+1
 
         calculated_total_earned_credits = point_credit_total
         calculated_total_bought_credits = point_topup_total
+
+                # 
+        total_earned_credit_rank = Meteor.users.find(total_earned_credits:$gt:parseInt(calculated_total_earned_credits)).count()
+        console.log 'total earned credit rank', total_earned_credit_rank
+        Meteor.users.update user._id, 
+            $set:total_earned_credit_rank:total_earned_credit_rank+1
+
+        
         calculated_total_credits = point_credit_total + point_topup_total
         
         console.log 'total current points', final_calculated_current_points
