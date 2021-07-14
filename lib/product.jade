@@ -12,7 +12,7 @@ template(name='products')
                 if product_query
                     i.remove.link.icon.clear_product_query(title='clear search')
                 else 
-                    i.search.icon
+                    i.search.red.large.icon
                 input#product_search(type='text' placeholder='title...' value=product_query)
             .ui.inline.small.header
                 i.tag.icon
@@ -95,7 +95,7 @@ template(name='products')
                 .spacer 
             if subs_ready
                 if one_post
-                    .ui.stackable.centered.one.column.grid
+                    .ui.stackable.center.aligned.one.column.grid
                         each product_docs
                             +product_card
                 else if two_posts
@@ -148,22 +148,19 @@ template(name='product_card')
             .ui.top.right.attached.corner.green.label(title='local')
                 i.marker.icon
         a(href="/product/#{_id}") 
-            img.ui.rounded.zoomer.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+            img.ui.rounded.zoomer.centered.image(src="{{c.url image_id width=500 height=300 crop='pad'}}")
         .content
             a.ui.inline.header(href="/product/#{_id}") 
                 //- |#{_author.name}'s
                 | #{title}
             //- if session_is 'view_ingredients' true
-            +ismall name='ingredients'
-            each ingredients
-                .ui.small.basic.label #{this}
             if gluten_free
                 +i name='no-gluten' cl='ui mini inline image' title='gluten free'
             if vegan
                 +i name='vegan-food' cl='ui mini inline image' title='vegan'
-            i.grey.tag.icon(title='tags')
-            each tags
-                .ui.small.basic.label #{this}
+            +array_view key='ingredients' label='ingredients' icon='food' direct=true
+            div
+            +array_view key='tags' label='tags' icon='tags' direct=true
             |#{calories}cals
             // .content
             //     .right.floated.meta
@@ -251,6 +248,9 @@ template(name='product_layout')
                         div
                         +voting_full
                         +html_view key='description' direct=true
+                        div
+                        +array_view key='ingredients' label='ingredients' icon='food' direct=true
+                        div
                         +array_view key='tags' label='tags' icon='tags' direct=true
                         a.ui.inline.header(href="/group/#{group_id}")
                             |#{group_doc._title}
@@ -372,19 +372,22 @@ template(name='product_edit')
                     if is_food
                         // +boolean_edit key='has_calories' label='has calories' direct=true
                         +array_edit key='ingredients' label='ingredients' direct=true
+                        div
                         +number_edit key='fat_grams' label='fat grams' direct=true
+                        div
                         +number_edit key='serving_size' label='serving size' direct=true
+                        div
                         +number_edit key='calories' label='calories' direct=true
-                    +boolean_edit key='buy_it_now' label='buy it now' direct=true
+                    // +boolean_edit key='buy_it_now' label='buy it now' direct=true
                     // if buy_it_now
                     div
                     +number_edit key='price_usd' label='$ price' direct=true
                     div
                     +number_edit key='price_points' label='price (points)' direct=true
-                    +boolean_edit key='is_auction' label='auction' direct=true
-                    if is_auction
-                        +number_edit key='minimum_bid' label='minimum bid' direct=true
-                        +datetime_edit key='end_datetime' label='end datetime' direct=true
+                    // +boolean_edit key='is_auction' label='auction' direct=true
+                    // if is_auction
+                    //     +number_edit key='minimum_bid' label='minimum bid' direct=true
+                    //     +datetime_edit key='end_datetime' label='end datetime' direct=true
                     if can_delete
                         .ui.red.button.delete_product
                             i.remove.icon   

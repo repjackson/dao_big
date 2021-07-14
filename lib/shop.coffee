@@ -345,15 +345,19 @@ if Meteor.isServer
             sort:"#{sort_key}":sort_direction
             # sort:_timestamp:-1
             limit: limit
-            fields:
-                title:1
-                image_id:1
-                ingredients:1
-                model:1
-                price_usd:1
-                vegan:1
-                local:1
-                gluten_free:1
+            # fields:
+            #     title:1
+            #     image_id:1
+            #     ingredients:1
+            #     model:1
+            #     price_usd:1
+            #     vegan:1
+            #     local:1
+            #     tags:1
+            #     price_points:1
+            #     group_id:1
+            #     _auth
+            #     gluten_free:1
             
     Meteor.publish 'product_search_count', (
         picked_product_tags
