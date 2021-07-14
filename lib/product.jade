@@ -164,9 +164,10 @@ template(name='product_card')
             i.grey.tag.icon(title='tags')
             each tags
                 .ui.small.basic.label #{this}
-            .content
-                .right.floated.meta
-                    | {{from_now datetime_available}}
+            |#{calories}cals
+            // .content
+            //     .right.floated.meta
+            //         | {{from_now datetime_available}}
             //     //- if session_is 'view_users' true
             // //- a.image(href="/product/#{_id}")
                 

@@ -15,8 +15,6 @@ if Meteor.isClient
         Session.setDefault 'product_sort_label', 'available'
         Session.setDefault 'product_limit', 42
         Session.setDefault 'view_open', true
-
-    Template.products.onCreated ->
         @autorun => @subscribe 'product_facets',
             picked_product_tags.array()
             picked_ingredients.array()

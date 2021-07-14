@@ -328,7 +328,7 @@ template(name='user_orders')
 template(name='user_order_item')
     .ui.segment
         // each order_items
-        img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+        img.ui.avatar.image(src="{{c.url product_doc.image_id width=200 height=200 gravity='face' crop='fill'}}")
         a.ui.inline.header(href="/order/#{_id}")
             | #{product_doc.title}
             // |#{subtitle}c
