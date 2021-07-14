@@ -1,6 +1,6 @@
 template(name='nav')
     // #topnav.topnav.ui.attached.inverted.borderless.menu(style="background-color:#062639;")
-    #topnav.topnav.ui.attached.inverted.borderless.large.menu
+    #topnav.topnav.ui.attached.inverted.borderless.large.seven.item.menu
         +status
         if is_loading
             .icon.item
@@ -39,28 +39,28 @@ template(name='nav')
             i.large.shop.icon
         a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.large.user.friends.icon
-        .right.menu
-            if currentUser
-                // if in_role 'admin'
-                //     a.icon.item(href='/admin' title='admin')
-                //         i.large.shield.icon
-                // a.icon.item.toggle_topbar(title='alerts')
-                //     i.bell.outline.large.icon
-                a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
-                    // i.wallet.icon
-                    strong {{int currentUser.points}}p
-                a.item.toggle_rightbar.no_blink
-                    if currentUser.image_id
-                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
-                    else
-                        i.user.icon
-                    strong.mobile.hidden #{currentUser.name}
-            unless currentUser
-                if subs_ready
-                    a.icon.item(href='/login' title='login') 
-                        i.sign.in.large.icon
-                else 
-                    i.yin.yang.loading.icon
+        // .right.menu
+        if currentUser
+            // if in_role 'admin'
+            //     a.icon.item(href='/admin' title='admin')
+            //         i.large.shield.icon
+            // a.icon.item.toggle_topbar(title='alerts')
+            //     i.bell.outline.large.icon
+            a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
+                // i.wallet.icon
+                strong {{int currentUser.points}}p
+            a.item.toggle_rightbar.no_blink
+                if currentUser.image_id
+                    img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
+                else
+                    i.user.icon
+                strong.mobile.hidden #{currentUser.name}
+        unless currentUser
+            if subs_ready
+                a.icon.item(href='/login' title='login') 
+                    i.sign.in.large.icon
+            else 
+                i.yin.yang.loading.icon
                 
                 
 
