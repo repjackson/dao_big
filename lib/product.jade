@@ -154,17 +154,19 @@ template(name='product_card')
                 //- |#{_author.name}'s
                 | #{title}
             //- if session_is 'view_ingredients' true
-            // +ismall name='ingredients'
-            // each ingredients
-            //     .ui.small.basic.label #{this}
-            // if gluten_free
-            //     +i name='no-gluten' cl='ui mini inline image' title='gluten free'
-            // if vegan
-            //     +i name='vegan-food' cl='ui mini inline image' title='vegan'
-            //- .ui.inline.small.header tags
-            // .content
-            //     .right.floated.meta
-            //         | {{from_now datetime_available}}
+            +ismall name='ingredients'
+            each ingredients
+                .ui.small.basic.label #{this}
+            if gluten_free
+                +i name='no-gluten' cl='ui mini inline image' title='gluten free'
+            if vegan
+                +i name='vegan-food' cl='ui mini inline image' title='vegan'
+            i.grey.tag.icon(title='tags')
+            each tags
+                .ui.small.basic.label #{this}
+            .content
+                .right.floated.meta
+                    | {{from_now datetime_available}}
             //     //- if session_is 'view_users' true
             // //- a.image(href="/product/#{_id}")
                 
@@ -222,25 +224,28 @@ template(name='product_layout')
                             a.fly_down(href="/product/#{_id}/edit")
                                 i.pencil.blue.large.circular.link.icon
                         // a(href="{{c.url image_id}}" target="_window")
-                        .ui.small.header #{calories} calories
                         div 
                         // +text_view key='size_description' label='size description'  direct=true
                         // +link_view key='product_link' label='link' icon='wordpress' direct=true
-                        a.ui.small.inline.header.zoomer(href="/group/#{group_doc._id}") 
-                            i.fire.icon
-                            img.ui.rounded.tiny.image.zoomer(src="{{c.url group_doc.image_id}}")
-                            small group
-                            |#{group_doc.title}
-                        .ui.header 
-                            i.eye.icon
-                            |#{views}
-                            |views
-                        .ui.header
-                            |curent point price $#{price_usd}
-                        .ui.header
-                            |core usd price $#{price_usd}
-                        .ui.header
-                            |core point price #{price_points}p
+                        .ui.list
+                            .item #{calories} calories
+                            a.ui.large.item.zoomer(href="/group/#{group_doc._id}") 
+                                if group_doc.image_id
+                                    img.ui.avatar.image.zoomer(src="{{c.url group_doc.image_id}}")
+                                else
+                                    i.fire.icon
+                                |#{group_doc.title}
+                                small group
+                            .ui.item 
+                                i.eye.icon
+                                |#{views}
+                                |views
+                            .ui.item
+                                |curent point price $#{price_usd}
+                            .ui.item
+                                |core usd price $#{price_usd}
+                            .ui.item
+                                |core point price #{price_points}p
                             
                         div
                         +voting_full
@@ -266,16 +271,16 @@ template(name='product_layout')
                         a.ui.basic.button(href="/product/#{_id}/description" class="{{isActivePath '/tasks'}}")
                             i.content.icon
                             |description
-                        a.ui.basic.button(href="/product/#{_id}/comments" class="{{isActivePath '/tasks'}}")
-                            i.chat.icon
-                            |comments
+                        // a.ui.basic.button(href="/product/#{_id}/comments" class="{{isActivePath '/tasks'}}")
+                        //     i.chat.icon
+                        //     |comments
                         a.ui.basic.button(href="/product/#{_id}/leaderboard" class="{{isActivePath '/tasks'}}")
                             i.certificate.icon
                             |leaderboard
                         +yield
+                        +comments
                     
 template(name='product_view')
-    +comments
     if in_dev
         +print_this
         
@@ -365,7 +370,7 @@ template(name='product_edit')
                     +boolean_edit key='is_food' label='is food' icon='food' direct=true
                     if is_food
                         // +boolean_edit key='has_calories' label='has calories' direct=true
-                        // if has_calories
+                        +array_edit key='ingredients' label='ingredients' direct=true
                         +number_edit key='fat_grams' label='fat grams' direct=true
                         +number_edit key='serving_size' label='serving size' direct=true
                         +number_edit key='calories' label='calories' direct=true
@@ -387,8 +392,8 @@ template(name='product_edit')
                             
                             
                             
-template(name='product_comments')
-    +comments
+// template(name='product_comments')
+//     +comments
 template(name='product_timeline')
     .ui.header 
         i.line.chart.icon

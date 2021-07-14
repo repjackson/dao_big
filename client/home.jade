@@ -1,14 +1,14 @@
 template(name='home')
     .ui.padded.stackable.five.column.centered.grid
         .row
-            img.ui.small.inline.image(src="{{c.url current_group.image_id }}")
-            .ui.header 
-                |#{current_group.title}
-            if currentUser 
-                a(href="/group/#{currentUser.current_group_id}/edit" title='edit current group')
-                    i.large.setting.circular.link.icon
+            a(href="/users")
+                img.ui.small.inline.image(src="{{c.url current_group.image_id }}")
+                .ui.inline.header 
+                    |#{current_group.title}
+                if currentUser 
+                    a.fly_down(href="/group/#{currentUser.current_group_id}/edit" title='edit current group')
+                        i.large.setting.circular.link.icon
 
-        .row
             a.center.aligned.column.zoomer(href="/users")
                 .ui.icon.header
                     i.users.icon

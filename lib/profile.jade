@@ -107,6 +107,11 @@ template(name='user_stats')
     .ui.header
         i.line.chart.icon
         |stats
+    .ui.button.make_chart
+        |make chart
+    div(style="width:800px; height:500px;")
+        canvas.chart(width="400" height="400")
+
     .ui.header total calories consumed #{currentUser.total_calories_consumed}
 template(name='user_friends')
     .ui.header

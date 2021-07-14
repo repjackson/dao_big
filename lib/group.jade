@@ -72,7 +72,7 @@ template(name='group_edit')
                         i.pencil.icon
                         | #{title}
                         small group
-                    a.ui.large.icon.green.button(href="/group/#{_id}/" title='save product')
+                    a.ui.large.icon.green.button.fly_up(href="/group/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
@@ -134,14 +134,14 @@ template(name='group_layout')
                     .five.wide.column
                         a.fly_right(href="/groups")
                             i.fire.large.circular.link.icon
-                        .ui.inline.header
+                        .ui.inline.header(title='viewing group')
                             | #{title}
-                            small group view
+                            // small group view
+                        if can_edit
+                            a.fly_down(href="/group/#{_id}/edit")
+                                i.pencil.large.circular.link.icon
                         +image_view key='image_id' label='image' direct=true
                         div
-                        if can_edit
-                            a.ui.icon.button(href="/group/#{_id}/edit")
-                                i.pencil.large.icon
                         div
                         +html_view key='description' label='description' direct=true
                         +array_view key='tags' label='tags' icon='tags' direct=true

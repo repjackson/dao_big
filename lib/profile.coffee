@@ -1,3 +1,7 @@
+Chart = require('chart.js');
+# import Chart from 'chart.js/src/chart.js';
+# import Chart from 'chart.js/src/chart.js';
+
 if Meteor.isClient
     Router.route '/user/:username', (->
         @layout 'user_layout'
@@ -23,10 +27,10 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_groups'
         ), name:'user_groups'
-    Router.route '/user/:username/chat', (->
-        @layout 'user_layout'
-        @render 'user_chat'
-        ), name:'user_chat'
+    # Router.route '/user/:username/chat', (->
+    #     @layout 'user_layout'
+    #     @render 'user_chat'
+    #     ), name:'user_chat'
     Router.route '/user/:username/scheduling', (->
         @layout 'user_layout'
         @render 'user_scheduling'
@@ -42,6 +46,51 @@ if Meteor.isClient
 
 
 
+    Template.user_stats.events
+        'click .make_chart': (e,t)->
+            @Chart = require('chart.js');
+            
+            console.log @
+            # console.log @view
+            # ctx = $('.myChart').getContext('2d');
+            ctx = $('.chart')
+            console.log t
+            # myChart = new @data.Chart('chart', {
+            #     type: 'bar',
+            #     data: {
+            #         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            #         datasets: [{
+            #             label: '# of Votes',
+            #             data: [12, 19, 3, 5, 2, 3],
+            #             backgroundColor: [
+            #                 'rgba(255, 99, 132, 0.2)',
+            #                 'rgba(54, 162, 235, 0.2)',
+            #                 'rgba(255, 206, 86, 0.2)',
+            #                 'rgba(75, 192, 192, 0.2)',
+            #                 'rgba(153, 102, 255, 0.2)',
+            #                 'rgba(255, 159, 64, 0.2)'
+            #             ],
+            #             borderColor: [
+            #                 'rgba(255, 99, 132, 1)',
+            #                 'rgba(54, 162, 235, 1)',
+            #                 'rgba(255, 206, 86, 1)',
+            #                 'rgba(75, 192, 192, 1)',
+            #                 'rgba(153, 102, 255, 1)',
+            #                 'rgba(255, 159, 64, 1)'
+            #             ],
+            #             borderWidth: 1
+            #         }]
+            #     },
+            #     options: {
+            #         scales: {
+            #             y: {
+            #                 beginAtZero: true
+            #             }
+            #         }
+            #     }
+            # });
+        
+    
     Template.user_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username, ->
         @autorun -> Meteor.subscribe 'user_groups', Router.current().params.username, ->
