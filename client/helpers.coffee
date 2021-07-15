@@ -365,28 +365,28 @@ Template.registerHelper 'product_doc',->
         model:'product'
         _id:@product_id
 
-Template.registerHelper 'order_count',-> Counts.get('order_count')
-Template.registerHelper 'product_count',-> Counts.get('product_count')
-Template.registerHelper 'ingredient_count',-> Counts.get('ingredient_count')
-Template.registerHelper 'subscription_count',-> Counts.get('subscription_count')
-Template.registerHelper 'source_count',-> Counts.get('source_count')
-Template.registerHelper 'giftcard_count',-> Counts.get('giftcard_count')
-Template.registerHelper 'user_count',-> Counts.get('user_count')
-Template.registerHelper 'staff_count',-> Counts.get('staff_count')
-Template.registerHelper 'customer_count',-> Counts.get('customer_count')
+# Template.registerHelper 'order_count',-> Counts.get('order_count')
+# Template.registerHelper 'product_count',-> Counts.get('product_count')
+# Template.registerHelper 'ingredient_count',-> Counts.get('ingredient_count')
+# Template.registerHelper 'subscription_count',-> Counts.get('subscription_count')
+# Template.registerHelper 'source_count',-> Counts.get('source_count')
+# Template.registerHelper 'giftcard_count',-> Counts.get('giftcard_count')
+# Template.registerHelper 'user_count',-> Counts.get('user_count')
+# Template.registerHelper 'staff_count',-> Counts.get('staff_count')
+# Template.registerHelper 'customer_count',-> Counts.get('customer_count')
 
 
-Template.registerHelper 'cart_subtotal', () -> 
-    store_session_document = 
-        Docs.findOne 
-            model:'store_session'
-    if store_session_document.cart_product_ids
-        subtotal = 0
-        for product in Docs.find(_id:$in:store_session_document.cart_product_ids).fetch()
-            if product.price_usd
-                subtotal += product.price_usd
-                # console.log 'product', product
-        subtotal
+# Template.registerHelper 'cart_subtotal', () -> 
+#     store_session_document = 
+#         Docs.findOne 
+#             model:'store_session'
+#     if store_session_document.cart_product_ids
+#         subtotal = 0
+#         for product in Docs.find(_id:$in:store_session_document.cart_product_ids).fetch()
+#             if product.price_usd
+#                 subtotal += product.price_usd
+#                 # console.log 'product', product
+#         subtotal
     
 Template.registerHelper 'my_cart_subtotal', () ->
     

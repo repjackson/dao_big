@@ -45,14 +45,12 @@ if Meteor.isClient
                 
 
             
-    Template.task_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-    
     Template.task_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'task_work', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'model_docs', 'location', ->
         @autorun => Meteor.subscribe 'child_groups_from_parent_id', Router.current().params.doc_id,->
+ 
     Template.task_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'task_work', Router.current().params.doc_id, ->
@@ -75,6 +73,12 @@ if Meteor.isClient
             Docs.find
                 model:'location'
                 _id:$in:task.location_ids
+                
+        task_work: ->
+            Docs.find 
+                model:'work'
+                task_id:Router.current().params.doc_id
+                
     Template.task_edit.helpers
         task_locations: ->
             Docs.find

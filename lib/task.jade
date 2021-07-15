@@ -179,20 +179,31 @@ template(name='task_view')
                 .ten.wide.column
                     div.scrolling
                         +html_view key='notes' label='directions' direct=true
-                    .ui.inline.header 
-                        i.large.marker.icon
-                        |possible locations
-                    each possible_locations
-                        .ui.large.label #{title}
+                    // .ui.inline.header 
+                    //     i.large.marker.icon
+                    //     |possible locations
+                    // each possible_locations
+                    //     .ui.large.label #{title}
                     div
-                    .ui.header tags
+                    .ui.header 
+                        i.tag.icon
+                        |tags
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     if currentUser
                         .ui.button.record_work
                             |record work
-                    .ui.list
+                    .ui.header 
+                        i.wrench.icon
+                        |work
+                    .ui.selection.animated.list
                         each task_work
-                            a.item(href="/work/#{_id}") #{when} #{_author_username}
+                            a.item(href="/work/#{_id}") 
+                                img.ui.tiny.inline.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+                                if before_image_id
+                                    img.ui.tiny.inline.image(src="{{c.url before_image_id width=400 height=300 crop='pad'}}")
+                                if before_image_id
+                                    img.ui.tiny.inline.image(src="{{c.url after_image_id width=400 height=300 crop='pad'}}")
+                                |#{when} #{_author_username}
                     +html_view key='description' label='description' direct=true
                     +voting_full
                     +comments

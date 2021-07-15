@@ -39,29 +39,29 @@ template(name='nav')
             i.large.shop.icon
         a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.large.user.friends.icon
-        // .right.menu
-        if currentUser
-            // if in_role 'admin'
-            //     a.icon.item(href='/admin' title='admin')
-            //         i.large.shield.icon
-            // a.icon.item.toggle_topbar(title='alerts')
-            //     i.bell.outline.large.icon
-            a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
-                // i.wallet.icon
-                strong {{int currentUser.points}}p
-            a.item.toggle_rightbar.no_blink
-                if currentUser.image_id
-                    img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
-                else
-                    i.user.icon
-                strong.mobile.hidden #{currentUser.name}
-        unless currentUser
-            if subs_ready
-                a.icon.item(href='/login' title='login') 
-                    i.sign.in.large.icon
-            else 
-                i.yin.yang.loading.icon
-                
+        .right.menu
+            if currentUser
+                // if in_role 'admin'
+                //     a.icon.item(href='/admin' title='admin')
+                //         i.large.shield.icon
+                // a.icon.item.toggle_topbar(title='alerts')
+                //     i.bell.outline.large.icon
+                a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
+                    // i.wallet.icon
+                    strong {{int currentUser.points}}p
+                a.item.toggle_rightbar.no_blink
+                    if currentUser.image_id
+                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
+                    else
+                        i.user.icon
+                    strong.mobile.hidden #{currentUser.name}
+            unless currentUser
+                if subs_ready
+                    a.icon.item(href='/login' title='login') 
+                        i.sign.in.large.icon
+                else 
+                    i.yin.yang.loading.icon
+                    
                 
 
 // template(name='topbar')
@@ -96,7 +96,7 @@ template(name='walletbar')
         +user_credit
         
 template(name='left_sidebar')
-    .ui.left.sidebar.vertical.inverted.large.menu
+    .ui.left.sidebar.vertical.inverted.borderless.large.menu
         // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
         //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')

@@ -79,10 +79,9 @@ template(name='order_view')
                     a.ui.icon.button.fly_left(href="/orders")
                         i.chevron.left.icon
                         |orders
-                    a.ui.icon.button.fly_left(href="/product/#{product_id}")
+                    a.ui.icon.button.fly_left(href="/product/#{product_id}" title='product')
                         i.chevron.left.icon
                         |#{product_doc.title}
-                        |product
                         // +i name='invoice' cl='ui avatar image'
                     .ui.inline.header 
                         // strong '#{order_product.title}'

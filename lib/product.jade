@@ -10,10 +10,11 @@ template(name='products')
                     i.plus.large.circular.link.icon
             .ui.icon.input
                 if product_query
-                    i.remove.link.icon.clear_product_query(title='clear search')
+                    i.remove.red.large.link.icon.clear_product_query(title='clear search')
                 else 
-                    i.search.red.large.icon
+                    i.search.icon
                 input#product_search(type='text' placeholder='title...' value=product_query)
+            div
             .ui.inline.small.header
                 i.tag.icon
                 |tags
@@ -65,15 +66,16 @@ template(name='products')
                 // +session_set key='sort_users_key' value='points' icon='coins'
                 // +session_set key='sort_users_key' value='created_date' icon='clock'
                 // +session_set key='view_limit' value=1
-                +session_set key='view_limit' value=10
-                +session_set key='view_limit' value=20
-                +session_set key='view_limit' value=50
+                // +session_set key='view_limit' value=10
+                // +session_set key='view_limit' value=20
+                // +session_set key='view_limit' value=50
 
                 
                 i.large.sort.icon
                 +set_product_sort_key key='price_usd' label='price' icon='money'
                 //- +set_product_sort_key key='_timestamp' label='added' icon='clock'
-                +set_product_sort_key key='comment_count' label='comment count' icon='chat'
+                +set_product_sort_key key='order_count' label='sales' icon='line chart'
+                +set_product_sort_key key='comment_count' label='comment' icon='chat'
                 +set_product_sort_key key='views' label='views' icon='eye'
                 +set_product_sort_key key='points' label='points' icon='line chart'
                 .ui.compact.icon.button.set_sort_direction(title='toggle sort direction')
@@ -191,100 +193,81 @@ template(name='product_card')
             // .ui.inline.inline.small.grey.header #{points} 
                 // i.line.chart.icon
 
-template(name='product_layout')
-    +nav
-    .ui.bottom.attached.pushable.segment
-        // +topbar
-        +left_sidebar
-        +right_sidebar
-        // +cartbar
-        // +walletbar
-        // +secnav
-        with current_doc
-            .ui.stackable.padded.grid
-                .row
-                    .six.wide.column
-                        a.ui.basic.icon.button.fly_left(href="/products")
-                            i.large.shop.icon
-                        .ui.large.inline.header 
-                            //- small viewing
-                            | #{title}
-                            //- small product
-                        if dynamic_pricing
-                            .ui.small.header
-                                i.calculator.icon(title='dynamic pricing')
-                                |dynamic pricing (=/- #{dynamic_pricing_increment}pts)
-                        a.zoomer(href="https://www.google.com/search?q=#{title}" title='search google for product' target='_blank')
-                            i.google.link.grey.icon
-                        a.zoomer(href="https://www.amazon.com/s?k=#{title}" title='search amazon for product' target='_blank')
-                            i.amazon.link.grey.icon
-                        if can_edit
-                            a.fly_down(href="/product/#{_id}/edit")
-                                i.pencil.blue.large.circular.link.icon
-                        // a(href="{{c.url image_id}}" target="_window")
-                        div 
-                        // +text_view key='size_description' label='size description'  direct=true
-                        // +link_view key='product_link' label='link' icon='wordpress' direct=true
-                        .ui.list
-                            .item #{calories} calories
-                            a.ui.large.item.zoomer(href="/group/#{group_doc._id}") 
-                                if group_doc.image_id
-                                    img.ui.avatar.image.zoomer(src="{{c.url group_doc.image_id}}")
-                                else
-                                    i.fire.icon
-                                |#{group_doc.title}
-                                small group
-                            .ui.item 
-                                i.eye.icon
-                                |#{views}
-                                |views
-                            .ui.item
-                                |curent point price $#{price_usd}
-                            .ui.item
-                                |core usd price $#{price_usd}
-                            .ui.item
-                                |core point price #{price_points}p
-                            
-                        div
-                        +voting_full
-                        +html_view key='description' direct=true
-                        div
-                        +array_view key='ingredients' label='ingredients' icon='food' direct=true
-                        div
-                        +array_view key='tags' label='tags' icon='tags' direct=true
-                        a.ui.inline.header(href="/group/#{group_id}")
-                            |#{group_doc._title}
-                        img.ui.rounded.fluid.image.zoomer(src="{{c.url image_id}}")
-                    .ten.wide.column
-                        .ui.green.big.button.record_order.fly_right
-                            i.send.big.icon
-                            |buy for #{price_points}p
-                        // div
-                        a.ui.basic.button(href="/product/#{_id}/timeline" class="{{isActiveRoute 'product_timeline'}}")
-                            i.line.chart.icon
-                            |timeline
-                        a.ui.basic.button(href="/product/#{_id}/orders" class="{{isActiveRoute 'product_orders'}}")
-                            i.money.icon
-                            |orders
-                        a.ui.basic.button(href="/product/#{_id}/reviews" class="{{isActivePath '/tasks'}}")
-                            i.bullhorn.icon
-                            |reviews
-                        a.ui.basic.button(href="/product/#{_id}/description" class="{{isActivePath '/tasks'}}")
-                            i.content.icon
-                            |description
-                        // a.ui.basic.button(href="/product/#{_id}/comments" class="{{isActivePath '/tasks'}}")
-                        //     i.chat.icon
-                        //     |comments
-                        a.ui.basic.button(href="/product/#{_id}/leaderboard" class="{{isActivePath '/tasks'}}")
-                            i.certificate.icon
-                            |leaderboard
-                        +yield
-                        +comments
-                    
 template(name='product_view')
-    if in_dev
-        +print_this
-        
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .six.wide.column
+                    a.ui.basic.icon.button.fly_left(href="/products")
+                        i.large.shop.icon
+                    .ui.large.inline.header 
+                        //- small viewing
+                        | #{title}
+                        //- small product
+                    if dynamic_pricing
+                        .ui.small.header
+                            i.calculator.icon(title='dynamic pricing')
+                            |dynamic pricing (=/- #{dynamic_pricing_increment}pts)
+                    a.zoomer(href="https://www.google.com/search?q=#{title}" title='search google for product' target='_blank')
+                        i.google.link.grey.icon
+                    a.zoomer(href="https://www.amazon.com/s?k=#{title}" title='search amazon for product' target='_blank')
+                        i.amazon.link.grey.icon
+                    if can_edit
+                        a.fly_down(href="/product/#{_id}/edit")
+                            i.pencil.blue.large.circular.link.icon
+                    // a(href="{{c.url image_id}}" target="_window")
+                    div 
+                    // +text_view key='size_description' label='size description'  direct=true
+                    // +link_view key='product_link' label='link' icon='wordpress' direct=true
+                    .ui.green.big.button.record_order.fly_right
+                        i.send.big.icon
+                        |buy for #{price_points}p
+                    // div
+                    .ui.list
+                        .item #{calories} calories
+                        a.ui.large.item.zoomer(href="/group/#{group_doc._id}") 
+                            if group_doc.image_id
+                                img.ui.avatar.image.zoomer(src="{{c.url group_doc.image_id}}")
+                            else
+                                i.fire.icon
+                            |#{group_doc.title}
+                            small group
+                        .ui.item 
+                            i.eye.icon
+                            |#{views}
+                            |views
+                        .ui.item
+                            |curent point price $#{price_usd}
+                        .ui.item
+                            |core usd price $#{price_usd}
+                        .ui.item
+                            |core point price #{price_points}p
+                    div
+                    +voting_full
+                    +html_view key='description' direct=true
+                    div
+                    +array_view key='ingredients' label='ingredients' icon='food' direct=true
+                    div
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    a.ui.inline.header(href="/group/#{group_id}")
+                        |#{group_doc._title}
+                    img.ui.rounded.fluid.image.zoomer(src="{{c.url image_id}}")
+                    if in_dev
+                        +print_this
+                .ten.wide.column
+                    .ui.header 
+                        i.list.icon
+                        |#{order_count}
+                        |orders
+                    .ui.selection.animated.list.smallscroll
+                        each product_orders
+                            a.item.fly_right(href="/order/#{_id}") 
+                                .content
+                                    .header #{purchase_amount}p by @#{_author_username}
+                                    .meta #{when}
+                    +link_view key='external_link' label='external link' icon='globe' direct=true
+                    +comments
+                    
         
 template(name='order_status_icons')  
     a.zoomer(href="/order/#{_id}")
@@ -393,29 +376,3 @@ template(name='product_edit')
                             i.remove.icon   
                             | delete
                             
-                            
-                            
-                            
-// template(name='product_comments')
-//     +comments
-template(name='product_timeline')
-    .ui.header 
-        i.line.chart.icon
-        |timeline
-template(name='product_leaderboard')
-    .ui.header 
-        i.certificate.icon
-        |#{product_orders.count}
-        |leaderboard
-template(name='product_orders')
-    .ui.header 
-        i.list.icon
-        |#{product_orders.count}
-        |orders
-    .ui.selection.animated.list
-        each product_orders
-            a.item.fly_right(href="/order/#{_id}") 
-                .content
-                    .header #{purchase_amount}p by @#{_author_username}
-                    .meta #{when}
-    +link_view key='external_link' label='external link' icon='globe' direct=true

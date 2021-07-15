@@ -7,7 +7,7 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'orders',
             Session.get('order_status_filter')
         # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
-        @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
+        # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
     # Template.delta.onRendered ->
     #     Meteor.call 'log_view', @_id, ->
@@ -23,6 +23,8 @@ if Meteor.isClient
                 match.delivery_method = Session.get('order_sort_filter')
             Docs.find match,
                 sort: _timestamp:-1
+
+
 if Meteor.isClient
     Router.route '/order/:doc_id', (->
         @layout 'layout'
@@ -122,7 +124,7 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.publish 'orders', (order_id, status)->
         # order = Docs.findOne order_id
-        match = {model:'order', app:'bcc'}
+        match = {model:'order'}
         if status 
             match.status = status
 

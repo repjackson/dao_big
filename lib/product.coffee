@@ -1,47 +1,23 @@
 if Meteor.isClient
     Router.route '/product/:doc_id', (->
-        @layout 'product_layout'
+        @layout 'layout'
         @render 'product_view'
         ), name:'product_view'
-    Router.route '/product/:doc_id/timeline', (->
-        @layout 'product_layout'
-        @render 'product_timeline'
-        ), name:'product_timeline'
-    Router.route '/product/:doc_id/orders', (->
-        @layout 'product_layout'
-        @render 'product_orders'
-        ), name:'product_orders'
-    Router.route '/product/:doc_id/reviews', (->
-        @layout 'product_layout'
-        @render 'product_reviews'
-        ), name:'product_reviews'
-    Router.route '/product/:doc_id/description', (->
-        @layout 'product_layout'
-        @render 'product_description'
-        ), name:'product_description'
-    Router.route '/product/:doc_id/comments', (->
-        @layout 'product_layout'
-        @render 'product_comments'
-        ), name:'product_comments'
-    Router.route '/product/:doc_id/leaderboard', (->
-        @layout 'product_layout'
-        @render 'product_leaderboard'
-        ), name:'product_leaderboard'
         
 
 
-    Template.product_layout.onCreated ->
+    Template.product_view.onCreated ->
         @autorun => Meteor.subscribe 'product_source', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'product_from_product_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'subs_from_product_id', Router.current().params.doc_id
-    Template.product_layout.onCreated ->
-        @autorun => Meteor.subscribe 'orders_from_product_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'subs_from_product_id', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'orders_from_product_id', Router.current().params.doc_id, ->
 
-    Template.product_layout.onRendered ->
-        Meteor.call 'log_view', Router.current().params.doc_id
+    Template.product_view.onRendered ->
+        Meteor.call 'log_view', Router.current().params.doc_id, ->
+        Meteor.call 'calc_product_stats', Router.current().params.doc_id, ->
         # @autorun => Meteor.subscribe 'ingredients_from_product_id', Router.current().params.doc_id
-    Template.product_layout.events
+    Template.product_view.events
         'click .goto_source': (e,t)->
             $(e.currentTarget).closest('.pushable').transition('fade right', 240)
             product = Docs.findOne Router.current().params.doc_id
@@ -74,7 +50,7 @@ if Meteor.isClient
                 Router.go "/product/#{@_id}/edit"
 
             
-    Template.product_orders.helpers
+    Template.product_view.helpers
         product_orders: ->
             Docs.find 
                 model:'order'
@@ -207,7 +183,18 @@ if Meteor.isServer
     #         model:'reservations'
     #         product_id:product_id
             
-
+    Meteor.methods
+        calc_product_stats: (product_id)->
+            order_count = 
+                Docs.find(
+                    model:'order'
+                    product_id:product_id
+                ).count()
+            console.log order_count
+            Docs.update product_id, 
+                $set:
+                    order_count:order_count
+            
 
 
 
