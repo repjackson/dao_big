@@ -65,12 +65,18 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'parent_group_from_child_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'child_groups_from_parent_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'group_members', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'group_products', Router.current().params.doc_id, ->
     
 
     Template.group_view.helpers
         group_members: ->
             Meteor.users.find 
                 membership_group_ids:$in:[Router.current().params.doc_id]
+        
+        group_products: ->
+            Docs.find 
+                model:'product'
+                group_id:Router.current().params.doc_id
         
         is_member: ->
             Meteor.user().membership_group_ids and Router.current().params.doc_id in Meteor.user().membership_group_ids
@@ -252,6 +258,12 @@ if Meteor.isServer
                 model:'group'
                 _id:group.parent_group_id
                 
+    Meteor.publish 'group_products', (group_id)->
+        # group = Docs.findOne child_id
+        Docs.find
+            model:'product'
+            group_id:group_id
+            
             
     Meteor.publish 'child_groups_from_parent_id', (parent_id)->
         group = Docs.findOne parent_id

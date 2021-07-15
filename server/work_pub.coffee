@@ -15,7 +15,7 @@ Meteor.publish 'work_facets', (
     # console.log 'picked staff', picked_authors
 
     self = @
-    match = {app:'pes'}
+    match = {}
     match.group_id = Meteor.user().current_group_id
     
     match.model = 'work'
@@ -140,7 +140,7 @@ Meteor.publish 'work_docs', (
     )->
 
     self = @
-    match = {app:'pes'}
+    match = {}
     match.model = 'work'
     match.group_id = Meteor.user().current_group_id
     

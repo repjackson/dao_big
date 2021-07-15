@@ -115,7 +115,13 @@ template(name='work')
                             .ui.inline.small.header 
                                 img.ui.tiny.inline.image(src="{{c.url staff_image_id width=400 height=300 crop='pad'}}")
                                 |#{_author_username}: 
-                            img.ui.tiny.inline.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
+                            img.ui.tiny.inline.image(src="{{c.url work_task.image_id width=400 height=300 crop='pad'}}")
+                            if before_image_id
+                                img.ui.inline.tiny.image(src="{{c.url before_image_id width=400 height=300 crop='pad'}}")
+                            if after_image_id
+                                img.ui.inline.tiny.image(src="{{c.url after_image_id width=400 height=300 crop='pad'}}")
+                            if image_id
+                                img.ui.tiny.inline.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
                             .ui.inline.small.header 
                                 |#{task_title}
                             .ui.inline.small.header 
@@ -123,8 +129,6 @@ template(name='work')
                                 |@#{location_title}
                             | #{when}
                             small ({{long_date _timestamp}})
-                            if image_id
-                                img.ui.image(src="{{c.url task_image_id width=400 height=300 crop='pad'}}")
                             |#{task_points}pts
                         // .content
                         //     +favorite_icon_toggle
@@ -152,17 +156,18 @@ template(name='work_edit')
                     // +text_edit key='title' label='title' direct=true
                     div
                     // +textarea_edit key='notes' label='notes' direct=true
-                    if location_id
-                        if image_id
-                            .ui.hidden.divider
-                            a.ui.massive.icon.fluid.green.button.submit_work(title='submit')
-                                i.checkmark.big.icon
+                    // if location_id
+                    //     if image_id
+                    .ui.hidden.divider
+                    a.ui.massive.icon.fluid.green.button.submit_work(title='submit')
+                        i.checkmark.big.icon
                 .ten.wide.column
                     .ui.segment
                         .ui.header
                             i.image.icon
                             |image
-                        +image_edit key='image_id' label='image' direct=true capture="camera"
+                        +image_edit key='before_image_id' label='before image' direct=true capture="camera"
+                        +image_edit key='after_image_id' label='after image' direct=true capture="camera"
                     .ui.inline.header 
                         i.red.marker.icon
                         |location

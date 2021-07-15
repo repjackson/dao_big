@@ -195,61 +195,71 @@ template(name='group_products')
                         
 
 
-template(name='group_view')            
-    .ui.header 
-        +i name='shopping-cart'
-        |products
-    .ui.large.selection.link.animated.list
-        each group_products
-            .item 
-                a.ui.header(href="/product/#{_id}") #{title}
-    div
-    .ui.inline.header 
-        +i name='groups'
-        |members
-    i.circular.plus.link.icon.add_group_member
-    // if can_join
-    unless is_member
-        .ui.basic.button.join
-            i.user.plus.green.icon
-            |join
-    if is_member
-        .ui.basic.button.leave
-            i.undo.red.icon
-            |leave
-    .ui.large.selection.link.animated.list
-        each group_members
-            .item 
-                a.ui.header(href="/user/#{username}") 
-                    img.ui.avatar.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
-                    |#{username}
-                    small #{points}pts
-    div
-    if has_parent_group
-        .ui.inline.header 
-            i.fork.icon
-            |parent group
-        with parent_group
-            a.ui.inline.header(href="/group/#{_id}") 
-                img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                |#{title}
-    if sibling_groups.count
-        .ui.header 
-            i.exchange.icon
-            |sibling groups
-        each sibling_groups
-            .ui.small.header 
-                |#{title}
-                img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-    if child_groups.count
-        .ui.header 
-            i.fork.icon
-            |child groups
-        .ui.stackable.three.link.cards
-            each child_groups
-                a.ui.card(href="/group/#{_id}")
-                    img.ui.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                    .content
-                        header 
+template(name='group_view')     
+    .ui.stackable.padded.three.column.grid
+        .column
+            .ui.header 
+                i.shop.icon
+                // +i name='shopping-cart'
+                |products
+            .ui.selection.link.animated.list.smallscroll
+                each group_products
+                    .item 
+                        a.header(href="/product/#{_id}")
+                            img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                             |#{title}
-    +comments
+            div
+        .column
+            .ui.inline.header 
+                // +i name='groups'
+                i.users.icon
+                |members
+            i.circular.plus.link.icon.add_group_member
+            // if can_join
+            unless is_member
+                .ui.basic.button.join
+                    i.user.plus.green.icon
+                    |join
+            if is_member
+                .ui.basic.button.leave
+                    i.undo.red.icon
+                    |leave
+            .ui.large.selection.link.animated.list
+                each group_members
+                    .item 
+                        a.header(href="/user/#{username}")
+                            if profile_image_id
+                                img.ui.avatar.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
+                            |#{username}
+                            small #{points}pts
+        .column
+            if has_parent_group
+                .ui.inline.header 
+                    i.fork.icon
+                    |parent group
+                with parent_group
+                    a.ui.inline.header(href="/group/#{_id}") 
+                        img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                        |#{title}
+            if sibling_groups.count
+                .ui.header 
+                    i.exchange.icon
+                    |sibling groups
+                each sibling_groups
+                    .ui.small.header 
+                        |#{title}
+                        img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+            if child_groups.count
+                .ui.header 
+                    i.fork.icon
+                    |child groups
+                // .ui.stackable.three.link.cards
+                each child_groups
+                    .ui.segment
+                        a(href="/group/#{_id}")
+                            img.ui.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                        .content
+                            a.header(href="/group/#{_id}")
+                                |#{title}
+        .column
+            +comments
