@@ -368,8 +368,8 @@ template(name='order_edit')
                     +linked_product
                     .ui.header #{when}
                 .eight.wide.column
-                    .ui.header purchase price: #{purchase_amount}pts
-                    .ui.header current balance #{currentUser.points}pts
+                    .ui.header price: #{purchase_amount}pts
+                    .ui.header balance #{currentUser.points}pts
                     .ui.header balance after purchase #{balance_after_purchase}pts
                         small ({{fixed percent_difference}}% difference)
                     div
@@ -380,13 +380,16 @@ template(name='order_edit')
                     if in_dev
                         +print_this
                 .four.wide.column
-                    .ui.large.fluid.green.button.complete_order.fly_left(title='complete order')
-                        i.checkmark.large.icon   
-                        |complete
-                    .ui.hidden.divider
-                    .ui.red.circular.button.delete_order.fly_left
-                        i.large.remove.icon
-                        |cancel
+                    if session_is 'ordering' true
+                        i.big.refresh.icon
+                    else
+                        .ui.large.fluid.green.button.complete_order.fly_left(title='complete order')
+                            i.checkmark.large.icon   
+                            |complete
+                        .ui.hidden.divider
+                        .ui.red.circular.button.delete_order.fly_left
+                            i.large.remove.icon
+                            |cancel
                         
                         
 template(name='linked_product')

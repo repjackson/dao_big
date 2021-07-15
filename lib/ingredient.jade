@@ -1,0 +1,113 @@
+template(name='ingredients')
+    .ui.padded.stackable.grid
+        .sixteen.wide.column
+            .ui.inline.header 
+                |ingredient request menu
+                // if is_admin
+                i.plus.circular.link.small.icon.add_ingredient
+            +session_toggle key='admin_mode' icon='shield'
+                
+            .ui.input
+                input(type='text' placeholder='search title...')
+        .sixteen.wide.column
+            .ui.six.doubling.centered.cards
+                each unarchived_ingredients
+                    +ingredient_ingredient
+        if is_admin
+            .sixteen.wide.column
+                .ui.header 
+                    i.archive.icon
+                    |archived ingredients
+                .ui.six.doubling.cards
+                    each archived_ingredients
+                        +ingredient_item
+                div
+        
+
+
+template(name='ingredient_item')
+    if session_is 'editing_ingredient' _id
+        .ui.card
+            +image_edit key='image_id' direct=true
+            .content
+                +text_edit key='title' direct=true
+                i.checkmark.circular.link.green.icon.save_ingredient   
+                +boolean_edit key='archived' label='archived' icon='archive' direct=true
+    else
+        .ui.card
+            // if unless
+            a(href="/ingredient/#{_id}")
+                img.ui.image.pointer(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+            // else
+            //     img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+            .content
+                .ui.inline.header #{title}
+                .ui.basic.button.request_ingredient
+                    i.dolly.green.icon
+                    |request
+                if is_admin
+                    i.pencil.circular.link.icon.edit_ingredient            
+                if session_is 'admin_mode' true
+                    a.ui.icon.button(href="/ingredient/#{_id}/edit")
+                        i.pencil.icon
+
+
+template(name='ingredient_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .six.wide.column
+                    .ui.inline.header
+                        i.pencil.icon
+                        | #{title}
+                        small ingredient
+                    a.ui.large.icon.green.button(href="/ingredient/#{_id}/" title='save product')
+                        i.checkmark.big.icon
+                    +text_edit key='title' label='title' direct=true
+                    +image_edit key='image_id' label='image' direct=true
+                    +text_edit key='location' label='location' direct=true
+                    +date_edit key='date_arrived' label='date arrived' direct=true
+                    div
+                .ten.wide.column
+                    div
+                    +textarea_edit key='description' label='description' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    .ui.red.button.delete_ingredient
+                        i.remove.icon   
+                        | delete
+                
+                
+template(name='ingredient_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column
+                    a.ui.basic.icon.button(href="/ingredients")
+                        i.wrench.icon
+                    .ui.inline.header
+                        | #{title}
+                        small ingredient view
+                    div
+                    a.ui.icon.button(href="/ingredient/#{_id}/edit")
+                        i.pencil.icon
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    +textarea_view key='description' label='description' direct=true
+                    +text_view key='location' label='location' direct=true
+                    +date_view key='date_arrived' label='date arrived' direct=true
+                .eight.wide.column
+                    div.scrolling
+                        +html_view key='notes' label='directions' direct=true                    
+                    +text_view key='title' label='title' direct=true
+                    +image_view key='image_id' label='image' direct=true
+                    div
+                    if currentUser
+                        .ui.button.record_work
+                            |record work
+                    .ui.list
+                        each ingredient_work
+                            a.ingredient(href="/work/#{_id}") #{when} #{_author_username}
+                .four.wide.column
+                    +html_view key='description' label='description' direct=true
+                    +voting_full
+                    +comments
+                        

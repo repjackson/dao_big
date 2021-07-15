@@ -228,13 +228,16 @@ if Meteor.isClient
     Template.order_edit.events
         'click .complete_order': (e,t)->
             console.log @
+            Session.set('ordering',true)
             if @purchase_amount
                 if Meteor.user().points and @purchase_amount < Meteor.user().points
                     Meteor.call 'complete_order', @_id, =>
                         Router.go "/product/#{@product_id}"
+                        Session.set('ordering',false)
                 else 
                     alert "not enough points"
                     Router.go "/user/#{Meteor.user().username}/points"
+                    Session.set('ordering',false)
             else 
                 alert 'no purchase amount'
             

@@ -197,7 +197,7 @@ template(name='product_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .six.wide.column
+                .four.wide.column
                     a.ui.basic.icon.button.fly_left(href="/products")
                         i.large.shop.icon
                     .ui.large.inline.header 
@@ -215,6 +215,22 @@ template(name='product_view')
                     if can_edit
                         a.fly_down(href="/product/#{_id}/edit")
                             i.pencil.blue.large.circular.link.icon
+                    img.ui.rounded.fluid.image.zoomer(src="{{c.url image_id}}")
+                .eight.wide.column
+                    +html_view key='description' direct=true
+                    .ui.header 
+                        i.list.icon
+                        |#{order_count}
+                        |orders
+                    .ui.selection.animated.list.smallscroll
+                        each product_orders
+                            a.item.fly_right(href="/order/#{_id}") 
+                                .content
+                                    .header #{purchase_amount}p by @#{_author_username}
+                                    .meta #{when}
+                    +link_view key='external_link' label='external link' icon='globe' direct=true
+                    +comments
+                .four.wide.column
                     // a(href="{{c.url image_id}}" target="_window")
                     div 
                     // +text_view key='size_description' label='size description'  direct=true
@@ -244,29 +260,14 @@ template(name='product_view')
                             |core point price #{price_points}p
                     div
                     +voting_full
-                    +html_view key='description' direct=true
                     div
                     +array_view key='ingredients' label='ingredients' icon='food' direct=true
                     div
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     a.ui.inline.header(href="/group/#{group_id}")
                         |#{group_doc._title}
-                    img.ui.rounded.fluid.image.zoomer(src="{{c.url image_id}}")
                     if in_dev
                         +print_this
-                .ten.wide.column
-                    .ui.header 
-                        i.list.icon
-                        |#{order_count}
-                        |orders
-                    .ui.selection.animated.list.smallscroll
-                        each product_orders
-                            a.item.fly_right(href="/order/#{_id}") 
-                                .content
-                                    .header #{purchase_amount}p by @#{_author_username}
-                                    .meta #{when}
-                    +link_view key='external_link' label='external link' icon='globe' direct=true
-                    +comments
                     
         
 template(name='order_status_icons')  
