@@ -19,6 +19,9 @@ Template.registerHelper 'work_task', () ->
     # Template.parentData()
 
 
+Template.registerHelper 'is_editing_this', (input)-> 
+    Session.equals('editing_id', @_id)
+
 Template.registerHelper 'lowered', (input)-> input.toLowerCase()
 
 Template.registerHelper 'pathname_root', () ->

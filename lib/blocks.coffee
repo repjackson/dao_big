@@ -1,4 +1,13 @@
 if Meteor.isClient
+    Template.session_edit_button.events
+        'click .save_this': ->
+            Session.set('editing_id', null)
+        'click .edit_this': ->
+            Session.set('editing_id', @_id)
+        
+    Template.session_edit_button.helpers
+    
+    
     Template.session_toggle.events
         'click .toggle_session_var': ->
             Session.set(@key, !Session.get(@key))

@@ -9,9 +9,6 @@ if Meteor.isClient
         # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
         # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
-    # Template.delta.onRendered ->
-    #     Meteor.call 'log_view', @_id, ->
-
     Template.orders.helpers
         orders: ->
             match = {model:'order'}
@@ -36,6 +33,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'product_by_order_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'order_things', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'review_from_order_id', Router.current().params.doc_id
 
 
     Template.order_view.events
@@ -101,8 +99,27 @@ if Meteor.isClient
                     order_id: Router.current().params.doc_id
                     order_status:'ready'
 
+        'click .add_review': ->
+            Docs.insert 
+                model:'order_review'
+                order_id: Router.current().params.doc_id
+                
+                
+        'click .review_positive': ->
+            Docs.update @_id,
+                $set:
+                    rating:1
+        'click .review_negative': ->
+            Docs.update @_id,
+                $set:
+                    rating:-1
 
     Template.order_view.helpers
+        order_review: ->
+            Docs.findOne 
+                model:'order_review'
+                order_id:Router.current().params.doc_id
+    
         can_order: ->
             # if StripeCheckout
             unless @_author_id is Meteor.userId()
@@ -129,6 +146,13 @@ if Meteor.isServer
             match.status = status
 
         Docs.find match
+        
+    Meteor.publish 'review_from_order_id', (order_id)->
+        # order = Docs.findOne order_id
+        # match = {model:'order'}
+        Docs.find 
+            model:'order_review'
+            order_id:order_id
         
     Meteor.publish 'product_by_order_id', (order_id)->
         order = Docs.findOne order_id

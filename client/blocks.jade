@@ -23,6 +23,12 @@ template(name='session_toggle')
             // |#{key}
         
         
+template(name='session_edit_button')
+    if is_editing_this
+        i.circular.link.checkmark.green.icon.save_this
+    else
+        i.circular.link.pencil.icon.edit_this
+        
 
 template(name='fluent')
     img(src="https://img.icons8.com/fluent/48/000000/#{name}.png" class=classes)

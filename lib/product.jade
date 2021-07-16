@@ -216,6 +216,15 @@ template(name='product_view')
                         a.fly_down(href="/product/#{_id}/edit")
                             i.pencil.blue.large.circular.link.icon
                     img.ui.rounded.fluid.image.zoomer(src="{{c.url image_id}}")
+                    .ui.header
+                        i.star.outline.icon
+                        |reviews
+                    each order_reviews
+                        .item 
+                            |#{body}
+                            |#{_author_username}
+                            |#{when}
+                        
                 .eight.wide.column
                     +html_view key='description' direct=true
                     .ui.header 

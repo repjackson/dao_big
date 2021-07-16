@@ -158,11 +158,11 @@ template(name='order_view')
                     //     i.left.chevron.icon
                     //     img.ui.avatar.image(src="{{c.url order_product.image_id width=200 height=200}}")    
                     //     |#{order_product.title}
-                    .ui.header 
-                        i.cart.icon
-                        |cart items
-                    each cart_items 
-                        .ui.header #{title}
+                    // .ui.header 
+                    //     i.cart.icon
+                    //     |cart items
+                    // each cart_items 
+                    //     .ui.header #{title}
                     
                     if kve 'when' 'later'
                         +datetime_view key='pickup_datetime'
@@ -182,16 +182,32 @@ template(name='order_view')
                     //         +kvs key='status' value='ready' label='mark ready' direct=true
                     //         +kvs key='status' value='picked_up' label='picked up' direct=true
                     // div
-                    .ui.inline.header 
-                        i.user.outline.icon
-                        |customer
-                    if delivered
+                    .ui.segment
+                        .ui.inline.header 
+                            i.user.outline.icon
+                            |customer
+                        if arrived
+                            if is_author
+                                // +kvs key='status' value='picked_up' label='picked up' direct=true
+                                .ui.basic.large.fluid.button.mark_arrived
+                                    +i name='pick-up' cl='ui inline image'
+                                    |mark picked up
                         if is_author
-                            // +kvs key='status' value='picked_up' label='picked up' direct=true
-                            .ui.basic.large.fluid.button.mark_arrived
-                                +i name='pick-up' cl='ui inline image'
-                                |mark picked up
-                            
+                            .ui.button.add_review 
+                                i.bullhorn.icon
+                                |review
+                            with order_review
+                                if is_editing_this
+                                    +textarea_edit key='body' direct=true
+                                    +voting_full
+                                    +image_edit key='image_id' direct=true
+                                    +session_edit_button                            
+                                else
+                                    .ui.small.header #{body}
+                                    +image_view key='image_id' direct=true
+                                    .ui.small.header #{when}
+                                    unless submitted
+                                        +session_edit_button                            
                     // +kvs key='status' value='picked_up' label='mark picked up' direct=true
                         
                 .six.wide.column
@@ -255,7 +271,7 @@ template(name='product_delivery')
             .ui.small.grey.inline.header {{cal_time runner_viewed_timestamp}}
             div
             unless preparing
-                .ui.basic.large.button.mark_preparing
+                .ui.basic.fluid.large.button.mark_preparing
                     +i name='new-product--v1' cl='ui avatar image'
                     |mark preparing
         if preparing 
