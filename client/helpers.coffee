@@ -8,6 +8,12 @@ Template.registerHelper 'parent_doc', () ->
 Template.registerHelper 'rental', () ->
     Docs.findOne @rental_id
     # Template.parentData()
+Template.registerHelper 'included_ingredients', () ->
+    Docs.find
+        model:'ingredient'
+        _id: $in:@ingredient_ids
+
+
 Template.registerHelper 'current_group', () ->
     # if Meteor.user() and Meteor.user().current_group_id
     if Meteor.user()

@@ -197,7 +197,7 @@ template(name='product_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .four.wide.column
+                .five.wide.column
                     a.ui.basic.icon.button.fly_left(href="/products")
                         i.large.shop.icon
                     .ui.large.inline.header 
@@ -225,7 +225,7 @@ template(name='product_view')
                             |#{_author_username}
                             |#{when}
                         
-                .eight.wide.column
+                .six.wide.column
                     +html_view key='description' direct=true
                     .ui.header 
                         i.list.icon
@@ -239,15 +239,25 @@ template(name='product_view')
                                     .meta #{when}
                     +link_view key='external_link' label='external link' icon='globe' direct=true
                     +comments
-                .four.wide.column
+                .five.wide.column
                     // a(href="{{c.url image_id}}" target="_window")
                     div 
                     // +text_view key='size_description' label='size description'  direct=true
                     // +link_view key='product_link' label='link' icon='wordpress' direct=true
-                    .ui.green.big.button.record_order.fly_right
+                    .ui.green.big.fluid.button.record_order.fly_right
                         i.send.big.icon
                         |buy for #{price_points}p
                     // div
+                    .ui.small.header 
+                        i.food.icon
+                        |included ingredients
+                    .ui.large.link.selection.animated.list
+                        each included_ingredients
+                            a.item(href="/ingredient/#{_id}")
+                                img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=300 crop='pad'}}")
+                                .content
+                                    .header
+                                        |#{title}
                     .ui.list
                         .item #{calories} calories
                         a.ui.large.item.zoomer(href="/group/#{group_doc._id}") 
@@ -271,7 +281,6 @@ template(name='product_view')
                     +voting_full
                     div
                     +array_view key='ingredients' label='ingredients' icon='food' direct=true
-                    div
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     a.ui.inline.header(href="/group/#{group_id}")
                         |#{group_doc._title}
@@ -390,12 +399,18 @@ template(name='product_edit')
                     .ui.list
                         each included_ingredients
                             .item 
-                                |#{title}
-                                i.remove.link.icon.pull_ingredient
+                                img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=300 crop='pad'}}")
+                                .content
+                                    .header
+                                        |#{title}
+                                    i.remove.link.icon.pull_ingredient
                     .ui.small.header 
                         |add ingredient
                     .ui.list
                         each unincluded_ingredients
                             .item 
-                                |#{title}
-                                i.plus.link.icon.add_ingredient
+                                img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=300 crop='pad'}}")
+                                .content
+                                    .header
+                                        |#{title}
+                                    i.plus.link.circular.icon.add_ingredient

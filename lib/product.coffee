@@ -271,19 +271,25 @@ if Meteor.isClient
             Router.go "/product/#{product_id}"
 
 
-        'click .add_ingredient': ->
+        'click .add_ingredient': (e,t)->
             ingredient = Docs.findOne Router.current().params.doc_id
             # if ingredient.ingredient_ids and @_id in ingredient.ingredient_ids
             #     Docs.update Router.current().params.doc_id, 
             #         $pull:ingredient_ids:@_id
             # else
-            Docs.update Router.current().params.doc_id, 
-                $addToSet:ingredient_ids:@_id
-        'click .pull_ingredient': ->
+            $(e.currentTarget).closest('.item').transition('fly down', 500)
+            Meteor.setTimeout =>
+                Docs.update Router.current().params.doc_id, 
+                    $addToSet:ingredient_ids:@_id
+            , 500
+        'click .pull_ingredient': (e,t)->
+            $(e.currentTarget).closest('.item').transition('fly up', 500)
             ingredient = Docs.findOne Router.current().params.doc_id
             # if ingredient.ingredient_ids and @_id in ingredient.ingredient_ids
-            Docs.update Router.current().params.doc_id, 
-                $pull:ingredient_ids:@_id
+            Meteor.setTimeout =>
+                Docs.update Router.current().params.doc_id, 
+                    $pull:ingredient_ids:@_id
+            , 500
             # else
             #     Docs.update Router.current().params.doc_id, 
             #         $addToSet:ingredient_ids:@_id
