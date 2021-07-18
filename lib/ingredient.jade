@@ -2,7 +2,7 @@ template(name='ingredients')
     .ui.padded.stackable.grid
         .sixteen.wide.column
             .ui.inline.header 
-                |ingredient request menu
+                |ingredient
                 // if is_admin
                 i.plus.circular.link.small.icon.add_ingredient
             +session_toggle key='admin_mode' icon='shield'
@@ -11,8 +11,8 @@ template(name='ingredients')
                 input(type='text' placeholder='search title...')
         .sixteen.wide.column
             .ui.six.doubling.centered.cards
-                each unarchived_ingredients
-                    +ingredient_ingredient
+                each ingredient_docs
+                    +ingredient_card
         if is_admin
             .sixteen.wide.column
                 .ui.header 
@@ -25,7 +25,7 @@ template(name='ingredients')
         
 
 
-template(name='ingredient_item')
+template(name='ingredient_card')
     if session_is 'editing_ingredient' _id
         .ui.card
             +image_edit key='image_id' direct=true
@@ -65,6 +65,9 @@ template(name='ingredient_edit')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
+                    +number_edit key='serving_size_grams' label='serving size (grams)' direct=true
+                    +number_edit key='calories_per_serving_size' label='calories per serving size' direct=true
+                    +number_edit key='fat_per_serving_size' label='fat per serving size (g)' direct=true
                     +text_edit key='location' label='location' direct=true
                     +date_edit key='date_arrived' label='date arrived' direct=true
                     div
@@ -82,13 +85,14 @@ template(name='ingredient_view')
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
-                    a.ui.basic.icon.button(href="/ingredients")
-                        i.wrench.icon
+                    a.ui.basic.large.icon.button.fly_left(href="/ingredients")
+                        i.chevron.left.icon
+                        i.large.food.icon
                     .ui.inline.header
                         | #{title}
                         small ingredient view
                     div
-                    a.ui.icon.button(href="/ingredient/#{_id}/edit")
+                    a.ui.icon.basic.button(href="/ingredient/#{_id}/edit")
                         i.pencil.icon
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     +textarea_view key='description' label='description' direct=true
@@ -100,12 +104,6 @@ template(name='ingredient_view')
                     +text_view key='title' label='title' direct=true
                     +image_view key='image_id' label='image' direct=true
                     div
-                    if currentUser
-                        .ui.button.record_work
-                            |record work
-                    .ui.list
-                        each ingredient_work
-                            a.ingredient(href="/work/#{_id}") #{when} #{_author_username}
                 .four.wide.column
                     +html_view key='description' label='description' direct=true
                     +voting_full

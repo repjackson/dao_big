@@ -12,10 +12,6 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'model_docs', 'ingredient', ->
             
             
-    Template.ingredient_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-    Template.ingredient_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
     
     Template.ingredient_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
@@ -27,6 +23,18 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'model_docs', 'location', ->
     
 
+    Template.ingredients.helpers
+        ingredient_docs: ->
+            Docs.find 
+                model:'ingredient'
+                
+                
+    Template.ingredients.events
+        'click .add_ingredient': ->
+            new_id = 
+                Docs.insert 
+                    model:'ingredient'
+            Router.go "/ingredient/#{new_id}/edit"
 
     Template.ingredient_view.events
         'click .record_work': ->
@@ -69,10 +77,10 @@ if Meteor.isClient
                     $addToSet:location_ids:@_id
             
 if Meteor.isServer
-    Meteor.publish 'ingredient_work', (ingredient_id)->
+    Meteor.publish 'ingredient_products', (ingredient_id)->
         Docs.find   
-            model:'work'
-            ingredient_id:ingredient_id
+            model:'product'
+            ingredient_ids:$in:[ingredient_id]
             
     # Meteor.publish 'work_ingredient', (work_id)->
     #     work = Docs.findOne work_id
@@ -81,15 +89,10 @@ if Meteor.isServer
     #         _id: work.ingredient_id
             
             
-    Meteor.publish 'user_sent_ingredient', (username)->
+    Meteor.publish 'user_liked_ingredients', (username)->
         Docs.find   
             model:'ingredient'
-            _author_username:username
-    Meteor.publish 'product_ingredient', (product_id)->
-        Docs.find   
-            model:'ingredient'
-            product_id:product_id
-            
+            _id:$in:Meteor.user().liked_ids
             
             
             
@@ -108,31 +111,6 @@ if Meteor.isClient
 
 
     Template.ingredient_edit.events
-        'click .send_ingredient': ->
-            Swal.fire({
-                title: 'confirm send card'
-                text: "#{@amount} credits"
-                icon: 'question'
-                showCancelButton: true,
-                confirmButtonText: 'confirm'
-                cancelButtonText: 'cancel'
-            }).then((result) =>
-                if result.value
-                    ingredient = Docs.findOne Router.current().params.doc_id
-                    Meteor.users.update Meteor.userId(),
-                        $inc:credit:-@amount
-                    Docs.update ingredient._id,
-                        $set:
-                            sent:true
-                            sent_timestamp:Date.now()
-                    Swal.fire(
-                        'ingredient sent',
-                        ''
-                        'success'
-                    Router.go "/ingredient/#{@_id}/"
-                    )
-            )
-
         'click .delete_ingredient':->
             if confirm 'delete?'
                 Docs.remove @_id
