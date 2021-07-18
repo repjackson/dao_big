@@ -76,6 +76,7 @@ if Meteor.isClient
                 Docs.update Router.current().params.doc_id, 
                     $addToSet:location_ids:@_id
             
+            
 if Meteor.isServer
     Meteor.publish 'ingredient_products', (ingredient_id)->
         Docs.find   

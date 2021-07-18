@@ -12,6 +12,7 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'product_from_product_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'subs_from_product_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'orders_from_product_id', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'model_docs', 'ingredient', ->
 
     Template.product_view.onRendered ->
         Meteor.call 'log_view', Router.current().params.doc_id, ->
@@ -209,7 +210,7 @@ if Meteor.isClient
     Template.product_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        # @autorun => Meteor.subscribe 'model_docs', 'source'
+        @autorun => Meteor.subscribe 'model_docs', 'ingredient'
 
     Template.product_edit.onRendered ->
         Meteor.setTimeout ->
@@ -223,6 +224,19 @@ if Meteor.isClient
         , 2000
 
     Template.product_edit.helpers
+        included_ingredients: ->
+            current_product = Docs.findOne Router.current().params.doc_id
+            Docs.find
+                model:'ingredient'
+                _id: $in:current_product.ingredient_ids
+            
+        unincluded_ingredients: ->
+            current_product = Docs.findOne Router.current().params.doc_id
+            Docs.find
+                model:'ingredient'
+                _id: $nin:current_product.ingredient_ids
+            
+            
         can_delete: ->
             product = Docs.findOne Router.current().params.doc_id
             if product.reservation_ids
@@ -235,8 +249,6 @@ if Meteor.isClient
 
     Template.product_edit.onCreated ->
         # @autorun => @subscribe 'source_search_results', Session.get('source_search'), ->
-    Template.product_edit.helpers
-                
 
     Template.product_edit.events
         # 'click .remove_source': (e,t)->
@@ -259,17 +271,22 @@ if Meteor.isClient
             Router.go "/product/#{product_id}"
 
 
-        'click .save_availability': ->
-            doc_id = Router.current().params.doc_id
-            availability = $('.ui.calendar').calendar('get date')[0]
-            console.log availability
-            formatted = moment(availability).format("YYYY-MM-DD[T]HH:mm")
-            console.log formatted
-            # console.log moment(@end_datetime).diff(moment(@start_datetime),'minutes',true)
-            # console.log moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
-            Docs.update doc_id,
-                $set:datetime_available:formatted
-
+        'click .add_ingredient': ->
+            ingredient = Docs.findOne Router.current().params.doc_id
+            # if ingredient.ingredient_ids and @_id in ingredient.ingredient_ids
+            #     Docs.update Router.current().params.doc_id, 
+            #         $pull:ingredient_ids:@_id
+            # else
+            Docs.update Router.current().params.doc_id, 
+                $addToSet:ingredient_ids:@_id
+        'click .pull_ingredient': ->
+            ingredient = Docs.findOne Router.current().params.doc_id
+            # if ingredient.ingredient_ids and @_id in ingredient.ingredient_ids
+            Docs.update Router.current().params.doc_id, 
+                $pull:ingredient_ids:@_id
+            # else
+            #     Docs.update Router.current().params.doc_id, 
+            #         $addToSet:ingredient_ids:@_id
 
 
 

@@ -342,7 +342,7 @@ template(name='product_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .six.wide.column
+                .four.wide.column
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
@@ -356,7 +356,7 @@ template(name='product_edit')
                     if dynamic_pricing
                         |how much price changes based on sales in the last day
                         +number_edit key='dynamic_pricing_increment' label='dynamic pricing increment (pts)' unit='points' direct=true
-                .ten.wide.column
+                .eight.wide.column
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
@@ -385,4 +385,17 @@ template(name='product_edit')
                         .ui.red.button.delete_product
                             i.remove.icon   
                             | delete
-                            
+                .four.wide.column
+                    .ui.header ingredients
+                    .ui.list
+                        each included_ingredients
+                            .item 
+                                |#{title}
+                                i.remove.link.icon.pull_ingredient
+                    .ui.small.header 
+                        |add ingredient
+                    .ui.list
+                        each unincluded_ingredients
+                            .item 
+                                |#{title}
+                                i.plus.link.icon.add_ingredient
