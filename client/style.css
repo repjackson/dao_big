@@ -766,7 +766,7 @@ input.username_search{
 }
 
 
-.button, .selector, .card, p, .header, .item, .image, .fade {
+.button, .selector, .card, p, .header, .item:not(.animated), .image, .fade {
     animation: fadein .5s;
      /*-webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout .5s; */

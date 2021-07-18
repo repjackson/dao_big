@@ -21,6 +21,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'ingredient_work', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'model_docs', 'location', ->
+        @autorun => Meteor.subscribe 'products_from_ingredient_id', Router.current().params.doc_id, ->
     
 
     Template.ingredients.helpers
@@ -79,6 +80,12 @@ if Meteor.isClient
             
 if Meteor.isServer
     Meteor.publish 'ingredient_products', (ingredient_id)->
+        Docs.find   
+            model:'product'
+            ingredient_ids:$in:[ingredient_id]
+            
+    Meteor.publish 'products_from_ingredient_id', (ingredient_id)->
+        ingredient = Docs.findOne ingredient_id
         Docs.find   
             model:'product'
             ingredient_ids:$in:[ingredient_id]

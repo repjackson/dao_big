@@ -98,6 +98,13 @@ template(name='ingredient_view')
                     +textarea_view key='description' label='description' direct=true
                     +text_view key='location' label='location' direct=true
                     +date_view key='date_arrived' label='date arrived' direct=true
+                    .ui.header products included 
+                    .ui.large.link.selection.list
+                        each ingredient_products
+                            a.item(href="/product/#{_id}") 
+                                .content 
+                                    .header 
+                                        |#{title}
                 .eight.wide.column
                     div.scrolling
                         +html_view key='notes' label='directions' direct=true                    

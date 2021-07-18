@@ -253,7 +253,7 @@ template(name='product_view')
                         |included ingredients
                     .ui.large.link.selection.animated.list
                         each included_ingredients
-                            a.item(href="/ingredient/#{_id}")
+                            a.item.fly_right(href="/ingredient/#{_id}")
                                 img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=300 crop='pad'}}")
                                 .content
                                     .header
@@ -406,6 +406,8 @@ template(name='product_edit')
                                     i.remove.link.icon.pull_ingredient
                     .ui.small.header 
                         |add ingredient
+                        a(href="/ingredients")
+                            i.circular.link.food.icon
                     .ui.list
                         each unincluded_ingredients
                             .item 

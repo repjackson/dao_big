@@ -13,6 +13,11 @@ Template.registerHelper 'included_ingredients', () ->
         model:'ingredient'
         _id: $in:@ingredient_ids
 
+Template.registerHelper 'ingredient_products', () ->
+    Docs.find   
+        model:'product'
+        ingredient_ids:$in:[@_id]
+
 
 Template.registerHelper 'current_group', () ->
     # if Meteor.user() and Meteor.user().current_group_id

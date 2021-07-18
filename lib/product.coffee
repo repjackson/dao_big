@@ -232,9 +232,13 @@ if Meteor.isClient
             
         unincluded_ingredients: ->
             current_product = Docs.findOne Router.current().params.doc_id
-            Docs.find
-                model:'ingredient'
-                _id: $nin:current_product.ingredient_ids
+            if current_product.ingredient_ids
+                Docs.find
+                    model:'ingredient'
+                    _id: $nin:current_product.ingredient_ids
+            else
+                Docs.find
+                    model:'ingredient'
             
             
         can_delete: ->
