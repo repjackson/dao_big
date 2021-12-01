@@ -1,20 +1,16 @@
 template(name='posts')
     .ui.stackable.padded.grid
         .sixteen.wide.column
-            .ui.inline.header 
-                i.large.fire.icon
-                |posts
-            .ui.basic.icon.button.add_post
+            i.large.newspaper.icon
+            // .ui.inline.header 
+            .ui.icon.button.add_post
                 i.large.plus.icon
-            .ui.inline.small.header
-                i.tag.icon
-                |tags
             each picked_post_tags
-                a.ui.blue.label.unpick_post_tag
+                a.ui.blue.button.unpick_post_tag
                     |#{this}
             each post_tag_results
                 if title
-                    a.ui.link.label.pick_post_tag
+                    a.ui.compact.button.pick_post_tag
                         |#{title} 
                         small.ui.grey.text #{count}
             span.sorting_row
@@ -52,7 +48,7 @@ template(name='posts')
                 
 
 template(name='post_card')                
-    a.ui.card(href="/post/#{_id}") 
+    a.ui.fluid.link.card(href="/post/#{_id}") 
         img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
         if youtube_id
             +youtube_view key='youtube_id' direct=true
@@ -120,7 +116,7 @@ template(name='post_view')
                     if tone 
                         +tone_view
                 .six.wide.column
-                    a.ui.basic.icon.button(href="/posts")
+                    a.ui.icon.button(href="/posts")
                         i.blog.large.icon
                     .ui.inline.header
                         | #{title}
