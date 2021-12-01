@@ -1,12 +1,11 @@
 template(name='posts')
     .ui.stackable.padded.grid
-        .four.wide.column
+        .sixteen.wide.column
             .ui.inline.header 
                 i.large.fire.icon
                 |posts
             .ui.basic.icon.button.add_post
                 i.large.plus.icon
-            div
             .ui.inline.small.header
                 i.tag.icon
                 |tags
@@ -15,10 +14,9 @@ template(name='posts')
                     |#{this}
             each post_tag_results
                 if title
-                    a.ui.basic.circular.small.link.label.pick_post_tag
+                    a.ui.link.label.pick_post_tag
                         |#{title} 
                         small.ui.grey.text #{count}
-        .twelve.wide.column
             span.sorting_row
                 +search_input model='post' field='title'
                 // +session_set key='view_users' value='grid' icon='th' 
@@ -61,6 +59,7 @@ template(name='post_card')
         .content 
             .ui.header 
                 |#{title}
+            |!{body}
             i.grey.tag.icon
             each tags
                 .ui.label #{this}
