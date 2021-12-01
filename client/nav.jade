@@ -12,27 +12,29 @@ template(name='nav')
             a.item(href='/') 
                 img.ui.avatar.image(src="{{c.url current_group.image_id height=200 width=200 gravity='face' crop='fill'}}")
                 |#{current_group.title}
-        if session_is 'is_global_searching' true
-            .ui.icon.transparent.input.global_search_input
-                i.link.large.remove.icon.clear_search.zoomer(title='clear search')
-                // if current_search
-                // else
-                //     i.search.icon
-                input.global_search(type='text' value=current_search autocomplete="off")
-        else
-            a.icon.item.init_global_search(title='search')
-                i.search.large.icon
+        // if session_is 'is_global_searching' true
+        //     .ui.icon.transparent.input.global_search_input
+        //         i.link.large.remove.icon.clear_search.zoomer(title='clear search')
+        //         // if current_search
+        //         // else
+        //         //     i.search.icon
+        //         input.global_search(type='text' value=current_search autocomplete="off")
+        // else
+        //     a.icon.item.init_global_search(title='search')
+        //         i.search.large.icon
                 
         // a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
         //     i.bullhorn.large.icon
-        a.icon.item.zoomer(href='/products' class="{{isActivePath '/products'}}")
-            i.large.shop.icon
-        a.icon.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
-            i.large.list.icon
-        a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
-            i.large.wrench.icon
-        a.icon.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
+        a.item.zoomer(href='/posts' class="{{isActivePath '/products'}}")
+            i.large.newspaper.icon
+            |posts
+        // a.icon.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
+        //     i.large.list.icon
+        // a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
+        //     i.large.wrench.icon
+        a.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.large.checkmark.icon
+            |tasks
         // a.icon.item.zoomer(href='/posts' class="{{isActivePath '/posts'}}")
         //     i.large.newspaper.icon
         // a.icon.item.zoomer(href='/events' class="{{isActivePath '/events'}}")

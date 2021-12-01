@@ -84,22 +84,22 @@ template(name='post_edit')
                         i.pencil.icon
                         | #{title}
                         small post
-                    a.ui.large.icon.green.button(href="/post/#{_id}/" title='save product')
+                    a.ui.large.fluid.icon.button(href="/post/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
-                    +boolean_edit key='published' label='published' direct=true
+                    // +boolean_edit key='published' label='published' direct=true
                     div
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    // +array_edit key='emotion_tags' label='emotion tags' icon='tags' direct=true
+                    // +array_edit key='location_tags' label='location tags' icon='tags' direct=true
+                    // +array_edit key='people_tags' label='people tags' icon='tags' direct=true
+                    .ui.button.delete_post
+                        i.remove.icon   
+                        | delete
                 .ten.wide.column
                     div
                     +html_edit key='body' label='body' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
-                    +array_edit key='emotion_tags' label='emotion tags' icon='tags' direct=true
-                    +array_edit key='location_tags' label='location tags' icon='tags' direct=true
-                    +array_edit key='people_tags' label='people tags' icon='tags' direct=true
-                    .ui.red.button.delete_post
-                        i.remove.icon   
-                        | delete
                 
                 
 template(name='post_view')
