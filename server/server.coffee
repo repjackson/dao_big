@@ -68,13 +68,13 @@ Meteor.publish 'model_docs', (model,limit)->
     if limit
         Docs.find {
             model: model
-            group_id: Meteor.user().current_group_id
+            # group_id: Meteor.user().current_group_id
             # app:'pes'
         }, limit:limit
     else
         Docs.find
             # app:'pes'
-            group_id: Meteor.user().current_group_id
+            # group_id: Meteor.user().current_group_id
             model: model
 
 Meteor.publish 'document_by_slug', (slug)->

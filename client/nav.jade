@@ -7,47 +7,50 @@ template(name='nav')
                 i.big.loading.grey.yin.yang.icon.cancel
         else 
             a.icon.item.toggle_leftbar.no_blink
-               i.bars.large.icon 
+              i.bars.large.icon 
         if current_group
             a.item(href='/') 
                 img.ui.avatar.image(src="{{c.url current_group.image_id height=200 width=200 gravity='face' crop='fill'}}")
                 |#{current_group.title}
-        // if session_is 'is_global_searching' true
-        //     .ui.icon.transparent.input.global_search_input
-        //         i.link.large.remove.icon.clear_search.zoomer(title='clear search')
-        //         // if current_search
-        //         // else
-        //         //     i.search.icon
-        //         input.global_search(type='text' value=current_search autocomplete="off")
-        // else
-        //     a.icon.item.init_global_search(title='search')
-        //         i.search.large.icon
+        if session_is 'is_global_searching' true
+            .ui.icon.transparent.input.global_search_input
+                i.link.large.remove.icon.clear_search.zoomer(title='clear search')
+                // if current_search
+                // else
+                //     i.search.icon
+                input.global_search(type='text' value=current_search autocomplete="off")
+        else
+            a.icon.item.init_global_search(title='search')
+                i.search.large.icon
                 
         // a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
         //     i.bullhorn.large.icon
         a.item.zoomer(href='/posts' class="{{isActivePath '/products'}}")
             i.large.newspaper.icon
             |posts
-        // a.icon.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
-        //     i.large.list.icon
-        // a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
-        //     i.large.wrench.icon
+        a.icon.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
+            i.large.list.icon
+        a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
+            i.large.wrench.icon
         a.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.large.checkmark.icon
             |tasks
-        // a.icon.item.zoomer(href='/posts' class="{{isActivePath '/posts'}}")
-        //     i.large.newspaper.icon
-        // a.icon.item.zoomer(href='/events' class="{{isActivePath '/events'}}")
-        //     i.large.calendar.icon
-        a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
+        a.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
+            i.large.fire.icon
+            |groups
+        a.item.zoomer(href='/events' class="{{isActivePath '/events'}}")
+            i.large.calendar.icon
+            |events
+        a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.large.user.friends.icon
+            |users
         .right.menu
             if currentUser
-                // if in_role 'admin'
-                //     a.icon.item(href='/admin' title='admin')
-                //         i.large.shield.icon
-                // a.icon.item.toggle_topbar(title='alerts')
-                //     i.bell.outline.large.icon
+                if in_role 'admin'
+                    a.icon.item(href='/admin' title='admin')
+                        i.large.shield.icon
+                a.item.toggle_topbar(title='alerts')
+                    i.bell.outline.large.icon
                 a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
                     // i.wallet.icon
                     strong {{int currentUser.points}}p
@@ -66,25 +69,25 @@ template(name='nav')
                     
                 
 
-// template(name='topbar')
-//     .ui.fluid.attached.segment.topbar.top.sidebar
-//         .ui.middle.aligned.divided.list
-//         .ui.list
-//             each recent_alerts
-//                 +recent_alert
-//         a.ui.basic.button.item.close_topbar(href="/inbox")
-//             i.inbox.icon
-//             |inbox
+template(name='topbar')
+    .ui.fluid.attached.segment.topbar.top.sidebar
+        .ui.middle.aligned.divided.list
+        .ui.list
+            each recent_alerts
+                +recent_alert
+        a.ui.basic.button.item.close_topbar(href="/inbox")
+            i.inbox.icon
+            |inbox
         
-// template(name='recent_alert')        
-//     .item.alert
-//         .right.floated.content
-//             i.eye.link.icon.mark_read(title='mark read')
-//         img.ui.avatar.image(src="{{c.url author.profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
-//         .content
-//             .header
-//                 |#{description} 
-//             .description #{author.name} #{when}
+template(name='recent_alert')        
+    .item.alert
+        .right.floated.content
+            i.eye.link.icon.mark_read(title='mark read')
+        img.ui.avatar.image(src="{{c.url author.profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
+        .content
+            .header
+                |#{description} 
+            .description #{author.name} #{when}
             
             
             
@@ -99,12 +102,12 @@ template(name='walletbar')
         
 template(name='left_sidebar')
     .ui.left.sidebar.vertical.borderless.large.inverted.menu
-        // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
-        //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
-        // .search.item(title='search')
-        //     .ui.icon.transparent.input
-        //         i.search.icon
-        //         input.search_global(type='text')
+        a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
+            img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
+        .search.item(title='search')
+            .ui.icon.transparent.input
+                i.search.icon
+                input.search_global(type='text')
         a.item.toggle_leftbar(href='/products' class="{{isActivePath '/products'}}" title='products')
             i.shop.icon
             | #{product_count} products

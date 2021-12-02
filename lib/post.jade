@@ -84,6 +84,8 @@ template(name='post_edit')
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     // +boolean_edit key='published' label='published' direct=true
+                    +text_edit key='course' label='course' direct=true
+                    +number_edit key='unit' label='unit' direct=true
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     // +array_edit key='emotion_tags' label='emotion tags' icon='tags' direct=true
@@ -127,7 +129,7 @@ template(name='post_view')
                         i.pencil.icon
                     .ui.header added #{when}
                     +call_watson key='body' mode='html'
-                    +call_tone key='body'
+                    // +call_tone key='body'
                     each _timestamp_tags
                         .ui.label #{this}
                     if in_dev

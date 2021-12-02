@@ -106,7 +106,7 @@ template(name='doc_emotion_small')
         
         
 template(name='call_watson')
-    button.ui.fluid.basic.button.autotag
+    button.ui.fluid.button.autotag
         i.dna.icon
         if current_doc.watson 
             i.checkmark.green.icon
@@ -115,7 +115,7 @@ template(name='call_watson')
 
 
 template(name='get_emotion')
-    button.ui.fluid.basic.button.get
+    button.ui.fluid.button.get
         i.smile.icon
         if current_doc.max_emotion_name 
             i.checkmark.green.icon
@@ -131,7 +131,7 @@ template(name='autotag')
             
             
 template(name='call_tone')
-    button#call_tone.ui.basic.circular.large.button
+    button#call_tone.ui.circular.large.button
         i.smile.icon
         |call tone
     if page_doc.tone
@@ -191,7 +191,7 @@ template(name='entities')
                     with disambiguation
                         // .ui.small.inline.header subtypes
                         each subtype
-                            .ui.basic.label #{this}
+                            .ui.label #{this}
                         // a.ui.tiny.grey.header(href=dbpedia_resource target='_window')
                         //     |!{name}
                 if emotion
@@ -228,7 +228,7 @@ template(name='concepts')
         |#{watson.concepts.length} concepts
     .inline
         each watson.concepts
-            .ui.basic.label(class="{{calculated_size 'relevance'}}" title="{{to_percent relevance}}% relevant")
+            .ui.label(class="{{calculated_size 'relevance'}}" title="{{to_percent relevance}}% relevant")
                 a(href=dbpedia_resource target='_blank') #{text}
 
 
@@ -413,7 +413,7 @@ template(name='tone_view')
                     i.chevron.up.link.grey.icon.upvote_sentence
                     i.chevron.down.link.grey.icon.downvote_sentence
                     each tones
-                        // .ui.basiced.small.compact.circular.label(class="{{calculated_size 'score'}} #{tone_label_class}") 
+                        // .uied.small.compact.circular.label(class="{{calculated_size 'score'}} #{tone_label_class}") 
                         if kve 'tone_id' 'joy'
                             +emoji name='joy'
                         else if kve 'tone_id' 'analytical'
@@ -425,7 +425,7 @@ template(name='tone_view')
                         else if kve 'tone_id' 'tentative'
                             +emoji name='fearful'
                         else
-                            .ui.basiced.small.compact.circular.label(class="#{tone_label_class}") 
+                            .uied.small.compact.circular.label(class="#{tone_label_class}") 
                                 span.ui.text
                                     |#{tone_id} &nbsp;
                                 | {{ to_percent score }}% 
@@ -433,7 +433,7 @@ template(name='tone_view')
                         i.grey.tag.icon
                         input.tag_sentence(type='text')
                     each tags 
-                        .ui.small.basic.circular.label #{this}
+                        .ui.small.circular.label #{this}
     // unless tone                
     //- #call_tone.ui.icon.button
     //-     i.refresh.icon

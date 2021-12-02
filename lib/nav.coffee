@@ -2,7 +2,7 @@ if Meteor.isClient
     Template.nav.onCreated ->
         Session.setDefault('is_global_searching')
         @autorun => Meteor.subscribe 'me'
-        @autorun => Meteor.subscribe 'current_group'
+        # @autorun => Meteor.subscribe 'current_group'
         # @autorun => Meteor.subscribe 'my_cart'
         # @autorun => Meteor.subscribe 'my_unread_messages'
         # @autorun => Meteor.subscribe 'global_stats'
@@ -99,39 +99,39 @@ if Meteor.isClient
             Session.get('global_search')
         
     Template.nav.events
-        'keyup .global_search': _.throttle((e,t)->
-            # console.log Router.current().route.getName()
-            # current_name = Router.current().route.getName()
-            # $(e.currentTarget).closest('.input').transition('pulse', 100)
+        # 'keyup .global_search': _.throttle((e,t)->
+        #     # console.log Router.current().route.getName()
+        #     # current_name = Router.current().route.getName()
+        #     # $(e.currentTarget).closest('.input').transition('pulse', 100)
 
-            # unless current_name is 'products'
-            Router.go '/search'
-            query = $('.global_search').val()
-            Session.set('global_search', query)
-            # console.log Session.get('product_query')
-            if e.key == "Escape"
-                Session.set('global_search', null)
+        #     # unless current_name is 'products'
+        #     Router.go '/search'
+        #     query = $('.global_search').val()
+        #     Session.set('global_search', query)
+        #     # console.log Session.get('product_query')
+        #     if e.key == "Escape"
+        #         Session.set('global_search', null)
                 
-            if e.which is 13
-                search = $('.global_search').val().trim().toLowerCase()
-                if search.length > 0
-                    picked_tags.push search
-                    console.log 'search', search
-                    # Meteor.call 'log_term', search, ->
-                    $('.global_search').val('')
-                    Session.set('global_search', null)
-                    # # $('#search').val('').blur()
-                    # # $( "p" ).blur();
-                    # Meteor.setTimeout ->
-                    #     Session.set('dummy', !Session.get('dummy'))
-                    # , 10000
-            else if e.which is 27
-                $('.global_search').val('')
-                $('.global_search').blur()
-                Session.set('is_global_searching', false)
-                Session.set('global_search', null)
+        #     if e.which is 13
+        #         search = $('.global_search').val().trim().toLowerCase()
+        #         if search.length > 0
+        #             picked_tags.push search
+        #             console.log 'search', search
+        #             # Meteor.call 'log_term', search, ->
+        #             $('.global_search').val('')
+        #             Session.set('global_search', null)
+        #             # # $('#search').val('').blur()
+        #             # # $( "p" ).blur();
+        #             # Meteor.setTimeout ->
+        #             #     Session.set('dummy', !Session.get('dummy'))
+        #             # , 10000
+        #     else if e.which is 27
+        #         $('.global_search').val('')
+        #         $('.global_search').blur()
+        #         Session.set('is_global_searching', false)
+        #         Session.set('global_search', null)
                     
-        , 500)
+        # , 500)
     
         # 'click .alerts': ->
         #     Session.set('viewing_alerts', !Session.get('viewing_alerts'))
@@ -153,51 +153,51 @@ if Meteor.isClient
         # 'click .view_profile': ->
         #     Meteor.call 'calc_user_points', Meteor.userId(), ->
             
-        'click .init_global_search': -> 
-            Session.set('is_global_searching', true)
-            Meteor.setTimeout =>
-                $('.global_search').focus()
-            , 500
-        'click .clear_search': -> 
-            $('.global_search').val('')
-            Session.set('is_global_searching', false)
-            Session.set('global_search', null)
+        # 'click .init_global_search': -> 
+        #     Session.set('is_global_searching', true)
+        #     Meteor.setTimeout =>
+        #         $('.global_search').focus()
+        #     , 500
+        # 'click .clear_search': -> 
+        #     $('.global_search').val('')
+        #     Session.set('is_global_searching', false)
+        #     Session.set('global_search', null)
     
     # Template.topbar.onCreated ->
     #     @autorun => Meteor.subscribe 'my_received_messages'
     #     @autorun => Meteor.subscribe 'my_sent_messages'
     
     Template.nav.helpers
-        search_value: ->
-            Session.get('global_search')
-        unread_count: ->
-            unread_count = Docs.find({
-                model:'message'
-                to_username:Meteor.user().username
-                read_by_ids:$nin:[Meteor.userId()]
-            }).count()
+        # search_value: ->
+        #     Session.get('global_search')
+        # unread_count: ->
+        #     unread_count = Docs.find({
+        #         model:'message'
+        #         to_username:Meteor.user().username
+        #         read_by_ids:$nin:[Meteor.userId()]
+        #     }).count()
 
-        cart_amount: ->
-            cart_amount = Docs.find({
-                model:'thing'
-                status:'cart'
-                _author_id:Meteor.userId()
-            }).count()
-        cart_items: ->
-            # co = 
-            #     Docs.findOne 
-            #         model:'order'
-            #         status:'cart'
-            #         _author_id:Meteor.userId()
-            # if co 
-            Docs.find 
-                model:'thing'
-                _author_id: Meteor.userId()
-                # order_id:co._id
-                status:'cart'
+        # cart_amount: ->
+        #     cart_amount = Docs.find({
+        #         model:'thing'
+        #         status:'cart'
+        #         _author_id:Meteor.userId()
+        #     }).count()
+        # cart_items: ->
+        #     # co = 
+        #     #     Docs.findOne 
+        #     #         model:'order'
+        #     #         status:'cart'
+        #     #         _author_id:Meteor.userId()
+        #     # if co 
+        #     Docs.find 
+        #         model:'thing'
+        #         _author_id: Meteor.userId()
+        #         # order_id:co._id
+        #         status:'cart'
                 
-        alert_toggle_class: ->
-            if Session.get('viewing_alerts') then 'active' else ''
+        # alert_toggle_class: ->
+        #     if Session.get('viewing_alerts') then 'active' else ''
         # unread_count: ->
         #     Docs.find( 
         #         model:'message'
