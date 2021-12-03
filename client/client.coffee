@@ -11,7 +11,7 @@ Tracker.autorun ->
 
 
 Template.home.onCreated ->
-    @autorun => @subscribe 'stats_doc'
+    @autorun => @subscribe 'stats_doc', ->
 Template.home.helpers   
     stats_doc: ->
         Docs.findOne 

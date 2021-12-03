@@ -49,7 +49,6 @@ template(name='repairs')
                 each repair_docs
                     +repair_card
                 
-
 template(name='repair_card')                
     a.ui.link.card(href="/repair/#{_id}") 
         img.ui.image(src="{{c.url image_id width=400 height=400 crop='pad'}}")
@@ -72,8 +71,6 @@ template(name='repair_card')
                 i.grey.marker.icon
                 each people_tags
                     .ui.small.label #{this}
-
-
                 
 template(name='repair_edit')
     with current_doc
@@ -111,9 +108,10 @@ template(name='repair_view')
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    a.ui.icon.button(href="/repairs")
+                    a.ui.icon.button.fly_left(href="/repairs")
                         i.chevron.left.icon
-                        i.building.large.icon
+                        // i.building.large.icon
+                        +i name='building'
                         |repairs
                     .ui.inline.header
                         | #{title}

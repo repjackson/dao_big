@@ -329,3 +329,6 @@ Meteor.methods
             if cost.amount
                 costs += cost.amount
         console.log 'calc costs', costs
+        Docs.update stats_doc._id, 
+            $set:
+                total_costs: costs
