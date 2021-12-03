@@ -1,6 +1,9 @@
 template(name='home')
     .ui.padded.stackable.five.column.centered.grid
         .row
+            .ui.header 
+                i.large.fork.icon
+                |jacknet
             a(href="/users")
                 img.ui.small.inline.image(src="{{c.url current_group.image_id }}")
                 .ui.inline.header 
@@ -17,10 +20,10 @@ template(name='home')
                 .ui.icon.header
                     i.blog.icon
                     |posts
-            a.center.aligned.column.zoomer(href="/requests")
+            a.center.aligned.column.zoomer(href="/units")
                 .ui.icon.header
-                    i.bullhorn.icon
-                    |requests
+                    i.building.icon
+                    |units
             a.center.aligned.column.zoomer(href="/items")
                 .ui.icon.header
                     i.food.icon

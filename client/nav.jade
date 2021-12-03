@@ -8,6 +8,10 @@ template(name='nav')
         else 
             a.icon.item.toggle_leftbar.no_blink
               i.bars.large.icon 
+        
+        a.item.zoomer(href='/' class="{{isActivePath '/'}}")
+            i.fork.icon
+            |jacknet
         if current_group
             a.item(href='/') 
                 img.ui.avatar.image(src="{{c.url current_group.image_id height=200 width=200 gravity='face' crop='fill'}}")
@@ -28,10 +32,11 @@ template(name='nav')
         a.item.zoomer(href='/posts' class="{{isActivePath '/products'}}")
             i.large.newspaper.icon
             |posts
-        a.icon.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
-            i.large.list.icon
-        a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
-            i.large.wrench.icon
+        a.item.zoomer(href='/units' class="{{isActivePath '/units'}}")
+            i.large.building.icon
+            |units
+        // a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
+        //     i.large.wrench.icon
         a.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.large.checkmark.icon
             |tasks
