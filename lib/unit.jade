@@ -49,13 +49,15 @@ template(name='units')
 
 template(name='unit_card')                
     a.ui.fluid.link.card(href="/unit/#{_id}") 
-        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-        if youtube_id
-            +youtube_view key='youtube_id' direct=true
+        img.ui.image(src="{{c.url image_id width=400 height=400 crop='pad'}}")
         .content 
             .ui.header 
                 |#{title}
             |!{body}
+            i.money.icon
+            |value: #{value}
+            i.money.icon
+            |rental: #{renta_valuel}
             i.grey.tag.icon
             each tags
                 .ui.label #{this}
@@ -84,8 +86,10 @@ template(name='unit_edit')
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     // +boolean_edit key='published' label='published' direct=true
-                    +text_edit key='course' label='course' direct=true
+                    // +text_edit key='course' label='course' direct=true
                     +number_edit key='unit' label='unit' direct=true
+                    +number_edit key='value' label='value' direct=true
+                    +number_edit key='purchase_price' label='purchase price' direct=true
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     // +array_edit key='emotion_tags' label='emotion tags' icon='tags' direct=true
@@ -103,23 +107,11 @@ template(name='unit_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .ten.wide.column.scrolling
-                    +html_view key='body' direct=true
-                    // +html_view key='content' direct=true
-                    // +html_view key='description' direct=true
-                    if youtube_id
-                        +youtube_view key='youtube_id' direct=true
-                    .ui.header 
-                        i.users.icon
-                        |audience
-                    +comments
-                    if watson
-                        +watson_view
-                    if tone 
-                        +tone_view
                 .six.wide.column
                     a.ui.icon.button(href="/units")
-                        i.blog.large.icon
+                        i.chevron.left.icon
+                        i.building.large.icon
+                        |units
                     .ui.inline.header
                         | #{title}
                         small unit view
@@ -140,11 +132,24 @@ template(name='unit_view')
                     div
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     div
-                    +array_view key='emotion_tags' label='emotion tags' icon='tags' direct=true
-                    div
                     +array_view key='location_tags' label='location tags' icon='tags' direct=true
                     div
                     +array_view key='people_tags' label='people tags' icon='tags' direct=true
                     +voting_full
                     +boolean_view key='published' label='published' direct=true
-                    
+                    .ui.big.list 
+                        .item $#{value} value
+                        .item $#{rental_monthly} rental monthly
+                        .item $#{purchase_price} purchase price
+                .ten.wide.column.scrolling
+                    +html_view key='body' direct=true
+                    // +html_view key='content' direct=true
+                    // +html_view key='description' direct=true
+                    .ui.header 
+                        i.users.icon
+                        |tenants
+                    +comments
+                    if watson
+                        +watson_view
+                    if tone 
+                        +tone_view
