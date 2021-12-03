@@ -90,6 +90,11 @@ if Meteor.isClient
             
                 
     Template.task_edit.events
+        'click .mark_complete': ->
+            Docs.update Router.current().params.doc_id, 
+                $set:
+                    complete:true
+                    complete_timestamp: Date.now()
         'click .select_location': ->
             task = Docs.findOne Router.current().params.doc_id
             if task.location_ids and @_id in task.location_ids
