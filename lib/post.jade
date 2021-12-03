@@ -1,7 +1,8 @@
 template(name='posts')
     .ui.stackable.padded.grid
         .sixteen.wide.column
-            i.large.newspaper.icon
+            // i.large.newspaper.icon
+            +ibig name='blog'
             // .ui.inline.header 
             .ui.icon.button.add_post
                 i.large.plus.icon
@@ -48,7 +49,7 @@ template(name='posts')
                 
 
 template(name='post_card')                
-    a.ui.fluid.link.card(href="/post/#{_id}") 
+    a.ui.fluid.link.card.fly_right(href="/post/#{_id}") 
         img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
         if youtube_id
             +youtube_view key='youtube_id' direct=true
@@ -79,7 +80,7 @@ template(name='post_edit')
                         i.pencil.icon
                         | #{title}
                         small post
-                    a.ui.large.fluid.icon.button(href="/post/#{_id}/" title='save product')
+                    a.ui.large.fluid.icon.button.fly_right(href="/post/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
@@ -103,29 +104,15 @@ template(name='post_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .ten.wide.column.scrolling
-                    +html_view key='body' direct=true
-                    // +html_view key='content' direct=true
-                    // +html_view key='description' direct=true
-                    if youtube_id
-                        +youtube_view key='youtube_id' direct=true
-                    .ui.header 
-                        i.users.icon
-                        |audience
-                    +comments
-                    if watson
-                        +watson_view
-                    if tone 
-                        +tone_view
                 .six.wide.column
-                    a.ui.icon.button(href="/posts")
+                    a.ui.icon.button.fly_left(href="/posts")
                         i.blog.large.icon
                     .ui.inline.header
                         | #{title}
                         small post view
                     +image_view key='image_id' label='image' direct=true
                     div
-                    a.ui.icon.button(href="/post/#{_id}/edit")
+                    a.ui.icon.button.fly_down(href="/post/#{_id}/edit")
                         i.pencil.icon
                     .ui.header added #{when}
                     +call_watson key='body' mode='html'
@@ -148,3 +135,17 @@ template(name='post_view')
                     +voting_full
                     +boolean_view key='published' label='published' direct=true
                     
+                .ten.wide.column.scrolling
+                    +html_view key='body' direct=true
+                    // +html_view key='content' direct=true
+                    // +html_view key='description' direct=true
+                    if youtube_id
+                        +youtube_view key='youtube_id' direct=true
+                    .ui.header 
+                        i.users.icon
+                        |audience
+                    +comments
+                    if watson
+                        +watson_view
+                    if tone 
+                        +tone_view
