@@ -88,17 +88,20 @@ template(name='repair_edit')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
-                    // +boolean_edit key='published' label='published' direct=true
-                    // +text_edit key='course' label='course' direct=true
-                    +number_edit key='repair' label='repair' direct=true
-                    +number_edit key='value' label='value' direct=true
-                    +number_edit key='purchase_price' label='purchase price' direct=true
+                    +image_edit key='image_id2' label='image2' direct=true
+                .ten.wide.column
+                    +number_edit key='cost' label='cost' direct=true icon='money'
+                    +number_edit key='day_duration' label='duration (days)' direct=true
+                    // +number_edit key='value' label='value' direct=true
+                    +text_edit key='company' label='company' direct=true
+                    +text_edit key='company_phone' label='company phone' direct=true icon='phone'
+                    +date_edit key='start_date' label='start date' direct=true icon='calendar'
+                    +date_edit key='end_date' label='end date' direct=true icon='calendar'
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     .ui.button.delete_repair
                         i.remove.icon   
                         | delete
-                .ten.wide.column
                     div
                     +html_edit key='body' label='body' direct=true
                 
@@ -117,9 +120,10 @@ template(name='repair_view')
                         small repair view
                     +image_view key='image_id' label='image' direct=true
                     div
-                    a.ui.icon.button(href="/repair/#{_id}/edit")
+                    a.ui.button(href="/repair/#{_id}/edit")
                         i.pencil.icon
-                    .ui.header added #{when}
+                        |edit
+                    .ui.small.header added #{when}
                     // +call_tone key='body'
                     each _timestamp_tags
                         .ui.label #{this}

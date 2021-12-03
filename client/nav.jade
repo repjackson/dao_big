@@ -71,7 +71,11 @@ template(name='nav')
                         i.sign.in.large.icon
                 else 
                     i.yin.yang.loading.icon
-                    
+    .ui.attached.menu.hscroll
+        a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
+            i.large.user.friends.icon
+            |users
+        
                 
 
 template(name='topbar')
@@ -130,9 +134,9 @@ template(name='left_sidebar')
         a.item.zoomer.toggle_leftbar(href='/posts' class="{{isActivePath '/posts'}}")
             i.newspaper.large.icon
             | #{posts.count} posts
-        a.item.zoomer.toggle_leftbar(href='/roles' class="{{isActivePath '/roles'}}")
-            i.shield.large.icon
-            | #{posts.count} roles
+        a.item.zoomer.toggle_leftbar(href='/costs' class="{{isActivePath '/costs'}}")
+            i.money.large.icon
+            | #{posts.count} costs
         a.icon.item.zoomer.toggle_leftbar(href='/units' class="{{isActivePath '/units'}}")
             i.building.large.icon
             |units

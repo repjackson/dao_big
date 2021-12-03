@@ -1,47 +1,48 @@
 template(name='home')
-    .ui.padded.stackable.five.column.centered.grid
-        .row
+    .ui.padded.grid 
+        .sixteen.wide.column
             .ui.header 
                 i.large.fork.icon
                 |jacknet
-            a(href="/users")
-                img.ui.small.inline.image(src="{{c.url current_group.image_id }}")
-                .ui.inline.header 
-                    |#{current_group.title}
-                if currentUser 
-                    a.fly_down(href="/group/#{currentUser.current_group_id}/edit" title='edit current group')
-                        i.large.setting.circular.link.icon
-
-            a.center.aligned.column.zoomer(href="/users")
-                .ui.icon.header
-                    i.users.icon
-                    |users
-            a.center.aligned.column.zoomer(href="/posts")
-                .ui.icon.header
-                    i.blog.icon
-                    |posts
-            a.center.aligned.column.zoomer(href="/units")
-                .ui.icon.header
-                    i.building.icon
-                    |units
-            a.center.aligned.column.zoomer(href="/items")
-                .ui.icon.header
-                    i.food.icon
-                    |items
-            a.center.aligned.column.zoomer(href="/tasks")
-                .ui.icon.header
-                    i.tasks.icon
-                    |tasks
-            a.center.aligned.column.zoomer(href="/work")
-                .ui.icon.header
-                    i.wrench.icon
-                    |work
-            a.center.aligned.column.zoomer(href="/products")
-                .ui.icon.header
-                    i.shop.icon
-                    |products
-            a.center.aligned.column.zoomer(href="/groups")
-                .ui.icon.header
-                    i.fire.icon
-                    |groups
-            
+            .ui.padded.stackable.five.centered.cards
+                a.center.aligned.card.zoomer(href="/users")
+                    img.ui.small.inline.image(src="{{c.url current_group.image_id }}")
+                    .ui.inline.header 
+                        |#{current_group.title}
+                    if currentUser 
+                        a.fly_down(href="/group/#{currentUser.current_group_id}/edit" title='edit current group')
+                            i.large.setting.circular.link.icon
+        
+                a.center.aligned.card.zoomer(href="/users")
+                    .ui.icon.header
+                        i.users.icon
+                        |users
+                a.center.aligned.card.zoomer(href="/posts")
+                    .ui.icon.header
+                        i.blog.icon
+                        |posts
+                a.center.aligned.card.zoomer(href="/units")
+                    .ui.icon.header
+                        i.building.icon
+                        |units
+                a.center.aligned.card.zoomer(href="/repairs")
+                    .ui.icon.header
+                        i.wrench.icon
+                        |repairs
+                a.center.aligned.card.zoomer(href="/tasks")
+                    .ui.icon.header
+                        i.tasks.icon
+                        |tasks
+                a.center.aligned.card.zoomer(href="/work")
+                    .ui.icon.header
+                        i.wrench.icon
+                        |work
+                a.center.aligned.card.zoomer(href="/products")
+                    .ui.icon.header
+                        i.shop.icon
+                        |products
+                a.center.aligned.card.zoomer(href="/groups")
+                    .ui.icon.header
+                        i.fire.icon
+                        |groups
+                
