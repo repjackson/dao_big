@@ -11,8 +11,8 @@ Cloudinary.config
 
 Docs.allow
     insert: (userId, doc) -> doc._author_id is userId
-    update: (userId, doc) ->
-        if userId then true
+    update: (userId, doc) -> true
+        # if userId then true
         # if doc.model in ['calculator_doc','simulated_rental_item','healthclub_session']
         #     true
         # else if Meteor.user() and Meteor.user().roles and 'admin' in Meteor.user().roles
