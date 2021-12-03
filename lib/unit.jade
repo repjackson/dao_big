@@ -72,8 +72,8 @@ template(name='unit_card')
 template(name='unit_edit')
     with current_doc
         .ui.stackable.padded.grid
-            .row
-                .six.wide.column
+            .three.column.row
+                .column
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
@@ -83,23 +83,23 @@ template(name='unit_edit')
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
+                .column
                     +number_edit key='bedrooms' label='bedrooms' icon='home'
                     +number_edit key='bathrooms' label='bathrooms' icon='bathroom'
-                    div
-                    // +boolean_edit key='published' label='published' direct=true
-                    // +text_edit key='course' label='course' direct=true
+                    +number_edit key='square_feet' label='square feet' icon='hashtag'
+                    +link_edit key='link' label='link' icon='link'
                     div
                     +number_edit key='unit' label='unit' direct=true
                     div
                     +number_edit key='value' label='value' direct=true
                     +number_edit key='purchase_price' label='purchase price' direct=true
+                .column
                     +number_edit key='monthly_rent' label='monthly_rent' direct=true icon='money'
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     .ui.button.delete_unit
                         i.remove.icon   
                         | delete
-                .ten.wide.column
                     div
                     +html_edit key='body' label='body' direct=true
                 
@@ -119,8 +119,8 @@ template(name='unit_view')
                         small unit view
                     +image_view key='image_id' label='image' direct=true
                     div
-                    a.ui.icon.button(href="/unit/#{_id}/edit")
-                        i.pencil.icon
+                    a.ui.icon.big.button(href="/unit/#{_id}/edit")
+                        i.pencil.big.icon
                     .ui.header added #{when}
                     // +call_tone key='body'
                     each _timestamp_tags
