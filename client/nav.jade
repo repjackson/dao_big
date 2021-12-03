@@ -9,23 +9,23 @@ template(name='nav')
             a.icon.item.toggle_leftbar.no_blink
               i.bars.large.icon 
         
-        a.item.zoomer(href='/' class="{{isActivePath '/'}}")
-            i.fork.icon
+        a.header.item.zoomer(href='/' class="{{isActivePath '/'}}")
+            i.fork.large.icon
             |jacknet
-        if current_group
-            a.item(href='/') 
-                img.ui.avatar.image(src="{{c.url current_group.image_id height=200 width=200 gravity='face' crop='fill'}}")
-                |#{current_group.title}
-        if session_is 'is_global_searching' true
-            .ui.icon.transparent.input.global_search_input
-                i.link.large.remove.icon.clear_search.zoomer(title='clear search')
-                // if current_search
-                // else
-                //     i.search.icon
-                input.global_search(type='text' value=current_search autocomplete="off")
-        else
-            a.icon.item.init_global_search(title='search')
-                i.search.large.icon
+        // if current_group
+        //     a.item(href='/') 
+        //         img.ui.avatar.image(src="{{c.url current_group.image_id height=200 width=200 gravity='face' crop='fill'}}")
+        //         |#{current_group.title}
+        // if session_is 'is_global_searching' true
+        //     .ui.icon.transparent.input.global_search_input
+        //         i.link.large.remove.icon.clear_search.zoomer(title='clear search')
+        //         // if current_search
+        //         // else
+        //         //     i.search.icon
+        //         input.global_search(type='text' value=current_search autocomplete="off")
+        // else
+        //     a.icon.item.init_global_search(title='search')
+        //         i.search.large.icon
                 
         // a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
         //     i.bullhorn.large.icon

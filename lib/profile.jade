@@ -17,19 +17,19 @@ template(name='user_layout')
                         // .spacer
                         a.ui.inline.header(href="/user/#{username}")
                             | #{username}
-                        .ui.inline.horizontal.small.statistic
+                        .ui.inline.small.statistic
                             .value
                                 |#{current_user.points}
                             .label
                                 |current pts
                                 span(title='rank') (##{current_user.point_rank})
-                        .ui.inline.tiny.horizontal.statistic
+                        .ui.inline.tiny.statistic
                             .value
                                 |#{current_user.total_earned_credits}
                             .label
                                 |pts earned
                                 span(title='rank') (##{current_user.total_earned_credit_rank})
-                        .ui.inline.tiny.horizontal.statistic
+                        .ui.inline.tiny.statistic
                             .value
                                 |#{current_user.total_bought_credits}
                             .label
@@ -43,15 +43,15 @@ template(name='user_layout')
                                 .ui.inline.header
                                     strong #{username}
                         if is_current_user
-                            a.ui.basic.circular.icon.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
+                            a.ui.circular.icon.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                                 i.cog.large.icon
                         if is_current_user
-                            .ui.basic.icon.button.logout(title='log out')
+                            .ui.icon.button.logout(title='log out')
                                 i.sign.out.alternate.large.icon
                         unless is_current_user
                             +friend_button
                         // .twelve.wide.column
-                        // a.ui.basic.button(href="/user/#{username}" class="{{isActiveRoute 'user_dashboard'}}")
+                        // a.ui.button(href="/user/#{username}" class="{{isActiveRoute 'user_dashboard'}}")
                         //     i.dashboard.icon
                         //     |dashboard
                     .ten.wide.column
