@@ -69,8 +69,6 @@ template(name='unit_card')
                 each people_tags
                     .ui.small.label #{this}
 
-
-                
 template(name='unit_edit')
     with current_doc
         .ui.stackable.padded.grid
@@ -80,15 +78,22 @@ template(name='unit_edit')
                         i.pencil.icon
                         | #{title}
                         small unit
-                    a.ui.large.fluid.icon.button(href="/unit/#{_id}/" title='save product')
+                    a.ui.fluid.icon.green.button(href="/unit/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
+                    div
+                    +number_edit key='bedrooms' label='bedrooms' icon='home'
+                    +number_edit key='bathrooms' label='bathrooms' icon='bathroom'
+                    div
                     // +boolean_edit key='published' label='published' direct=true
                     // +text_edit key='course' label='course' direct=true
+                    div
                     +number_edit key='unit' label='unit' direct=true
+                    div
                     +number_edit key='value' label='value' direct=true
                     +number_edit key='purchase_price' label='purchase price' direct=true
+                    +number_edit key='monthly_rent' label='monthly_rent' direct=true icon='money'
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     .ui.button.delete_unit
@@ -106,7 +111,8 @@ template(name='unit_view')
                 .six.wide.column
                     a.ui.icon.button(href="/units")
                         i.chevron.left.icon
-                        i.building.large.icon
+                        // i.building.large.icon
+                        +i name='building'
                         |units
                     .ui.inline.header
                         | #{title}
@@ -142,7 +148,8 @@ template(name='unit_view')
                                 +html_view key='body' direct=true
                                 div
                                 .ui.inline.header 
-                                    i.money.icon
+                                    // i.money.icon
+                                    +i name='money'
                                     |costs
                                 +add_model_button model='cost' parent_model='unit'
                                 +unit_children model='cost'
@@ -150,7 +157,8 @@ template(name='unit_view')
                         .card
                             .content 
                                 .ui.inline.header 
-                                    i.wrench.icon
+                                    +i name='wrench'
+                                    // i.wrench.icon
                                     |maintenance
                                 +add_model_button model='repair' parent_model='unit'
                                 +unit_children model='repair'
@@ -158,21 +166,24 @@ template(name='unit_view')
                         .card
                             .content 
                                 .ui.inline.header 
-                                    i.users.icon
+                                    +i name='groups'
+                                    // i.users.icon
                                     |tenants
                                 +add_model_button model='person' parent_model='unit'
                                 +unit_children model='tenant' 
                         .card
                             .content 
                                 .ui.inline.header 
-                                    i.tasks.icon
+                                    +i name='tasks'
+                                    // i.tasks.icon
                                     |tasks
                                 +add_model_button model='task' parent_model='unit'
                                 +unit_children model='task'
                                 div
                         .card
                             .content 
-                                .ui.inline.header 
+                                +i name='clock'
+                                // .ui.inline.header 
                                 |availability
                     +comments
                     
