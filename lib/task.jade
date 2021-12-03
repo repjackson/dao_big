@@ -72,17 +72,24 @@ template(name='tasks')
         
             span.ui.doubling.cards.scrolling
                 each task_docs
-                    .ui.link.card
-                        a(href="/task/#{_id}") 
-                            img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                        a.content(href="/task/#{_id}") 
-                            .ui.header 
-                                |#{title}
-                            |#{description}
-                            .ui.inline.header #{points}pts
-                            each tags
-                                .ui.small.basic.label #{this}
-                            // |added #{when} by #{_author_username}
+                    +task_card
+                    
+                    
+template(name='task_card')
+    .ui.link.card
+        a(href="/task/#{_id}") 
+            img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+        a.content(href="/task/#{_id}") 
+            .ui.header 
+                if complete 
+                    i.large.green.checkmark.icon
+                |#{title}
+            .ui.inline.header #{when}
+            |!{description}
+            .ui.inline.header #{points}pts
+            each tags
+                .ui.small.basic.label #{this}
+            // |added #{when} by #{_author_username}
                 
                 
                 
@@ -100,6 +107,7 @@ template(name='task_edit')
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
+                    +boolean_edit key='complete' label='complete' direct=true
                     +boolean_edit key='has_user_assignment' label='has user assignment' direct=true
                     if has_user_assignment
                         each group_members

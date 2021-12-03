@@ -59,12 +59,6 @@ if Meteor.isClient
           
           
           
-    Template.repair_children.helpers
-        model_children: ->
-            Docs.find 
-                model:@model
-                repair_id:Router.current().params.doc_id
-                
         
 if Meteor.isServer
     Meteor.publish 'product_repair', (product_id)->
