@@ -47,7 +47,7 @@ template(name='units')
                     +unit_card
                 
 template(name='unit_card')                
-    a.ui.link.card(href="/unit/#{_id}") 
+    a.ui.link.card.fly_right(href="/unit/#{_id}") 
         img.ui.image(src="{{c.url image_id width=400 height=400 crop='pad'}}")
         .content 
             .ui.header 
@@ -78,7 +78,7 @@ template(name='unit_edit')
                         i.pencil.icon
                         | #{title}
                         small unit
-                    a.ui.fluid.icon.green.button(href="/unit/#{_id}/" title='save product')
+                    a.ui.fluid.icon.green.button.fly_up(href="/unit/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
@@ -109,7 +109,7 @@ template(name='unit_view')
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    a.ui.icon.button(href="/units")
+                    a.ui.fluid.button.fly_left(href="/units")
                         i.chevron.left.icon
                         // i.building.large.icon
                         +i name='building'
@@ -119,8 +119,9 @@ template(name='unit_view')
                         small unit view
                     +image_view key='image_id' label='image' direct=true
                     div
-                    a.ui.icon.big.button(href="/unit/#{_id}/edit")
+                    a.ui.fluid.big.button.fly_down(href="/unit/#{_id}/edit")
                         i.pencil.big.icon
+                        |edit
                     .ui.header added #{when}
                     // +call_tone key='body'
                     each _timestamp_tags
@@ -195,6 +196,6 @@ template(name='unit_children')
             +model_child_view
             
 template(name='model_child_view')
-    .ui.header #{title} #{when}
+    a.ui.header(href="/#{model}/#{_id}") #{title} #{when}
             
     
