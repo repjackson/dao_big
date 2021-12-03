@@ -135,9 +135,11 @@ template(name='task_edit')
                     +number_edit key='amount' label='amount (leave 0 for infinite)' direct=true
                     +html_edit key='description' label='description' direct=true
                     .ui.header     
-                        i.large.marker.icon
-                        |possible locations
-                    each task_locations
+                        i.large.building.icon
+                        |associated unit
+                    if selected_unit
+                        .ui.header #{title}
+                    each units
                         .ui.button.select_location(class=location_class)
                             img.ui.tiny.inline.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
                             |#{title}
