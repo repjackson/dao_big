@@ -72,9 +72,9 @@ template(name='nav')
         a.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.large.checkmark.icon
             |tasks
-        a.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
-            i.large.fire.icon
-            |groups
+        // a.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
+        //     i.large.fire.icon
+        //     |groups
         a.item.zoomer(href='/events' class="{{isActivePath '/events'}}")
             i.large.calendar.icon
             |events
@@ -144,9 +144,9 @@ template(name='left_sidebar')
         a.item.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.users.large.icon
             | #{users.count} users
-        a.item.toggle_leftbar.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
-            i.fire.large.icon
-            | #{users.count} groups
+        // a.item.toggle_leftbar.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
+        //     i.fire.large.icon
+        //     | #{users.count} groups
         a.item.toggle_leftbar.zoomer(href='/repairs' class="{{isActivePath '/repairs'}}")
             i.wrench.large.icon
             | repairs

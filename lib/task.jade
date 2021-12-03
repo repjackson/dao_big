@@ -102,7 +102,7 @@ template(name='task_edit')
                         i.pencil.icon
                         | #{title}
                         small task
-                    a.ui.large.icon.green.button(href="/task/#{_id}/" title='save product')
+                    a.ui.fluid.large.icon.green.button.fly_left(href="/task/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
@@ -118,26 +118,26 @@ template(name='task_edit')
                             |complete
                             |{{from_now complete_timestamp}}
                             |{{long_date complete_timestamp}}
-                    +boolean_edit key='has_user_assignment' label='has user assignment' direct=true
-                    if has_user_assignment
-                        each group_members
-                            .ui.button.assign_member #{username}
+                    // +boolean_edit key='has_user_assignment' label='has user assignment' direct=true
+                    // if has_user_assignment
+                    each group_members
+                        .ui.button.assign_member #{username}
                     div
-                    +boolean_edit key='has_minute_expectation' label='has minute expectation' direct=true
-                    div
-                    if has_minute_expectation
-                        +number_edit key='minute_expectation' label='time expectation (minutes)' direct=true
+                    // +boolean_edit key='has_minute_expectation' label='has minute expectation' direct=true
+                    // div
+                    // if has_minute_expectation
+                    +number_edit key='minute_expectation' label='time expectation (minutes)' direct=true
                     div
                     +boolean_edit key='has_duedatetime' label='has due date/time' icon='calendar' direct=true
                     div
                     if has_duedatetime
                         +datetime_edit key='due_datetime' label='due date/time' icon='calendar' direct=true
-                    +number_edit key='amount' label='amount (leave 0 for infinite)' direct=true
-                    div
-                    +boolean_edit key='has_point_bounty' label='has point bounty' icon='hashtag' direct=true
-                    div
-                    if has_point_bounty
-                        +number_edit key='point_bounty' label='point_bounty' direct=true
+                    // +number_edit key='amount' label='amount (leave 0 for infinite)' direct=true
+                    // div
+                    // +boolean_edit key='has_point_bounty' label='has point bounty' icon='hashtag' direct=true
+                    // div
+                    // if has_point_bounty
+                    +number_edit key='point_bounty' label='point_bounty' direct=true
                     div
                 .ten.wide.column
                     div
@@ -172,15 +172,18 @@ template(name='task_view')
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    a.ui.basic.icon.button(href="/tasks")
-                        i.wrench.icon
+                    a.ui.button.fly_left(href="/tasks")
+                        // i.tasks.icon
+                        +i name='tasks'
+                        |tasks
                     .ui.inline.header
                         | #{title}
                         small task view
                     +image_view key='image_id' label='image' direct=true
                     div
-                    a.ui.icon.button(href="/task/#{_id}/edit")
+                    a.ui.icon.large.button.fly_right(href="/task/#{_id}/edit")
                         i.pencil.icon
+                        |edit
                     +boolean_view key='has_user_assignment' label='has user assignment' direct=true
                     if has_user_assignment
                         each group_members
