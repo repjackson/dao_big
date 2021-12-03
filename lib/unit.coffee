@@ -12,6 +12,9 @@ if Meteor.isClient
         
     Template.unit_view.onRendered ->
         Meteor.call 'log_view', Router.current().params.doc_id
+        @autorun => @subscribe 'unit_children', 'repair', Router.current().params.doc_id
+        @autorun => @subscribe 'unit_children', 'task', Router.current().params.doc_id
+        @autorun => @subscribe 'unit_children', 'tenant', Router.current().params.doc_id
 
             
     Template.units.onCreated ->
@@ -53,6 +56,14 @@ if Meteor.isClient
                 model:'unit_tag'
             }, sort:_timestamp:-1
   
+          
+          
+          
+    Template.unit_children.helpers
+        model_children: ->
+            Docs.find 
+                model:@model
+                unit_id:Router.current().params.doc_id
                 
         
 if Meteor.isServer
@@ -60,6 +71,11 @@ if Meteor.isServer
         Docs.find   
             model:'unit'
             product_id:product_id
+            
+    Meteor.publish 'unit_children', (model, unit_id)->
+        Docs.find   
+            model:model
+            unit_id:unit_id
             
     Meteor.publish 'unit_docs', (product_id)->
         Docs.find   

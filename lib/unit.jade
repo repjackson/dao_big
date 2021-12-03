@@ -141,23 +141,38 @@ template(name='unit_view')
                         i.money.icon
                         |costs
                     +add_model_button model='cost' parent_model='unit'
+                    +unit_children model='cost'
                     div
                     .ui.inline.header 
                         i.wrench.icon
                         |maintenance
                     +add_model_button model='repair' parent_model='unit'
+                    +unit_children model='repair'
                     div
                     .ui.inline.header 
                         i.users.icon
                         |tenants
+                    +unit_children model='tenant' 
                     +add_model_button model='person' parent_model='unit'
                     div
                     .ui.inline.header 
                         i.tasks.icon
                         |tasks
                     +add_model_button model='task' parent_model='unit'
+                    +unit_children model='task'
                     div
                     .ui.inline.header 
                         |availability
                     +comments
                     
+                    
+template(name='unit_children')
+    .ui.header #{model}s
+    .ui.large.list 
+        each model_children 
+            +model_child_view
+            
+template(name='model_child_view')
+    .ui.header #{title} #{when}
+            
+    
