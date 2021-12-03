@@ -1,20 +1,23 @@
-template(name='units')
+template(name='repairs')
     .ui.stackable.padded.grid
         .sixteen.wide.column
-            i.large.newspaper.icon
+            // i.large.newspaper.icon
+            .ui.inline.header
+                +i name='wrench'
+                |repairs
             // .ui.inline.header 
-            .ui.icon.button.add_unit
+            .ui.icon.button.add_repair
                 i.large.plus.icon
-            each picked_unit_tags
-                a.ui.blue.button.unpick_unit_tag
+            each picked_repair_tags
+                a.ui.blue.button.unpick_repair_tag
                     |#{this}
-            each unit_tag_results
+            each repair_tag_results
                 if title
-                    a.ui.compact.button.pick_unit_tag
+                    a.ui.compact.button.pick_repair_tag
                         |#{title} 
                         small.ui.grey.text #{count}
             span.sorting_row
-                +search_input model='unit' field='title'
+                +search_input model='repair' field='title'
                 // +session_set key='view_users' value='grid' icon='th' 
                 // +session_set key='view_users' value='list' icon='list'
                 // +session_set key='sort_users_direction' value='-1' icon='chevron down'
@@ -43,11 +46,12 @@ template(name='units')
                 .spacer 
         
             span.ui.stackable.cards.scrolling
-                each unit_docs
-                    +unit_card
+                each repair_docs
+                    +repair_card
                 
-template(name='unit_card')                
-    a.ui.link.card(href="/unit/#{_id}") 
+
+template(name='repair_card')                
+    a.ui.link.card(href="/repair/#{_id}") 
         img.ui.image(src="{{c.url image_id width=400 height=400 crop='pad'}}")
         .content 
             .ui.header 
@@ -71,7 +75,7 @@ template(name='unit_card')
 
 
                 
-template(name='unit_edit')
+template(name='repair_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
@@ -79,19 +83,19 @@ template(name='unit_edit')
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                        small unit
-                    a.ui.large.fluid.icon.button(href="/unit/#{_id}/" title='save product')
+                        small repair
+                    a.ui.large.fluid.icon.button(href="/repair/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     // +boolean_edit key='published' label='published' direct=true
                     // +text_edit key='course' label='course' direct=true
-                    +number_edit key='unit' label='unit' direct=true
+                    +number_edit key='repair' label='repair' direct=true
                     +number_edit key='value' label='value' direct=true
                     +number_edit key='purchase_price' label='purchase price' direct=true
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
-                    .ui.button.delete_unit
+                    .ui.button.delete_repair
                         i.remove.icon   
                         | delete
                 .ten.wide.column
@@ -99,21 +103,21 @@ template(name='unit_edit')
                     +html_edit key='body' label='body' direct=true
                 
                 
-template(name='unit_view')
+template(name='repair_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    a.ui.icon.button(href="/units")
+                    a.ui.icon.button(href="/repairs")
                         i.chevron.left.icon
                         i.building.large.icon
-                        |units
+                        |repairs
                     .ui.inline.header
                         | #{title}
-                        small unit view
+                        small repair view
                     +image_view key='image_id' label='image' direct=true
                     div
-                    a.ui.icon.button(href="/unit/#{_id}/edit")
+                    a.ui.icon.button(href="/repair/#{_id}/edit")
                         i.pencil.icon
                     .ui.header added #{when}
                     // +call_tone key='body'
@@ -133,57 +137,17 @@ template(name='unit_view')
                         .item $#{value} value
                         .item $#{rental_monthly} rental monthly
                         .item $#{purchase_price} purchase price
-                    .ui.large.green.button.apply_now
-                        |apply now
                 .ten.wide.column.scrolling
-                    .ui.three.cards
-                        .card
-                            .content 
-                                +html_view key='body' direct=true
-                                div
-                                .ui.inline.header 
-                                    i.money.icon
-                                    |costs
-                                +add_model_button model='cost' parent_model='unit'
-                                +unit_children model='cost'
-                                div
-                        .card
-                            .content 
-                                .ui.inline.header 
-                                    i.wrench.icon
-                                    |maintenance
-                                +add_model_button model='repair' parent_model='unit'
-                                +unit_children model='repair'
-                                div
-                        .card
-                            .content 
-                                .ui.inline.header 
-                                    i.users.icon
-                                    |tenants
-                                +add_model_button model='person' parent_model='unit'
-                                +unit_children model='tenant' 
-                        .card
-                            .content 
-                                .ui.inline.header 
-                                    i.tasks.icon
-                                    |tasks
-                                +add_model_button model='task' parent_model='unit'
-                                +unit_children model='task'
-                                div
-                        .card
-                            .content 
-                                .ui.inline.header 
-                                |availability
+                    +html_view key='body' direct=true
+                    .ui.header $#{cost}: cost
+                    .ui.header $#{company}
                     +comments
                     
                     
-template(name='unit_children')
-    // .ui.header #{model}s
+template(name='repair_children')
+    .ui.header #{model}s
     .ui.large.list 
         each model_children 
             +model_child_view
-            
-template(name='model_child_view')
-    .ui.header #{title} #{when}
             
     
