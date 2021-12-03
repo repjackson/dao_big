@@ -10,7 +10,8 @@ template(name='nav')
               i.bars.large.icon 
         
         a.header.item.zoomer(href='/' class="{{isActivePath '/'}}")
-            i.fork.large.icon
+            // i.fork.large.icon
+            +i name='network'
             |jacknet
         // if current_group
         //     a.item(href='/') 
@@ -30,10 +31,12 @@ template(name='nav')
         // a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
         //     i.bullhorn.large.icon
         a.item.zoomer(href='/posts' class="{{isActivePath '/products'}}")
-            i.large.newspaper.icon
+            // i.large.newspaper.icon
+            +i name='blog'
             |posts
         a.item.zoomer(href='/units' class="{{isActivePath '/units'}}")
-            i.large.building.icon
+            // i.large.building.icon
+            +i name='building'
             |units
         // a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
         //     i.large.wrench.icon
