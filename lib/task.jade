@@ -175,6 +175,10 @@ template(name='task_view')
                     +boolean_view key='has_point_bounty' label='has point bounty' icon='hashtag' direct=true
                     if has_point_bounty
                         +number_view key='point_bounty' label='point_bounty' direct=true
+                    if unit_id 
+                        a.ui.big.button(href="/unit/#{unit_id}")    
+                            i.ui.big.building.icon
+                            |unit
                         
                 .ten.wide.column
                     div.scrolling

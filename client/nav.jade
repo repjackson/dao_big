@@ -107,18 +107,18 @@ template(name='walletbar')
         
 template(name='left_sidebar')
     .ui.left.sidebar.vertical.borderless.large.inverted.menu
-        a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
-            img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
-        .search.item(title='search')
-            .ui.icon.transparent.input
-                i.search.icon
-                input.search_global(type='text')
-        a.item.toggle_leftbar(href='/products' class="{{isActivePath '/products'}}" title='products')
-            i.shop.icon
-            | #{product_count} products
-        a.item.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
-            i.list.icon
-            | #{items.count} inventory
+        // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
+        //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
+        // .search.item(title='search')
+        //     .ui.icon.transparent.input
+        //         i.search.icon
+        //         input.search_global(type='text')
+        // a.item.toggle_leftbar(href='/products' class="{{isActivePath '/products'}}" title='products')
+        //     i.shop.icon
+        //     | #{product_count} products
+        // a.item.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
+        //     i.list.icon
+        //     | #{items.count} inventory
         a.item.zoomer.toggle_leftbar(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.tasks.icon
             | #{tasks.count} tasks
@@ -131,18 +131,18 @@ template(name='left_sidebar')
         a.item.zoomer.toggle_leftbar(href='/roles' class="{{isActivePath '/roles'}}")
             i.shield.icon
             | #{posts.count} roles
-        a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
-            i.marker.icon
-            |locations
+        a.icon.item.zoomer.toggle_leftbar(href='/units' class="{{isActivePath '/units'}}")
+            i.building.icon
+            |units
         a.item.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
-            i.user.friends.icon
+            i.users.icon
             | #{users.count} users
         a.item.toggle_leftbar.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
             i.fire.icon
             | #{users.count} groups
-        a.item.toggle_leftbar.zoomer(href='/ingredients' class="{{isActivePath '/ingredients'}}")
-            i.food.icon
-            | ingredients
+        a.item.toggle_leftbar.zoomer(href='/repairs' class="{{isActivePath '/repairs'}}")
+            i.wrench.icon
+            | repairs
         if is_in_admin
             a.icon.item.toggle_admin.toggle_leftbar.no_blink
                 |toggle admin

@@ -48,7 +48,7 @@ template(name='units')
                 
 
 template(name='unit_card')                
-    a.ui.fluid.link.card(href="/unit/#{_id}") 
+    a.ui.link.card(href="/unit/#{_id}") 
         img.ui.image(src="{{c.url image_id width=400 height=400 crop='pad'}}")
         .content 
             .ui.header 
@@ -92,9 +92,6 @@ template(name='unit_edit')
                     +number_edit key='purchase_price' label='purchase price' direct=true
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
-                    // +array_edit key='emotion_tags' label='emotion tags' icon='tags' direct=true
-                    // +array_edit key='location_tags' label='location tags' icon='tags' direct=true
-                    // +array_edit key='people_tags' label='people tags' icon='tags' direct=true
                     .ui.button.delete_unit
                         i.remove.icon   
                         | delete
@@ -139,20 +136,28 @@ template(name='unit_view')
                         .item $#{purchase_price} purchase price
                 .ten.wide.column.scrolling
                     +html_view key='body' direct=true
-                    .ui.header 
+                    div
+                    .ui.inline.header 
                         i.money.icon
                         |costs
-                    .ui.header 
+                    +add_model_button model='cost' parent_model='unit'
+                    div
+                    .ui.inline.header 
                         i.wrench.icon
                         |maintenance
-                    .ui.header 
+                    +add_model_button model='repair' parent_model='unit'
+                    div
+                    .ui.inline.header 
                         i.users.icon
                         |tenants
-                    .ui.header 
+                    +add_model_button model='person' parent_model='unit'
+                    div
+                    .ui.inline.header 
                         i.tasks.icon
                         |tasks
                     +add_model_button model='task' parent_model='unit'
-                    .ui.header 
+                    div
+                    .ui.inline.header 
                         |availability
                     +comments
                     

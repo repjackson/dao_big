@@ -15,6 +15,9 @@ if Meteor.isClient
                 add.parent_id = Router.current().params.doc_id
                 add["#{@parent_model}_id"] = Router.current().params.doc_id
             console.log add
+            new_id = 
+                Docs.insert add
+            Router.go "/#{@model}/#{new_id}/edit"
     
     
     
