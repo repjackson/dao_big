@@ -8,6 +8,16 @@ if Meteor.isClient
     Template.session_edit_button.helpers
     
     
+    Template.add_model_button.events
+        'click .add': ->
+            add = {model:@model}
+            if @parent_model
+                add.parent_id = Router.current().params.doc_id
+                add["#{@parent_model}_id"] = Router.current().params.doc_id
+            console.log add
+    
+    
+    
     Template.session_toggle.events
         'click .toggle_session_var': ->
             Session.set(@key, !Session.get(@key))
@@ -346,11 +356,6 @@ if Meteor.isClient
                     Docs.remove @_id
                 , 1000
 
-
-    Template.add_model_button.events
-        'click .add': ->
-            new_id = Docs.insert model: @model
-            Router.go "/edit/#{new_id}"
 
     Template.view_user_button.events
         'click .view_user': ->
