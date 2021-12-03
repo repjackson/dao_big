@@ -2,7 +2,9 @@ template(name='posts')
     .ui.stackable.padded.grid
         .sixteen.wide.column
             // i.large.newspaper.icon
-            +ibig name='blog'
+            .ui.inline.header 
+                +ibig name='blog'
+                |posts
             // .ui.inline.header 
             .ui.icon.button.add_post
                 i.large.plus.icon
@@ -80,7 +82,7 @@ template(name='post_edit')
                         i.pencil.icon
                         | #{title}
                         small post
-                    a.ui.large.fluid.icon.button.fly_right(href="/post/#{_id}/" title='save product')
+                    a.ui.large.fluid.icon.button.fly_up(href="/post/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
@@ -105,15 +107,18 @@ template(name='post_view')
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    a.ui.icon.button.fly_left(href="/posts")
-                        i.blog.large.icon
+                    a.ui.fluid.button.fly_left(href="/posts")
+                        // i.blog.large.icon
+                        +i name='blog'
+                        |posts
                     .ui.inline.header
                         | #{title}
                         small post view
                     +image_view key='image_id' label='image' direct=true
                     div
-                    a.ui.icon.button.fly_down(href="/post/#{_id}/edit")
+                    a.ui.fluid.button.fly_down(href="/post/#{_id}/edit")
                         i.pencil.icon
+                        |edit
                     .ui.header added #{when}
                     +call_watson key='body' mode='html'
                     // +call_tone key='body'

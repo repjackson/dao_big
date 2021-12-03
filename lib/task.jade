@@ -2,7 +2,8 @@ template(name='tasks')
     .ui.stackable.padded.grid
         .four.wide.column
             .ui.inline.header 
-                i.tasks.icon
+                // i.tasks.icon
+                +i name='tasks'
                 |tasks
             div
             if currentUser
@@ -76,7 +77,7 @@ template(name='tasks')
                     
                     
 template(name='task_card')
-    .ui.link.card
+    .ui.link.card.fly_right
         a(href="/task/#{_id}") 
             img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
         a.content(href="/task/#{_id}") 
@@ -172,7 +173,7 @@ template(name='task_view')
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    a.ui.button.fly_left(href="/tasks")
+                    a.ui.fluid.button.fly_left(href="/tasks")
                         // i.tasks.icon
                         +i name='tasks'
                         |tasks
@@ -181,7 +182,7 @@ template(name='task_view')
                         small task view
                     +image_view key='image_id' label='image' direct=true
                     div
-                    a.ui.icon.large.button.fly_right(href="/task/#{_id}/edit")
+                    a.ui.fluid.button.fly_right(href="/task/#{_id}/edit")
                         i.pencil.icon
                         |edit
                     +boolean_view key='has_user_assignment' label='has user assignment' direct=true
@@ -199,8 +200,9 @@ template(name='task_view')
                     if has_point_bounty
                         +number_view key='point_bounty' label='point_bounty' direct=true
                     if unit_id 
-                        a.ui.big.button(href="/unit/#{unit_id}")    
-                            i.ui.big.building.icon
+                        a.ui.big.fluid.button(href="/unit/#{unit_id}")    
+                            // i.ui.big.building.icon
+                            +i name='building'
                             |unit
                         
                 .ten.wide.column

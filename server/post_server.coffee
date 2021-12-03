@@ -14,7 +14,7 @@ Meteor.publish 'post_facets', (
     match = {}
     # match = {app:'pes'}
     match.model = 'post'
-    match.group_id = Meteor.user().current_group_id
+    # match.group_id = Meteor.user().current_group_id
     
     if title_filter and title_filter.length > 1
         match.title = {$regex:title_filter, $options:'i'}
@@ -147,7 +147,7 @@ Meteor.publish 'post_docs', (
     match = {}
     # match = {app:'pes'}
     match.model = 'post'
-    match.group_id = Meteor.user().current_group_id
+    # match.group_id = Meteor.user().current_group_id
     if title_filter and title_filter.length > 1
         match.title = {$regex:title_filter, $options:'i'}
     

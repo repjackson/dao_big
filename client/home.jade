@@ -2,11 +2,10 @@ template(name='home')
     .ui.padded.grid 
         .sixteen.wide.column
             i.refresh.icon.refresh_stats
-            // i.massive.brown.loading.poop.
             with stats_doc
-                .ui.large.label total costs: #{total_costs} total costs
-                .ui.large.label total costs: #{total_income} total income
-                .ui.large.label total costs: #{net_income} net income
+                .ui.large.header total costs: #{total_costs} total costs
+                .ui.large.header total costs: #{total_income} total income
+                .ui.large.header total costs: #{net_income} net income
             // a.ui.massive.button.zoomer(href="/users")
             //     img.ui.small.inline.image(src="{{c.url current_group.image_id }}")
             //     .ui.inline.header 
@@ -35,20 +34,20 @@ template(name='home')
                 .ui.icon.header
                     i.tasks.icon
                     |tasks
-            a.ui.massive.button.zoomer(href="/work")
-                .ui.icon.header
-                    i.wrench.icon
-                    |work
-            a.ui.massive.button.zoomer(href="/products")
-                .ui.icon.header
-                    i.shop.icon
-                    |products
+            // a.ui.massive.button.zoomer(href="/work")
+            //     .ui.icon.header
+            //         i.wrench.icon
+            //         |work
+            // a.ui.massive.button.zoomer(href="/products")
+            //     .ui.icon.header
+            //         i.shop.icon
+            //         |products
             a.ui.massive.button.zoomer(href="/costs")
                 .ui.icon.header
                     i.money.icon
                     |costs
-            a.ui.massive.button.zoomer(href="/groups")
-                .ui.icon.header
-                    i.fire.icon
-                    |groups
+            // a.ui.massive.button.zoomer(href="/groups")
+            //     .ui.icon.header
+            //         i.fire.icon
+            //         |groups
                 
