@@ -76,6 +76,7 @@ template(name='cost_edit')
                     a.ui.large.icon.green.button.fly_up(href="/cost/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
+                    +number_edit key='amount' label='amount' direct=true icon='money'
                     +image_edit key='image_id' label='image' direct=true
                     div
                     if in_dev 
@@ -83,8 +84,7 @@ template(name='cost_edit')
                     +html_edit key='description' label='description' direct=true
                 .ten.wide.column
                     +text_edit key='location' label='location' icon='marker' direct=true
-                    +datetime_edit key='start_datetime' label='start datetime' icon='calendar' direct=true
-                    +datetime_edit key='end_datetime' label='end datetime' icon='calendar' direct=true
+                    +date_edit key='date' label='date' icon='calendar' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     .ui.red.button.delete_cost

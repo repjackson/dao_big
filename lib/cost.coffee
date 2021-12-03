@@ -2,7 +2,7 @@ if Meteor.isClient
     @picked_cost_tags = new ReactiveArray []
     
     Router.route '/cost/:doc_id', (->
-        @layout 'cost_layout'
+        @layout 'layout'
         @render 'cost_view'
         ), name:'cost_view'
     Router.route '/costs', (->

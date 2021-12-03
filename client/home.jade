@@ -4,6 +4,12 @@ template(name='home')
             .ui.header 
                 i.large.fork.icon
                 |jacknet
+            i.refresh.icon.refresh_stats
+            // i.massive.brown.loading.poop.
+            with stats_doc
+                .ui.header total costs: #{total_costs} total costs
+                .ui.header total costs: #{total_income} total income
+                .ui.header total costs: #{net_income} net income
             .ui.padded.stackable.five.centered.cards
                 a.center.aligned.card.zoomer(href="/users")
                     img.ui.small.inline.image(src="{{c.url current_group.image_id }}")

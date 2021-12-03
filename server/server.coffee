@@ -311,3 +311,21 @@ Meteor.methods
 
 Meteor.publish 'me', ->
     Meteor.users.find @userId
+
+
+Meteor.methods 
+    refresh_stats: ->
+        stats_doc = 
+            Docs.findOne 
+                model:'stats_doc'
+        unless stats_doc
+            Docs.insert 
+                model:'stats_doc'
+        costs = 0
+        costs_cursor = 
+            Docs.find 
+                model:'cost'
+        for cost in costs_cursor.fetch()
+            if cost.amount
+                costs += cost.amount
+        console.log 'calc costs', costs

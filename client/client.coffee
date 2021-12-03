@@ -10,6 +10,17 @@ Tracker.autorun ->
         $(window).scrollTop 0
 
 
+Template.home.onCreated ->
+    @autorun => @subscribe 'stats_doc'
+Template.home.helpers   
+    stats_doc: ->
+        Docs.findOne 
+            model:'stats'
+                    
+Template.home.events
+    'click .refresh_stats': ->
+        Meteor.call 'refresh_stats', ->
+
 
 $.cloudinary.config
     cloud_name:"facet"
