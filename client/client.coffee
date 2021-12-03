@@ -11,11 +11,11 @@ Tracker.autorun ->
 
 
 Template.home.onCreated ->
-    @autorun => @subscribe 'stats_doc', ->
+    @autorun => @subscribe 'model_docs','stats_doc', ->
 Template.home.helpers   
     stats_doc: ->
         Docs.findOne 
-            model:'stats'
+            model:'stats_doc'
                     
 Template.home.events
     'click .refresh_stats': ->
