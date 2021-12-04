@@ -72,7 +72,7 @@ template(name='unit_card')
 template(name='unit_edit')
     with current_doc
         .ui.stackable.padded.grid
-            .three.column.row
+            .four.column.row
                 .column
                     .ui.inline.header
                         i.pencil.icon
@@ -88,7 +88,9 @@ template(name='unit_edit')
                     +number_edit key='bathrooms' label='bathrooms' icon='bath'
                     +number_edit key='square_feet' label='square feet' icon='ruler'
                     +link_edit key='link' label='link' icon='link'
+                .column
                     .ui.header 
+                        +i name='shield'
                         |managers
                     +doc_array_togggle key='managers' label='linda' value='linda'
                     +doc_array_togggle key='managers' label='ric' value='ric'
@@ -129,17 +131,18 @@ template(name='unit_view')
                     +image_view key='image_id' label='image' direct=true
                 .column
                     div
-                    a.ui.fluid.big.button.fly_down(href="/unit/#{_id}/edit")
+                    a.ui.big.button.fly_down(href="/unit/#{_id}/edit")
                         i.pencil.big.icon
                         |edit
-                    .ui.header added #{when}
+                    .ui.inline.header added #{when}
                     // +call_tone key='body'
                     each _timestamp_tags
                         .ui.label #{this}
                     if in_dev
                         +print_this
-                    .ui.header
+                    .ui.inline.header
                         |views
+                        i.eye.icon
                         |#{views}
                 .column
                     div
