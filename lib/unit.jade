@@ -1,8 +1,9 @@
 template(name='units')
     .ui.stackable.padded.grid
-        .sixteen.wide.column
-            i.large.newspaper.icon
-            // .ui.inline.header 
+        .sixteen.wide.center.aligned.column
+            .ui.inline.header 
+                +i name='building'
+                |units
             .ui.icon.button.add_unit
                 i.large.plus.icon
             each picked_unit_tags
@@ -42,7 +43,7 @@ template(name='units')
                             +set_product_limit amount=20
                 .spacer 
         
-            span.ui.stackable.cards.scrolling
+            span.ui.stackable.centered.four.doubling.cards.scrollin
                 each unit_docs
                     +unit_card
                 
@@ -120,20 +121,19 @@ template(name='unit_view')
         .ui.stackable.padded.grid
             .four.column.row
                 .column
-                    a.ui.fluid.button.fly_left(href="/units")
+                    a.ui.big.button.fly_left(href="/units")
                         i.chevron.left.icon
                         // i.building.large.icon
                         +i name='building'
-                        |units
+                        // |units
                     .ui.inline.header
                         | #{title}
                         small unit view
                     +image_view key='image_id' label='image' direct=true
                 .column
                     div
-                    a.ui.big.button.fly_down(href="/unit/#{_id}/edit")
-                        i.pencil.big.icon
-                        |edit
+                    a(href="/unit/#{_id}/edit")
+                        i.pencil.big.circular.icon.fly_down
                     .ui.inline.header added #{when}
                     // +call_tone key='body'
                     each _timestamp_tags

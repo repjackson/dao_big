@@ -9,25 +9,25 @@ template(name='nav')
             a.icon.item.toggle_leftbar.no_blink
               i.bars.large.icon 
         
-        a.header.item.zoomer(href='/' class="{{isActivePath '/'}}")
-            // i.fork.large.icon
-            +i name='yin-yang'
-            |dao
+        a.header.icon.item.zoomer(href='/' class="{{isActivePath '/'}}")
+            i.home.large.icon
+            // +i name='home'
+            // |dao
         // a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
         //     i.large.user.friends.icon
         //     |users
-        a.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
+        a.icon.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.large.checkmark.icon
-            |tasks
+            // |tasks
         // a.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
         //     i.large.fire.icon
         //     |groups
         // a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
         //     i.large.users.icon
         //     |users
-        a.item.zoomer(href='/persons' class="{{isActivePath '/persons'}}")
-            i.large.user.friends.icon
-            |persons
+        a.icon.item.zoomer(href='/persons' class="{{isActivePath '/persons'}}")
+            i.large.users.icon
+            // |persons
         // if current_group
         //     a.item(href='/') 
         //         img.ui.avatar.image(src="{{c.url current_group.image_id height=200 width=200 gravity='face' crop='fill'}}")
@@ -45,18 +45,18 @@ template(name='nav')
                 
         // a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
         //     i.bullhorn.large.icon
-        a.item.zoomer(href='/posts' class="{{isActivePath '/products'}}")
-            // i.large.newspaper.icon
-            +i name='blog'
-            |posts
-        a.item.zoomer(href='/units' class="{{isActivePath '/units'}}")
-            // i.large.building.icon
-            +i name='building'
-            |units
-        a.item.zoomer(href='/repairs' class="{{isActivePath '/repairs'}}")
-            // i.large.wrench.icon
-            +i name='wrench'
-            |repairs
+        a.icon.item.zoomer(href='/posts' class="{{isActivePath '/products'}}")
+            i.large.university.icon
+            // +i name='blog'
+            // |posts
+        a.icon.item.zoomer(href='/units' class="{{isActivePath '/units'}}")
+            i.large.building.icon
+            // +i name='building'
+            // |units
+        a.icon.item.zoomer(href='/repairs' class="{{isActivePath '/repairs'}}")
+            i.large.wrench.icon
+            // +i name='wrench'
+            // |repairs
         // a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
         //     i.large.wrench.icon
         .right.menu
