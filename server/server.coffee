@@ -20,8 +20,10 @@ Docs.allow
         # else
         #     doc._author_id is userId
     # update: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
-    remove: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
-
+    remove: (userId, doc) -> 
+        true
+        # if userId   
+        #     doc._author_id is userId or 'admin' in Meteor.user().roles
 Meteor.publish 'docs', (selected_tags, filter)->
     # user = Meteor.users.findOne @userId
     # console.log selected_tags
