@@ -116,8 +116,8 @@ template(name='unit_edit')
 template(name='unit_view')
     with current_doc
         .ui.stackable.padded.grid
-            .row
-                .four.wide.column
+            .four.column.row
+                .column
                     a.ui.fluid.button.fly_left(href="/units")
                         i.chevron.left.icon
                         // i.building.large.icon
@@ -127,6 +127,7 @@ template(name='unit_view')
                         | #{title}
                         small unit view
                     +image_view key='image_id' label='image' direct=true
+                .column
                     div
                     a.ui.fluid.big.button.fly_down(href="/unit/#{_id}/edit")
                         i.pencil.big.icon
@@ -140,6 +141,7 @@ template(name='unit_view')
                     .ui.header
                         |views
                         |#{views}
+                .column
                     div
                     +array_view key='tags' label='tags' icon='tags' direct=true
                     div
@@ -151,64 +153,55 @@ template(name='unit_view')
                         .item $#{purchase_price} purchase price
                     .ui.large.green.button.apply_now
                         |apply now
-                .twelve.wide.column.scrollin
-                    .ui.three.cards
-                        .card
-                            .content 
-                                .ui.inline.header 
-                                    i.shield.icon
-                                    |managers
-                                each managers 
-                                    .ui.big.label #{this}
-                                +number_view key='monthly_rent' label='monthly rent' direct=true icon='money'
-                                div
-                                +number_view key='months_rented' label='months rented' direct=true icon='calendar'
-                                .ui.header total rental income $#{total_rental_income}
-                        .card
-                            .content 
-                                +html_view key='body' direct=true
-                                div
-                                .ui.inline.header 
-                                    // i.money.icon
-                                    +i name='money'
-                                    |costs
-                                +add_model_button model='cost' parent_model='unit'
-                                +unit_children model='cost'
-                                div
-                        .card
-                            .content 
-                                .ui.inline.header 
-                                    +i name='wrench'
-                                    // i.wrench.icon
-                                    |maintenance
-                                +add_model_button model='repair' parent_model='unit'
-                                +unit_children model='repair'
-                                div
-                        .card
-                            .content 
-                                .ui.inline.header 
-                                    +i name='groups'
-                                    // i.users.icon
-                                    |tenants
-                                +add_model_button model='person' parent_model='unit'
-                                +unit_children model='tenant' 
-                        .card
-                            .content 
-                                .ui.inline.header 
-                                    +i name='tasks'
-                                    // i.tasks.icon
-                                    |tasks
-                                +add_model_button model='task' parent_model='unit'
-                                +unit_children model='task'
-                                div
-                        .card
-                            .content 
-                                +i name='clock'
-                                // .ui.inline.header 
-                                |availability
-                        .card
-                            .content 
-                                +comments
+                .column
+                    .ui.inline.header 
+                        i.shield.icon
+                        |managers
+                    each managers 
+                        .ui.big.label #{this}
+                    +number_view key='monthly_rent' label='monthly rent' direct=true icon='money'
+                    div
+                    +number_view key='months_rented' label='months rented' direct=true icon='calendar'
+                    .ui.header total rental income $#{total_rental_income}
+                .column
+                    +html_view key='body' direct=true
+                    div
+                    .ui.inline.header 
+                        // i.money.icon
+                        +i name='money'
+                        |costs
+                    +add_model_button model='cost' parent_model='unit'
+                    +unit_children model='cost'
+                    div
+                .column
+                    .ui.inline.header 
+                        +i name='wrench'
+                        // i.wrench.icon
+                        |maintenance
+                    +add_model_button model='repair' parent_model='unit'
+                    +unit_children model='repair'
+                    div
+                .column
+                    .ui.inline.header 
+                        +i name='groups'
+                        // i.users.icon
+                        |tenants
+                    +add_model_button model='person' parent_model='unit'
+                    +unit_children model='tenant' 
+                .column
+                    .ui.inline.header 
+                        +i name='tasks'
+                        // i.tasks.icon
+                        |tasks
+                    +add_model_button model='task' parent_model='unit'
+                    +unit_children model='task'
+                    div
+                .column
+                    +i name='clock'
+                    // .ui.inline.header 
+                    |availability
+                .column
+                    +comments
                     
                     
 template(name='unit_children')

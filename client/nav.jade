@@ -13,6 +13,21 @@ template(name='nav')
             // i.fork.large.icon
             +i name='yin-yang'
             |dao
+        a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
+            i.large.user.friends.icon
+            |users
+        a.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
+            i.large.checkmark.icon
+            |tasks
+        // a.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
+        //     i.large.fire.icon
+        //     |groups
+        a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
+            i.large.users.icon
+            |users
+        a.item.zoomer(href='/persons' class="{{isActivePath '/persons'}}")
+            i.large.user.friends.icon
+            |persons
         // if current_group
         //     a.item(href='/') 
         //         img.ui.avatar.image(src="{{c.url current_group.image_id height=200 width=200 gravity='face' crop='fill'}}")
@@ -65,25 +80,6 @@ template(name='nav')
                         i.sign.in.large.icon
                 else 
                     i.yin.yang.loading.icon
-    .ui.attached.small.inverted.menu.hscroll
-        a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
-            i.large.user.friends.icon
-            |users
-        a.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
-            i.large.checkmark.icon
-            |tasks
-        // a.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
-        //     i.large.fire.icon
-        //     |groups
-        a.item.zoomer(href='/events' class="{{isActivePath '/events'}}")
-            i.large.calendar.icon
-            |events
-        a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
-            i.large.users.icon
-            |users
-        a.item.zoomer(href='/persons' class="{{isActivePath '/persons'}}")
-            i.large.user.friends.icon
-            |persons
         
                 
 
