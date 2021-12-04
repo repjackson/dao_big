@@ -352,10 +352,10 @@ Template.textarea_view.onRendered ->
 Template.number_edit.events
     'blur .edit_number': (e,t)->
         # console.log @
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
+        # if @direct
+        parent = Template.parentData()
+        # else
+        #     parent = Template.parentData(5)
         val = parseInt t.$('.edit_number').val()
         doc = Docs.findOne parent._id
         if doc

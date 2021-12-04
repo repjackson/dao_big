@@ -23,7 +23,31 @@ Meteor.methods
     #     },
     #   },
     });
+    console.log session
     
+
+
+Meteor.methods
+  list_customers: ()=>
+    # console.log 'stripe', stripe
+    # paymentIntent = stripe.paymentIntents.create({
+    #   amount: 1000,
+    #   currency: 'usd',
+    #   payment_method_types: ['card'],
+    #   receipt_email: 'jenny.rosen@example.com',
+    # });
+    result = Promise.await(stripe.customers.list({}))
+    console.log result
+    # results = Promise.await
+    # session = stripe.checkout.sessions.create({
+    #   line_items: [{
+    #     price: 'business',
+    #     quantity: 1,
+    #   }],
+    #   mode: 'subscription',
+    #   success_url: 'https://example.com/success',
+    #   cancel_url: 'https://example.com/failure',
+
 
 
 # stripe = require('stripe')

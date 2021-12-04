@@ -32,6 +32,10 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'unit_work', Router.current().params.doc_id, ->
         # @autorun => Meteor.subscribe 'model_docs', 'unit', ->
+    Template.unit_view.helpers
+        total_rental_income: ->
+            @monthly_rent * @months_rented
+
     
 
 

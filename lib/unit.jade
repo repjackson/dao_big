@@ -88,13 +88,19 @@ template(name='unit_edit')
                     +number_edit key='bathrooms' label='bathrooms' icon='bathroom'
                     +number_edit key='square_feet' label='square feet' icon='hashtag'
                     +link_edit key='link' label='link' icon='link'
-                    div
-                    +number_edit key='unit' label='unit' direct=true
+                    .ui.header 
+                        |managers
+                    +doc_array_togggle key='managers' label='linda' value='linda'
+                    +doc_array_togggle key='managers' label='ric' value='ric'
+                    +doc_array_togggle key='managers' label='eric' value='eric'
+                    +doc_array_togggle key='managers' label='gail' value='gail'
+                    +doc_array_togggle key='managers' label='brian' value='brian'
                     div
                     +number_edit key='value' label='value' direct=true
                     +number_edit key='purchase_price' label='purchase price' direct=true
                 .column
                     +number_edit key='monthly_rent' label='monthly_rent' direct=true icon='money'
+                    +number_edit key='months_rented' label='months_rented' direct=true icon='calendar'
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     .ui.button.delete_unit
@@ -143,6 +149,10 @@ template(name='unit_view')
                     .ui.large.green.button.apply_now
                         |apply now
                 .ten.wide.column.scrolling
+                    +number_view key='monthly_rent' label='monthly rent' direct=true icon='money'
+                    div
+                    +number_view key='months_rented' label='months rented' direct=true icon='calendar'
+                    .ui.header total rental income $#{total_rental_income}
                     .ui.two.cards
                         .card
                             .content 
