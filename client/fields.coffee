@@ -414,10 +414,10 @@ Template.boolean_edit.helpers
 
 Template.boolean_edit.events
     'click .toggle_boolean': (e,t)->
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
+        # if @direct
+        parent = Template.parentData()
+        # else
+        #     parent = Template.parentData(5)
         # $(e.currentTarget).closest('.button').transition('pulse', 100)
 
         doc = Docs.findOne parent._id

@@ -113,8 +113,27 @@ template(name='unit_edit')
                             i.remove.icon   
                             | delete
                     div
+                .column
                     +textarea_edit key='body' label='body' direct=true
-                
+                .column
+                    +boolean_edit key='Air Conditioning/Cooling' 
+                    +boolean_edit key='Assigned Parking' 
+                    +boolean_edit key='Deck' 
+                    +boolean_edit key='Dishwasher' 
+                    +boolean_edit key='Health Club' 
+                    +boolean_edit key='Indoor Pool' 
+                    +boolean_edit key='Jacuzzi/Hot Tub' 
+                    +boolean_edit key='Mountain Views' 
+                    +boolean_edit key='Near Trails' 
+                    +boolean_edit key='Off Street Parking' 
+                    +boolean_edit key='Patio/Balcony' 
+                    +boolean_edit key='Storage' 
+                    +boolean_edit key='Tennis Courts' 
+                    +boolean_edit key='Trash Included' 
+                    +boolean_edit key='Volleyball' 
+                    +boolean_edit key='Washer/Dryer In Unit' 
+                    +boolean_edit key='Water Included' 
+
                 
 template(name='unit_view')
     with current_doc
@@ -205,6 +224,24 @@ template(name='unit_view')
                     |availability
                 .column
                     +comments
+                .column
+                    +boolean_view key='Air Conditioning/Cooling' 
+                    +boolean_view key='Assigned Parking' 
+                    +boolean_view key='Deck' 
+                    +boolean_view key='Dishwasher' 
+                    +boolean_view key='Health Club' 
+                    +boolean_view key='Indoor Pool' 
+                    +boolean_view key='Jacuzzi/Hot Tub' 
+                    +boolean_view key='Mountain Views' 
+                    +boolean_view key='Near Trails' 
+                    +boolean_view key='Off Street Parking' 
+                    +boolean_view key='Patio/Balcony' 
+                    +boolean_view key='Storage' 
+                    +boolean_view key='Tennis Courts' 
+                    +boolean_view key='Trash Included' 
+                    +boolean_view key='Volleyball' 
+                    +boolean_view key='Washer/Dryer In Unit' 
+                    +boolean_view key='Water Included' 
                     
                     
 template(name='unit_children')
