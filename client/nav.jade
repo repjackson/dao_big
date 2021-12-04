@@ -1,6 +1,6 @@
 template(name='nav')
     // #topnav.topnav.ui.attached.borderless.menu(style="background-color:#062639;")
-    #topnav.topnav.ui.attached.borderless.big.inverted.menu
+    #topnav.topnav.ui.attached.borderless.big.inverted.seven.item.menu
         +status
         if is_loading
             .icon.item
@@ -59,29 +59,29 @@ template(name='nav')
             // |repairs
         // a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
         //     i.large.wrench.icon
-        .right.menu
-            if currentUser
-                if in_role 'admin'
-                    a.icon.item(href='/admin' title='admin')
-                        i.large.shield.icon
-                a.disabled.item(href="/messages" title='messages')
-                    i.mail.large.icon
-                a.item.toggle_topbar(title='alerts')
-                    i.bell.outline.large.icon
-                a.item.toggle_rightbar.no_blink
-                    if currentUser.image_id
-                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
-                    else
-                        i.user.icon
-                    strong.mobile.hidden #{currentUser.name}
-            unless currentUser
-                if subs_ready
-                    a.icon.item(href='/login' title='login') 
-                        i.sign.in.large.icon
-                else 
-                    i.yin.yang.loading.icon
-        
-                
+        // .right.menu
+        if currentUser
+            if in_role 'admin'
+                a.icon.item(href='/admin' title='admin')
+                    i.large.shield.icon
+            a.disabled.item(href="/messages" title='messages')
+                i.mail.large.icon
+            a.item.toggle_topbar(title='alerts')
+                i.bell.outline.large.icon
+            a.item.toggle_rightbar.no_blink
+                if currentUser.image_id
+                    img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
+                else
+                    i.user.icon
+                strong.mobile.hidden #{currentUser.name}
+        unless currentUser
+            if subs_ready
+                a.icon.item(href='/login' title='login') 
+                    i.sign.in.large.icon
+            else 
+                i.yin.yang.loading.icon
+    
+            
 
 template(name='topbar')
     .ui.fluid.attached.segment.topbar.top.sidebar

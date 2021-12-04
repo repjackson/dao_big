@@ -405,10 +405,10 @@ Template.slug_edit.events
 
 Template.boolean_edit.helpers
     boolean_toggle_class: ->
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
+        # if @direct
+        parent = Template.parentData()
+        # else
+        #     parent = Template.parentData(5)
         if parent["#{@key}"] then 'blue' else 'basic'
 
 
