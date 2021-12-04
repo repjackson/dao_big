@@ -37,65 +37,65 @@ Template.color_edit.events
 
 
 
-Template.html_edit.onRendered ->
-    @editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'),{
-    # 	"tabDisable": false
-        # "minHeight": "400px"
-        buttonList: [
-            [
-                'undo' 
-                'redo'
-                'font' 
-                'fontSize' 
-                'formatBlock' 
-                'paragraphStyle' 
-                'blockquote'
-                'bold' 
-                'underline' 
-                'italic' 
-                'strike' 
-                # 'subscript' 
-                # 'superscript'
-                # 'fontColor' 
-                # 'hiliteColor' 
-                # 'textStyle'
-                # 'removeFormat'
-                # 'outdent' 
-                # 'indent'
-                # 'align' 
-                # 'horizontalRule' 
-                # 'list' 
-                # 'lineHeight'
-                # 'fullScreen' 
-                # 'showBlocks' 
-                # 'codeView' 
-                # 'preview' 
-                # 'table' 
-                # 'image' 
-                # 'video' 
-                # 'audio' 
-                # 'link'
-            ]
-        ]
-        lang: SUNEDITOR_LANG['en']
-        # codeMirror: CodeMirror
-    });
+# Template.html_edit.onRendered ->
+#     @editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'),{
+#     # 	"tabDisable": false
+#         # "minHeight": "400px"
+#         buttonList: [
+#             [
+#                 # 'undo' 
+#                 # 'redo'
+#                 'font' 
+#                 # 'fontSize' 
+#                 # 'formatBlock' 
+#                 # 'paragraphStyle' 
+#                 # 'blockquote'
+#                 'bold' 
+#                 'underline' 
+#                 'italic' 
+#                 'strike' 
+#                 # 'subscript' 
+#                 # 'superscript'
+#                 # 'fontColor' 
+#                 # 'hiliteColor' 
+#                 # 'textStyle'
+#                 # 'removeFormat'
+#                 # 'outdent' 
+#                 # 'indent'
+#                 # 'align' 
+#                 # 'horizontalRule' 
+#                 # 'list' 
+#                 # 'lineHeight'
+#                 # 'fullScreen' 
+#                 # 'showBlocks' 
+#                 # 'codeView' 
+#                 # 'preview' 
+#                 # 'table' 
+#                 # 'image' 
+#                 # 'video' 
+#                 # 'audio' 
+#                 # 'link'
+#             ]
+#         ]
+#         lang: SUNEDITOR_LANG['en']
+#         # codeMirror: CodeMirror
+#     });
 
-Template.html_edit.events
-    'blur .testsun': (e,t)->
-        html = t.editor.getContents(onlyContents: Boolean);
+# Template.html_edit.events
+#     'blur .testsun': (e,t)->
+#         html = t.editor.getContents(onlyContents: Boolean);
 
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
-        doc = Docs.findOne parent._id
-        if doc
-            Docs.update parent._id,
-                $set:"#{@key}":html
+#         if @direct
+#             parent = Template.parentData()
+#         else
+#             parent = Template.parentData(5)
+#         doc = Docs.findOne parent._id
+#         if doc
+#             Docs.update parent._id,
+#                 $set:"#{@key}":html
 
 
-Template.html_edit.helpers
+# Template.html_edit.helpers
         
 
 

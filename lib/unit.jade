@@ -85,8 +85,8 @@ template(name='unit_edit')
                     div
                 .column
                     +number_edit key='bedrooms' label='bedrooms' icon='home'
-                    +number_edit key='bathrooms' label='bathrooms' icon='bathroom'
-                    +number_edit key='square_feet' label='square feet' icon='hashtag'
+                    +number_edit key='bathrooms' label='bathrooms' icon='bath'
+                    +number_edit key='square_feet' label='square feet' icon='ruler'
                     +link_edit key='link' label='link' icon='link'
                     .ui.header 
                         |managers
@@ -96,25 +96,28 @@ template(name='unit_edit')
                     +doc_array_togggle key='managers' label='gail' value='gail'
                     +doc_array_togggle key='managers' label='brian' value='brian'
                     div
-                    +number_edit key='value' label='value' direct=true
-                    +number_edit key='purchase_price' label='purchase price' direct=true
+                    +number_edit key='value' label='value' direct=true icon='money'
+                    div
+                    +number_edit key='purchase_price' label='purchase price' direct=true icon='money'
                 .column
                     +number_edit key='monthly_rent' label='monthly_rent' direct=true icon='money'
+                    div
                     +number_edit key='months_rented' label='months_rented' direct=true icon='calendar'
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
-                    .ui.button.delete_unit
-                        i.remove.icon   
-                        | delete
+                    if in_dev
+                        .ui.small.red.button.delete_unit
+                            i.remove.icon   
+                            | delete
                     div
-                    +html_edit key='body' label='body' direct=true
+                    +textarea_edit key='body' label='body' direct=true
                 
                 
 template(name='unit_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .six.wide.column
+                .four.wide.column
                     a.ui.fluid.button.fly_left(href="/units")
                         i.chevron.left.icon
                         // i.building.large.icon
@@ -148,12 +151,19 @@ template(name='unit_view')
                         .item $#{purchase_price} purchase price
                     .ui.large.green.button.apply_now
                         |apply now
-                .ten.wide.column.scrolling
-                    +number_view key='monthly_rent' label='monthly rent' direct=true icon='money'
-                    div
-                    +number_view key='months_rented' label='months rented' direct=true icon='calendar'
-                    .ui.header total rental income $#{total_rental_income}
-                    .ui.two.cards
+                .twelve.wide.column.scrollin
+                    .ui.three.cards
+                        .card
+                            .content 
+                                .ui.inline.header 
+                                    i.shield.icon
+                                    |managers
+                                each managers 
+                                    .ui.big.label #{this}
+                                +number_view key='monthly_rent' label='monthly rent' direct=true icon='money'
+                                div
+                                +number_view key='months_rented' label='months rented' direct=true icon='calendar'
+                                .ui.header total rental income $#{total_rental_income}
                         .card
                             .content 
                                 +html_view key='body' direct=true
@@ -196,7 +206,9 @@ template(name='unit_view')
                                 +i name='clock'
                                 // .ui.inline.header 
                                 |availability
-                    +comments
+                        .card
+                            .content 
+                                +comments
                     
                     
 template(name='unit_children')
@@ -206,6 +218,9 @@ template(name='unit_children')
             +model_child_view
             
 template(name='model_child_view')
-    a.ui.header(href="/#{model}/#{_id}") #{title} #{when}
+    a.ui.item(href="/#{model}/#{_id}") 
+        .content 
+            .header #{title}
+            .description #{when}
             
     

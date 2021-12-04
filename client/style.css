@@ -345,7 +345,7 @@ body, p, header {
 } */
 
 .card {
-    /* border-radius:10px !important; */
+     border-radius:10px !important; 
 }
 
 .image:not(.flat), img {

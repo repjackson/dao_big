@@ -511,17 +511,17 @@ template(name='datetime_view')
 template(name='array_edit')
     // .spacer
     // .spacer
-    // if icon
-    //     i.grey.icon(class=i)
-    //     // +icon name=icon cl='ui avatar image'
-    // .ui.inline.header
-    //     |#{field_value.length}
-    //     if title
-    //         |#{title}
-    //     else if label
-    //         |#{label}
-    //     else if key
-    //         |#{key}
+    if icon
+        // i.grey.icon(class=i)
+        +i name=icon cl='ui avatar image'
+    .ui.inline.header
+        |#{field_value.length}
+        if title
+            |#{title}
+        else if label
+            |#{label}
+        else if key
+            |#{key}
     .ui.icon.large.input
         i.icon(class=icon)
         input.new_element(type='text' placeholder="#{field_value.length} #{label}" autocomplete="off")
