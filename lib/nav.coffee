@@ -97,7 +97,11 @@ if Meteor.isClient
     Template.nav.helpers
         current_search: ->
             Session.get('global_search')
-        
+        unread_count: ->
+            Docs.find(
+                model:'chat'
+                read_by_ids: $nin:[Meteor.userId()]
+            ).count()
     Template.nav.events
         # 'keyup .global_search': _.throttle((e,t)->
         #     # console.log Router.current().route.getName()

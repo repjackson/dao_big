@@ -82,6 +82,7 @@ Template.registerHelper 'group_doc', ()->
         model:'group'
 
 Template.registerHelper 'user_from_id', (id)->
+    console.log 'user from id', id
     Meteor.users.findOne id
     
 Template.registerHelper 'kve', (key,value) ->

@@ -50,6 +50,11 @@ Meteor.methods
             $inc:views:1
 
 
+Meteor.publish 'all_users', (child_id)->
+    child = Docs.findOne child_id
+    Meteor.users.find({}, limit:30)
+        # model:'model'
+        # slug:child.type
 Meteor.publish 'model_from_child_id', (child_id)->
     child = Docs.findOne child_id
     Docs.find

@@ -15,7 +15,7 @@ template(name='posts')
                 if title
                     a.ui.compact.button.pick_post_tag
                         |#{title} 
-                        small.ui.grey.text #{count}
+                        // small.ui.grey.text #{count}
             span.sorting_row
                 +search_input model='post' field='title'
                 // +session_set key='view_users' value='grid' icon='th' 

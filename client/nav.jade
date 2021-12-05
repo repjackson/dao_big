@@ -1,6 +1,6 @@
 template(name='nav')
     // #topnav.topnav.ui.attached.borderless.menu(style="background-color:#062639;")
-    #topnav.topnav.ui.attached.borderless.big.inverted.seven.item.menu
+    #topnav.topnav.ui.attached.borderless.inverted.large.menu
         +status
         if is_loading
             .icon.item
@@ -16,18 +16,19 @@ template(name='nav')
         // a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
         //     i.large.user.friends.icon
         //     |users
-        a.icon.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
-            i.large.checkmark.icon
+        a.icon.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
+            i.large.tasks.icon
             // |tasks
-        a.icon.item.zoomer(href='/chat' class="{{isActivePath '/chat'}}")
+        a.item.zoomer(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
             i.large.chat.icon
+            |#{unread_count}
             // |tasks
         // a.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
         //     i.large.fire.icon
         //     |groups
-        // a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
-        //     i.large.users.icon
-        //     |users
+        a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
+            i.large.users.icon
+            |users
         // a.icon.item.zoomer(href='/persons' class="{{isActivePath '/persons'}}")
         //     i.large.users.icon
             // |persons
@@ -48,42 +49,42 @@ template(name='nav')
                 
         // a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
         //     i.bullhorn.large.icon
-        a.icon.item.zoomer(href='/posts' class="{{isActivePath '/products'}}")
+        a.icon.item.zoomer(href='/posts' class="{{isActivePath '/products'}}" title='posts')
             i.large.university.icon
             // +i name='blog'
             // |posts
-        a.icon.item.zoomer(href='/units' class="{{isActivePath '/units'}}")
+        a.icon.item.zoomer(href='/units' class="{{isActivePath '/units'}}" title='units')
             i.large.building.icon
             // +i name='building'
             // |units
-        a.icon.item.zoomer(href='/repairs' class="{{isActivePath '/repairs'}}")
+        a.icon.item.zoomer(href='/repairs' class="{{isActivePath '/repairs'}}" title='repairs')
             i.large.wrench.icon
             // +i name='wrench'
             // |repairs
         // a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
         //     i.large.wrench.icon
-        // .right.menu
-        if currentUser
-            if in_role 'admin'
-                a.icon.item(href='/admin' title='admin')
-                    i.large.shield.icon
-            // a.disabled.item(href="/messages" title='messages')
-            //     i.mail.large.icon
-            // a.item.toggle_topbar(title='alerts')
-            //     i.bell.outline.large.icon
-            a.item.toggle_rightbar.no_blink
-                if currentUser.image_id
-                    img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
-                else
-                    i.user.icon
-                strong.mobile.hidden #{currentUser.name}
-        unless currentUser
-            if subs_ready
-                a.icon.item(href='/login' title='login') 
-                    i.sign.in.large.icon
-            else 
-                i.yin.yang.loading.icon
-    
+        .right.menu
+            if currentUser
+                if in_role 'admin'
+                    a.icon.item(href='/admin' title='admin')
+                        i.large.shield.icon
+                a.item(href="/inbox" title='inbox')
+                    i.inbox.large.icon
+                // a.item.toggle_topbar(title='alerts')
+                //     i.bell.outline.large.icon
+                a.item.toggle_rightbar.no_blink
+                    if currentUser.image_id
+                        img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
+                    else
+                        i.user.icon
+                    strong.mobile.hidden #{currentUser.name}
+            unless currentUser
+                if subs_ready
+                    a.icon.item(href='/login' title='login') 
+                        i.sign.in.large.icon
+                else 
+                    i.yin.yang.loading.icon
+        
             
 
 template(name='topbar')
@@ -182,9 +183,9 @@ template(name='right_sidebar')
             a.item.toggle_rightbar(href="/user/#{username}/tasks" class="{{isActiveRoute regex='user_tasks'}}")
                 i.tasks.icon
                 |tasks
-            a.item.toggle_rightbar(href="/user/#{username}/chat" class="{{isActiveRoute regex='user_chat'}}")
-                i.chat.icon
-                |chat
+            a.item.toggle_rightbar(href="/user/#{username}/inbox" class="{{isActiveRoute regex='inbox'}}")
+                i.inbox.icon
+                |inbox
             a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}/edit" title='edit account')
                 i.cog.icon
                 |settings
