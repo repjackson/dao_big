@@ -49,18 +49,18 @@ template(name='cost_card')
         img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
         .content 
             .ui.inline.header 
-                |#{title}
+                |#{title}: #{amount}
             i.grey.tag.icon
             each tags
                 .ui.small.label #{this}
-            if location_tags
-                i.grey.marker.icon
-                each location_tags
-                    .ui.small.label #{this}
-            if people_tags
-                i.grey.marker.icon
-                each people_tags
-                    .ui.small.label #{this}
+            // if location_tags
+            //     i.grey.marker.icon
+            //     each location_tags
+            //         .ui.small.label #{this}
+            // if people_tags
+            //     i.grey.marker.icon
+            //     each people_tags
+            //         .ui.small.label #{this}
             .ui.large.label 
                 |#{unit_title}
 
@@ -75,8 +75,9 @@ template(name='cost_edit')
                         i.pencil.icon
                         | #{title}
                         small cost
-                    a.ui.large.icon.green.button.fly_up(href="/cost/#{_id}/" title='save product')
+                    a.ui.large.fluid.green.button.fly_up(href="/cost/#{_id}/" title='save product')
                         i.checkmark.big.icon
+                        |save
                     +text_edit key='title' label='title' direct=true
                     
                     // +number_edit key='amount' label='amount' direct=true icon='money'
@@ -86,6 +87,10 @@ template(name='cost_edit')
                         +print_this
                     +html_edit key='description' label='description' direct=true
                 .eight.wide.column
+                    div
+                    +single_user_edit key='payer_user_id' icon='money' label='payer' direct=true
+                    div
+
                     +boolean_edit key='reocurring' value='reocurring' icon='refresh'
                     div
                     if reocurring
@@ -107,11 +112,14 @@ template(name='cost_edit')
 template(name='cost_view')     
     with current_doc
         .ui.stackable.padded.three.column.grid
-            .column
+            .columne
                 +parent_unit_button
                 +edit_button
                 +html_view key='description' label='description' direct=true
+                +creation_info
             .eight.wide.column
+                .ui.header #{title}
+                +single_user_view key='payer_user_id' label='payer' icon='money'
                 +boolean_view key='reocurring' value='reocurring' icon='refresh'
                 div
                 if reocurring

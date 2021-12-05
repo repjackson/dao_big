@@ -168,7 +168,11 @@ template(name='unit_view')
                         small unit view
                     +image_view key='image_id' label='image' direct=true
                     +boolean_view key='owned' label='owned' direct=true icon='invoice'
-                .column
+                .column.ui.segment
+                    div
+                    +array_view key='tags' label='tags' icon='tags' direct=true
+                    div
+                    +array_view key='location_tags' label='location tags' icon='tags' direct=true
                     div
                     a(href="/unit/#{_id}/edit")
                         i.pencil.big.circular.icon.fly_down
@@ -193,11 +197,7 @@ template(name='unit_view')
                     +text_view key='location' label='location' icon='marker'
                     +link_view key='link' label='link' icon='link'
                         
-                .column
-                    div
-                    +array_view key='tags' label='tags' icon='tags' direct=true
-                    div
-                    +array_view key='location_tags' label='location tags' icon='tags' direct=true
+                .column.ui.segment
                     div
                     .ui.header 
                         +i name='calculator'
@@ -337,7 +337,7 @@ template(name='model_child_view')
                 .description #{when}
             
 template(name='parent_unit_button')
-    a.ui.large.fluid.button(href="/unit/#{unit_id}")    
+    a.ui.large.fluid.button.fly_left(href="/unit/#{unit_id}")    
         // i.ui.big.building.icon
         i.chevron.left.icon
         +i name='building'

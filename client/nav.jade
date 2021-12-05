@@ -8,7 +8,6 @@ template(name='nav')
         else 
             a.icon.item.toggle_leftbar.no_blink
               i.bars.large.icon 
-        
         a.header.icon.item.zoomer(href='/' class="{{isActivePath '/'}}")
             i.home.large.icon
             // +i name='home'
@@ -16,17 +15,17 @@ template(name='nav')
         // a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
         //     i.large.user.friends.icon
         //     |users
-        a.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
+        a.item.mobile.hidden.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
             i.large.tasks.icon
-            span.mobile.hidden tasks
-        a.item.zoomer(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
+            | tasks
+        a.item.mobile.hidden.zoomer(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
             i.large.chat.icon
             |#{unread_count}
             // |tasks
         // a.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
         //     i.large.fire.icon
         //     |groups
-        a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
+        a.item.mobile.hidden.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.large.users.icon
             span.mobile.hidden users
         // a.icon.item.zoomer(href='/persons' class="{{isActivePath '/persons'}}")
@@ -49,15 +48,15 @@ template(name='nav')
                 
         // a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
         //     i.bullhorn.large.icon
-        a.item.zoomer(href='/posts' class="{{isActivePath '/products'}}" title='posts')
+        a.item.zoomer.mobile.hidden(href='/posts' class="{{isActivePath '/products'}}" title='posts')
             i.large.university.icon
             // +i name='blog'
-            span.mobile.hidden posts
-        a.item.zoomer(href='/units' class="{{isActivePath '/units'}}" title='units')
+            | posts
+        a.item.zoomer.mobile.hidden(href='/units' class="{{isActivePath '/units'}}" title='units')
             i.large.building.icon
             // +i name='building'
-            span.mobile.hidden units
-        a.item.zoomer(href='/repairs' class="{{isActivePath '/repairs'}}" title='repairs')
+            | units
+        a.item.zoomer.mobile.hidden(href='/repairs' class="{{isActivePath '/repairs'}}" title='repairs')
             i.large.wrench.icon
             // +i name='wrench'
             span.mobile.hidden work
@@ -66,7 +65,7 @@ template(name='nav')
         .right.menu
             if currentUser
                 if in_role 'admin'
-                    a.icon.item(href='/admin' title='admin')
+                    a.icon.disabled.item(href='/admin' title='admin')
                         i.large.shield.icon
                 a.item(href="/inbox" title='inbox')
                     i.inbox.large.icon
@@ -124,7 +123,7 @@ template(name='left_sidebar')
         a.item.zoomer.toggle_leftbar(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.tasks.large.icon
             | #{tasks.count} tasks
-        a.item.zoomer.toggle_leftbar(href='/companies' class="{{isActivePath '/companies'}}")
+        a.disabled.item.zoomer.toggle_leftbar(href='/companies' class="{{isActivePath '/companies'}}")
             i.briefcase.large.icon
             // i.icon
             //     +i name='business'

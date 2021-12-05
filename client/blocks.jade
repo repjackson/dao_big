@@ -317,6 +317,10 @@ template(name='author_info')
             |by #{first_name} #{last_name}
 
 template(name='creation_info')
+    if _author_username
+        .ui.inline.header 
+            small by
+            strong #{_author_username}
     .ui.small.inline.header #{when}
 
 
