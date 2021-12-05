@@ -37,34 +37,13 @@ template(name='user_edit')
                         +array_edit key='roles' label='roles' icon='shield' direct=true
                 .six.wide.column
                     +array_edit key='allergens' label='allergens' direct=true
-                    +array_edit key='food_dislikes' label='food dislikes' direct=true
+                    // +array_edit key='food_dislikes' label='food dislikes' direct=true
                     +text_edit key='role' label='role' direct=true
                     +key_value_edit key='role' label='applicant' value='applicant'
                     +key_value_edit key='role' label='admin' value='admin'
                     +key_value_edit key='role' label='tenant' value='tenant'
-                    if key_value_is 'role' 'applicant'
-                        .ui.header application
-                        .ui.small.header have you been convicted of a felony?
-                        +boolean_edit key='felony_convicted' label='yes'
-                        if felony_convicted
-                            +text_edit key='felony_explanation' label='explain'
-                        .ui.small.header Have you ever declared bankruptcy?
-                        +boolean_edit key='backruptcy_declared' label='yes'
-                        if backruptcy_declared
-                            +text_edit key='bankruptcy_explanation' label='explain'
-                        .ui.small.header Have you ever been evicted?
-                        +boolean_edit key='evicted' label='yes'
-                        if evicted
-                            +text_edit key='eviction_explanation' label='explain'
-                    .ui.header do you have a car?
-                    +boolean_edit key='have_car' label='yes'
-                    if have_car
-                        +text_edit key='car_year' label='year'
-                        +text_edit key='car_make' label='make'
-                        +text_edit key='car_model' label='model'
-                        +text_edit key='car_color' label='color'
-                        +text_edit key='car_license_plate' label='license_plate'
-
+                    // if key_value_is 'role' 'applicant'
+                    
                         
                     
 template(name='user_settings')

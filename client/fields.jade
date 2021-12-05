@@ -385,7 +385,7 @@ template(name='text_edit')
 
 template(name='clear_value')
     if field_value
-        i.remove.link.large.icon.clear_value
+        i.remove.link.red.circular.large.icon.clear_value.zoomer(title='clear value')
 
 template(name='text_view')
     if field_value
@@ -728,7 +728,7 @@ template(name='number_view')
         div
         if icon
             //- i.grey.icon(class=icon)
-            +icon name=icon cl='ui inline mini image'
+            +i name=icon cl='ui inline mini image'
         .ui.inline.small.header
             if title
                 |#{title}
@@ -1009,16 +1009,19 @@ template(name='multi_user_edit')
                             img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                             // strong #{first_name} #{last_name}
                             strong @#{username}
-    +clear_value                
-    each field_value
-        // |#{this}
-        with user_from_id this
-            .ui.small.header #{this}
-            div
-            .ui.inline.header
-                img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                |#{username}
-            i.pull_user.remove.link.circular.icon
+    +clear_value          
+    .ui.large.list
+        each field_value
+            // |#{this}
+            with user_from_id this
+                // .ui.small.header #{this}
+                .item 
+                    .content
+                        .header
+                            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                            |#{username}
+                        .description
+                            i.pull_user.remove.link.circular.icon
 
 template(name='multi_doc_input')
     //- .ui.form

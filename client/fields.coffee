@@ -702,18 +702,21 @@ Template.multi_user_edit.events
         # Docs.update page_doc._id,
         #     $set: assignment_timestamp:Date.now()
 
-    'click .pull_user': ->
+    'click .pull_user': (e,t)->
+        console.log @
+        console.log t.data
+        
         if confirm "Remove #{@username}?"
             page_doc = Docs.findOne Router.current().params.doc_id
-            parent = Template.parentData(5)
-            doc = Docs.findOne parent._id
-            user = Meteor.users.findOne parent._id
+            # parent = Template.parentData(5)
+            doc = Docs.findOne page_doc._id
+            user = Meteor.users.findOne page_doc._id
             if doc
-                Docs.update parent._id,
-                    $pull:"#{@key}":@_id
+                Docs.update page_doc._id,
+                    $pull:"#{t.data.key}":@_id
             else if user
-                Meteor.users.update parent._id,
-                    $pull:"#{@key}":@_id
+                Meteor.users.update page_doc._id,
+                    $pull:"#{t.data.key}":@_id
             # Meteor.call 'unassign_user', page_doc._id, @
 
 

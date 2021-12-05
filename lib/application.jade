@@ -1,21 +1,21 @@
-template(name='apps')
+template(name='applications')
     .ui.stackable.padded.grid
         .four.wide.column
             .ui.inline.header 
                 // i.large.fire.icon
                 +i name='money'
-                |apps
-            i.plus.circular.link.icon.add_app
+                |applications
+            i.plus.circular.link.icon.add_application
             div
             .ui.inline.small.header
                 i.tag.icon
                 |tags
-            each picked_app_tags
-                a.ui.blue.label.unpick_app_tag
+            each picked_application_tags
+                a.ui.blue.label.unpick_application_tag
                     |#{this}
-            each app_tag_results
+            each application_tag_results
                 if title
-                    a.ui.circular.small.link.label.pick_app_tag
+                    a.ui.circular.small.link.label.pick_application_tag
                         |#{title} 
                         small.ui.grey.text #{count}
         .twelve.wide.column
@@ -27,7 +27,7 @@ template(name='apps')
                 // +session_set key='sort_users_key' value='points' icon='coins'
                 // +session_set key='sort_users_key' value='created_date' icon='clock'
                 // +session_set key='view_limit' value=1
-                +search_input model='app' field='title'
+                +search_input model='application' field='title'
                 i.large.sort.icon
                 .ui.compact.icon.button.set_sort_direction(title='toggle sort direction')
                     if sorting_up
@@ -39,13 +39,13 @@ template(name='apps')
                 .spacer 
         
             span.ui.doubling.cards.scrolling
-                each app_docs
-                    +app_card
+                each application_docs
+                    +application_card
                  
                  
 
-template(name='app_card')
-    a.ui.card.fly_left(href="/app/#{_id}") 
+template(name='application_card')
+    a.ui.card.fly_left(href="/application/#{_id}") 
         img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
         .content 
             .ui.inline.header 
@@ -64,37 +64,67 @@ template(name='app_card')
 
 
                 
-template(name='app_edit')
+template(name='application_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .eight.wide.column
-                    .ui.header Apply Online
-                    .ui.small.header If you’d like to rent one of our properties, each person (over the age of 18) who will be living in the property will need to fill out a separate rental application. There is a $35 charge per person, not due until lease signing.
+                    a.ui.big.button(href="/unit/#{unit_id}")
+                        +i name='building'
+                        |unit: #{unit_title}
+                    .ui.header Online Application
+                    .ui.small.header If you’d like to rent one of our properties, each person (over the age of 18) who will be living in the property will need to fill out a separate rental applicationlication. There is a $35 charge per person, not due until lease signing.
                     .ui.inline.header
                         i.pencil.icon
-                        small app
-                    a.ui.fluid.icon.green.button.fly_up(href="/app/#{_id}/" title='save product')
-                        i.checkmark.big.icon
+                        small application
+                    unless submitted 
+                        a.ui.fluid.icon.yellow.button.fly_up(href="/application/#{_id}/" title='save product')
+                            i.large.save.icon
+                            |save draft
+                        a.ui.fluid.icon.green.button.fly_up(href="/application/#{_id}/" title='save product')
+                            i.checkmark.large.icon
+                            |submit
                     +text_edit key='first_name' label='first name' direct=true
                     +text_edit key='last_name' label='last name' direct=true
                     +text_edit key='location' label='location' direct=true
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
-                .eight.wide.column
                     if in_dev 
                         +print_this
                     +html_edit key='notes' label='notes' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                    .ui.red.button.delete_app
+                    .ui.red.button.delete_application
                         i.remove.icon   
                         | delete
+                .eight.wide.column
+                    .ui.header applicationlication
+                    .ui.small.header have you been convicted of a felony?
+                    +boolean_edit key='felony_convicted' label='yes'
+                    if felony_convicted
+                        +text_edit key='felony_explanation' label='explain'
+                    .ui.small.header Have you ever declared bankruptcy?
+                    +boolean_edit key='backruptcy_declared' label='yes'
+                    if backruptcy_declared
+                        +text_edit key='bankruptcy_explanation' label='explain'
+                    .ui.small.header Have you ever been evicted?
+                    +boolean_edit key='evicted' label='yes'
+                    if evicted
+                        +text_edit key='eviction_explanation' label='explain'
+                    .ui.header do you have a car?
+                    +boolean_edit key='have_car' label='yes'
+                    if have_car
+                        +text_edit key='car_year' label='year'
+                        +text_edit key='car_make' label='make'
+                        +text_edit key='car_model' label='model'
+                        +text_edit key='car_color' label='color'
+                        +text_edit key='car_license_plate' label='license_plate'
+                
                 
                     
 
-template(name='app_view')     
+template(name='application_view')     
     with current_doc
         .ui.stackable.padded.three.column.grid
             .column

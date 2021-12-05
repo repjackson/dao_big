@@ -4,7 +4,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'me'
         # @autorun => Meteor.subscribe 'current_group'
         # @autorun => Meteor.subscribe 'my_cart'
-        # @autorun => Meteor.subscribe 'my_unread_messages'
+        @autorun => Meteor.subscribe 'my_unread_messages'
         # @autorun => Meteor.subscribe 'global_stats'
         # @autorun => Meteor.subscribe 'my_cart_order'
         # @autorun => Meteor.subscribe 'my_cart_products'
@@ -13,16 +13,16 @@ if Meteor.isClient
         Meteor.setTimeout ->
             $('.menu .item')
                 .popup()
-            # $('.ui.left.sidebar')
-            #     .sidebar({
-            #         context: $('.bottom.segment')
-            #         transition:'push'
-            #         mobileTransition:'scale'
-            #         exclusive:true
-            #         duration:200
-            #         scrollLock:true
-            #     })
-            #     .sidebar('attach events', '.toggle_leftbar')
+            $('.ui.left.sidebar')
+                .sidebar({
+                    context: $('.bottom.segment')
+                    transition:'push'
+                    mobileTransition:'scale'
+                    exclusive:true
+                    duration:200
+                    scrollLock:true
+                })
+                .sidebar('attach events', '.toggle_leftbar')
         , 2000
         Meteor.setTimeout ->
             $('.ui.rightbar')

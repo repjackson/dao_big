@@ -16,7 +16,16 @@ if Meteor.isClient
         @autorun => @subscribe 'unit_children', 'task', Router.current().params.doc_id
         @autorun => @subscribe 'unit_children', 'tenant', Router.current().params.doc_id
 
-            
+    Template.unit_view.events
+        'click .apply_now': ->
+            unit = Docs.findOne Router.current().params.doc_id 
+            new_id = 
+                Docs.insert 
+                    model:'application'
+                    unit_id: Router.current().params.doc_id 
+                    unit_title:unit.title
+                    parent_id: Router.current().params.doc_id 
+            Router.go "/application/#{new_id}/edit"
     Template.units.onCreated ->
         @autorun => @subscribe 'unit_docs',
             picked_unit_tags.array()

@@ -109,11 +109,11 @@ template(name='unit_edit')
                         +i name='shield'
                         |managers
                     +multi_user_edit key='unit_manager_ids' label='managers' direct=true
-                    +doc_array_toggle key='managers' label='linda' value='linda'
-                    +doc_array_toggle key='managers' label='ric' value='ric'
-                    +doc_array_toggle key='managers' label='eric' value='eric'
-                    +doc_array_toggle key='managers' label='gail' value='gail'
-                    +doc_array_toggle key='managers' label='brian' value='brian'
+                    // +doc_array_toggle key='managers' label='linda' value='linda'
+                    // +doc_array_toggle key='managers' label='ric' value='ric'
+                    // +doc_array_toggle key='managers' label='eric' value='eric'
+                    // +doc_array_toggle key='managers' label='gail' value='gail'
+                    // +doc_array_toggle key='managers' label='brian' value='brian'
                     div
                     +number_edit key='value' label='value' direct=true icon='money'
                     div
@@ -154,7 +154,7 @@ template(name='unit_edit')
 template(name='unit_view')
     with current_doc
         .ui.stackable.padded.grid
-            .four.column.row
+            .three.column.row
                 .column
                     a.ui.big.button.fly_left(href="/units")
                         i.chevron.left.icon
@@ -172,14 +172,23 @@ template(name='unit_view')
                         i.pencil.big.circular.icon.fly_down
                     .ui.inline.header added #{when}
                     // +call_tone key='body'
-                    each _timestamp_tags
-                        .ui.label #{this}
+                    // each _timestamp_tags
+                    //     .ui.label #{this}
                     if in_dev
                         +print_this
                     .ui.inline.header
                         |views
                         i.eye.icon
                         |#{views}
+                    +number_view key='bedrooms' label='bedrooms' icon='home'
+                    div
+                    +number_view key='bathrooms' label='bathrooms' icon='bath'
+                    div
+                    +number_view key='square_feet' label='square feet' icon='ruler'
+                    div
+                    +text_view key='location' label='location' icon='marker'
+                    +link_view key='link' label='link' icon='link'
+                        
                 .column
                     div
                     +array_view key='tags' label='tags' icon='tags' direct=true
@@ -192,6 +201,12 @@ template(name='unit_view')
                         .item $#{purchase_price} purchase price
                     .ui.large.green.button.apply_now
                         |apply now
+                    .ui.dividing.small.header 
+                        |applications
+                    .ui.list
+                        each applications
+                            |#{_author_username} #{when} 
+                            .ui.label #{status}
                 .column
                     .ui.inline.header 
                         i.shield.icon
@@ -216,7 +231,7 @@ template(name='unit_view')
                     .ui.inline.header 
                         +i name='wrench'
                         // i.wrench.icon
-                        |maintenance
+                        |work
                     +add_model_button model='repair' parent_model='unit'
                     +unit_children model='repair'
                     div
@@ -263,12 +278,13 @@ template(name='unit_view')
                     
 template(name='unit_children')
     // .ui.header #{model}s
-    .ui.large.list 
+    .ui.large.selection.animated.list 
         each model_children 
             +model_child_view
             
 template(name='model_child_view')
-    a.ui.item(href="/#{model}/#{_id}") 
+    a.ui.item(href="/#{model}/#{_id}" title="view #{model}") 
+        +image_view key='image_id' label='image' direct=true
         .content 
             .header #{title}
             .description #{when}
