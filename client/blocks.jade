@@ -15,7 +15,7 @@ template(name='doc_array_toggle')
         
 template(name='edit_button')
     if can_edit 
-        .ui.large.button(href="/#{model}/#{_id}/edit")
+        a.ui.large.button(href="/#{model}/#{_id}/edit")
             i.pencil.icon
             |edit
             

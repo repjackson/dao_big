@@ -120,7 +120,7 @@ if Meteor.isClient
             
             Meteor.users.findOne username:Router.current().params.username
     Template.user_layout.helpers
-        user_from_username_param: ->
+        current_user: ->
             Meteor.users.findOne username:Router.current().params.username
 
         user: ->

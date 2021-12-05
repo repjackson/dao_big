@@ -1,14 +1,14 @@
 template(name='user_edit')
-    with user_from_username_param          
+    with current_user          
         //- img.ui.fluid.image.checkin_banner(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")    
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
                     .ui.center.aligned.large.inline.grey.header
-                        | #{user_from_username_param.first_name} #{user_from_username_param.last_name}
+                        | #{current_user.first_name} #{current_user.last_name}
                     //- +i name='pencil'
-                    .ui.small.inline.header @#{user_from_username_param.username}
-                    a.ui.large.green.icon.button(href="/user/#{user_from_username_param.username}/") 
+                    .ui.small.inline.header @#{current_user.username}
+                    a.ui.large.green.icon.button(href="/user/#{current_user.username}/") 
                         i.checkmark.large.icon
                     .ui.hidden.divider
                     +image_edit key='image_id' icon='picture' title='profile image' direct=true
@@ -17,7 +17,7 @@ template(name='user_edit')
                         //- +phone_editor
                         +username_edit
                     if is_admin
-                        with user_from_username_param
+                        with current_user
                             .ui.orange.button.remove_user 
                                 i.remove.icon
                                 |delete user
@@ -39,6 +39,7 @@ template(name='user_edit')
                     +array_edit key='allergens' label='allergens' direct=true
                     // +array_edit key='food_dislikes' label='food dislikes' direct=true
                     +text_edit key='role' label='role' direct=true
+                    +array_edit key='roles' label='roles' icon='shield' direct=true
                     +key_value_edit key='role' label='applicant' value='applicant'
                     +key_value_edit key='role' label='admin' value='admin'
                     +key_value_edit key='role' label='tenant' value='tenant'
@@ -51,7 +52,7 @@ template(name='user_settings')
         .ui.header 
             +i name='settings'
             |settings
-        with user_from_username_param
+        with current_user
             +boolean_edit key='show_bookmarked_model_bar' label='show bookmarked model bar' direct=true
 
 
@@ -65,7 +66,7 @@ template(name='user_single_doc_ref_editor')
 template(name='username_edit')
     .ui.small.header 
         i.i.cursor.icon
-        |change username [#{user_from_username_param.username}]
+        |change username [#{current_user.username}]
     .ui.icon.fluid.input
         input.new_username(type='text' placeholder='new username...')
         i.play.link.icon.change_username
@@ -79,8 +80,8 @@ template(name='phone_editor')
     .ui.icon.fluid.input(title='Add Phone')
         i.plus.icon
         input#phone.form-control(type='phone', name='phone', value='{{newNumber}}')
-    if user_from_username_param.profile.phone
-        if user_from_username_param.profile.phone_verified
+    if current_user.profile.phone
+        if current_user.profile.phone_verified
             .ui.label verified
         else
             p

@@ -7,7 +7,7 @@ template(name='user_layout')
         // +cartbar
         // +walletbar
         // +secnav
-        with user_from_username_param
+        with current_user
             .ui.stackable.padded.grid.global_conainer.pusher
                 .row
                     //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
@@ -43,7 +43,7 @@ template(name='user_layout')
                                 .ui.inline.header
                                     strong #{username}
                         if is_current_user
-                            a.ui.circular.icon.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
+                            a.ui.circular.icon.button(href="/user/#{current_user.username}/edit" title='profile settings')
                                 i.cog.large.icon
                         if is_current_user
                             .ui.icon.button.logout(title='log out')
@@ -216,9 +216,9 @@ template(name='user_chat')
 template(name='user_requests')  
     .ui.header
         i.bullhorn.icon
-        |#{user_from_username_param.name} requests
+        |#{current_user.name} requests
 template(name='user_groups')  
     .ui.header 
         i.fire.icon
-        |#{user_from_username_param.name} groups
+        |#{current_user.name} groups
     
