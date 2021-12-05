@@ -195,19 +195,29 @@ template(name='unit_view')
                     div
                     +array_view key='location_tags' label='location tags' icon='tags' direct=true
                     div
+                    .ui.header 
+                        +i name='calculator'
+                        |stats
                     .ui.big.list 
+                        .item Price/gross annual rent = GRM
                         .item $#{value} value
                         .item $#{rental_monthly} rental monthly
                         .item $#{purchase_price} purchase price
-                    .ui.large.green.button.apply_now
-                        |apply now
+                        .item 
+                            small monthly profit
+                            |$#{monthly_profit}/month
+                .column
                     .ui.dividing.small.header 
-                        i.invoice.icon
-                        |#{unit_application_docs} applications
+                        // i.invoice.icon
+                        +i name='invoice'
+                        |#{unit_application_docs.count} applications
+                    .ui.green.button.apply_now
+                        |apply now
                     .ui.list
                         each unit_application_docs
-                            |#{_author_username} #{when} 
-                            .ui.label #{status}
+                            a.item(href="/application/#{_id}")
+                                |#{_author_username} #{when} 
+                                .ui.label #{status}
                 .column
                     .ui.inline.header 
                         i.shield.icon

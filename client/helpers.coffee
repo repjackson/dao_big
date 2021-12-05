@@ -11,15 +11,15 @@ Template.registerHelper 'total_rental_income', () ->
 Template.registerHelper 'rental', () ->
     Docs.findOne @rental_id
     # Template.parentData()
-Template.registerHelper 'included_ingredients', () ->
-    Docs.find
-        model:'ingredient'
-        _id: $in:@ingredient_ids
+# Template.registerHelper 'included_ingredients', () ->
+#     Docs.find
+#         model:'ingredient'
+#         _id: $in:@ingredient_ids
 
-Template.registerHelper 'ingredient_products', () ->
-    Docs.find   
-        model:'product'
-        ingredient_ids:$in:[@_id]
+# Template.registerHelper 'ingredient_products', () ->
+#     Docs.find   
+#         model:'product'
+#         ingredient_ids:$in:[@_id]
 
 
 Template.registerHelper 'current_group', () ->

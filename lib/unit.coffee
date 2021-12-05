@@ -27,6 +27,9 @@ if Meteor.isClient
             new_id = 
                 Docs.insert 
                     model:'application'
+                    status:'draft'
+                    complete:false
+                    submitted:false
                     unit_id: Router.current().params.doc_id 
                     unit_title:unit.title
                     parent_id: Router.current().params.doc_id 
