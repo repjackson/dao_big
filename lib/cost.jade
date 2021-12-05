@@ -61,6 +61,8 @@ template(name='cost_card')
                 i.grey.marker.icon
                 each people_tags
                     .ui.small.label #{this}
+            .ui.large.label 
+                |#{unit_title}
 
 
                 
@@ -68,7 +70,7 @@ template(name='cost_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .six.wide.column
+                .eight.wide.column
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
@@ -76,15 +78,24 @@ template(name='cost_edit')
                     a.ui.large.icon.green.button.fly_up(href="/cost/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
-                    +number_edit key='amount' label='amount' direct=true icon='money'
+                    
+                    // +number_edit key='amount' label='amount' direct=true icon='money'
                     +image_edit key='image_id' label='image' direct=true
                     div
                     if in_dev 
                         +print_this
                     +html_edit key='description' label='description' direct=true
-                .ten.wide.column
+                .eight.wide.column
+                    +boolean_edit key='reocurring' value='reocurring' icon='refresh'
+                    div
+                    if reocurring
+                        +number_edit key='amount' label='amount/month' direct=true icon='money'
+                        div
+                        +number_edit key='day_of_month' label='day of month' icon='calendar' direct=true
+                    else 
+                        +number_edit key='amount' label='amount' direct=true icon='money'
+                        +date_edit key='date' label='date' icon='calendar' direct=true
                     +text_edit key='location' label='location' icon='marker' direct=true
-                    +date_edit key='date' label='date' icon='calendar' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     .ui.red.button.delete_cost
@@ -94,14 +105,26 @@ template(name='cost_edit')
                     
 
 template(name='cost_view')     
-    .ui.stackable.padded.three.column.grid
-        .column
-            .ui.inline.header start #{title}
-            .ui.inline.header start #{start_datetime}
-            .ui.inline.header end #{end_datetime}
-            .ui.inline.header 
-                i.marker.icon
-                |location #{location}
-            // if can_join
-        .column
-            +comments
+    with current_doc
+        .ui.stackable.padded.three.column.grid
+            .column
+                +parent_unit_button
+                +edit_button
+                +html_view key='description' label='description' direct=true
+            .eight.wide.column
+                +boolean_view key='reocurring' value='reocurring' icon='refresh'
+                div
+                if reocurring
+                    +number_view key='amount' label='amount/month' direct=true icon='money'
+                    div
+                    +number_view key='day_of_month' label='day of month' icon='calendar' direct=true
+                else 
+                    +number_view key='amount' label='amount' direct=true icon='money'
+                    +date_view key='date' label='date' icon='calendar' direct=true
+                +text_view key='location' label='location' icon='marker' direct=true
+                +array_view key='tags' label='tags' icon='tags' direct=true
+                +array_view key='location_tags' label='location tags' icon='marker' direct=true
+            .column
+                +comments
+                
+                

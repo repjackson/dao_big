@@ -13,6 +13,13 @@ template(name='doc_array_toggle')
         //- each list_users
         //-     +user_info
         
+template(name='edit_button')
+    if can_edit 
+        .ui.large.button(href="/#{model}/#{_id}/edit")
+            i.pencil.icon
+            |edit
+            
+            
 template(name='session_toggle') 
     .ui.icon.button.toggle_session_var(class=session_toggle_class title=key)
         // i.large.icon(class=icon)
@@ -411,16 +418,11 @@ template(name='add_button')
 
 
 
-template(name='edit_button')
-    a.ui.button.icon.edit(title='Edit' href="/m/#{model}/#{_id}/edit")
-        i.blue.pencil.icon
-        |Edit
-
 
 template(name='save_button')
-    a.ui.button.large.icon.save(title='Save' href="/m/#{model}/#{_id}/view")
+    a.ui.button.large.save(title='Save' href="/#{model}/#{_id}")
         i.checkmark.icon
-        |Save
+        |save
 
 template(name='toggle_button')
     .ui.icon.toggle.button(title=label)
@@ -435,7 +437,7 @@ template(name='view_user_button')
         |View
 
 template(name='add_model_button')
-    .ui.icon.basic.button.add(title="add #{model}")
+    .ui.icon.basic.button.add_doc(title="add #{model}")
         i.plus.green.icon
         // |#{model}
 

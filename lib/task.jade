@@ -175,6 +175,7 @@ template(name='task_view')
         .ui.stackable.padded.grid
             .four.column.row
                 .column
+                    +parent_unit_button
                     a.ui.big.button.fly_left(href="/tasks")
                         // i.tasks.icon
                         +i name='tasks'
@@ -204,10 +205,7 @@ template(name='task_view')
                     if has_point_bounty
                         +number_view key='point_bounty' label='point_bounty' direct=true
                     if unit_id 
-                        a.ui.big.fluid.button(href="/unit/#{unit_id}")    
-                            // i.ui.big.building.icon
-                            +i name='building'
-                            |unit
+                        +parent_unit_button
                         
                 .column
                     div.scrolling

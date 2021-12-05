@@ -15,6 +15,7 @@ if Meteor.isClient
         @autorun => @subscribe 'unit_children', 'repair', Router.current().params.doc_id
         @autorun => @subscribe 'unit_children', 'task', Router.current().params.doc_id
         @autorun => @subscribe 'unit_children', 'tenant', Router.current().params.doc_id
+        @autorun => @subscribe 'unit_children', 'cost', Router.current().params.doc_id
         @autorun => @subscribe 'unit_children', 'application', Router.current().params.doc_id
 
     Template.unit_view.helpers

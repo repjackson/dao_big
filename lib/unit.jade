@@ -100,6 +100,8 @@ template(name='unit_edit')
                     div
                     +number_edit key='bathrooms' label='bathrooms' icon='bath'
                     div
+                    +number_view key='total_rooms' label='total rooms' icon='cubes'
+                    div
                     +number_edit key='square_feet' label='square feet' icon='ruler'
                     div
                     +text_edit key='location' label='location' icon='marker'
@@ -183,6 +185,8 @@ template(name='unit_view')
                     +number_view key='bedrooms' label='bedrooms' icon='home'
                     div
                     +number_view key='bathrooms' label='bathrooms' icon='bath'
+                    div
+                    +number_view key='total_rooms' label='total rooms' icon='cubes'
                     div
                     +number_view key='square_feet' label='square feet' icon='ruler'
                     div
@@ -294,10 +298,30 @@ template(name='unit_children')
             +model_child_view
             
 template(name='model_child_view')
-    a.ui.item(href="/#{model}/#{_id}" title="view #{model}") 
-        +image_view key='image_id' label='image' direct=true
-        .content 
-            .header #{title}
-            .description #{when}
+    if key_value_is 'model' 'cost'
+        a.ui.item(href="/cost/#{_id}" title="view cost") 
+            +image_view key='image_id' label='image' direct=true
+            .content 
+                .header #{title}
+                .description
+                    if reocurring
+                        .ui.label
+                            |$#{amount}/month 
+                            i.clock.icon
+                            |reocurring
+                    else 
+                        .ui.label
+                            |$#{amount} on #{date}
+    else 
+        a.ui.item(href="/#{model}/#{_id}" title="view #{model}") 
+            +image_view key='image_id' label='image' direct=true
+            .content 
+                .header #{title}
+                .description #{when}
             
-    
+template(name='parent_unit_button')
+    a.ui.large.fluid.button(href="/unit/#{unit_id}")    
+        // i.ui.big.building.icon
+        i.chevron.left.icon
+        +i name='building'
+        |unit

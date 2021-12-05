@@ -159,9 +159,9 @@ if Meteor.isClient
 
     Template.cost_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'parent_cost_from_child_id', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'parent_cost_from_child_id', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'cost'
+        # @autorun => Meteor.subscribe 'model_docs', 'cost'
 
 
     Template.cost_edit.helpers

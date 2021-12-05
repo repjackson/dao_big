@@ -46,14 +46,18 @@ if Meteor.isClient
 
     
     Template.add_model_button.events
-        'click .add': ->
-            add = {model:@model}
+        'click .add_doc': ->
+            new_doc = {model:@model}
+            page_doc = Docs.findOne Router.current().params.doc_id
             if @parent_model
-                add.parent_id = Router.current().params.doc_id
-                add["#{@parent_model}_id"] = Router.current().params.doc_id
-            console.log add
+                new_doc.parent_id = Router.current().params.doc_id
+                new_doc.unit_id = Router.current().params.doc_id
+                new_doc.unit_title = page_doc.title
+                new_doc.unit_image_id = page_doc.image_id
+                # new_doc["#{@parent_model}_id"] = Router.current().params.doc_id
+            console.log new_doc
             new_id = 
-                Docs.insert add
+                Docs.insert new_doc
             Router.go "/#{@model}/#{new_id}/edit"
     
     

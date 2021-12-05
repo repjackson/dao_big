@@ -7,6 +7,8 @@ Template.registerHelper 'parent_doc', () ->
     # Template.parentData()
 Template.registerHelper 'total_rental_income', () ->
     @monthly_rent * @months_rented
+Template.registerHelper 'total_monthly_profit', () ->
+    @monthly_rent * @months_rented
     
 Template.registerHelper 'rental', () ->
     Docs.findOne @rental_id
