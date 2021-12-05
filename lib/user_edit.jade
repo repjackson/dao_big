@@ -56,8 +56,8 @@ template(name='user_edit')
                         +boolean_edit key='evicted' label='yes'
                         if evicted
                             +text_edit key='eviction_explanation' label='explain'
-                    +boolean_edit key='felony_convicted' label='yes'
                     .ui.header do you have a car?
+                    +boolean_edit key='have_car' label='yes'
                     if have_car
                         +text_edit key='car_year' label='year'
                         +text_edit key='car_make' label='make'

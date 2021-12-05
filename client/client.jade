@@ -89,3 +89,75 @@ template(name='flat_tag_picker')
 template(name='not_found')
     .ui.center.aligned.basic.segment
         .ui.big.header page not found
+        
+template(name='services')
+    .ui.header management services
+    with service_doc
+        +direct_doc key='services'
+        
+        
+template(name='home')
+    .ui.padded.grid 
+        .sixteen.wide.column
+            i.refresh.icon.refresh_stats
+            with stats_doc
+                .ui.large.header total costs: #{total_costs} total costs
+                .ui.large.header total costs: #{total_income} total income
+                .ui.large.header total costs: #{net_income} net income
+            // a.ui.massive.button.zoomer(href="/users")
+            //     img.ui.small.inline.image(src="{{c.url current_group.image_id }}")
+            //     .ui.inline.header 
+            //         |#{current_group.title}
+            //     if currentUser 
+            //         a.fly_down(href="/group/#{currentUser.current_group_id}/edit" title='edit current group')
+            //             i.large.setting.circular.link.icon
+    
+            a.ui.massive.button.zoomer(href="/users")
+                .ui.icon.header
+                    i.users.icon
+                    |users
+            a.ui.massive.button.zoomer(href="/posts")
+                .ui.icon.header
+                    i.blog.icon
+                    |posts
+            a.ui.massive.button.zoomer(href="/units")
+                .ui.icon.header
+                    i.building.icon
+                    |units
+            a.ui.massive.button.zoomer(href="/repairs")
+                .ui.icon.header
+                    i.wrench.icon
+                    |repairs
+            a.ui.massive.button.zoomer(href="/tasks")
+                .ui.icon.header
+                    i.tasks.icon
+                    |tasks
+            // a.ui.massive.button.zoomer(href="/work")
+            //     .ui.icon.header
+            //         i.wrench.icon
+            //         |work
+            // a.ui.massive.button.zoomer(href="/products")
+            //     .ui.icon.header
+            //         i.shop.icon
+            //         |products
+            a.ui.massive.button.zoomer(href="/costs")
+                .ui.icon.header
+                    i.money.icon
+                    |costs
+            // a.ui.massive.button.zoomer(href="/groups")
+            //     .ui.icon.header
+            //         i.fire.icon
+            //         |groups
+            +services
+            
+            
+            
+template(name='direct_doc')
+    if doc 
+        with doc
+            |#{content}
+    else 
+        .ui.button.create_doc
+            |create
+            
+            

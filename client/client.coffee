@@ -12,15 +12,31 @@ Tracker.autorun ->
 
 Template.home.onCreated ->
     @autorun => @subscribe 'model_docs','stats_doc', ->
-Template.home.helpers   
+Template.home.onCreated ->
+    @autorun => @subscribe 'model_docs','page', ->
+Template.direct_doc.helpers   
     stats_doc: ->
         Docs.findOne 
-            model:'stats_doc'
-                    
+            model:'page'
+            key:@key
+            
+Template.direct_doc.events  
+    'click .create_doc': ->
+        Docs.insert 
+            model:'page'
+            key:@key
+            
 Template.home.events
     'click .refresh_stats': ->
         Meteor.call 'refresh_stats', ->
 
+
+
+Template.direct_doc.helpers
+    doc: ->
+        Docs.findOne 
+            model:'page'
+            key:@
 
 $.cloudinary.config
     cloud_name:"facet"

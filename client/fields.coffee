@@ -419,10 +419,13 @@ Template.boolean_edit.events
         # else
         #     parent = Template.parentData(5)
         # $(e.currentTarget).closest('.button').transition('pulse', 100)
-
+        user = Meteor.users.findOne parent._id
         doc = Docs.findOne parent._id
         if doc
             Docs.update parent._id,
+                $set:"#{@key}":!parent["#{@key}"]
+        else 
+            Meteor.users.update parent._id,
                 $set:"#{@key}":!parent["#{@key}"]
 
 Template.single_doc_view.onCreated ->
