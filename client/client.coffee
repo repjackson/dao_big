@@ -1,5 +1,9 @@
 @picked_tags = new ReactiveArray []
 
+Router.route '/', (->
+    @render 'home'
+    ), name:'home'
+
 
 # Meteor.startup ->
 #     Status.setTemplate('semantic_ui')
@@ -101,6 +105,48 @@ Template.nav.onCreated ->
     # @autorun -> Meteor.subscribe 'unread_messages'
 
 
-Router.route '/', (->
-    @render 'home'
-    ), name:'home'
+    
+    
+if Meteor.isClient
+    @picked_chat_tags = new ReactiveArray []
+    
+    Router.route '/chat', (->
+        @layout 'layout'
+        @render 'chat'
+        ), name:'chat'
+    
+            
+    Template.chat.onCreated ->
+        @autorun => @subscribe 'model_docs', 'chat', ->
+    
+    
+    Template.chat.events
+        'keyup .add_chat': (e,t)->
+            if e.which is 13
+                val = $('.add_chat').val()
+                if val.length > 0 
+                    new_id = Docs.insert 
+                        body:val
+                        model:'chat'
+                    val = $('.add_chat').val('')
+
+                
+            
+    Template.chat.helpers
+        picked_chat_tags: -> picked_chat_tags.array()
+        current_chat_title_filter: ->
+            Session.get('chat_title_filter')
+        chat_docs: ->
+            match = {model:'chat'}
+            # if Session.get('chat_title_filter')
+            #     match.title = {$regex:Session.get('chat_title_filter'), $options:'i'}
+            Docs.find match
+            
+            
+        chat_tag_results: ->
+            Results.find {
+                model:'chat_tag'
+            }, sort:_timestamp:-1
+  
+                    
+    

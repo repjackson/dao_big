@@ -1,6 +1,6 @@
 template(name='nav')
     // #topnav.topnav.ui.attached.borderless.menu(style="background-color:#062639;")
-    #topnav.topnav.ui.attached.borderless.big.inverted.six.item.menu
+    #topnav.topnav.ui.attached.borderless.big.inverted.seven.item.menu
         +status
         if is_loading
             .icon.item
@@ -18,6 +18,9 @@ template(name='nav')
         //     |users
         a.icon.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.large.checkmark.icon
+            // |tasks
+        a.icon.item.zoomer(href='/chat' class="{{isActivePath '/chat'}}")
+            i.large.chat.icon
             // |tasks
         // a.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
         //     i.large.fire.icon

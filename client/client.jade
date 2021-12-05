@@ -159,5 +159,29 @@ template(name='direct_doc')
     else 
         .ui.button.create_doc
             |create
-            
-            
+           
+           
+           
+           
+           
+template(name='chat')
+    .ui.stackable.padded.grid
+        .sixteen.wide.column
+            .ui.inline.header 
+                // i.large.fire.icon
+                +i name='chat'
+                |chats
+            .ui.input
+                input.add_chat(type='text' placeholder='add message...')
+            span.ui.list.scrolling
+                each chat_docs
+                    +chat_item
+                 
+                 
+
+template(name='chat_item')
+    .item
+        .content 
+            .header 
+                |#{body}
+           
