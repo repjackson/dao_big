@@ -202,9 +202,10 @@ template(name='unit_view')
                     .ui.large.green.button.apply_now
                         |apply now
                     .ui.dividing.small.header 
-                        |applications
+                        i.invoice.icon
+                        |#{unit_application_docs} applications
                     .ui.list
-                        each applications
+                        each unit_application_docs
                             |#{_author_username} #{when} 
                             .ui.label #{status}
                 .column

@@ -67,8 +67,8 @@ template(name='application_card')
 template(name='application_edit')
     with current_doc
         .ui.stackable.padded.grid
-            .row
-                .eight.wide.column
+            .three.column.row
+                .column
                     a.ui.big.button(href="/unit/#{unit_id}")
                         +i name='building'
                         |unit: #{unit_title}
@@ -89,17 +89,17 @@ template(name='application_edit')
                     +text_edit key='location' label='location' direct=true
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
+                .column
                     div
                     if in_dev 
                         +print_this
-                    +html_edit key='notes' label='notes' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
-                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     .ui.red.button.delete_application
                         i.remove.icon   
                         | delete
-                .eight.wide.column
-                    .ui.header applicationlication
+                .column
+                    .ui.header 
+                        +i name='invoice'
+                        |application for #{unit_title}
                     .ui.small.header have you been convicted of a felony?
                     +boolean_edit key='felony_convicted' label='yes'
                     if felony_convicted
@@ -128,6 +128,10 @@ template(name='application_view')
     with current_doc
         .ui.stackable.padded.three.column.grid
             .column
+                a.ui.big.button(href="/unit/#{unit_id}")
+                    +i name='building'
+                    |unit: #{unit_title}
+            
                 +edit_doc_button
             .column
                 .ui.inline.header start #{first_name} #{last_name}
@@ -136,5 +140,29 @@ template(name='application_view')
                     |location #{location}
                 // if can_join
                 +array_view key='location_tags'
+                +comments
             .column
-                +commentsS
+                .ui.header 
+                    +i name='invoice'
+                    |application for #{unit_title}
+                .ui.small.header have you been convicted of a felony?
+                +boolean_view key='felony_convicted' label='yes'
+                if felony_convicted
+                    +text_view key='felony_explanation' label='explain'
+                .ui.small.header Have you ever declared bankruptcy?
+                +boolean_view key='backruptcy_declared' label='yes'
+                if backruptcy_declared
+                    +text_view key='bankruptcy_explanation' label='explain'
+                .ui.small.header Have you ever been evicted?
+                +boolean_view key='evicted' label='yes'
+                if evicted
+                    +text_view key='eviction_explanation' label='explain'
+                .ui.header do you have a car?
+                +boolean_view key='have_car' label='yes'
+                if have_car
+                    +text_view key='car_year' label='year'
+                    +text_view key='car_make' label='make'
+                    +text_view key='car_model' label='model'
+                    +text_view key='car_color' label='color'
+                    +text_view key='car_license_plate' label='license_plate'
+                

@@ -181,9 +181,32 @@ if Meteor.isClient
   
     Template.application_edit.events
         'click .delete_application':->
-            if confirm 'delete?'
-                Docs.remove @_id
-                Router.go "/applications"
+            # if confirm 'delete?'
+            Swal.fire({
+                title: 'confirm delete application'
+                # text: "#{@amount} credits"
+                icon: 'alert'
+                showCancelButton: true,
+                confirmButtonText: 'delete app'
+                cancelButtonText: 'cancel'
+            }).then((result) =>
+                if result.value
+                    # payment = Docs.findOne Router.current().params.doc_id
+                    # Meteor.users.update Meteor.userId(),
+                    #     $inc:credit:-@amount
+                    # Docs.update payment._id,
+                    #     $set:
+                    #         sent:true
+                    Docs.remove @_id
+                    #         sent_timestamp:Date.now()
+                    Swal.fire(
+                        'application deleted',
+                        ''
+                        'success'
+                    Router.go "/unit/#{@unit_id}"
+                    )
+            )
+                
             
         'click .set_parent': ->
             Docs.update Router.current().params.doc_id, 

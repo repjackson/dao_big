@@ -15,7 +15,12 @@ if Meteor.isClient
         @autorun => @subscribe 'unit_children', 'repair', Router.current().params.doc_id
         @autorun => @subscribe 'unit_children', 'task', Router.current().params.doc_id
         @autorun => @subscribe 'unit_children', 'tenant', Router.current().params.doc_id
+        @autorun => @subscribe 'unit_children', 'application', Router.current().params.doc_id
 
+    Template.unit_view.helpers
+        unit_application_docs: ->
+            Docs.find 
+                model:'application'
     Template.unit_view.events
         'click .apply_now': ->
             unit = Docs.findOne Router.current().params.doc_id 

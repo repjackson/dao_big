@@ -118,9 +118,6 @@ template(name='left_sidebar')
         //     .ui.icon.transparent.input
         //         i.search.icon
         //         input.search_global(type='text')
-        // a.item.toggle_leftbar(href='/products' class="{{isActivePath '/products'}}" title='products')
-        //     i.shop.icon
-        //     | #{product_count} products
         // a.item.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
         //     i.list.icon
         //     | #{items.count} inventory
@@ -144,6 +141,10 @@ template(name='left_sidebar')
         a.item.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.users.large.icon
             | #{users.count} users
+        a.item.toggle_leftbar(href='/applications' class="{{isActivePath '/applications'}}" title='products')
+            // i.shop.icon
+            +i name='invoice'
+            | #{product_count} applications
         // a.item.toggle_leftbar.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
         //     i.fire.large.icon
         //     | #{users.count} groups
