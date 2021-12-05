@@ -1006,17 +1006,18 @@ template(name='multi_user_edit')
                 each user_results
                     a.select_user.item(href="#")
                         .ui.header
-                            img.ui.avatar.image(src="{{c.url profile_image_id width=100 height=100 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                            strong #{first_name} #{last_name}
-                            small @#{username}
+                            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                            // strong #{first_name} #{last_name}
+                            strong @#{username}
     +clear_value                
     each field_value
         // |#{this}
         with user_from_id this
+            .ui.small.header #{this}
             div
             .ui.inline.header
-                img.ui.avatar.image(src="{{c.url profile_image_id width=100 height=100 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                |#{name}
+                img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                |#{username}
             i.pull_user.remove.link.circular.icon
 
 template(name='multi_doc_input')

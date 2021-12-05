@@ -63,6 +63,9 @@ template(name='unit_card')
             // i.money.icon
             // |value: #{value}
             // i.money.icon
+            .ui.large.basic.label 
+                i.marker.icon
+                |#{state}
             .ui.large.basic.label $#{monthly_rent}/month
             // +number_view key='monthly_rent' label='monthly rent' direct=true icon='money'
             // div
@@ -94,13 +97,18 @@ template(name='unit_edit')
                     div
                 .column
                     +number_edit key='bedrooms' label='bedrooms' icon='home'
+                    div
                     +number_edit key='bathrooms' label='bathrooms' icon='bath'
+                    div
                     +number_edit key='square_feet' label='square feet' icon='ruler'
+                    div
+                    +text_edit key='location' label='location' icon='marker'
                     +link_edit key='link' label='link' icon='link'
                 .column
                     .ui.header 
                         +i name='shield'
                         |managers
+                    +multi_user_edit key='unit_manager_ids' label='managers' direct=true
                     +doc_array_toggle key='managers' label='linda' value='linda'
                     +doc_array_toggle key='managers' label='ric' value='ric'
                     +doc_array_toggle key='managers' label='eric' value='eric'

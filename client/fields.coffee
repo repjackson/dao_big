@@ -9,6 +9,24 @@ Template.youtube_view.onRendered ->
     , 1000
 
 
+Template.clear_value.events
+    'click .clear_value': ->
+        if confirm "Clear #{@title} field?"
+            if @direct
+                parent = Template.parentData()
+            else
+                parent = Template.parentData(5)
+            doc = Docs.findOne parent._id
+            user = Meteor.users.findOne parent._id
+            if doc
+                Docs.update parent._id,
+                    $unset:"#{@key}":1
+            else if user
+                Meteor.users.update parent._id,
+                    $unset:"#{@key}":1
+
+
+
 Template.youtube_edit.events
     'blur .youtube_id': (e,t)->
         if @direct
@@ -635,5 +653,67 @@ Template.single_user_edit.events
         #     page_doc = Docs.findOne Router.current().params.doc_id
             # Meteor.call 'unassign_user', page_doc._id, @
 
+
+
+Template.multi_user_edit.onCreated ->
+    @user_results = new ReactiveVar
+    @autorun => @subscribe 'all_users', ->
+Template.multi_user_edit.helpers
+    user_results: ->
+        user_results = Template.instance().user_results.get()
+        user_results
+
+
+
+Template.multi_user_edit.events
+    'click .clear_results': (e,t)->
+        t.user_results.set null
+
+    'keyup #multi_user_select_input': (e,t)->
+        search_value = $(e.currentTarget).closest('#multi_user_select_input').val().trim()
+        Meteor.call 'lookup_user', search_value, (err,res)=>
+            if err then console.error err
+            else
+                t.user_results.set res
+
+
+    'click .select_user': (e,t) ->
+        console.log @
+        
+        console.log t.data.key
+        page_doc = Docs.findOne Router.current().params.doc_id
+        # console.log @
+        val = t.$('.edit_text').val()
+        parent = Template.parentData(5)
+
+        # doc = Docs.findOne parent._id
+        doc = Docs.findOne page_doc._id
+        user = Meteor.users.findOne page_doc._id
+        if doc
+            Docs.update doc._id,
+                # $addToSet:"#{@key}":@username
+                $addToSet:"#{t.data.key}":@_id
+        else if user
+            Meteor.users.update user._id,
+                $addToSet:"#{t.data.key}":@_id
+
+        t.user_results.set null
+        $('#multi_user_select_input').val ''
+        # Docs.update page_doc._id,
+        #     $set: assignment_timestamp:Date.now()
+
+    'click .pull_user': ->
+        if confirm "Remove #{@username}?"
+            page_doc = Docs.findOne Router.current().params.doc_id
+            parent = Template.parentData(5)
+            doc = Docs.findOne parent._id
+            user = Meteor.users.findOne parent._id
+            if doc
+                Docs.update parent._id,
+                    $pull:"#{@key}":@_id
+            else if user
+                Meteor.users.update parent._id,
+                    $pull:"#{@key}":@_id
+            # Meteor.call 'unassign_user', page_doc._id, @
 
 
