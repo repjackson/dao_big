@@ -82,8 +82,7 @@ template(name='post_edit')
                         i.pencil.icon
                         | #{title}
                         small post
-                    a.ui.large.fluid.icon.button.fly_up(href="/post/#{_id}/" title='save product')
-                        i.checkmark.big.icon
+                    +save_button
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     // +boolean_edit key='published' label='published' direct=true
@@ -102,12 +101,14 @@ template(name='post_edit')
                     +html_edit key='body' label='body' direct=true
                 
                 
+                
+                
 template(name='post_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    a.ui.fluid.button.fly_left(href="/posts")
+                    a.ui.large.button.fly_left(href="/posts")
                         // i.blog.large.icon
                         +i name='blog'
                         |posts
@@ -116,10 +117,8 @@ template(name='post_view')
                         small post view
                     +image_view key='image_id' label='image' direct=true
                     div
-                    a.ui.fluid.button.fly_down(href="/post/#{_id}/edit")
-                        i.pencil.icon
-                        |edit
-                    .ui.header added #{when}
+                    +edit_button
+                    +creation_info
                     +call_watson key='body' mode='html'
                     // +call_tone key='body'
                     each _timestamp_tags

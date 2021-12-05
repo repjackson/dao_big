@@ -987,8 +987,8 @@ template(name='multi_user_edit')
     div
     .ui.inline.header
         if icon
-            i.icon(class=icon)
-            //- +i name=icon
+            // i.icon(class=icon)
+            +i name=icon
         if title
             |#{title}
         else if label
@@ -1007,10 +1007,11 @@ template(name='multi_user_edit')
             .ui.middle.aligned.selection.animated.list
                 each user_results
                     a.select_user.item(href="#")
-                        .ui.header
-                            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                            // strong #{first_name} #{last_name}
-                            strong @#{username}
+                        .content
+                            .header 
+                                img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                                // strong #{first_name} #{last_name}
+                                strong @#{username}
     +clear_value          
     .ui.large.list
         each field_value
@@ -1020,7 +1021,7 @@ template(name='multi_user_edit')
                 .item 
                     .content
                         .header
-                            img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                            img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                             |#{username}
                         .description
                             i.pull_user.remove.link.circular.icon

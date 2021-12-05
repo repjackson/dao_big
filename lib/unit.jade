@@ -104,26 +104,19 @@ template(name='unit_edit')
                     div
                     +number_edit key='square_feet' label='square feet' icon='ruler'
                     div
+                    +number_edit key='monthly_rent' label='monthly_rent' direct=true icon='money'
+                    div
+                    +number_edit key='months_rented' label='months_rented' direct=true icon='calendar'
+                    div
                     +text_edit key='location' label='location' icon='marker'
                     +link_edit key='link' label='link' icon='link'
                 .column
-                    .ui.header 
-                        +i name='shield'
-                        |managers
-                    +multi_user_edit key='unit_manager_ids' label='managers' direct=true
-                    // +doc_array_toggle key='managers' label='linda' value='linda'
-                    // +doc_array_toggle key='managers' label='ric' value='ric'
-                    // +doc_array_toggle key='managers' label='eric' value='eric'
-                    // +doc_array_toggle key='managers' label='gail' value='gail'
-                    // +doc_array_toggle key='managers' label='brian' value='brian'
+                    +multi_user_edit key='unit_manager_ids' label='managers' direct=true icon='shield'
                     div
                     +number_edit key='value' label='value' direct=true icon='money'
                     div
                     +number_edit key='purchase_price' label='purchase price' direct=true icon='money'
                 .column
-                    +number_edit key='monthly_rent' label='monthly_rent' direct=true icon='money'
-                    div
-                    +number_edit key='months_rented' label='months_rented' direct=true icon='calendar'
                     div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     if in_dev
@@ -174,8 +167,9 @@ template(name='unit_view')
                     div
                     +array_view key='location_tags' label='location tags' icon='tags' direct=true
                     div
-                    a(href="/unit/#{_id}/edit")
-                        i.pencil.big.circular.icon.fly_down
+                    +edit_button
+                    // a.ui.(href="/unit/#{_id}/edit")
+                    //     i.pencil.big.circular.icon.fly_down
                     .ui.inline.header added #{when}
                     // +call_tone key='body'
                     // each _timestamp_tags
@@ -198,11 +192,16 @@ template(name='unit_view')
                     +link_view key='link' label='link' icon='link'
                         
                 .column.ui.segment
-                    div
-                    .ui.header 
+                    .ui.inline.header 
                         +i name='calculator'
                         |stats
                     .ui.big.list 
+                        .item
+                            +number_view key='monthly_rent' label='monthly rent' direct=true icon='money' icon='shield'
+                        .item
+                            +number_view key='months_rented' label='months rented' direct=true icon='calendar'
+                        .item
+                            | total rental income $#{total_rental_income}
                         .item Price/gross annual rent = GRM
                         .item $#{value} value
                         .item $#{rental_monthly} rental monthly
@@ -224,8 +223,8 @@ template(name='unit_view')
                         .item 
                             |Debt Service
                             |$2,013.08
+                            small The debt service is the total monthly payment on the mortgage to cover financing of the property.
                         
-                        The debt service is the total monthly payment on the mortgage to cover financing of the property.
                             
                 .column
                     .ui.dividing.small.header 
@@ -240,15 +239,6 @@ template(name='unit_view')
                                 |#{_author_username} #{when} 
                                 .ui.label #{status}
                 .column
-                    .ui.inline.header 
-                        i.shield.icon
-                        |managers
-                    each managers 
-                        .ui.big.label #{this}
-                    +number_view key='monthly_rent' label='monthly rent' direct=true icon='money'
-                    div
-                    +number_view key='months_rented' label='months rented' direct=true icon='calendar'
-                    .ui.header total rental income $#{total_rental_income}
                 .column
                     +html_view key='body' direct=true
                     div

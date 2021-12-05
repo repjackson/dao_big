@@ -106,11 +106,12 @@ template(name='doc_emotion_small')
         
         
 template(name='call_watson')
-    button.ui.fluid.button.autotag
-        i.dna.icon
+    button.ui.large.button.autotag
+        // i.dna.icon
+        +i name='dna-helix'
         if current_doc.watson 
             i.checkmark.green.icon
-        |autotag url
+        |autotag
 
 
 
