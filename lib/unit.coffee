@@ -21,10 +21,12 @@ if Meteor.isClient
         @autorun => @subscribe 'unit_docs',
             picked_unit_tags.array()
             Session.get('unit_title_filter')
+            Session.get('view_owned')
 
         @autorun => @subscribe 'unit_facets',
             picked_unit_tags.array()
             Session.get('unit_title_filter')
+            Session.get('view_owned')
 
     
     
@@ -33,8 +35,6 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'unit_work', Router.current().params.doc_id, ->
         # @autorun => Meteor.subscribe 'model_docs', 'unit', ->
     Template.unit_view.helpers
-        total_rental_income: ->
-            @monthly_rent * @months_rented
 
     
 
@@ -81,9 +81,12 @@ if Meteor.isServer
             model:model
             unit_id:unit_id
             
-    Meteor.publish 'unit_docs', (product_id)->
-        Docs.find   
-            model:'unit'
+    Meteor.publish 'unit_docs', (picked_tags, title_query, view_owned)->
+        match = {model:'unit'}
+        if view_owned
+            match.owned = true
+        Docs.find match
+            # model:'unit'
             # product_id:product_id
             
             

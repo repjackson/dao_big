@@ -16,9 +16,9 @@ template(name='nav')
         // a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
         //     i.large.user.friends.icon
         //     |users
-        a.icon.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
+        a.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
             i.large.tasks.icon
-            // |tasks
+            span.mobile.hidden tasks
         a.item.zoomer(href='/chat' class="{{isActivePath '/chat'}}" title='chat')
             i.large.chat.icon
             |#{unread_count}
@@ -28,7 +28,7 @@ template(name='nav')
         //     |groups
         a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.large.users.icon
-            |users
+            span.mobile.hidden users
         // a.icon.item.zoomer(href='/persons' class="{{isActivePath '/persons'}}")
         //     i.large.users.icon
             // |persons
@@ -49,18 +49,18 @@ template(name='nav')
                 
         // a.icon.item.zoomer(href='/requests' class="{{isActivePath '/requests'}}")
         //     i.bullhorn.large.icon
-        a.icon.item.zoomer(href='/posts' class="{{isActivePath '/products'}}" title='posts')
+        a.item.zoomer(href='/posts' class="{{isActivePath '/products'}}" title='posts')
             i.large.university.icon
             // +i name='blog'
-            // |posts
-        a.icon.item.zoomer(href='/units' class="{{isActivePath '/units'}}" title='units')
+            span.mobile.hidden posts
+        a.item.zoomer(href='/units' class="{{isActivePath '/units'}}" title='units')
             i.large.building.icon
             // +i name='building'
-            // |units
-        a.icon.item.zoomer(href='/repairs' class="{{isActivePath '/repairs'}}" title='repairs')
+            span.mobile.hidden units
+        a.item.zoomer(href='/repairs' class="{{isActivePath '/repairs'}}" title='repairs')
             i.large.wrench.icon
             // +i name='wrench'
-            // |repairs
+            span.mobile.hidden work
         // a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")
         //     i.large.wrench.icon
         .right.menu

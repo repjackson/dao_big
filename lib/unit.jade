@@ -6,6 +6,7 @@ template(name='units')
                 |units
             .ui.icon.button.add_unit
                 i.large.plus.icon
+            +session_toggle key='view_owned' label='owned' icon='invoice'
             each picked_unit_tags
                 a.ui.blue.button.unpick_unit_tag
                     |#{this}
@@ -49,28 +50,31 @@ template(name='units')
                 
 template(name='unit_card')                
     a.ui.link.card.fly_right(href="/unit/#{_id}") 
-        img.ui.image(src="{{c.url image_id width=400 height=400 crop='pad'}}")
         .content 
             .ui.header 
                 |#{title}
-            |!{body}
+        img.ui.image(src="{{c.url image_id width=400 height=400 crop='pad'}}")
+        .content 
+            if owned 
+                .ui.basic.label 
+                    +i name='invoice'
+                    |owned
+            // |!{body}
             // i.money.icon
             // |value: #{value}
             // i.money.icon
-            +number_view key='monthly_rent' label='monthly rent' direct=true icon='money'
-            div
-            +number_view key='months_rented' label='months rented' direct=true icon='calendar'
-            .ui.header total rental income $#{total_rental_income}
+            .ui.large.basic.label $#{monthly_rent}/month
+            // +number_view key='monthly_rent' label='monthly rent' direct=true icon='money'
+            // div
+            .ui.large.basic.label $#{months_rented} months rented
+            // +number_view key='months_rented' label='months rented' direct=true icon='calendar'
+            .ui.large.basic.label total rental income $#{total_rental_income}
             i.grey.tag.icon
             each tags
                 .ui.label #{this}
             if location_tags
                 i.grey.marker.icon
                 each location_tags
-                    .ui.small.label #{this}
-            if people_tags
-                i.grey.marker.icon
-                each people_tags
                     .ui.small.label #{this}
 
 template(name='unit_edit')
@@ -86,6 +90,7 @@ template(name='unit_edit')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
+                    +boolean_edit key='owned' label='owned' direct=true icon='invoice'
                     div
                 .column
                     +number_edit key='bedrooms' label='bedrooms' icon='home'
@@ -117,7 +122,7 @@ template(name='unit_edit')
                             | delete
                     div
                 .column
-                    +textarea_edit key='body' label='body' direct=true
+                    +html_edit key='body' label='body' direct=true
                 .column
                     +boolean_edit key='Air Conditioning/Cooling' icon='wind'
                     +boolean_edit key='Assigned Parking' icon='car'
@@ -152,6 +157,7 @@ template(name='unit_view')
                         | #{title}
                         small unit view
                     +image_view key='image_id' label='image' direct=true
+                    +boolean_view key='owned' label='owned' direct=true icon='invoice'
                 .column
                     div
                     a(href="/unit/#{_id}/edit")

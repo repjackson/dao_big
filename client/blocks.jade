@@ -15,7 +15,9 @@ template(name='doc_array_toggle')
         
 template(name='session_toggle') 
     .ui.icon.button.toggle_session_var(class=session_toggle_class title=key)
-        i.large.icon(class=icon)
+        // i.large.icon(class=icon)
+        +i name=icon
+        |#{label}
         if on
             i.checkmark.icon
             // |#{key}
