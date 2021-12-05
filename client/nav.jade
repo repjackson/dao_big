@@ -1,6 +1,6 @@
 template(name='nav')
     // #topnav.topnav.ui.attached.borderless.menu(style="background-color:#062639;")
-    #topnav.topnav.ui.attached.borderless.big.inverted.seven.item.menu
+    #topnav.topnav.ui.attached.borderless.big.inverted.six.item.menu
         +status
         if is_loading
             .icon.item
@@ -25,8 +25,8 @@ template(name='nav')
         // a.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
         //     i.large.users.icon
         //     |users
-        a.icon.item.zoomer(href='/persons' class="{{isActivePath '/persons'}}")
-            i.large.users.icon
+        // a.icon.item.zoomer(href='/persons' class="{{isActivePath '/persons'}}")
+        //     i.large.users.icon
             // |persons
         // if current_group
         //     a.item(href='/') 
@@ -64,10 +64,10 @@ template(name='nav')
             if in_role 'admin'
                 a.icon.item(href='/admin' title='admin')
                     i.large.shield.icon
-            a.disabled.item(href="/messages" title='messages')
-                i.mail.large.icon
-            a.item.toggle_topbar(title='alerts')
-                i.bell.outline.large.icon
+            // a.disabled.item(href="/messages" title='messages')
+            //     i.mail.large.icon
+            // a.item.toggle_topbar(title='alerts')
+            //     i.bell.outline.large.icon
             a.item.toggle_rightbar.no_blink
                 if currentUser.image_id
                     img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")

@@ -6,7 +6,44 @@ if Meteor.isClient
             Session.set('editing_id', @_id)
         
     Template.session_edit_button.helpers
-    
+    Template.key_value_edit.events
+        'click .set_key_value': ->
+            # console.log @key
+            # console.log @value
+            # Docs.update Router.current().params.doc_id,
+            context = Template.parentData()
+            doc = Docs.findOne context._id
+            user = Meteor.users.findOne context._id
+            if context
+                if doc
+                    Docs.update context._id, 
+                        $set:
+                            "#{@key}":@value
+                else 
+                    Meteor.users.update context._id, 
+                        $set:
+                            "#{@key}":@value
+            # Session.set(@key, @value)
+
+    Template.key_value_edit.helpers
+        calculated_class: ->
+            res = ''
+            # doc = Docs.findOne Router.current().params.doc_id
+            doc = Template.parentData()
+            
+            # console.log @
+            if @cl
+                res += @cl
+            # if Session.equals(@key,@value)
+            if doc["#{@key}"]  is @value
+                res += ' black'
+            else 
+                res += ' basic'
+            # console.log res
+            res
+
+
+
     
     Template.add_model_button.events
         'click .add': ->
@@ -428,12 +465,12 @@ if Meteor.isServer
         
         
 if Meteor.isClient
-    Template.doc_array_togggle.helpers
+    Template.doc_array_toggle.helpers
         doc_array_toggle_class: ->
             parent = Template.parentData()
             # user = Meteor.users.findOne Router.current().params.username
             if parent["#{@key}"] and @value in parent["#{@key}"] then 'blue' else 'basic'
-    Template.doc_array_togggle.events
+    Template.doc_array_toggle.events
         'click .toggle': (e,t)->
             parent = Template.parentData()
             if parent["#{@key}"]

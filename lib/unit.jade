@@ -54,10 +54,13 @@ template(name='unit_card')
             .ui.header 
                 |#{title}
             |!{body}
-            i.money.icon
-            |value: #{value}
-            i.money.icon
-            |rental: #{renta_valuel}
+            // i.money.icon
+            // |value: #{value}
+            // i.money.icon
+            +number_view key='monthly_rent' label='monthly rent' direct=true icon='money'
+            div
+            +number_view key='months_rented' label='months rented' direct=true icon='calendar'
+            .ui.header total rental income $#{total_rental_income}
             i.grey.tag.icon
             each tags
                 .ui.label #{this}
@@ -73,7 +76,7 @@ template(name='unit_card')
 template(name='unit_edit')
     with current_doc
         .ui.stackable.padded.grid
-            .four.column.row
+            .three.column.row
                 .column
                     .ui.inline.header
                         i.pencil.icon
@@ -93,11 +96,11 @@ template(name='unit_edit')
                     .ui.header 
                         +i name='shield'
                         |managers
-                    +doc_array_togggle key='managers' label='linda' value='linda'
-                    +doc_array_togggle key='managers' label='ric' value='ric'
-                    +doc_array_togggle key='managers' label='eric' value='eric'
-                    +doc_array_togggle key='managers' label='gail' value='gail'
-                    +doc_array_togggle key='managers' label='brian' value='brian'
+                    +doc_array_toggle key='managers' label='linda' value='linda'
+                    +doc_array_toggle key='managers' label='ric' value='ric'
+                    +doc_array_toggle key='managers' label='eric' value='eric'
+                    +doc_array_toggle key='managers' label='gail' value='gail'
+                    +doc_array_toggle key='managers' label='brian' value='brian'
                     div
                     +number_edit key='value' label='value' direct=true icon='money'
                     div

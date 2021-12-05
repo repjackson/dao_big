@@ -1098,3 +1098,16 @@ template(name='range_edit')
                     i.calendar.icon
                     input(type='text', placeholder='end' value=end_time)
             .ui.button.fluid.get_end save end
+            
+            
+            
+template(name='key_value_edit')
+    .ui.compact.button.set_key_value(class=calculated_class)
+        if icon 
+            +i name=icon cl='ui avatar image'
+            // i.icon(class=icon)
+        if label
+            |#{label}
+        else 
+            |#{value}
+            

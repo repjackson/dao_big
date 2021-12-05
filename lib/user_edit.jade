@@ -21,13 +21,12 @@ template(name='user_edit')
                             .ui.orange.button.remove_user 
                                 i.remove.icon
                                 |delete user
-                .eight.wide.column
+                .six.wide.column
                     .ui.form
                         +text_edit key='first_name' label='first name' direct=true
                         +text_edit key='last_name' label='last name' direct=true
                         +text_edit key='display_name' label='display name' direct=true
                         +boolean_edit key='publish_profile' label='publish profile' direct=true
-                        +text_edit key='role' label='role (placeholder during beta)' direct=true
                         // +text_edit key='station' label='station' direct=true
                         div
                         .ui.header 
@@ -36,9 +35,37 @@ template(name='user_edit')
                         +emails_edit
                         +phone_edit key='phone' label='phone' icon='phone' direct=true
                         +array_edit key='roles' label='roles' icon='shield' direct=true
-                .four.wide.column
+                .six.wide.column
                     +array_edit key='allergens' label='allergens' direct=true
                     +array_edit key='food_dislikes' label='food dislikes' direct=true
+                    +text_edit key='role' label='role' direct=true
+                    +key_value_edit key='role' label='applicant' value='applicant'
+                    +key_value_edit key='role' label='admin' value='admin'
+                    +key_value_edit key='role' label='tenant' value='tenant'
+                    if key_value_is 'role' 'applicant'
+                        .ui.header application
+                        .ui.small.header have you been convicted of a felony?
+                        +boolean_edit key='felony_convicted' label='yes'
+                        if felony_convicted
+                            +text_edit key='felony_explanation' label='explain'
+                        .ui.small.header Have you ever declared bankruptcy?
+                        +boolean_edit key='backruptcy_declared' label='yes'
+                        if backruptcy_declared
+                            +text_edit key='bankruptcy_explanation' label='explain'
+                        .ui.small.header Have you ever been evicted?
+                        +boolean_edit key='evicted' label='yes'
+                        if evicted
+                            +text_edit key='eviction_explanation' label='explain'
+                    +boolean_edit key='felony_convicted' label='yes'
+                    .ui.header do you have a car?
+                    if have_car
+                        +text_edit key='car_year' label='year'
+                        +text_edit key='car_make' label='make'
+                        +text_edit key='car_model' label='model'
+                        +text_edit key='car_color' label='color'
+                        +text_edit key='car_license_plate' label='license_plate'
+
+                        
                     
 template(name='user_settings')
     .ui.segment
