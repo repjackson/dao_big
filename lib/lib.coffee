@@ -1,5 +1,6 @@
 @Docs = new Meteor.Collection 'docs'
 @Results = new Meteor.Collection 'results'
+@Tags = new Meteor.Collection 'tags'
 
 Docs.before.insert (userId, doc)->
     if Meteor.userId()
