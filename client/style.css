@@ -20,8 +20,7 @@ body {
     cursor: pointer !important;
     filter: drop-shadow(10px 10px 10px rgba(250,250,250, 0.5)) !important;
     transition: transform .5s; /* Animation */
-    border-radius: 20px !important;
-    transform: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    border-radius: 10px !important;
 }
 
 .global_search_input {
@@ -509,12 +508,6 @@ body, p, header {
     font-family: 'Abril Fatface', serif !important;
 }
 
-
-.pointer:hover{
-    cursor: pointer !important;
-    -webkit-filter: drop-shadow(10px 10px 10px rgba(250,250,250, 0.5)) !important;
-    filter: drop-shadow(10px 10px 10px rgba(250,250,250, 0.5)) !important;
-}
 
 .cancel:hover{
     cursor: cancel !important;
